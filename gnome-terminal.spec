@@ -12,8 +12,8 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.7.3
-Release: 1
+Version: 2.8.0
+Release: 2
 URL: http://www.gnome.org/
 Source0: ftp://ftp.gnome.org/pub/gnome/sources/gnome-terminal/2.3/gnome-terminal-%{version}.tar.bz2
 License: GPL 
@@ -98,6 +98,12 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_datadir}/application-registry/gnome-terminal.applications
 
 %changelog
+* Thu Nov  4 2004 Ray Strode <rstrode@redhat.com> 2.8.0-2
+- rebuild for rawhide
+
+* Thu Nov  4 2004 Ray Strode <rstrode@redhat.com> 2.8.0-1
+- Update to 2.8.0 (bug #136034)
+
 * Fri Jul 30 2004 Ray Strode <rstrode@redhat.com> 2.7.3-1
 - Update to 2.7.3
 
