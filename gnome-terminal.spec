@@ -13,7 +13,7 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.0.1
-Release: 4
+Release: 5
 URL: http://www.gnome.org
 Source0: ftp://ftp.gnome.org/pub/GNOME/pre-gnome2/sources/gnome-terminal/%{name}-%{version}.tar.bz2
 License: GPL 
@@ -40,6 +40,7 @@ Patch1: gnome-terminal-2.0.0.90-monospace.patch
 Patch2: gnome-terminal-2.0.0.90-padding.patch
 Patch3: gnome-terminal-2.0.1-newegg.patch
 Patch4: profterm-match-regex.patch
+Patch5: profterm-bell-editor.patch
 
 %description
 
@@ -51,6 +52,7 @@ GNOME terminal emulator application.
 %patch2 -p0 -b .padding
 %patch3 -p1 -b .newegg
 %patch4 -p0 -b .match-regex
+%patch5 -p0 -b .bell-editor
 
 %build
 
@@ -96,6 +98,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_libdir}/bonobo
 
 %changelog
+* Mon Sep  2 2002 Nalin Dahyabhai <nalin@redhat.com> 2.0.1-5
+- fix goofy audible bell checkbox (backport from HEAD)
+
 * Mon Sep  2 2002 Nalin Dahyabhai <nalin@redhat.com> 2.0.1-4
 - fix incorrect regexp which matched newlines as parts of URLs (#71349)
 
