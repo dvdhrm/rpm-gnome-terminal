@@ -1,26 +1,29 @@
 %define gettext_package gnome-terminal
 
-%define glib2_version 2.0.3
-%define pango_version 1.0.99
-%define gtk2_version 2.0.5
-%define libgnomeui_version 2.0.0
-%define libgnome_version 2.0.0
+%define glib2_version 2.2.0
+%define pango_version 1.2.0
+%define gtk2_version 2.2.0
+%define libgnomeui_version 2.2.0
+%define libgnome_version 2.2.0
 #%define libzvt_version 1.113.0
-%define vte_version 0.7.3
-%define bonobo_activation_version 1.0.0
+%define vte_version 0.10.8
+%define bonobo_activation_version 2.2.0
 %define desktop_file_utils_version 0.2.90
+%define startup_notification_version 0.5
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.0.1
-Release: 5
-URL: http://www.gnome.org
-Source0: ftp://ftp.gnome.org/pub/GNOME/pre-gnome2/sources/gnome-terminal/%{name}-%{version}.tar.bz2
+Version: 2.2.1
+Release: 3
+URL: http://www.gnome.org/
+Source0: ftp://ftp.gnome.org/pub/gnome/sources/gnome-terminal/2.1/gnome-terminal-%{version}.tar.bz2
 License: GPL 
 Group: User Interface/Desktops
 BuildRoot: %{_tmppath}/%{name}-root
 
 Requires: vte >= %{vte_version}
+Requires: gtk2 >= 2.2.0
+Requires: pango >= 1.2.0
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: gtk2-devel >= %{gtk2_version}
@@ -30,17 +33,13 @@ BuildRequires: libgnome-devel >= %{libgnome_version}
 BuildRequires: vte-devel >= %{vte_version}
 BuildRequires: bonobo-activation-devel >= %{bonobo_activation_version}
 BuildRequires: pango-devel >= %{pango_version}
-BuildRequires: Xft-devel
-BuildRequires: fontconfig-devel
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
+BuildRequires: startup-notification-devel >= %{startup_notification_version}
 
 # Get the "same font as other applications" from the monospace_font
 # GConf preference
-Patch1: gnome-terminal-2.0.0.90-monospace.patch
-Patch2: gnome-terminal-2.0.0.90-padding.patch
-Patch3: gnome-terminal-2.0.1-newegg.patch
-Patch4: profterm-match-regex.patch
-Patch5: profterm-bell-editor.patch
+Patch0: gnome-terminal-2.1.3-monospace.patch
+Patch1: profterm-match-regex.patch
 
 %description
 
@@ -48,11 +47,8 @@ GNOME terminal emulator application.
 
 %prep
 %setup -q
-%patch1 -p1 -b .monospace
-%patch2 -p0 -b .padding
-%patch3 -p1 -b .newegg
-%patch4 -p0 -b .match-regex
-%patch5 -p0 -b .bell-editor
+%patch0 -p1 -b .monospace
+%patch1 -p0 -b .match-regex
 
 %build
 
@@ -98,6 +94,37 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_libdir}/bonobo
 
 %changelog
+* Fri Feb 14 2003 Havoc Pennington <hp@redhat.com> 2.2.1-3
+- remove Xft buildreq
+
+* Thu Feb  6 2003 Jeremy Katz <katzj@redhat.com> 2.2.1-2
+- confusion about build roots abounds...
+
+* Wed Feb  5 2003 Havoc Pennington <hp@redhat.com> 2.2.1-1
+- 2.2.1
+
+* Sun Jan 26 2003 Havoc Pennington <hp@redhat.com>
+- require gtk 2.2, pango 1.2
+
+* Wed Jan 22 2003 Tim Powers <timp@redhat.com>
+- rebuilt
+
+* Tue Jan 21 2003 Havoc Pennington <hp@redhat.com>
+- 2.2.0
+
+* Fri Jan 10 2003 Havoc Pennington <hp@redhat.com>
+- 2.1.4
+
+* Tue Dec 10 2002 Havoc Pennington <hp@redhat.com>
+- merge nalin's branch to HEAD, bump some dependency versions
+
+* Tue Dec 10 2002 Nalin Dahyabhai <nalin@redhat.com> 2.1.3-0
+- initial update to 2.1.3
+
+* Tue Dec 10 2002 Tim Powers <timp@redhat.com> 2.0.1-6
+- rebuild to fix broken deps on old libvte
+- build on all arches
+
 * Mon Sep  2 2002 Nalin Dahyabhai <nalin@redhat.com> 2.0.1-5
 - fix goofy audible bell checkbox (backport from HEAD)
 
