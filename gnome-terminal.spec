@@ -1,19 +1,19 @@
 %define gettext_package gnome-terminal
 
-%define glib2_version 2.2.0
-%define pango_version 1.2.0
-%define gtk2_version 2.2.0
+%define glib2_version 2.6.0
+%define pango_version 1.8.0
+%define gtk2_version 2.6.0
 %define libgnomeui_version 2.3.0
 #%define libzvt_version 1.113.0
 %define vte_version 0.11.10
 %define desktop_file_utils_version 0.2.90
-%define startup_notification_version 0.5
+%define startup_notification_version 0.8
 %define libbonobo_version 2.3.0
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.8.0
-Release: 2
+Version: 2.9.2
+Release: 1
 URL: http://www.gnome.org/
 Source0: ftp://ftp.gnome.org/pub/gnome/sources/gnome-terminal/2.3/gnome-terminal-%{version}.tar.bz2
 License: GPL 
@@ -22,8 +22,8 @@ Group: User Interface/Desktops
 BuildRoot: %{_tmppath}/%{name}-root
 
 Requires: vte >= %{vte_version}
-Requires: gtk2 >= 2.2.0
-Requires: pango >= 1.2.0
+Requires: gtk2 >= %{gtk2_version}
+Requires: pango >= %{pango_version}
 
 # gconftool-2
 Requires: GConf2
@@ -98,6 +98,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_datadir}/application-registry/gnome-terminal.applications
 
 %changelog
+* Wed Feb  2 2005 Matthias Clasen <mclasen@redhat.com> 2.9.2-1
+- Update to 2.9.2
+
 * Thu Nov  4 2004 Ray Strode <rstrode@redhat.com> 2.8.0-2
 - rebuild for rawhide
 
