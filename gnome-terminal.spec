@@ -6,19 +6,21 @@
 %define libgnomeui_version 2.0.0
 %define libgnome_version 2.0.0
 #%define libzvt_version 1.113.0
-%define vte_version 0.7.2
+%define vte_version 0.7.3
 %define bonobo_activation_version 1.0.0
 %define desktop_file_utils_version 0.2.90
 
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.0.1
-Release: 1
+Release: 2
 URL: http://www.gnome.org
 Source0: ftp://ftp.gnome.org/pub/GNOME/pre-gnome2/sources/gnome-terminal/%{name}-%{version}.tar.bz2
 License: GPL 
 Group: User Interface/Desktops
 BuildRoot: %{_tmppath}/%{name}-root
+
+Requires: vte >= %{vte_version}
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: gtk2-devel >= %{gtk2_version}
@@ -90,6 +92,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_libdir}/bonobo
 
 %changelog
+* Tue Aug 13 2002 Havoc Pennington <hp@redhat.com>
+- require latest vte
+
 * Thu Aug  8 2002 Havoc Pennington <hp@redhat.com>
 - 2.0.1 released version instead of cvs snap
 - clean up unpackaged files
