@@ -12,7 +12,7 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.4.0.1
+Version: 2.5.1
 Release: 1
 URL: http://www.gnome.org/
 Source0: ftp://ftp.gnome.org/pub/gnome/sources/gnome-terminal/2.3/gnome-terminal-%{version}.tar.bz2
@@ -34,6 +34,9 @@ BuildRequires: pango-devel >= %{pango_version}
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
 BuildRequires: startup-notification-devel >= %{startup_notification_version}
 
+# For intltool:
+BuildRequires: perl-XML-Parser >= 2.31-16
+
 %description
 
 GNOME terminal emulator application.
@@ -42,6 +45,9 @@ GNOME terminal emulator application.
 %setup -q
 
 %build
+
+#workaround broken perl-XML-Parser on 64bit arches
+export PERL5LIB=/usr/lib64/perl5/vendor_perl/5.8.2 perl
 
 %configure --with-widget=vte
 make
@@ -86,6 +92,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_datadir}/application-registry/gnome-terminal.applications
 
 %changelog
+* Mon Jan 26 2004 Alexander Larsson <alexl@redhat.com> 2.5.1-1
+- update to 2.5.1
+
 * Wed Sep 17 2003 Alexander Larsson <alexl@redhat.com> 2.4.0.1-1
 - update to 2.4.0.1
 
