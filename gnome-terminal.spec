@@ -1,16 +1,19 @@
-%define glib2_version 2.0.0
+%define gettext_package gnome-terminal
+
+%define glib2_version 2.0.3
 %define pango_version 1.0.99
-%define gtk2_version 2.0.3-3
-%define libgnomeui_version 1.117.2
-%define libgnome_version 1.117.2
+%define gtk2_version 2.0.5
+%define libgnomeui_version 2.0.0
+%define libgnome_version 2.0.0
 #%define libzvt_version 1.113.0
-%define vte_version 0.4.0
+%define vte_version 0.7.2
 %define bonobo_activation_version 1.0.0
+%define desktop_file_utils_version 0.2.90
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 1.9.7
-Release: 10
+Version: 2.0.1
+Release: 1
 URL: http://www.gnome.org
 Source0: ftp://ftp.gnome.org/pub/GNOME/pre-gnome2/sources/gnome-terminal/%{name}-%{version}.tar.bz2
 License: GPL 
@@ -27,9 +30,12 @@ BuildRequires: bonobo-activation-devel >= %{bonobo_activation_version}
 BuildRequires: pango-devel >= %{pango_version}
 BuildRequires: Xft-devel
 BuildRequires: fontconfig-devel
+BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
 
-Patch0: gnome-terminal-1.9.7-monofont.patch
-Patch1: gnome-terminal-1.9.7-vte-0.4.patch
+# Get the "same font as other applications" from the monospace_font
+# GConf preference
+Patch1: gnome-terminal-2.0.0.90-monospace.patch
+Patch2: gnome-terminal-2.0.0.90-padding.patch
 
 %description
 
@@ -37,9 +43,8 @@ GNOME terminal emulator application.
 
 %prep
 %setup -q
-
-%patch0 -p0 -b .monofont
-%patch1 -p1 -b .vte-0.4
+%patch1 -p1 -b .monospace
+%patch2 -p0 -b .padding
 
 %build
 
@@ -53,7 +58,15 @@ export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
 %makeinstall
 unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
-%find_lang %{name}
+desktop-file-install --vendor gnome --delete-original       \
+  --dir $RPM_BUILD_ROOT%{_datadir}/applications             \
+  --add-only-show-in GNOME                                  \
+  --add-category X-Red-Hat-Base                             \
+  $RPM_BUILD_ROOT%{_datadir}/applications/*
+
+rm -r $RPM_BUILD_ROOT/var/scrollkeeper
+
+%find_lang %{gettext_package}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -62,7 +75,7 @@ rm -rf $RPM_BUILD_ROOT
 export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
 gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas > /dev/null
 
-%files -f %{name}.lang
+%files -f %{gettext_package}.lang
 %defattr(-,root,root)
 
 %doc AUTHORS COPYING ChangeLog NEWS README
@@ -70,12 +83,45 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_bindir}/*
 %{_datadir}/gnome-terminal
 %{_datadir}/pixmaps
+%{_datadir}/gnome
+%{_datadir}/omf
 %{_datadir}/applications
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
+%{_libdir}/bonobo
 
 %changelog
-* Thu Jun 18 2002 Nalin Dahyabhai <nalin@redhat.com>
-- rebuild
+* Thu Aug  8 2002 Havoc Pennington <hp@redhat.com>
+- 2.0.1 released version instead of cvs snap
+- clean up unpackaged files
+
+* Thu Aug  8 2002 Nalin Dahyabhai <nalin@redhat.com>
+- pick up widget padding
+
+* Wed Jul 24 2002 Owen Taylor <otaylor@redhat.com>
+- Use monospace preference for system font
+
+* Thu Jul 18 2002 Nalin Dahyabhai <nalin@redhat.com>
+- rebuild in new environment
+
+* Fri Jul 12 2002 Havoc Pennington <hp@redhat.com>
+- 2.0.0.90 cvs snap
+
+* Fri Jun 21 2002 Tim Powers <timp@redhat.com>
+- automated rebuild
+
+* Mon Jun 17 2002 Havoc Pennington <hp@redhat.com>
+- rebuild in different environment
+
+* Mon Jun 17 2002 Havoc Pennington <hp@redhat.com>
+- 2.0.0
+- use desktop-file-install
+- put bonobo server file in file list
+- put help files in file list
+- apply some fixes from CVS (or rather, that I'm going to 
+  check in to CVS soon)
+
+* Fri Jun 14 2002 Nalin Dahyabhai <nalin@redhat.com>
+- rebuild in different environment
 
 * Fri Jun 14 2002 Nalin Dahyabhai <nalin@redhat.com>
 - add patch to handle vte abi change
