@@ -12,8 +12,8 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.5.1
-Release: 1
+Version: 2.5.90
+Release: 1.1
 URL: http://www.gnome.org/
 Source0: ftp://ftp.gnome.org/pub/gnome/sources/gnome-terminal/2.3/gnome-terminal-%{version}.tar.bz2
 License: GPL 
@@ -92,6 +92,15 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_datadir}/application-registry/gnome-terminal.applications
 
 %changelog
+* Tue Mar 02 2004 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
+* Wed Feb 25 2004 Alexander Larsson <alexl@redhat.com> 2.5.90-1
+- update to 2.5.90
+
+* Fri Feb 13 2004 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
 * Mon Jan 26 2004 Alexander Larsson <alexl@redhat.com> 2.5.1-1
 - update to 2.5.1
 
