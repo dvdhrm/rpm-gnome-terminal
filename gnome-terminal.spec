@@ -3,20 +3,19 @@
 %define glib2_version 2.2.0
 %define pango_version 1.2.0
 %define gtk2_version 2.2.0
-%define libgnomeui_version 2.2.0
-%define libgnome_version 2.2.0
+%define libgnomeui_version 2.3.0
 #%define libzvt_version 1.113.0
-%define vte_version 0.10.8
-%define bonobo_activation_version 2.2.0
+%define vte_version 0.11.10
 %define desktop_file_utils_version 0.2.90
 %define startup_notification_version 0.5
+%define libbonobo_version 2.3.0
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.2.1
-Release: 3
+Version: 2.4.0.1
+Release: 1
 URL: http://www.gnome.org/
-Source0: ftp://ftp.gnome.org/pub/gnome/sources/gnome-terminal/2.1/gnome-terminal-%{version}.tar.bz2
+Source0: ftp://ftp.gnome.org/pub/gnome/sources/gnome-terminal/2.3/gnome-terminal-%{version}.tar.bz2
 License: GPL 
 Group: User Interface/Desktops
 BuildRoot: %{_tmppath}/%{name}-root
@@ -28,18 +27,12 @@ Requires: pango >= 1.2.0
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: gtk2-devel >= %{gtk2_version}
 BuildRequires: libgnomeui-devel >= %{libgnomeui_version}
-BuildRequires: libgnome-devel >= %{libgnome_version}
 #BuildRequires: libzvt-devel >= %{libzvt_version}
 BuildRequires: vte-devel >= %{vte_version}
-BuildRequires: bonobo-activation-devel >= %{bonobo_activation_version}
+BuildRequires: libbonobo-devel >= %{libbonobo_version}
 BuildRequires: pango-devel >= %{pango_version}
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
 BuildRequires: startup-notification-devel >= %{startup_notification_version}
-
-# Get the "same font as other applications" from the monospace_font
-# GConf preference
-Patch0: gnome-terminal-2.1.3-monospace.patch
-Patch1: profterm-match-regex.patch
 
 %description
 
@@ -47,8 +40,6 @@ GNOME terminal emulator application.
 
 %prep
 %setup -q
-%patch0 -p1 -b .monospace
-%patch1 -p0 -b .match-regex
 
 %build
 
@@ -92,8 +83,25 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_datadir}/applications
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 %{_libdir}/bonobo
+%{_datadir}/application-registry/gnome-terminal.applications
 
 %changelog
+* Wed Sep 17 2003 Alexander Larsson <alexl@redhat.com> 2.4.0.1-1
+- update to 2.4.0.1
+
+* Fri Aug 15 2003 Alexander Larsson <alexl@redhat.com> 2.3.1-1
+- update to gnome 2.3
+
+* Mon Jul 28 2003 Havoc Pennington <hp@redhat.com> 2.2.2-2
+- rebuild
+
+* Mon Jul  7 2003 Havoc Pennington <hp@redhat.com> 2.2.2-1
+- 2.2.2
+- require latest vte
+
+* Wed Jun 04 2003 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
 * Fri Feb 14 2003 Havoc Pennington <hp@redhat.com> 2.2.1-3
 - remove Xft buildreq
 
