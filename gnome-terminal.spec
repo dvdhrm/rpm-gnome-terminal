@@ -13,11 +13,14 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.6.0
-Release: 2
+Release: 4
 URL: http://www.gnome.org/
 Source0: ftp://ftp.gnome.org/pub/gnome/sources/gnome-terminal/2.3/gnome-terminal-%{version}.tar.bz2
 License: GPL 
 Group: User Interface/Desktops
+
+Patch1: gnome-terminal-2.6.0-fixup-modifier-mask-type.patch 
+
 BuildRoot: %{_tmppath}/%{name}-root
 
 Requires: vte >= %{vte_version}
@@ -41,12 +44,15 @@ BuildRequires: scrollkeeper gettext
 # For intltool:
 BuildRequires: perl-XML-Parser >= 2.31-16
 
+
 %description
 
 GNOME terminal emulator application.
 
 %prep
 %setup -q
+
+%patch1 -p1 -b .fixup-modifier-mask-type
 
 %build
 
@@ -96,6 +102,12 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_datadir}/application-registry/gnome-terminal.applications
 
 %changelog
+* Fri Jun 18 2004 Ray Strode <rstrode@redhat.com> 2.6.0-4
+- patch a build busting type mismatch in libegg files
+
+* Tue Jun 15 2004 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
 * Tue Apr 13 2004 Warren Togami <wtogami@redhat.com> 2.6.0-2
 - #111015 BR scrollkeeper gettext
 
