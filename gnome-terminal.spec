@@ -13,7 +13,7 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.0.1
-Release: 2
+Release: 3
 URL: http://www.gnome.org
 Source0: ftp://ftp.gnome.org/pub/GNOME/pre-gnome2/sources/gnome-terminal/%{name}-%{version}.tar.bz2
 License: GPL 
@@ -38,6 +38,7 @@ BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
 # GConf preference
 Patch1: gnome-terminal-2.0.0.90-monospace.patch
 Patch2: gnome-terminal-2.0.0.90-padding.patch
+Patch3: gnome-terminal-2.0.1-newegg.patch
 
 %description
 
@@ -47,6 +48,7 @@ GNOME terminal emulator application.
 %setup -q
 %patch1 -p1 -b .monospace
 %patch2 -p0 -b .padding
+%patch3 -p1 -b .newegg
 
 %build
 
@@ -92,6 +94,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_libdir}/bonobo
 
 %changelog
+* Fri Aug 23 2002 Jonathan Blandford <jrb@redhat.com>
+- Clean up keyboard handling.
+
 * Tue Aug 13 2002 Havoc Pennington <hp@redhat.com>
 - require latest vte
 
