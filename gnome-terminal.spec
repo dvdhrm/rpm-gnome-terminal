@@ -12,7 +12,7 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.9.2
+Version: 2.10.0
 Release: 1
 URL: http://www.gnome.org/
 Source0: ftp://ftp.gnome.org/pub/gnome/sources/gnome-terminal/2.3/gnome-terminal-%{version}.tar.bz2
@@ -98,6 +98,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_datadir}/application-registry/gnome-terminal.applications
 
 %changelog
+* Fri Mar 25 2005 Christopher Aillon <caillon@redhat.com> 2.10.0-1
+- Update to 2.10.0
+
 * Wed Feb  2 2005 Matthias Clasen <mclasen@redhat.com> 2.9.2-1
 - Update to 2.9.2
 
