@@ -12,8 +12,8 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.5.90
-Release: 1.1
+Version: 2.6.0
+Release: 2
 URL: http://www.gnome.org/
 Source0: ftp://ftp.gnome.org/pub/gnome/sources/gnome-terminal/2.3/gnome-terminal-%{version}.tar.bz2
 License: GPL 
@@ -24,6 +24,9 @@ Requires: vte >= %{vte_version}
 Requires: gtk2 >= 2.2.0
 Requires: pango >= 1.2.0
 
+# gconftool-2
+Requires: GConf2
+
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: gtk2-devel >= %{gtk2_version}
 BuildRequires: libgnomeui-devel >= %{libgnomeui_version}
@@ -33,6 +36,7 @@ BuildRequires: libbonobo-devel >= %{libbonobo_version}
 BuildRequires: pango-devel >= %{pango_version}
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
 BuildRequires: startup-notification-devel >= %{startup_notification_version}
+BuildRequires: scrollkeeper gettext
 
 # For intltool:
 BuildRequires: perl-XML-Parser >= 2.31-16
@@ -77,7 +81,7 @@ export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
 gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas > /dev/null
 
 %files -f %{gettext_package}.lang
-%defattr(-,root,root)
+%defattr(-,root,root,-)
 
 %doc AUTHORS COPYING ChangeLog NEWS README
 
@@ -92,6 +96,12 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_datadir}/application-registry/gnome-terminal.applications
 
 %changelog
+* Tue Apr 13 2004 Warren Togami <wtogami@redhat.com> 2.6.0-2
+- #111015 BR scrollkeeper gettext
+
+* Wed Mar 31 2004 Mark McLoughlin <markmc@redhat.com> 2.6.0-1
+- Update to 2.6.0
+
 * Tue Mar 02 2004 Elliot Lee <sopwith@redhat.com>
 - rebuilt
 
