@@ -13,9 +13,10 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.10.0
-Release: 1
+Release: 2
 URL: http://www.gnome.org/
-Source0: ftp://ftp.gnome.org/pub/gnome/sources/gnome-terminal/2.3/gnome-terminal-%{version}.tar.bz2
+Source0: gnome-terminal-%{version}.tar.bz2
+Source1: ne.po
 License: GPL 
 Group: User Interface/Desktops
 
@@ -49,6 +50,7 @@ GNOME terminal emulator application.
 
 %prep
 %setup -q
+cp ${RPM_SOURCE_DIR}/ne.po po
 
 %build
 
@@ -98,6 +100,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_datadir}/application-registry/gnome-terminal.applications
 
 %changelog
+* Wed May 4 2005 Ray Strode <rstrode@redhat.com> 2.10.0-2
+- Fix ne translation (bug 152240).
+
 * Fri Mar 25 2005 Christopher Aillon <caillon@redhat.com> 2.10.0-1
 - Update to 2.10.0
 
