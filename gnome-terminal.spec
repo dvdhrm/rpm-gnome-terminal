@@ -12,7 +12,7 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.11.2
+Version: 2.12.0
 Release: 1
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
@@ -100,6 +100,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_datadir}/application-registry/gnome-terminal.applications
 
 %changelog
+* Thu Sep  8 2005 Matthias Clasen <mclasen@redhat.com> - 2.12.0-1
+- Update to 2.12.0
+
 * Tue Aug 16 2005 Warren Togami <wtogami@redhat.com> - 2.11.2-1
 - rebuild for new cairo and 2.11.2
 
