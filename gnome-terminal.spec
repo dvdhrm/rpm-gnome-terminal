@@ -13,10 +13,11 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.12.0
-Release: 1
+Release: 2
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Source1: ne.po
+Patch0: gnome-terminal-2.12.0-inputmethod.patch
 License: GPL 
 Group: User Interface/Desktops
 
@@ -51,6 +52,7 @@ GNOME terminal emulator application.
 %prep
 %setup -q
 cp ${RPM_SOURCE_DIR}/ne.po po
+%patch0 -p1 -b .inputmethod
 
 %build
 
@@ -100,6 +102,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_datadir}/application-registry/gnome-terminal.applications
 
 %changelog
+* Mon Nov 28 2005 Matthias Clasen <mclasen@redhat.com> - 2.12.0-2
+- Respect the show_input_method_menu setting.
+
 * Thu Sep  8 2005 Matthias Clasen <mclasen@redhat.com> - 2.12.0-1
 - Update to 2.12.0
 
