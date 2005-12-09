@@ -13,7 +13,7 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.12.0
-Release: 2
+Release: 2.1
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Source1: ne.po
@@ -102,6 +102,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_datadir}/application-registry/gnome-terminal.applications
 
 %changelog
+* Fri Dec 09 2005 Jesse Keating <jkeating@redhat.com>
+- rebuilt
+
 * Mon Nov 28 2005 Matthias Clasen <mclasen@redhat.com> - 2.12.0-2
 - Respect the show_input_method_menu setting.
 
