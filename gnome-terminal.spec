@@ -13,11 +13,12 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.13.0
-Release: 1
+Release: 2
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Source1: ne.po
 Patch0: gnome-terminal-2.12.0-inputmethod.patch
+Patch1: gnome-terminal-2.13.0-revert-98715.patch
 License: GPL 
 Group: User Interface/Desktops
 
@@ -53,6 +54,7 @@ GNOME terminal emulator application.
 %setup -q
 cp ${RPM_SOURCE_DIR}/ne.po po
 %patch0 -p1 -b .inputmethod
+%patch1 -p1 -b .revert-98715
 
 %build
 
@@ -102,6 +104,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_datadir}/application-registry/gnome-terminal.applications
 
 %changelog
+* Thu Jan  4 2006 Christopher Aillon <caillon@redhat.com> 2.13.0-2
+- Revert patch from gnome bug 98715 to fix 176029, 176642
+
 * Thu Dec 15 2005 Matthias Clasen <mclasen@redhat.com> 2.13.0-1
 - Update to 2.13.0
 
