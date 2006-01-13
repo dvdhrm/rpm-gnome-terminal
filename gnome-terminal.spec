@@ -99,7 +99,6 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_datadir}/applications
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 %{_libdir}/bonobo
-%{_datadir}/application-registry/gnome-terminal.applications
 
 %changelog
 * Fri Jan 13 2006 Matthias Clasen <mclasen@redhat.com> 2.13.1-1
