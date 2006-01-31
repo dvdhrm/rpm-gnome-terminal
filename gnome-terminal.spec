@@ -12,12 +12,13 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.13.3
+Version: 2.13.90
 Release: 1
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Source1: ne.po
 Patch0: gnome-terminal-2.12.0-inputmethod.patch
+Patch1: gnome-terminal-2.13.90-invisible-char.patch
 License: GPL 
 Group: User Interface/Desktops
 
@@ -53,6 +54,7 @@ GNOME terminal emulator application.
 %setup -q
 cp ${RPM_SOURCE_DIR}/ne.po po
 %patch0 -p1 -b .inputmethod
+%patch1 -p0 -b .invisible-char
 
 %build
 
@@ -101,6 +103,10 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_libdir}/bonobo
 
 %changelog
+* Mon Jan 30 2006 Christopher Aillon <caillon@redhat.com> 2.13.90-1
+- Update to 2.13.90
+- Add patch to not specify a default invisible char, let GTK+ handle it
+
 * Thu Jan 19 2006 Matthias Clasen <mclasen@redhat.com> 2.13.3-1
 - Update to 2.13.3
 
