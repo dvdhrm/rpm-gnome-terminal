@@ -13,7 +13,7 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.13.90
-Release: 1
+Release: 1.1
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Source1: ne.po
@@ -103,6 +103,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_libdir}/bonobo
 
 %changelog
+* Tue Feb 07 2006 Jesse Keating <jkeating@redhat.com> - 2.13.90-1.1
+- rebuilt for new gcc4.1 snapshot and glibc changes
+
 * Mon Jan 30 2006 Christopher Aillon <caillon@redhat.com> 2.13.90-1
 - Update to 2.13.90
 - Add patch to not specify a default invisible char, let GTK+ handle it
