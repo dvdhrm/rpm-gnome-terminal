@@ -13,12 +13,15 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.13.90
-Release: 1.1
+Release: 2
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Source1: ne.po
 Patch0: gnome-terminal-2.12.0-inputmethod.patch
+# fixed in 2.13.91
 Patch1: gnome-terminal-2.13.90-invisible-char.patch
+# fixed in 2.13.91
+Patch2: gnome-terminal-2.13.90-link.patch
 License: GPL 
 Group: User Interface/Desktops
 
@@ -55,6 +58,7 @@ GNOME terminal emulator application.
 cp ${RPM_SOURCE_DIR}/ne.po po
 %patch0 -p1 -b .inputmethod
 %patch1 -p0 -b .invisible-char
+%patch2 -p1 -b .link
 
 %build
 
@@ -103,6 +107,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_libdir}/bonobo
 
 %changelog
+* Thu Feb  9 2006 Matthias Clasen <mclasen@redhat.com> - 2.13.90-2
+- Re-add "Open Link" menuitems
+
 * Tue Feb 07 2006 Jesse Keating <jkeating@redhat.com> - 2.13.90-1.1
 - rebuilt for new gcc4.1 snapshot and glibc changes
 
