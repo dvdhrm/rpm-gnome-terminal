@@ -13,7 +13,7 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.13.90
-Release: 2
+Release: 2.1
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Source1: ne.po
@@ -107,6 +107,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_libdir}/bonobo
 
 %changelog
+* Fri Feb 10 2006 Jesse Keating <jkeating@redhat.com> - 2.13.90-2.1
+- bump again for double-long bug on ppc(64)
+
 * Thu Feb  9 2006 Matthias Clasen <mclasen@redhat.com> - 2.13.90-2
 - Re-add "Open Link" menuitems
 
