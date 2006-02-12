@@ -12,16 +12,12 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.13.90
-Release: 2.1
+Version: 2.13.91
+Release: 1
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Source1: ne.po
 Patch0: gnome-terminal-2.12.0-inputmethod.patch
-# fixed in 2.13.91
-Patch1: gnome-terminal-2.13.90-invisible-char.patch
-# fixed in 2.13.91
-Patch2: gnome-terminal-2.13.90-link.patch
 License: GPL 
 Group: User Interface/Desktops
 
@@ -57,8 +53,6 @@ GNOME terminal emulator application.
 %setup -q
 cp ${RPM_SOURCE_DIR}/ne.po po
 %patch0 -p1 -b .inputmethod
-%patch1 -p0 -b .invisible-char
-%patch2 -p1 -b .link
 
 %build
 
@@ -107,6 +101,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_libdir}/bonobo
 
 %changelog
+* Sun Feb 12 2006 Matthias Clasen <mclasen@redhat.com> - 2.13.91-1
+- Update to 2.13.91
+
 * Fri Feb 10 2006 Jesse Keating <jkeating@redhat.com> - 2.13.90-2.1
 - bump again for double-long bug on ppc(64)
 
