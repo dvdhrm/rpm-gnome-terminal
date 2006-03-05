@@ -12,7 +12,7 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.13.92
+Version: 2.13.93
 Release: 1
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
@@ -101,7 +101,10 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_libdir}/bonobo
 
 %changelog
-* Sun Mar  4 2006 Matthias Clasen <mclasen@redhat.com> - 2.13.92-1
+* Sat Mar  4 2006 Matthias Clasen <mclasen@redhat.com> - 2.13.93-1
+- Update to 2.13.93
+
+* Sat Mar  4 2006 Matthias Clasen <mclasen@redhat.com> - 2.13.92-1
 - Update to 2.13.92
 
 * Sun Feb 12 2006 Matthias Clasen <mclasen@redhat.com> - 2.13.91-1
