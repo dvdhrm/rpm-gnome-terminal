@@ -12,8 +12,8 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.14.0
-Release: 1
+Version: 2.14.1
+Release: 2
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Source1: ne.po
@@ -101,6 +101,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_libdir}/bonobo
 
 %changelog
+* Mon Apr 10 2006 Matthias Clasen <mclasen@redhat.com> - 2.14.1-2
+- Update to 2.14.1
+
 * Mon Mar 13 2006 Matthias Clasen <mclasen@redhat.com> - 2.14.0-1
 - Update to 2.14.0
 
