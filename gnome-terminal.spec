@@ -13,7 +13,7 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.14.1
-Release: 4
+Release: 5
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Source1: ne.po
@@ -103,11 +103,15 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_libdir}/bonobo
 
 %changelog
+* Mon Apr 17 2006 Kristian Høgsberg <krh@redhat.com> 2.14.1-5
+- Fix gnome-terminal-2.14.1-real-transparency.patch to check for
+  window->priv != NULL before dereferencing.
+
 * Thu Apr 13 2006 Kristian Høgsberg <krh@redhat.com> 2.14.1-4
 - Bump for rawhide build.
 
 * Thu Apr 13 2006 Kristian Høgsberg <krh@redhat.com> 2.14.1-3
-- Add vte-0.12.0-real-transparency.patch for extra bling points.
+- Add gnome-terminal-2.14.1-real-transparency.patch for extra bling points.
 
 * Mon Apr 10 2006 Matthias Clasen <mclasen@redhat.com> - 2.14.1-2
 - Update to 2.14.1
