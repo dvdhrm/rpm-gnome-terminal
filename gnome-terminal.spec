@@ -13,7 +13,7 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.14.1
-Release: 6
+Release: 7
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Source1: ne.po
@@ -103,6 +103,10 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_libdir}/bonobo
 
 %changelog
+* Tue Apr 18 2006 Kristian Høgsberg <krh@redhat.com> 2.14.1-7
+- Only use ARGB visual if a compositing manager is running to avoid
+  slow-down caused by automatic compositor.
+
 * Mon Apr 17 2006 Kristian Høgsberg <krh@redhat.com> 2.14.1-6
 - Bumpd for rawhide build.
 
