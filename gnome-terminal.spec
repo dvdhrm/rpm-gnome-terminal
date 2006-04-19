@@ -5,7 +5,7 @@
 %define gtk2_version 2.6.0
 %define libgnomeui_version 2.3.0
 #%define libzvt_version 1.113.0
-%define vte_version 0.11.10
+%define vte_version 0.12.0-3
 %define desktop_file_utils_version 0.2.90
 %define startup_notification_version 0.8
 %define libbonobo_version 2.3.0
@@ -13,7 +13,7 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.14.1
-Release: 8
+Release: 9
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Source1: ne.po
@@ -103,6 +103,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_libdir}/bonobo
 
 %changelog
+* Wed Apr 19 2006 Ray Strode <rstrode@redhat.com> 2.14.1-9
+- Require newer vte (bug 189341)
+
 * Tue Apr 18 2006 Kristian Høgsberg <krh@redhat.com> 2.14.1-8
 - Bump for rawhide build.
 
