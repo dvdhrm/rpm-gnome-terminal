@@ -13,7 +13,7 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.14.1
-Release: 9
+Release: 10
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Source1: ne.po
@@ -103,6 +103,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_libdir}/bonobo
 
 %changelog
+* Tue Apr 25 2006 Kristian Høgsberg <krh@redhat.com> - 2.14.1-10
+- Fix selection atom name intialization (patch from Kjartan Maaras).
+
 * Wed Apr 19 2006 Ray Strode <rstrode@redhat.com> 2.14.1-9
 - Require newer vte (bug 189341)
 
