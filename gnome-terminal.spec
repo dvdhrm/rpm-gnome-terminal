@@ -5,7 +5,7 @@
 %define gtk2_version 2.6.0
 %define libgnomeui_version 2.3.0
 #%define libzvt_version 1.113.0
-%define vte_version 0.12.0-3
+%define vte_version 0.12.0-2
 %define desktop_file_utils_version 0.2.90
 %define startup_notification_version 0.8
 %define libbonobo_version 2.3.0
@@ -105,6 +105,7 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %changelog
 * Tue Apr 25 2006 Kristian Høgsberg <krh@redhat.com> - 2.14.1-10
 - Fix selection atom name intialization (patch from Kjartan Maaras).
+- Lower vte requirement to 0.12.0-2 which is what fc5-bling has.
 
 * Wed Apr 19 2006 Ray Strode <rstrode@redhat.com> 2.14.1-9
 - Require newer vte (bug 189341)
