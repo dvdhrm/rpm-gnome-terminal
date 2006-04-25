@@ -13,7 +13,7 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.14.1
-Release: 10
+Release: 11
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Source1: ne.po
@@ -103,6 +103,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_libdir}/bonobo
 
 %changelog
+* Tue Apr 25 2006 Kristian Høgsberg <krh@redhat.com> 2.14.1-11
+- Bump for rawhide build.
+
 * Tue Apr 25 2006 Kristian Høgsberg <krh@redhat.com> - 2.14.1-10
 - Fix selection atom name intialization (patch from Kjartan Maaras).
 - Lower vte requirement to 0.12.0-2 which is what fc5-bling has.
