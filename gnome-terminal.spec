@@ -13,7 +13,7 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.14.1
-Release: 11
+Release: 12
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Source1: ne.po
@@ -103,6 +103,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_libdir}/bonobo
 
 %changelog
+* Wed May 10 2006 Matthias Clasen <mclasen@redhat.com> 2.14.1-12
+- Rebuild 
+
 * Tue Apr 25 2006 Kristian Høgsberg <krh@redhat.com> 2.14.1-11
 - Bump for rawhide build.
 
