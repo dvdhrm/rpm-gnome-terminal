@@ -19,6 +19,7 @@ Source0: gnome-terminal-%{version}.tar.bz2
 Source1: ne.po
 Patch0: gnome-terminal-2.12.0-inputmethod.patch
 Patch1: gnome-terminal-2.14.1-real-transparency.patch
+# http://bugzilla.gnome.org/show_bug.cgi?id=341511
 Patch2: gnome-terminal-2.14.1-about.patch
 License: GPL 
 Group: User Interface/Desktops
