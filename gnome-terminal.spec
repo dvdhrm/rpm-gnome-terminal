@@ -13,12 +13,13 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.14.1
-Release: 12
+Release: 13
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Source1: ne.po
 Patch0: gnome-terminal-2.12.0-inputmethod.patch
 Patch1: gnome-terminal-2.14.1-real-transparency.patch
+Patch2: gnome-terminal-2.14.1-about.patch
 License: GPL 
 Group: User Interface/Desktops
 
@@ -55,6 +56,7 @@ GNOME terminal emulator application.
 cp ${RPM_SOURCE_DIR}/ne.po po
 %patch0 -p1 -b .inputmethod
 %patch1 -p0 -b .real-transparency
+%patch2 -p1 -b .about
 
 %build
 
@@ -103,6 +105,9 @@ gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.
 %{_libdir}/bonobo
 
 %changelog
+* Thu May 11 2006 Matthias Clasen <mclasen@redhat.com> 2.14.1-13
+- Close the about dialog
+
 * Wed May 10 2006 Matthias Clasen <mclasen@redhat.com> 2.14.1-12
 - Rebuild 
 
