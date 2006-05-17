@@ -16,7 +16,8 @@ Version: 2.15.0
 Release: 1
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
-Source1: ne.po
+# po/LINGUAS disaster
+Source1: po.tar.gz
 Patch0: gnome-terminal-2.12.0-inputmethod.patch
 Patch1: gnome-terminal-2.14.1-real-transparency.patch
 License: GPL 
@@ -54,7 +55,7 @@ GNOME terminal emulator application.
 
 %prep
 %setup -q
-cp ${RPM_SOURCE_DIR}/ne.po po
+tar xzf %{SOURCE1}
 %patch0 -p1 -b .inputmethod
 %patch1 -p0 -b .real-transparency
 
