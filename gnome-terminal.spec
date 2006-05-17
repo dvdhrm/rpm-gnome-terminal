@@ -64,6 +64,12 @@ tar xzf %{SOURCE1}
 #workaround broken perl-XML-Parser on 64bit arches
 export PERL5LIB=/usr/lib64/perl5/vendor_perl/5.8.2 perl
 
+# po/LINGUAS disaster
+intltoolize --force
+aclocal
+automake
+autoconf
+
 %configure --with-widget=vte --disable-scrollkeeper
 make
 
