@@ -29,12 +29,14 @@ Requires: gtk2 >= %{gtk2_version}
 Requires: pango >= %{pango_version}
 
 # gconftool-2
-Requires: GConf2
+Requires(post): GConf2
+Requires(post): scrollkeeper
+Requires(preun): GConf2
+Requires(postun): scrollkeeper
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: gtk2-devel >= %{gtk2_version}
 BuildRequires: libgnomeui-devel >= %{libgnomeui_version}
-#BuildRequires: libzvt-devel >= %{libzvt_version}
 BuildRequires: vte-devel >= %{vte_version}
 BuildRequires: libbonobo-devel >= %{libbonobo_version}
 BuildRequires: pango-devel >= %{pango_version}
@@ -61,7 +63,7 @@ cp ${RPM_SOURCE_DIR}/ne.po po
 #workaround broken perl-XML-Parser on 64bit arches
 export PERL5LIB=/usr/lib64/perl5/vendor_perl/5.8.2 perl
 
-%configure --with-widget=vte
+%configure --with-widget=vte --disable-scrollkeeper
 make
 
 %install
@@ -85,8 +87,19 @@ rm -r $RPM_BUILD_ROOT/var/scrollkeeper
 rm -rf $RPM_BUILD_ROOT
 
 %post
+scrollkeeper-update -q
 export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
 gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas > /dev/null
+
+%preun
+if [ "$1" -eq 0 ]; then
+    export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
+    gconftool-2 --makefile-uninstall-rule \
+      %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas > /dev/null || :
+fi
+
+%postun
+scrollkeeper-update -q
 
 %files -f %{gettext_package}.lang
 %defattr(-,root,root,-)
