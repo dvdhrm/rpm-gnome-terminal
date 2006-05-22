@@ -16,8 +16,6 @@ Version: 2.15.0
 Release: 2
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
-# po/LINGUAS disaster
-Source1: po.tar.gz
 Patch0: gnome-terminal-2.12.0-inputmethod.patch
 Patch1: gnome-terminal-2.14.1-real-transparency.patch
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
@@ -57,7 +55,6 @@ GNOME terminal emulator application.
 
 %prep
 %setup -q
-tar xzf %{SOURCE1}
 %patch0 -p1 -b .inputmethod
 %patch1 -p0 -b .real-transparency
 %patch2 -p1 -b .338913-revert-336325
@@ -66,12 +63,6 @@ tar xzf %{SOURCE1}
 
 #workaround broken perl-XML-Parser on 64bit arches
 export PERL5LIB=/usr/lib64/perl5/vendor_perl/5.8.2 perl
-
-# po/LINGUAS disaster
-intltoolize --force
-aclocal
-automake
-autoconf
 
 %configure --with-widget=vte --disable-scrollkeeper
 make
@@ -126,6 +117,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo
 
 %changelog
+* Mon May 22 2006 Matthias Clasen <mclasen@redhat.com> 2.15.1-1
+- Update to 2.15.1
+
 * Thu May 18 2006 Dan Williams <dcbw@redhat.com> - 2.15.0-2
 - Revert gnome.org #336325 (fixes #338913 – Terminal resized when switching tabs)
 
