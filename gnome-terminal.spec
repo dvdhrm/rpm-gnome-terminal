@@ -44,6 +44,7 @@ BuildRequires: pango-devel >= %{pango_version}
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
 BuildRequires: startup-notification-devel >= %{startup_notification_version}
 BuildRequires: scrollkeeper gettext
+BuildRequires: gnome-doc-utils
 
 # For intltool:
 BuildRequires: perl-XML-Parser >= 2.31-16
