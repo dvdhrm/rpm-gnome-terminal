@@ -13,7 +13,7 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.15.1
-Release: 2
+Release: 2.1
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Patch0: gnome-terminal-2.12.0-inputmethod.patch
@@ -118,6 +118,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo
 
 %changelog
+* Wed Jul 12 2006 Jesse Keating <jkeating@redhat.com> - 2.15.1-2.1
+- rebuild
+
 * Mon May 29 2006 Kristian Høgsberg <krh@redhat.com> - 2.15.1-2
 - Update transparency patch to use gdk_screen_is_composited().
 
