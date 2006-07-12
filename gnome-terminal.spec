@@ -12,12 +12,11 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.15.1
-Release: 2.1
+Version: 2.15.2
+Release: 1
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Patch0: gnome-terminal-2.12.0-inputmethod.patch
-Patch1: gnome-terminal-2.14.1-real-transparency.patch
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
 Patch2: gnome-terminal-2.15.0-338913-revert-336325.patch
 License: GPL 
@@ -57,7 +56,6 @@ GNOME terminal emulator application.
 %prep
 %setup -q
 %patch0 -p1 -b .inputmethod
-%patch1 -p0 -b .real-transparency
 %patch2 -p1 -b .338913-revert-336325
 
 %build
@@ -118,6 +116,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo
 
 %changelog
+* Wed Jul 12 2006 Matthias Clasen <mclasen@redhat.com> - 2.15.2-1
+- Update to 2.15.2
+
 * Wed Jul 12 2006 Jesse Keating <jkeating@redhat.com> - 2.15.1-2.1
 - rebuild
 
