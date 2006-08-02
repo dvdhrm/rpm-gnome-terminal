@@ -12,8 +12,8 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.15.2
-Release: 1
+Version: 2.15.4
+Release: 1%{?dist}
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Patch0: gnome-terminal-2.12.0-inputmethod.patch
@@ -116,6 +116,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo
 
 %changelog
+* Wed Aug  2 2006 Matthias Clasen <mclasen@redhat.com> - 2.15.4-1.fc6
+- Update to 2.15.4
+
 * Wed Jul 12 2006 Matthias Clasen <mclasen@redhat.com> - 2.15.2-1
 - Update to 2.15.2
 
