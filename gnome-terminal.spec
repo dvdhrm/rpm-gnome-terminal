@@ -12,7 +12,7 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.15.4
+Version: 2.16.0
 Release: 1%{?dist}
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
@@ -116,6 +116,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo
 
 %changelog
+* Tue Sep  5 2006 Matthias Clasen <mclasen@redhat.com> - 2.16.0-1.fc6
+- Update to 2.16.0
+
 * Wed Aug  2 2006 Matthias Clasen <mclasen@redhat.com> - 2.15.4-1.fc6
 - Update to 2.15.4
 
