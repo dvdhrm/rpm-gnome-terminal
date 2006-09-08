@@ -113,7 +113,7 @@ scrollkeeper-update -q
 %{_datadir}/omf/gnome-terminal
 %{_datadir}/applications/gnome-terminal.desktop
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
-%{_libdir}/bonobo/gnome-terminal.server
+%{_libdir}/bonobo/servers/gnome-terminal.server
 
 %changelog
 * Fri Sep  8 2006 Matthias Clasen <mclasen@redhat.com> - 2.16.0-2
