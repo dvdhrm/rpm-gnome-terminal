@@ -13,7 +13,7 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.16.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Patch0: gnome-terminal-2.12.0-inputmethod.patch
@@ -106,16 +106,19 @@ scrollkeeper-update -q
 
 %doc AUTHORS COPYING ChangeLog NEWS README
 
-%{_bindir}/*
+%{_bindir}/gnome-terminal
 %{_datadir}/gnome-terminal
-%{_datadir}/pixmaps
-%{_datadir}/gnome
-%{_datadir}/omf
-%{_datadir}/applications
+%{_datadir}/pixmaps/gnome-terminal.png
+%{_datadir}/gnome/help/gnome-terminal
+%{_datadir}/omf/gnome-terminal
+%{_datadir}/applications/gnome-terminal.desktop
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
-%{_libdir}/bonobo
+%{_libdir}/bonobo/gnome-terminal.server
 
 %changelog
+* Fri Sep  8 2006 Matthias Clasen <mclasen@redhat.com> - 2.16.0-2
+- Fix directory ownership issues (#205679)
+
 * Tue Sep  5 2006 Matthias Clasen <mclasen@redhat.com> - 2.16.0-1.fc6
 - Update to 2.16.0
 
