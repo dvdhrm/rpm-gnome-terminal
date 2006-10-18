@@ -13,7 +13,7 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.16.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Patch0: gnome-terminal-2.12.0-inputmethod.patch
@@ -29,9 +29,10 @@ Requires: gtk2 >= %{gtk2_version}
 Requires: pango >= %{pango_version}
 
 # gconftool-2
-Requires(post): GConf2
+Requires(pre): GConf2 >= 2.14
+Requires(post): GConf2 >= 2.14
 Requires(post): scrollkeeper
-Requires(preun): GConf2
+Requires(preun): GConf2 >= 2.14
 Requires(postun): scrollkeeper
 
 BuildRequires: glib2-devel >= %{glib2_version}
@@ -89,7 +90,14 @@ rm -rf $RPM_BUILD_ROOT
 %post
 scrollkeeper-update -q
 export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas > /dev/null
+gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas > /dev/null || :
+
+%pre
+if [ "$1" -gt 1 ]; then
+    export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
+    gconftool-2 --makefile-uninstall-rule \
+      %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas > /dev/null || :
+fi
 
 %preun
 if [ "$1" -eq 0 ]; then
@@ -116,6 +124,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo/servers/gnome-terminal.server
 
 %changelog
+* Wed Oct 18 2006 Matthias Clasen <mclasen@redhat.com> - 2.16.0-3
+- Fix scripts according to packaging guidelines
+
 * Fri Sep  8 2006 Matthias Clasen <mclasen@redhat.com> - 2.16.0-2
 - Fix directory ownership issues (#205679)
 
