@@ -31,8 +31,8 @@ Requires: pango >= %{pango_version}
 # gconftool-2
 Requires(pre): GConf2 >= 2.14
 Requires(post): GConf2 >= 2.14
-Requires(post): scrollkeeper
 Requires(preun): GConf2 >= 2.14
+Requires(post): scrollkeeper
 Requires(postun): scrollkeeper
 
 BuildRequires: glib2-devel >= %{glib2_version}
