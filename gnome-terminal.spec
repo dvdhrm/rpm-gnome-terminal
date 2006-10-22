@@ -12,8 +12,8 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.16.0
-Release: 3%{?dist}
+Version: 2.16.1
+Release: 1%{?dist}
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
 Patch0: gnome-terminal-2.12.0-inputmethod.patch
@@ -43,7 +43,8 @@ BuildRequires: libbonobo-devel >= %{libbonobo_version}
 BuildRequires: pango-devel >= %{pango_version}
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
 BuildRequires: startup-notification-devel >= %{startup_notification_version}
-BuildRequires: scrollkeeper gettext
+BuildRequires: scrollkeeper 
+BuildRequires: gettext
 BuildRequires: gnome-doc-utils
 
 # For intltool:
@@ -90,7 +91,8 @@ rm -rf $RPM_BUILD_ROOT
 %post
 scrollkeeper-update -q
 export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas > /dev/null || :
+gconftool-2 --makefile-install-rule \
+	%{_sysconfdir}/gconf/schemas/gnome-terminal.schemas > /dev/null || :
 
 %pre
 if [ "$1" -gt 1 ]; then
@@ -124,6 +126,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo/servers/gnome-terminal.server
 
 %changelog
+* Sat Oct 21 2006 Matthias Clasen <mclasen@redhat.com> - 2.16.1-1
+- Update to 2.16.1
+
 * Wed Oct 18 2006 Matthias Clasen <mclasen@redhat.com> - 2.16.0-3
 - Fix scripts according to packaging guidelines
 
