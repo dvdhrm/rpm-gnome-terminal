@@ -4,7 +4,6 @@
 %define pango_version 1.8.0
 %define gtk2_version 2.6.0
 %define libgnomeui_version 2.3.0
-#%define libzvt_version 1.113.0
 %define vte_version 0.12.0-2
 %define desktop_file_utils_version 0.2.90
 %define startup_notification_version 0.8
@@ -16,7 +15,6 @@ Version: 2.17.90
 Release: 1%{?dist}
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
-Patch0: gnome-terminal-2.12.0-inputmethod.patch
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
 Patch2: gnome-terminal-2.15.0-338913-revert-336325.patch
 License: GPL 
@@ -57,7 +55,6 @@ GNOME terminal emulator application.
 
 %prep
 %setup -q
-%patch0 -p1 -b .inputmethod
 %patch2 -p1 -b .338913-revert-336325
 
 %build
