@@ -12,7 +12,7 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.16.1
+Version: 2.17.90
 Release: 1%{?dist}
 URL: http://www.gnome.org/
 Source0: gnome-terminal-%{version}.tar.bz2
@@ -22,7 +22,7 @@ Patch2: gnome-terminal-2.15.0-338913-revert-336325.patch
 License: GPL 
 Group: User Interface/Desktops
 
-BuildRoot: %{_tmppath}/%{name}-root
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 
 Requires: vte >= %{vte_version}
 Requires: gtk2 >= %{gtk2_version}
@@ -126,6 +126,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo/servers/gnome-terminal.server
 
 %changelog
+* Tue Jan 23 2007 Matthias Clasen <mclasen@redhat.com> - 2.17.90-1
+- Update to 2.17.90
+
 * Sat Oct 21 2006 Matthias Clasen <mclasen@redhat.com> - 2.16.1-1
 - Update to 2.16.1
 
