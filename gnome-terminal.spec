@@ -11,10 +11,10 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.17.90
+Version: 2.17.91
 Release: 1%{?dist}
 URL: http://www.gnome.org/
-Source0: gnome-terminal-%{version}.tar.bz2
+Source0: http://ftp.gnome.org/pub/gnome/sources/gnome-terminal/2.17/gnome-terminal-%{version}.tar.bz2
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
 Patch2: gnome-terminal-2.15.0-338913-revert-336325.patch
 License: GPL 
@@ -75,7 +75,6 @@ unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 desktop-file-install --vendor gnome --delete-original       \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications             \
   --add-only-show-in GNOME                                  \
-  --add-category X-Red-Hat-Base                             \
   $RPM_BUILD_ROOT%{_datadir}/applications/*
 
 rm -r $RPM_BUILD_ROOT/var/scrollkeeper
@@ -123,6 +122,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo/servers/gnome-terminal.server
 
 %changelog
+* Tue Feb 13 2007 Matthias Clasen <mclasen@redhat.com> - 2.17.91-1
+- Update to 2.17.91
+
 * Tue Jan 23 2007 Matthias Clasen <mclasen@redhat.com> - 2.17.90-1
 - Update to 2.17.90
 
