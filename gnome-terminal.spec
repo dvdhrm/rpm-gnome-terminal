@@ -1,18 +1,16 @@
 %define gettext_package gnome-terminal
 
-%define glib2_version 2.6.0
-%define pango_version 1.8.0
-%define gtk2_version 2.6.0
-%define libgnomeui_version 2.3.0
-%define vte_version 0.12.0-2
-%define desktop_file_utils_version 0.2.90
+%define gtk2_version 2.10.0
+%define gconf_version 2.14.0
 %define startup_notification_version 0.8
-%define libbonobo_version 2.3.0
+%define vte_version 0.15.3
+%define gnome_vfs_version 2.4
+%define desktop_file_utils_version 0.2.90
 
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.17.91
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://www.gnome.org/
 Source0: http://ftp.gnome.org/pub/gnome/sources/gnome-terminal/2.17/gnome-terminal-%{version}.tar.bz2
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
@@ -22,31 +20,26 @@ Group: User Interface/Desktops
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 
-Requires: vte >= %{vte_version}
-Requires: gtk2 >= %{gtk2_version}
-Requires: pango >= %{pango_version}
-
 # gconftool-2
-Requires(pre): GConf2 >= 2.14
-Requires(post): GConf2 >= 2.14
-Requires(preun): GConf2 >= 2.14
+Requires(pre): GConf2 >= %{gconf_version}
+Requires(post): GConf2 >= %{gconf_version}
+Requires(preun): GConf2 >= %{gconf_version}
 Requires(post): scrollkeeper
 Requires(postun): scrollkeeper
 
-BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: gtk2-devel >= %{gtk2_version}
-BuildRequires: libgnomeui-devel >= %{libgnomeui_version}
-BuildRequires: vte-devel >= %{vte_version}
-BuildRequires: libbonobo-devel >= %{libbonobo_version}
-BuildRequires: pango-devel >= %{pango_version}
-BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
+BuildRequires: GConf2-devel >= %{gconf_version}
+BuildRequires: libglade2-devel 
+BuildRequires: libgnomeui-devel 
 BuildRequires: startup-notification-devel >= %{startup_notification_version}
+BuildRequires: vte-devel >= %{vte_version}
+BuildRequires: gnome-vfs2-devel >= %{gnome_vfs_version}
+BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
 BuildRequires: scrollkeeper 
 BuildRequires: gettext
 BuildRequires: gnome-doc-utils
-
 # For intltool:
-BuildRequires: perl-XML-Parser >= 2.31-16
+BuildRequires: perl(XML::Parser)
 
 
 %description
@@ -63,13 +56,13 @@ GNOME terminal emulator application.
 export PERL5LIB=/usr/lib64/perl5/vendor_perl/5.8.2 perl
 
 %configure --with-widget=vte --disable-scrollkeeper
-make
+make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
-%makeinstall
+make install DESTDIR=$RPM_BUILD_ROOT
 unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
 desktop-file-install --vendor gnome --delete-original       \
@@ -77,6 +70,7 @@ desktop-file-install --vendor gnome --delete-original       \
   --add-only-show-in GNOME                                  \
   $RPM_BUILD_ROOT%{_datadir}/applications/*
 
+# grr, --disable-scrollkeeper is not good enough
 rm -r $RPM_BUILD_ROOT/var/scrollkeeper
 
 %find_lang %{gettext_package}
@@ -122,6 +116,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo/servers/gnome-terminal.server
 
 %changelog
+* Wed Feb 14 2007 Matthias Clasen <mclasen@redhat.com> - 2.17.91-2
+- Package review feedback
+
 * Tue Feb 13 2007 Matthias Clasen <mclasen@redhat.com> - 2.17.91-1
 - Update to 2.17.91
 
