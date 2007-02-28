@@ -9,8 +9,8 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.17.91
-Release: 3%{?dist}
+Version: 2.17.92
+Release: 1%{?dist}
 URL: http://www.gnome.org/
 Source0: http://ftp.gnome.org/pub/gnome/sources/gnome-terminal/2.17/gnome-terminal-%{version}.tar.bz2
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
@@ -118,6 +118,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo/servers/gnome-terminal.server
 
 %changelog
+* Tue Feb 27 2007 Matthias Clasen <mclasen@redhat.com> - 2.17.92-1
+- Update to 2.17.92
+
 * Thu Feb 15 2007 Matthias Clasen <mclasen@redhat.com> - 2.17.91-3
 - Add System to desktop file categories
 
