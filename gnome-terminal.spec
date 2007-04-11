@@ -65,11 +65,11 @@ export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
 make install DESTDIR=$RPM_BUILD_ROOT
 unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
-desktop-file-install --vendor gnome --delete-original       \
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications             \
-  --add-only-show-in GNOME                                  \
-  --remove-category=Application				    \
-  --add-category=System					    \
+desktop-file-install --vendor gnome --delete-original	\
+  --dir $RPM_BUILD_ROOT%{_datadir}/applications		\
+  --add-only-show-in GNOME				\
+  --remove-category=Application				\
+  --add-category=System					\
   $RPM_BUILD_ROOT%{_datadir}/applications/*
 
 # grr, --disable-scrollkeeper is not good enough
