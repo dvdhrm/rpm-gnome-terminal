@@ -10,12 +10,12 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.18.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://www.gnome.org/
-Source0: http://ftp.gnome.org/pub/gnome/sources/gnome-terminal/2.18/gnome-terminal-%{version}.tar.bz2
+Source0: http://download.gnome.org/sources/gnome-terminal/2.18/gnome-terminal-%{version}.tar.bz2
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
 Patch2: gnome-terminal-2.15.0-338913-revert-336325.patch
-License: GPL 
+License: GPLv2+ and GFDL+
 Group: User Interface/Desktops
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
@@ -75,7 +75,7 @@ desktop-file-install --vendor gnome --delete-original	\
 # grr, --disable-scrollkeeper is not good enough
 rm -r $RPM_BUILD_ROOT/var/scrollkeeper
 
-%find_lang %{gettext_package}
+%find_lang %{gettext_package} --with-gnome
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -111,13 +111,16 @@ scrollkeeper-update -q
 %{_bindir}/gnome-terminal
 %{_datadir}/gnome-terminal
 %{_datadir}/pixmaps/gnome-terminal.png
-%{_datadir}/gnome/help/gnome-terminal
 %{_datadir}/omf/gnome-terminal
 %{_datadir}/applications/gnome-terminal.desktop
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 %{_libdir}/bonobo/servers/gnome-terminal.server
 
 %changelog
+* Tue Aug  7 2007 Matthias Clasen <mclasen@redhat.com> - 2.18.1-2
+- Update license field
+- Use %%find_lang for help files
+
 * Mon Jun 18 2007 Matthias Clasen <mclasen@redhat.com> - 2.18.1-1
 - Update to 2.18.1
 
