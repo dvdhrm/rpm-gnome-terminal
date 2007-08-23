@@ -73,7 +73,7 @@ desktop-file-install --vendor gnome --delete-original	\
   $RPM_BUILD_ROOT%{_datadir}/applications/*
 
 # grr, --disable-scrollkeeper is not good enough
-rm -r $RPM_BUILD_ROOT/var/scrollkeeper
+rm -rf $RPM_BUILD_ROOT/var/scrollkeeper
 
 %find_lang %{gettext_package} --with-gnome
 
@@ -119,6 +119,7 @@ scrollkeeper-update -q
 %changelog
 * Wed Aug 22 2007 Adam Jackson <ajax@redhat.com> - 2.18.1-3
 - Rebuild for PPC toolchain bug
+- Fix build for rarian
 
 * Tue Aug  7 2007 Matthias Clasen <mclasen@redhat.com> - 2.18.1-2
 - Update license field
