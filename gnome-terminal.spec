@@ -9,8 +9,8 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.18.1
-Release: 3%{?dist}
+Version: 2.18.2
+Release: 1%{?dist}
 URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/gnome-terminal/2.18/gnome-terminal-%{version}.tar.bz2
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
@@ -117,6 +117,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo/servers/gnome-terminal.server
 
 %changelog
+* Tue Sep 18 2007 Matthias Clasen <mclasen@redhat.com> - 2.18.2-1
+- Update to 2.18.2
+
 * Wed Aug 22 2007 Adam Jackson <ajax@redhat.com> - 2.18.1-3
 - Rebuild for PPC toolchain bug
 - Fix build for rarian
