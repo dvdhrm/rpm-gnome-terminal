@@ -65,12 +65,15 @@ export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
 make install DESTDIR=$RPM_BUILD_ROOT
 unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
+sed -i -e "s/Icon=gnome-terminal.png/Icon=gnome-terminal/" \
+  $RPM_BUILD_ROOT%{_datadir}/applications/gnome-terminal.desktop 
+
 desktop-file-install --vendor gnome --delete-original	\
   --dir $RPM_BUILD_ROOT%{_datadir}/applications		\
   --add-only-show-in GNOME				\
   --remove-category=Application				\
   --add-category=System					\
-  $RPM_BUILD_ROOT%{_datadir}/applications/*
+  $RPM_BUILD_ROOT%{_datadir}/applications/gnome-terminal.desktop
 
 # grr, --disable-scrollkeeper is not good enough
 rm -rf $RPM_BUILD_ROOT/var/scrollkeeper
