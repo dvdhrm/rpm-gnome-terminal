@@ -1,5 +1,6 @@
 %define gettext_package gnome-terminal
 
+%define glib2_version 2.15.0
 %define gtk2_version 2.10.0
 %define gconf_version 2.14.0
 %define startup_notification_version 0.8
@@ -9,7 +10,7 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.21.3
+Version: 2.21.4
 Release: 1%{?dist}
 URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/gnome-terminal/2.21/gnome-terminal-%{version}.tar.bz2
@@ -27,6 +28,7 @@ Requires(preun): GConf2 >= %{gconf_version}
 Requires(post): scrollkeeper
 Requires(postun): scrollkeeper
 
+BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: gtk2-devel >= %{gtk2_version}
 BuildRequires: GConf2-devel >= %{gconf_version}
 BuildRequires: libglade2-devel 
@@ -120,6 +122,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo/servers/gnome-terminal.server
 
 %changelog
+* Fri Dec 21 2007 Matthias Clasen <mclasen@redhat.com> - 2.21.4-1
+- Update to 2.21.4
+
 * Thu Dec  6 2007 Matthias Clasen <mclasen@redhat.com> - 2.21.3-1
 - Update to 2.21.3
 
