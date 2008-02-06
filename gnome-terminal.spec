@@ -11,7 +11,7 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.21.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/gnome-terminal/2.21/gnome-terminal-%{version}.tar.bz2
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
@@ -72,7 +72,6 @@ sed -i -e "s/Icon=gnome-terminal.png/Icon=gnome-terminal/" \
 
 desktop-file-install --vendor gnome --delete-original	\
   --dir $RPM_BUILD_ROOT%{_datadir}/applications		\
-  --add-only-show-in GNOME				\
   --remove-category=Application				\
   --add-category=System					\
   $RPM_BUILD_ROOT%{_datadir}/applications/gnome-terminal.desktop
@@ -122,6 +121,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo/servers/gnome-terminal.server
 
 %changelog
+* Wed Feb  2 2008 Matthias Clasen <mclasen@redhat.com> - 2.21.90-2
+- Remove OnlyShowIn from the desktop file  (#258901)
+
 * Wed Jan 30 2008 Matthias Clasen <mclasen@redhat.com> - 2.21.90-1
 - Update to 2.21.90
 
