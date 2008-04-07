@@ -10,7 +10,7 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.22.0
+Version: 2.22.1
 Release: 1%{?dist}
 URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/gnome-terminal/2.22/gnome-terminal-%{version}.tar.bz2
@@ -121,6 +121,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo/servers/gnome-terminal.server
 
 %changelog
+* Mon Apr  7 2008 Matthias Clasen <mclasen@redhat.com> - 2.22.1-1
+- Update to 2.22.1
+
 * Mon Mar 10 2008 Matthias Clasen <mclasen@redhat.com> - 2.22.0-1
 - Update to 2.22.0
 
