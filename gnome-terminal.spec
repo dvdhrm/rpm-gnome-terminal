@@ -11,12 +11,12 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.22.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/gnome-terminal/2.22/gnome-terminal-%{version}.tar.bz2
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
 Patch2: gnome-terminal-2.15.0-338913-revert-336325.patch
-License: GPLv2+ and GFDL+
+License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
@@ -121,6 +121,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo/servers/gnome-terminal.server
 
 %changelog
+* Wed May 21 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 2.22.1-2
+- fix license tag (GFDL+ is the same as GFDL)
+
 * Mon Apr  7 2008 Matthias Clasen <mclasen@redhat.com> - 2.22.1-1
 - Update to 2.22.1
 
