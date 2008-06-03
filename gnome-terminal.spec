@@ -42,6 +42,7 @@ BuildRequires: gettext
 BuildRequires: gnome-doc-utils
 # For intltool:
 BuildRequires: perl(XML::Parser)
+BuildRequires: intltool
 
 
 %description
