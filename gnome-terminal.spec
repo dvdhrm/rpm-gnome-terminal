@@ -115,7 +115,6 @@ scrollkeeper-update -q
 
 %{_bindir}/gnome-terminal
 %{_datadir}/gnome-terminal
-%{_datadir}/pixmaps/gnome-terminal.png
 %{_datadir}/omf/gnome-terminal
 %{_datadir}/applications/gnome-terminal.desktop
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
