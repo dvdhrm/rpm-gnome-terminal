@@ -11,7 +11,7 @@
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.24.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/gnome-terminal/2.24/gnome-terminal-%{version}.tar.bz2
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
@@ -60,6 +60,16 @@ export PERL5LIB=/usr/lib64/perl5/vendor_perl/5.8.2 perl
 
 %configure --with-widget=vte --disable-scrollkeeper
 make %{?_smp_mflags}
+
+# strip unneeded translations from .mo files
+cd po
+grep -v ".*[.]desktop[.]in.*\|.*[.]server[.]in$\|.*[.]schemas[.]in$" POTFILES.in > POTFILES.keep
+mv POTFILES.keep POTFILES.in
+intltool-update --pot
+for p in *.po; do
+  msgmerge $p %{gettext_package}.pot > $p.out
+  msgfmt -o `basename $p .po`.gmo $p.out
+done
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -121,6 +131,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo/servers/gnome-terminal.server
 
 %changelog
+* Thu Sep 25 2008 Matthias Clasen <mclasen@redhat.com> - 2.24.0-2
+- Save some space
+
 * Mon Sep 22 2008 Matthias Clasen <mclasen@redhat.com> - 2.24.0-1
 - Update to 2.24.0
 
