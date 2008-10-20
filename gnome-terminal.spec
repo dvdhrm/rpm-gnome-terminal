@@ -10,8 +10,8 @@
 
 Summary: GNOME Terminal
 Name: gnome-terminal
-Version: 2.24.0
-Release: 2%{?dist}
+Version: 2.24.1
+Release: 1%{?dist}
 URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/gnome-terminal/2.24/gnome-terminal-%{version}.tar.bz2
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
@@ -131,6 +131,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo/servers/gnome-terminal.server
 
 %changelog
+* Mon Oct 20 2008 Matthias Clasen <mclasen@redhat.com> - 2.24.1-1
+- Update to 2.24.1
+
 * Thu Sep 25 2008 Matthias Clasen <mclasen@redhat.com> - 2.24.0-2
 - Save some space
 
