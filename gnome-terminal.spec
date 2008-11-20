@@ -4,14 +4,14 @@
 %define gtk2_version 2.10.0
 %define gconf_version 2.14.0
 %define startup_notification_version 0.8
-%define vte_version 0.15.3
+%define vte_version 0.17.0
 %define gnome_vfs_version 2.4
 %define desktop_file_utils_version 0.2.90
 
 Summary: GNOME Terminal
 Name: gnome-terminal
 Version: 2.24.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/gnome-terminal/2.24/gnome-terminal-%{version}.tar.bz2
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
@@ -134,6 +134,10 @@ scrollkeeper-update -q
 %{_libdir}/bonobo/servers/gnome-terminal.server
 
 %changelog
+* Thu Nov 20 2008 Behdad Esfahbod <besfahbo@redhat.com> - 2.24.1-3
+- Require vte >= 0.17.0
+- Resolves: #472330
+
 * Tue Oct 21 2008 Matthias Clasen <mclasen@redhat.com> - 2.24.1-2
 - Make tab switching shortcuts work again
 
