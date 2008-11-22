@@ -8,10 +8,10 @@
 %define gnome_vfs_version 2.4
 %define desktop_file_utils_version 0.2.90
 
-Summary: GNOME Terminal
+Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 2.24.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/gnome-terminal/2.24/gnome-terminal-%{version}.tar.bz2
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
@@ -48,8 +48,9 @@ BuildRequires: intltool
 
 
 %description
-
-GNOME terminal emulator application.
+gnome-terminal is a terminal emulator for GNOME. It supports translucent 
+backgrounds, opening multiple terminals in a single window (tabs) and
+clickable URLs.
 
 %prep
 %setup -q
@@ -134,6 +135,9 @@ scrollkeeper-update -q
 %{_libdir}/bonobo/servers/gnome-terminal.server
 
 %changelog
+* Fri Nov 21 2008 Matthias Clasen <mclasen@redhat.com> - 2.24.1-4
+- Tweak %%description
+
 * Thu Nov 20 2008 Behdad Esfahbod <besfahbo@redhat.com> - 2.24.1-3
 - Require vte >= 0.17.0
 - Resolves: #472330
