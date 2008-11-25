@@ -1,10 +1,16 @@
-diff -up gnome-terminal-2.24.1/src/gnome-terminal.schemas.in.tab-switching gnome-terminal-2.24.1/src/gnome-terminal.schemas.in
---- gnome-terminal-2.24.1/src/gnome-terminal.schemas.in.tab-switching	2008-10-21 22:14:28.000000000 -0400
-+++ gnome-terminal-2.24.1/src/gnome-terminal.schemas.in	2008-10-21 22:14:49.000000000 -0400
-@@ -921,6 +921,15 @@
-       <owner>gnome-terminal</owner>
-       <type>string</type>
-       <default>&lt;Alt&gt;1</default>
+diff -up gnome-terminal-2.24.2/src/gnome-terminal.schemas.in.tab-switching gnome-terminal-2.24.2/src/gnome-terminal.schemas.in
+--- gnome-terminal-2.24.2/src/gnome-terminal.schemas.in.tab-switching	2008-11-24 12:00:03.000000000 -0500
++++ gnome-terminal-2.24.2/src/gnome-terminal.schemas.in	2008-11-25 01:23:43.000000000 -0500
+@@ -982,6 +982,211 @@
+          </long>
+       </locale>
+     </schema>
++    <schema>
++      <key>/schemas/apps/gnome-terminal/keybindings/switch_to_tab_1</key>
++      <applyto>/apps/gnome-terminal/keybindings/switch_to_tab_1</applyto>
++      <owner>gnome-terminal</owner>
++      <type>string</type>
++      <default>&lt;Alt&gt;1</default>
 +      <locale name="C">
 +         <short>Keyboard shortcut to switch to tab 1</short>
 +         <long>
@@ -14,13 +20,14 @@ diff -up gnome-terminal-2.24.1/src/gnome-terminal.schemas.in.tab-switching gnome
 +          will be no keyboard shortcut for this action.
 +         </long>
 +      </locale>
-     </schema>
- 
-     <schema>
-@@ -929,6 +938,15 @@
-       <owner>gnome-terminal</owner>
-       <type>string</type>
-       <default>&lt;Alt&gt;2</default>
++    </schema>
++
++    <schema>
++      <key>/schemas/apps/gnome-terminal/keybindings/switch_to_tab_2</key>
++      <applyto>/apps/gnome-terminal/keybindings/switch_to_tab_2</applyto>
++      <owner>gnome-terminal</owner>
++      <type>string</type>
++      <default>&lt;Alt&gt;2</default>
 +      <locale name="C">
 +         <short>Keyboard shortcut to switch to tab 2</short>
 +         <long>
@@ -30,13 +37,14 @@ diff -up gnome-terminal-2.24.1/src/gnome-terminal.schemas.in.tab-switching gnome
 +          will be no keyboard shortcut for this action.
 +         </long>
 +      </locale>
-     </schema>
- 
-     <schema>
-@@ -937,6 +955,15 @@
-       <owner>gnome-terminal</owner>
-       <type>string</type>
-       <default>&lt;Alt&gt;3</default>
++    </schema>
++
++    <schema>
++      <key>/schemas/apps/gnome-terminal/keybindings/switch_to_tab_3</key>
++      <applyto>/apps/gnome-terminal/keybindings/switch_to_tab_3</applyto>
++      <owner>gnome-terminal</owner>
++      <type>string</type>
++      <default>&lt;Alt&gt;3</default>
 +      <locale name="C">
 +         <short>Keyboard shortcut to switch to tab 3</short>
 +         <long>
@@ -46,13 +54,14 @@ diff -up gnome-terminal-2.24.1/src/gnome-terminal.schemas.in.tab-switching gnome
 +          will be no keyboard shortcut for this action.
 +         </long>
 +      </locale>
-     </schema>
- 
-     <schema>
-@@ -945,6 +972,15 @@
-       <owner>gnome-terminal</owner>
-       <type>string</type>
-       <default>&lt;Alt&gt;4</default>
++    </schema>
++
++    <schema>
++      <key>/schemas/apps/gnome-terminal/keybindings/switch_to_tab_4</key>
++      <applyto>/apps/gnome-terminal/keybindings/switch_to_tab_4</applyto>
++      <owner>gnome-terminal</owner>
++      <type>string</type>
++      <default>&lt;Alt&gt;4</default>
 +      <locale name="C">
 +         <short>Keyboard shortcut to switch to tab 4</short>
 +         <long>
@@ -62,13 +71,14 @@ diff -up gnome-terminal-2.24.1/src/gnome-terminal.schemas.in.tab-switching gnome
 +          will be no keyboard shortcut for this action.
 +         </long>
 +      </locale>
-     </schema>
- 
-     <schema>
-@@ -953,6 +989,15 @@
-       <owner>gnome-terminal</owner>
-       <type>string</type>
-       <default>&lt;Alt&gt;5</default>
++    </schema>
++
++    <schema>
++      <key>/schemas/apps/gnome-terminal/keybindings/switch_to_tab_5</key>
++      <applyto>/apps/gnome-terminal/keybindings/switch_to_tab_5</applyto>
++      <owner>gnome-terminal</owner>
++      <type>string</type>
++      <default>&lt;Alt&gt;5</default>
 +      <locale name="C">
 +         <short>Keyboard shortcut to switch to tab 5</short>
 +         <long>
@@ -78,13 +88,14 @@ diff -up gnome-terminal-2.24.1/src/gnome-terminal.schemas.in.tab-switching gnome
 +          will be no keyboard shortcut for this action.
 +         </long>
 +      </locale>
-     </schema>
- 
-     <schema>
-@@ -961,6 +1006,15 @@
-       <owner>gnome-terminal</owner>
-       <type>string</type>
-       <default>&lt;Alt&gt;6</default>
++    </schema>
++
++    <schema>
++      <key>/schemas/apps/gnome-terminal/keybindings/switch_to_tab_6</key>
++      <applyto>/apps/gnome-terminal/keybindings/switch_to_tab_6</applyto>
++      <owner>gnome-terminal</owner>
++      <type>string</type>
++      <default>&lt;Alt&gt;6</default>
 +      <locale name="C">
 +         <short>Keyboard shortcut to switch to tab 6</short>
 +         <long>
@@ -94,13 +105,14 @@ diff -up gnome-terminal-2.24.1/src/gnome-terminal.schemas.in.tab-switching gnome
 +          will be no keyboard shortcut for this action.
 +         </long>
 +      </locale>
-     </schema>
- 
-     <schema>
-@@ -969,6 +1023,15 @@
-       <owner>gnome-terminal</owner>
-       <type>string</type>
-       <default>&lt;Alt&gt;7</default>
++    </schema>
++
++    <schema>
++      <key>/schemas/apps/gnome-terminal/keybindings/switch_to_tab_7</key>
++      <applyto>/apps/gnome-terminal/keybindings/switch_to_tab_7</applyto>
++      <owner>gnome-terminal</owner>
++      <type>string</type>
++      <default>&lt;Alt&gt;7</default>
 +      <locale name="C">
 +         <short>Keyboard shortcut to switch to tab 7</short>
 +         <long>
@@ -110,13 +122,14 @@ diff -up gnome-terminal-2.24.1/src/gnome-terminal.schemas.in.tab-switching gnome
 +          will be no keyboard shortcut for this action.
 +         </long>
 +      </locale>
-     </schema>
- 
-     <schema>
-@@ -977,6 +1040,15 @@
-       <owner>gnome-terminal</owner>
-       <type>string</type>
-       <default>&lt;Alt&gt;8</default>
++    </schema>
++
++    <schema>
++      <key>/schemas/apps/gnome-terminal/keybindings/switch_to_tab_8</key>
++      <applyto>/apps/gnome-terminal/keybindings/switch_to_tab_8</applyto>
++      <owner>gnome-terminal</owner>
++      <type>string</type>
++      <default>&lt;Alt&gt;8</default>
 +      <locale name="C">
 +         <short>Keyboard shortcut to switch to tab 8</short>
 +         <long>
@@ -126,13 +139,14 @@ diff -up gnome-terminal-2.24.1/src/gnome-terminal.schemas.in.tab-switching gnome
 +          will be no keyboard shortcut for this action.
 +         </long>
 +      </locale>
-     </schema>
- 
-     <schema>
-@@ -985,6 +1057,15 @@
-       <owner>gnome-terminal</owner>
-       <type>string</type>
-       <default>&lt;Alt&gt;9</default>
++    </schema>
++
++    <schema>
++      <key>/schemas/apps/gnome-terminal/keybindings/switch_to_tab_9</key>
++      <applyto>/apps/gnome-terminal/keybindings/switch_to_tab_9</applyto>
++      <owner>gnome-terminal</owner>
++      <type>string</type>
++      <default>&lt;Alt&gt;9</default>
 +      <locale name="C">
 +         <short>Keyboard shortcut to switch to tab 9</short>
 +         <long>
@@ -142,13 +156,14 @@ diff -up gnome-terminal-2.24.1/src/gnome-terminal.schemas.in.tab-switching gnome
 +          will be no keyboard shortcut for this action.
 +         </long>
 +      </locale>
-     </schema>
- 
-     <schema>
-@@ -993,6 +1074,15 @@
-       <owner>gnome-terminal</owner>
-       <type>string</type>
- <!-- no default -->
++    </schema>
++
++    <schema>
++      <key>/schemas/apps/gnome-terminal/keybindings/switch_to_tab_10</key>
++      <applyto>/apps/gnome-terminal/keybindings/switch_to_tab_10</applyto>
++      <owner>gnome-terminal</owner>
++      <type>string</type>
++<!-- no default -->
 +      <locale name="C">
 +         <short>Keyboard shortcut to switch to tab 10</short>
 +         <long>
@@ -158,13 +173,14 @@ diff -up gnome-terminal-2.24.1/src/gnome-terminal.schemas.in.tab-switching gnome
 +          will be no keyboard shortcut for this action.
 +         </long>
 +      </locale>
-     </schema>
- 
-     <schema>
-@@ -1001,6 +1091,15 @@
-       <owner>gnome-terminal</owner>
-       <type>string</type>
- <!-- no default -->
++    </schema>
++
++    <schema>
++      <key>/schemas/apps/gnome-terminal/keybindings/switch_to_tab_11</key>
++      <applyto>/apps/gnome-terminal/keybindings/switch_to_tab_11</applyto>
++      <owner>gnome-terminal</owner>
++      <type>string</type>
++<!-- no default -->
 +      <locale name="C">
 +         <short>Keyboard shortcut to switch to tab 11</short>
 +         <long>
@@ -174,13 +190,14 @@ diff -up gnome-terminal-2.24.1/src/gnome-terminal.schemas.in.tab-switching gnome
 +          will be no keyboard shortcut for this action.
 +         </long>
 +      </locale>
-     </schema>
- 
-     <schema>
-@@ -1009,6 +1108,15 @@
-       <owner>gnome-terminal</owner>
-       <type>string</type>
- <!-- no default -->
++    </schema>
++
++    <schema>
++      <key>/schemas/apps/gnome-terminal/keybindings/switch_to_tab_12</key>
++      <applyto>/apps/gnome-terminal/keybindings/switch_to_tab_12</applyto>
++      <owner>gnome-terminal</owner>
++      <type>string</type>
++<!-- no default -->
 +      <locale name="C">
 +         <short>Keyboard shortcut to switch to tab 12</short>
 +         <long>
@@ -190,6 +207,9 @@ diff -up gnome-terminal-2.24.1/src/gnome-terminal.schemas.in.tab-switching gnome
 +          will be no keyboard shortcut for this action.
 +         </long>
 +      </locale>
-     </schema>
++    </schema>
++
  
-     <schema>
+   </schemalist>  
+ </gconfschemafile>
++
