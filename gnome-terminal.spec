@@ -10,7 +10,7 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 2.25.5
+Version: 2.25.91
 Release: 1%{?dist}
 URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/gnome-terminal/2.25/gnome-terminal-%{version}.tar.bz2
@@ -132,6 +132,9 @@ scrollkeeper-update -q
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Wed Feb 18 2009 Matthias Clasen <mclasen@redhat.com> - 2.25.91-1
+- Updaet to 2.25.91
+
 * Tue Jan 20 2009 Matthias Clasen <mclasen@redhat.com> - 2.25.5-1
 - Update to 2.25.5
 
