@@ -10,6 +10,8 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
+Version: 2.26.0
+Release: 1%{?dist}
 Version: 2.25.91
 Release: 2%{?dist}
 URL: http://www.gnome.org/
@@ -21,7 +23,7 @@ Patch3: tab-switching.patch
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # gconftool-2
 Requires(pre): GConf2 >= %{gconf_version}
@@ -33,20 +35,20 @@ Requires(postun): scrollkeeper
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: gtk2-devel >= %{gtk2_version}
 BuildRequires: GConf2-devel >= %{gconf_version}
-BuildRequires: libglade2-devel 
-BuildRequires: libgnomeui-devel 
+BuildRequires: libglade2-devel
+BuildRequires: libgnomeui-devel
 BuildRequires: startup-notification-devel >= %{startup_notification_version}
 BuildRequires: vte-devel >= %{vte_version}
 BuildRequires: gnome-vfs2-devel >= %{gnome_vfs_version}
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
-BuildRequires: scrollkeeper 
+BuildRequires: scrollkeeper
 BuildRequires: gettext
 BuildRequires: gnome-doc-utils
 BuildRequires: intltool
 
 
 %description
-gnome-terminal is a terminal emulator for GNOME. It supports translucent 
+gnome-terminal is a terminal emulator for GNOME. It supports translucent
 backgrounds, opening multiple terminals in a single window (tabs) and
 clickable URLs.
 
@@ -81,7 +83,7 @@ make install DESTDIR=$RPM_BUILD_ROOT
 unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
 sed -i -e "s/Icon=gnome-terminal.png/Icon=gnome-terminal/" \
-  $RPM_BUILD_ROOT%{_datadir}/applications/gnome-terminal.desktop 
+  $RPM_BUILD_ROOT%{_datadir}/applications/gnome-terminal.desktop
 
 desktop-file-install --vendor gnome --delete-original	\
   --dir $RPM_BUILD_ROOT%{_datadir}/applications		\
@@ -132,11 +134,14 @@ scrollkeeper-update -q
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Mon Mar 16 2009 Matthias Clasen <mclasen@redhat.com> - 2.26.0-1
+- Update to 2.26.0
+
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.25.91-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
 * Wed Feb 18 2009 Matthias Clasen <mclasen@redhat.com> - 2.25.91-1
-- Updaet to 2.25.91
+- Update to 2.25.91
 
 * Tue Jan 20 2009 Matthias Clasen <mclasen@redhat.com> - 2.25.5-1
 - Update to 2.25.5
