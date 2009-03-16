@@ -12,8 +12,6 @@ Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 2.26.0
 Release: 1%{?dist}
-Version: 2.25.91
-Release: 2%{?dist}
 URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/gnome-terminal/2.25/gnome-terminal-%{version}.tar.bz2
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
