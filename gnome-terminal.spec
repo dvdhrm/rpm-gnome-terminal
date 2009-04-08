@@ -11,15 +11,17 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 2.26.0
-Release: 1%{?dist}
+Release: 2%{?dist}
+License: GPLv2+ and GFDL
+Group: User Interface/Desktops
 URL: http://www.gnome.org/
-Source0: http://download.gnome.org/sources/gnome-terminal/2.25/gnome-terminal-%{version}.tar.bz2
+Source0: http://download.gnome.org/sources/gnome-terminal/2.26/gnome-terminal-%{version}.tar.bz2
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
 Patch2: gnome-terminal-2.15.0-338913-revert-336325.patch
 # From upstream trunk
 Patch3: tab-switching.patch
-License: GPLv2+ and GFDL
-Group: User Interface/Desktops
+# from upstream
+Patch4: gnome-terminal-session.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -54,6 +56,7 @@ clickable URLs.
 %setup -q
 %patch2 -p1 -b .338913-revert-336325
 %patch3 -p1 -b .tab-switching
+%patch4 -p0 -b .session
 
 %build
 
@@ -132,6 +135,9 @@ scrollkeeper-update -q
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Wed Apr  8 2009 Matthias Clasen <mclasen@redhat.com> - 2.26.0-2
+- Incorporate upstream patch to make session saving work better
+
 * Mon Mar 16 2009 Matthias Clasen <mclasen@redhat.com> - 2.26.0-1
 - Update to 2.26.0
 
