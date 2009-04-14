@@ -10,8 +10,8 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 2.26.0
-Release: 2%{?dist}
+Version: 2.26.1
+Release: 1%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -135,6 +135,10 @@ scrollkeeper-update -q
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Mon Apr 13 2009 Matthias Clasen <mclasen@redhat.com> - 2.26.1-1
+- Update to 2.26.1
+- See http://download.gnome.org/sources/gnome-terminal/2.26/gnome-terminal-2.26.1.news
+
 * Wed Apr  8 2009 Matthias Clasen <mclasen@redhat.com> - 2.26.0-2
 - Incorporate upstream patch to make session saving work better
 
