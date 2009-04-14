@@ -20,8 +20,6 @@ Source0: http://download.gnome.org/sources/gnome-terminal/2.26/gnome-terminal-%{
 Patch2: gnome-terminal-2.15.0-338913-revert-336325.patch
 # From upstream trunk
 Patch3: tab-switching.patch
-# from upstream
-Patch4: gnome-terminal-session.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -56,7 +54,6 @@ clickable URLs.
 %setup -q
 %patch2 -p1 -b .338913-revert-336325
 %patch3 -p1 -b .tab-switching
-%patch4 -p0 -b .session
 
 %build
 
