@@ -11,7 +11,7 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 2.26.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -65,7 +65,7 @@ make %{?_smp_mflags}
 
 # strip unneeded translations from .mo files
 cd po
-grep -v ".*[.]desktop[.]in.*\|.*[.]server[.]in$\|.*[.]schemas[.]in$" POTFILES.in > POTFILES.keep
+grep -v ".*[.]desktop[.]in.*\|.*[.]server[.]in$" POTFILES.in > POTFILES.keep
 mv POTFILES.keep POTFILES.in
 intltool-update --pot
 for p in *.po; do
@@ -132,6 +132,9 @@ scrollkeeper-update -q
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Mon Apr 27 2009 Matthias Clasen <mclasen@redhat.com> - 2.26.1-2
+- Don't drop schemas translations from po files
+
 * Mon Apr 13 2009 Matthias Clasen <mclasen@redhat.com> - 2.26.1-1
 - Update to 2.26.1
 - See http://download.gnome.org/sources/gnome-terminal/2.26/gnome-terminal-2.26.1.news
