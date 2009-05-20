@@ -10,8 +10,8 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 2.26.1
-Release: 2%{?dist}
+Version: 2.26.2
+Release: 1%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -132,6 +132,9 @@ scrollkeeper-update -q
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Wed May 20 2009 Ray Strode <rstrode@redhat.com> 2.26.2-1
+- Update to 2.26.2
+
 * Mon Apr 27 2009 Matthias Clasen <mclasen@redhat.com> - 2.26.1-2
 - Don't drop schemas translations from po files
 
