@@ -11,11 +11,13 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 2.26.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/gnome-terminal/2.26/gnome-terminal-%{version}.tar.bz2
+# http://bugzilla.gnome.org/show_bug.cgi?id=588732
+Source1: profile-new-dialog.ui
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
 Patch2: gnome-terminal-2.15.0-338913-revert-336325.patch
 # From upstream trunk
@@ -62,6 +64,8 @@ export PERL5LIB=/usr/lib64/perl5/vendor_perl/5.8.2 perl
 
 %configure --with-widget=vte --disable-scrollkeeper
 make %{?_smp_mflags}
+
+cp %{SOURCE1} src
 
 # strip unneeded translations from .mo files
 cd po
@@ -132,6 +136,9 @@ scrollkeeper-update -q
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Wed Jul 15 2009 Matthias Clasen <mclasen@redhat.com> - 2.26.2-2
+- Fix a stubborn icon
+
 * Wed May 20 2009 Ray Strode <rstrode@redhat.com> 2.26.2-1
 - Update to 2.26.2
 
