@@ -11,7 +11,7 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 2.26.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -136,6 +136,9 @@ scrollkeeper-update -q
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.26.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
 * Wed Jul 15 2009 Matthias Clasen <mclasen@redhat.com> - 2.26.2-2
 - Fix a stubborn icon
 
