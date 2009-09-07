@@ -10,7 +10,7 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 2.27.91
+Version: 2.27.92
 Release: 1%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
@@ -136,6 +136,9 @@ scrollkeeper-update -q
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Mon Sep  7 2009 Matthias Clasen <mclasen@redhat.com> - 2.27.92-1
+- Update to 2.27.92
+
 * Wed Aug 19 2009 Matthias Clasen <mclasen@redhat.com> - 2.27.91-1
 - Update to 2.27.91
 
