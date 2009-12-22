@@ -3,19 +3,18 @@
 %define glib2_version 2.15.0
 %define gtk2_version 2.10.0
 %define gconf_version 2.14.0
-%define startup_notification_version 0.8
 %define vte_version 0.17.0
 %define gnome_vfs_version 2.4
 %define desktop_file_utils_version 0.2.90
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 2.28.0
+Version: 2.29.1
 Release: 1%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
-Source0: http://download.gnome.org/sources/gnome-terminal/2.28/gnome-terminal-%{version}.tar.bz2
+Source0: http://download.gnome.org/sources/gnome-terminal/2.29/gnome-terminal-%{version}.tar.bz2
 # http://bugzilla.gnome.org/show_bug.cgi?id=588732
 Source1: profile-new-dialog.ui
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
@@ -37,7 +36,6 @@ BuildRequires: gtk2-devel >= %{gtk2_version}
 BuildRequires: GConf2-devel >= %{gconf_version}
 BuildRequires: libglade2-devel
 BuildRequires: libgnomeui-devel
-BuildRequires: startup-notification-devel >= %{startup_notification_version}
 BuildRequires: vte-devel >= %{vte_version}
 BuildRequires: gnome-vfs2-devel >= %{gnome_vfs_version}
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
@@ -136,6 +134,9 @@ scrollkeeper-update -q
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Tue Dec 22 2009 Matthias Clasen <mclasen@redhat.com> - 2.29.1-1
+- Update to 2.29.1
+
 * Mon Sep 21 2009 Matthias Clasen <mclasen@redhat.com> - 2.28.0-1
 - Update to 2.28.0
 
