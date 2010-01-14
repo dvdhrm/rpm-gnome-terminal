@@ -1,15 +1,14 @@
 %define gettext_package gnome-terminal
 
-%define glib2_version 2.15.0
-%define gtk2_version 2.10.0
+%define glib2_version 2.16.0
+%define gtk2_version 2.14.0
 %define gconf_version 2.14.0
-%define vte_version 0.17.0
-%define gnome_vfs_version 2.4
+%define vte_version 0.23.5
 %define desktop_file_utils_version 0.2.90
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 2.29.1
+Version: 2.29.6
 Release: 1%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
@@ -37,7 +36,6 @@ BuildRequires: GConf2-devel >= %{gconf_version}
 BuildRequires: libglade2-devel
 BuildRequires: libgnomeui-devel
 BuildRequires: vte-devel >= %{vte_version}
-BuildRequires: gnome-vfs2-devel >= %{gnome_vfs_version}
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
 BuildRequires: scrollkeeper
 BuildRequires: gettext
@@ -134,6 +132,9 @@ scrollkeeper-update -q
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Thu Jan 14 2010 Behdad Esfahbod <behdad@redhat.com> - 2.29.6-1
+- Update to 2.29.6
+
 * Tue Dec 22 2009 Matthias Clasen <mclasen@redhat.com> - 2.29.1-1
 - Update to 2.29.1
 
