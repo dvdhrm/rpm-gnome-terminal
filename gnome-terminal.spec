@@ -9,7 +9,7 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 2.29.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -18,8 +18,6 @@ Source0: http://download.gnome.org/sources/gnome-terminal/2.29/gnome-terminal-%{
 Source1: profile-new-dialog.ui
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
 Patch2: gnome-terminal-2.15.0-338913-revert-336325.patch
-# From upstream trunk
-Patch3: tab-switching.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -51,7 +49,6 @@ clickable URLs.
 %prep
 %setup -q
 %patch2 -p1 -b .338913-revert-336325
-%patch3 -p1 -b .tab-switching
 
 %build
 
@@ -132,6 +129,10 @@ scrollkeeper-update -q
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Thu Jan 14 2010 Behdad Esfahbod <behdad@redhat.com> - 2.29.6-2
+- Second try
+- Drop stale patch
+
 * Thu Jan 14 2010 Behdad Esfahbod <behdad@redhat.com> - 2.29.6-1
 - Update to 2.29.6
 
