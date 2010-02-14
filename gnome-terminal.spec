@@ -9,7 +9,7 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 2.29.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -18,6 +18,8 @@ Source0: http://download.gnome.org/sources/gnome-terminal/2.29/gnome-terminal-%{
 Source1: profile-new-dialog.ui
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
 Patch2: gnome-terminal-2.15.0-338913-revert-336325.patch
+# 
+Patch3: gnome-terminal-libs.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -39,7 +41,8 @@ BuildRequires: scrollkeeper
 BuildRequires: gettext
 BuildRequires: gnome-doc-utils
 BuildRequires: intltool
-
+BuildRequires: gnome-common
+BuildRequires: autoconf
 
 %description
 gnome-terminal is a terminal emulator for GNOME. It supports translucent
@@ -49,6 +52,9 @@ clickable URLs.
 %prep
 %setup -q
 %patch2 -p1 -b .338913-revert-336325
+%patch3 -p1 -b .libs
+
+autoconf
 
 %build
 
@@ -95,7 +101,6 @@ rm -rf $RPM_BUILD_ROOT/var/scrollkeeper
 rm -rf $RPM_BUILD_ROOT
 
 %post
-scrollkeeper-update -q
 export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
 gconftool-2 --makefile-install-rule \
 	%{_sysconfdir}/gconf/schemas/gnome-terminal.schemas > /dev/null || :
@@ -114,9 +119,6 @@ if [ "$1" -eq 0 ]; then
       %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas > /dev/null || :
 fi
 
-%postun
-scrollkeeper-update -q
-
 %files -f %{gettext_package}.lang
 %defattr(-,root,root,-)
 
@@ -129,6 +131,9 @@ scrollkeeper-update -q
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Sun Feb 14 2010 Matthias Clasen <mclasen@redhat.com> - 2.29.6-3
+- Add missing libs
+
 * Thu Jan 14 2010 Behdad Esfahbod <behdad@redhat.com> - 2.29.6-2
 - Second try
 - Drop stale patch

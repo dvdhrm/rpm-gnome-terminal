@@ -1,0 +1,12 @@
+diff -up gnome-terminal-2.29.6/configure.ac.libs gnome-terminal-2.29.6/configure.ac
+--- gnome-terminal-2.29.6/configure.ac.libs	2010-02-14 00:57:24.101114610 -0500
++++ gnome-terminal-2.29.6/configure.ac	2010-02-14 00:56:55.923114901 -0500
+@@ -54,6 +54,8 @@ PKG_CHECK_MODULES([TERM],
+    gconf-2.0 >= $GCONF_REQUIRED
+    dbus-glib-1 >= $DBUS_GLIB_REQUIRED])
+ 
++TERM_LIBS="$TERM_LIBS -lm"
++
+ # Check the smclient backend
+ GDK_TARGET="$($PKG_CONFIG --variable target gdk-2.0)"
+ 
