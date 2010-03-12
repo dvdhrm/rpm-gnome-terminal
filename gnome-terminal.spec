@@ -8,11 +8,12 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 2.29.6
-Release: 3%{?dist}
+Version: 2.29.92
+Release: 1%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
+#VCS: git:git://git.gnome.org/gnome-terminal
 Source0: http://download.gnome.org/sources/gnome-terminal/2.29/gnome-terminal-%{version}.tar.bz2
 # http://bugzilla.gnome.org/show_bug.cgi?id=588732
 Source1: profile-new-dialog.ui
@@ -21,14 +22,10 @@ Patch2: gnome-terminal-2.15.0-338913-revert-336325.patch
 # https://bugzilla.gnome.org/show_bug.cgi?id=609897
 Patch3: gnome-terminal-libs.patch
 
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-
 # gconftool-2
 Requires(pre): GConf2 >= %{gconf_version}
 Requires(post): GConf2 >= %{gconf_version}
 Requires(preun): GConf2 >= %{gconf_version}
-Requires(post): scrollkeeper
-Requires(postun): scrollkeeper
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: gtk2-devel >= %{gtk2_version}
@@ -131,6 +128,9 @@ fi
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Thu Mar 11 2010 Matthias Clasen <mclasen@redhat.com> - 2.29.92-1
+- Update to 2.29.92
+
 * Sun Feb 14 2010 Matthias Clasen <mclasen@redhat.com> - 2.29.6-3
 - Add missing libs
 
