@@ -19,8 +19,6 @@ Source0: http://download.gnome.org/sources/gnome-terminal/2.29/gnome-terminal-%{
 Source1: profile-new-dialog.ui
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
 Patch2: gnome-terminal-2.15.0-338913-revert-336325.patch
-# https://bugzilla.gnome.org/show_bug.cgi?id=609897
-Patch3: gnome-terminal-libs.patch
 
 # gconftool-2
 Requires(pre): GConf2 >= %{gconf_version}
@@ -49,7 +47,6 @@ clickable URLs.
 %prep
 %setup -q
 %patch2 -p1 -b .338913-revert-336325
-%patch3 -p1 -b .libs
 
 autoconf
 
