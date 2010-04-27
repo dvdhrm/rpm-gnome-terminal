@@ -8,7 +8,7 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 2.30.0
+Version: 2.30.1
 Release: 1%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
@@ -71,8 +71,6 @@ for p in *.po; do
 done
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
 export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
 make install DESTDIR=$RPM_BUILD_ROOT
 unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
@@ -91,27 +89,15 @@ rm -rf $RPM_BUILD_ROOT/var/scrollkeeper
 
 %find_lang %{gettext_package} --with-gnome
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %post
-export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-gconftool-2 --makefile-install-rule \
-	%{_sysconfdir}/gconf/schemas/gnome-terminal.schemas > /dev/null || :
+%gconf_schema_upgrade gnome-terminal
 
 %pre
-if [ "$1" -gt 1 ]; then
-    export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-    gconftool-2 --makefile-uninstall-rule \
-      %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas > /dev/null || :
-fi
+%gconf_schema_prepare gnome-terminal
 
 %preun
-if [ "$1" -eq 0 ]; then
-    export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-    gconftool-2 --makefile-uninstall-rule \
-      %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas > /dev/null || :
-fi
+%gconf_schema_remove gnome-terminal
+
 
 %files -f %{gettext_package}.lang
 %defattr(-,root,root,-)
@@ -125,6 +111,9 @@ fi
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Mon Apr 26 2010 Matthias Clasen <mclasen@redhat.com> - 2.30.1-1
+- Update to 2.30.1
+
 * Mon Mar 29 2010 Matthias Clasen <mclasen@redhat.com> - 2.30.0-1
 - Update to 2.30.0
 
