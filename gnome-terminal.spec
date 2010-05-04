@@ -3,18 +3,18 @@
 %define glib2_version 2.16.0
 %define gtk2_version 2.14.0
 %define gconf_version 2.14.0
-%define vte_version 0.23.5
+%define vte_version 0.25.1
 %define desktop_file_utils_version 0.2.90
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 2.30.1
+Version: 2.31.1
 Release: 1%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
-Source0: http://download.gnome.org/sources/gnome-terminal/2.30/gnome-terminal-%{version}.tar.bz2
+Source0: http://download.gnome.org/sources/gnome-terminal/2.31/gnome-terminal-%{version}.tar.bz2
 # http://bugzilla.gnome.org/show_bug.cgi?id=588732
 Source1: profile-new-dialog.ui
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
@@ -111,6 +111,9 @@ rm -rf $RPM_BUILD_ROOT/var/scrollkeeper
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Tue May  4 2010 Matthias Clasen <mclasen@redhat.com> - 2.31.1-1
+- Update to 2.31.1
+
 * Mon Apr 26 2010 Matthias Clasen <mclasen@redhat.com> - 2.30.1-1
 - Update to 2.30.1
 
