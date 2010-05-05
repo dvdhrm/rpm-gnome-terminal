@@ -8,7 +8,7 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 2.31.1
+Version: 2.31.2
 Release: 1%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
@@ -17,10 +17,13 @@ URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/gnome-terminal/2.31/gnome-terminal-%{version}.tar.bz2
 # http://bugzilla.gnome.org/show_bug.cgi?id=588732
 Source1: profile-new-dialog.ui
+
+# steal gedit translations for search ui
+Source2: apply-extra-translations
+Source3: extra-translations
+
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
 Patch2: gnome-terminal-2.15.0-338913-revert-336325.patch
-# temporary fix
-Patch3: gnome-terminal-potfiles.patch
 
 # gconftool-2
 Requires(pre): GConf2 >= %{gconf_version}
@@ -49,7 +52,6 @@ clickable URLs.
 %prep
 %setup -q
 %patch2 -p1 -b .338913-revert-336325
-%patch3 -p1 -b .potfiles
 
 autoconf
 
@@ -59,6 +61,10 @@ autoconf
 export PERL5LIB=/usr/lib64/perl5/vendor_perl/5.8.2 perl
 
 %configure --with-widget=vte --disable-scrollkeeper
+
+# patch in translations for extra Search UI strings
+%{SOURCE2} --apply . %{SOURCE3}
+
 make %{?_smp_mflags}
 
 cp %{SOURCE1} src
@@ -114,6 +120,10 @@ rm -rf $RPM_BUILD_ROOT/var/scrollkeeper
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Tue May  4 2010 Matthias Clasen <mclasen@redhat.com> - 2.31.2-1
+- Update to 2.31.2
+- Add translations for search UI
+
 * Tue May  4 2010 Matthias Clasen <mclasen@redhat.com> - 2.31.1-1
 - Update to 2.31.1
 

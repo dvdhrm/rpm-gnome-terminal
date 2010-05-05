@@ -1,0 +1,49 @@
+#! /bin/bash
+
+# This script is a hack to extract translations for some strings from
+# the gedit translations and append them to the gnome-terminal translations.
+#
+# To apply translations, use:
+# ./apply-extra-translations --apply gnome-terminal-2.28.0 extra-translations
+#
+# To update the translations, use:
+# ./apply-extra-translations --update gnome-terminal-2.28.0 extra-translations
+
+if [ $# -ne 3 ]; then
+  echo "Usage: apply-extra-translations [--update|--apply] DIRECTORY FILE"
+  exit 1
+fi
+
+mode=$1
+dir=$2
+translations=$3
+strings=("Find" "_Search for: " "_Match case" "Match _entire word only" "Match as _regular expression" "Search _backwards" "_Wrap around")
+
+if [ "$mode" = "--update" ]; then
+  if ! rpm -q gedit >/dev/null ; then
+    echo "Please install gedit"
+    exit 1
+  fi
+  for i in `grep -v "^#" $dir/po/LINGUAS`; do
+    for s in "${strings[@]}"; do
+      msgstr=`env LANGUAGE="$i.UTF-8" gettext --domain=gedit "$s"`
+      echo "$i:$s:$msgstr"
+    done
+  done >$translations
+
+elif [ "$mode" = "--apply" ]; then
+
+  for i in `grep -v "^#" $dir/po/LINGUAS`; do
+    for s in "${strings[@]}"; do
+      msgstr=`grep "^$i:$s:" $translations | cut -d: -f3`
+      cat >>$dir/po/$i.po <<EOF
+
+msgid "$s"
+msgstr "$msgstr"
+EOF
+    done
+  done
+
+fi
+
+exit
