@@ -1,609 +1,957 @@
-am:ፈልግ
-am:_ፈልግ፦
-am:የፊደሎቱን መጠን _አመሳስል
-am:Match _entire word only
-am:Match as _regular expression
-am:Search _backwards
-am:_Wrap around
-ar:ابحث
-ar:ا_بحث عن:
-ar:_طابِق الحالة
-ar:طابِق ك_امل الكلمة فقط
-ar:Match as _regular expression
-ar:ابحث إلى ال_خلف
-ar:_لف حول
-as:অনুসন্ধান
-as:অনুসন্ধান কৰা হ'ব (_S): 
-as:কেছ মিলোৱা হ'ব (_M)
-as:অকল সম্পূৰ্ণ শব্দ অনুসন্ধান কৰা হ'ব (_e)
-as:Match as _regular expression
-as:বিপৰীত দিশায় অনুসন্ধান কৰা হ'ব (_b)
-as:বিভাজন কৰা হ'ব (_W)
-ast:Atopar
-ast:_Atopar: 
-ast:Concasar _Mayúscules
-ast:Namái concase la pallabra _entera
-ast:Match as _regular expression
-ast:Restolar d'a_trás p'alantre
-ast:A_xuntar
-az:Tap
-az:_Axtar:
-az:Böyük/kiçik hərfi _diqqətə al
-az:Yalnız _bütün sözü uyğunlaşdır
-az:Match as _regular expression
-az:_Arxaya doğru axtar
-az:_Birbaşa bük
-be:Пошук
-be:_Шукаць: 
-be:Ад_розьніваць вялікія/маленькія літары
-be:Слова супадае _цалкам
-be:Match as _regular expression
-be:Шукаць _раней
-be:_Перанос наўкол
-be@latin:Пошук
-be@latin:_Шукаць: 
-be@latin:Ад_розьніваць вялікія/маленькія літары
-be@latin:Слова супадае _цалкам
-be@latin:Match as _regular expression
-be@latin:Шукаць _раней
-be@latin:_Перанос наўкол
-bg:Търсене
-bg:_Търсене за: 
-bg:Зачитане на главни/_малки
-bg:Ако съвпада само с _цяла дума
-bg:Match as _regular expression
-bg:Търсене наза_д
-bg:_След края — от началото
-bn:অনুসন্ধান
-bn:অনুসন্ধান করা হবে (_S): 
-bn:হরফের ছাঁদ মেলানো হবে (_M)
-bn:শুধুমাত্র সম্পূর্ণ শব্দ অনুসন্ধান করা হবে (_e)
-bn:Match as _regular expression
-bn:বিপরীত দিশায় অনুসন্ধান করা হবে (_b)
-bn:বিভাজন করা হবে (_W)
-bn_IN:অনুসন্ধান
-bn_IN:অনুসন্ধান করা হবে (_S): 
-bn_IN:হরফের ছাঁদ মেলানো হবে (_M)
-bn_IN:শুধুমাত্র সম্পূর্ণ শব্দ অনুসন্ধান করা হবে (_e)
-bn_IN:Match as _regular expression
-bn_IN:বিপরীত দিশায় অনুসন্ধান করা হবে (_b)
-bn_IN:বিভাজন করা হবে (_W)
-br:Klask
-br:_Klask : 
-br:_Teurel evezh eus ar pennlizherennoù
-br:Klask ar ger a-_bezh hepken
-br:Match as _regular expression
-br:Klask war-_gil
-br:Kleu_riañ
-bs:Nađi
-bs:_Traži:
-bs:_Upoređivanje razlikuje velika i mala slova
-bs:Upoređuj samo _cijele riječi
-bs:Match as _regular expression
-bs:Traži _unazad
-bs:_Način lomljenja
-ca:Cerca
-ca:_Cerca: 
-ca:Coi_ncidència de majúscules i minúscules
-ca:Només coincid_eix la paraula sencera
-ca:Match as _regular expression
-ca:Cerca cap en_rere
-ca:Continua des de l'_inici
-ca@valencia:Cerca
-ca@valencia:_Cerca: 
-ca@valencia:Coi_ncidència de majúscules i minúscules
-ca@valencia:Només coincid_eix la paraula sencera
-ca@valencia:Match as _regular expression
-ca@valencia:Cerca cap en_rere
-ca@valencia:Continua des de l'_inici
-cs:Hledat
-cs:_Hledat: 
-cs:Rozlišovat velikost pís_men
-cs:Hledat pouze _celá slova
-cs:Match as _regular expression
-cs:Hledat _pozpátku
-cs:P_okračovat od začátku
-cy:Chwilio
-cy:_Chwilio am: 
-cy:_Cydweddu prif lythrennedd
-cy:Cydweddu gair _cyfan yn unig
-cy:Match as _regular expression
-cy:Chwilio am _yn ôl
-cy:_Amlapio o gwmpas
-da:Find
-da:_Søg efter: 
-da:_Forskel på små/store bogstaver
-da:Søg kun efter _hele ord
-da:Match as _regular expression
-da:Søg _bagud
-da:_Begynd forfra ved slut
-de:Suchen
-de:Suchen _nach: 
-de:_Groß-/Kleinschreibung berücksichtigen
-de:Nur _vollständige Wörter berücksichtigen
-de:Match as _regular expression
-de:_Rückwärts suchen
-de:Suche beim Erreichen des Endes am Anfang _fortsetzen
-dz:འཚོལ།
-dz:དོན་ལུ་ འཚོལ་ཞིབ་འབད། (_S)
-dz:གནད་དོན་མཐུན་སྒྲིག་འབད། (_M)
-dz:མིང་ཚིག་ཧྲིལ་བུ་རྐྱངམ་ མཐུན་སྒྲིག་འབད། (_e)
-dz:Match as _regular expression
-dz:རྒྱབ་ལོག་འཚོལ་ཞིབ་འབད། (_b)
-dz:མཐའ་བསྐོར་ཏེ་ལོག (_W)
-el:Εύρεση
-el:Α_ναζήτηση για: 
-el:_Διάκριση πεζών από κεφαλαία
-el:Ταίριασμα ο_λόκληρης λέξης μόνο
-el:Match as _regular expression
-el:Αναζήτηση προς τα _πίσω
-el:Αναδίπλ_ωση γύρω
-en_CA:Find
-en_CA:_Search for: 
-en_CA:_Match case
-en_CA:Match _entire word only
-en_CA:Match as _regular expression
-en_CA:Search _backwards
-en_CA:_Wrap around
-en_GB:Find
-en_GB:_Search for: 
-en_GB:_Match case
-en_GB:Match _entire word only
-en_GB:Match as _regular expression
-en_GB:Search _backwards
-en_GB:_Wrap around
-en@shaw:Find
-en@shaw:_Search for: 
-en@shaw:_Match case
-en@shaw:Match _entire word only
-en@shaw:Match as _regular expression
-en@shaw:Search _backwards
-en@shaw:_Wrap around
-es:Buscar
-es:_Buscar: 
-es:Coi_ncidir con capitalización
-es:Coincidir sólo con la palabra compl_eta
-es:Match as _regular expression
-es:Buscar hacia a_trás
-es:A_justar aproximadamente
-et:Otsi
-et:_Otsitav tekst:
-et:_Tõstutundlik
-et:Kogu sõ_na peab vastavuses olema
-et:Match as _regular expression
-et:Otsitakse tagantpoolt _ettepoole
-et:_Lõppu (või algusese) jõudmisel otsingut ei katkestata
-eu:Bilatu
-eu:Bila_tu: 
-eu:_Maiuskula/minuskula
-eu:_Hitz osoak soilik
-eu:Match as _regular expression
-eu:Bilatu _atzerantz
-eu:_Doitu
-fa:پیدا کردن
-fa:_جست و جو به دنبال:
-fa:_تطابق کوچک و بزرگی حروف
-fa:فقط تطبیق با کلمات _کامل
-fa:Match as _regular expression
-fa:جستجو رو به _عقب
-fa:دور کامل
-fi:Etsi
-fi:_Hakusana: 
-fi:_Huomioi kirjainkoko
-fi:Etsi _kokonaista sanaa
-fi:Match as _regular expression
-fi:Etsi _taaksepäin
-fi:Jatka _alusta
-fr:Rechercher
-fr:_Rechercher : 
-fr:Re_specter la casse
-fr:_Mots entiers seulement
-fr:Match as _regular expression
-fr:Rechercher en _arrière
-fr:Recherche _circulaire
-fur:Find
-fur:_Search for: 
-fur:_Match case
-fur:Match _entire word only
-fur:Match as _regular expression
-fur:Search _backwards
-fur:_Wrap around
-ga:Aimsigh
-ga:_Cuardaigh ar: 
-ga:_Meaitseáil an cás
-ga:Meaitseáil an focal ar _fad amháin
-ga:Match as _regular expression
-ga:Cuardaigh ar _gcúl
-ga:_Timfhill
-gl:Buscar
-gl:_Buscar por: 
-gl:_Diferenciar maiúsculas de minúsculas
-gl:Coincidir só coa palabra com_pleta
-gl:Match as _regular expression
-gl:Buscar cara a _atrás
-gl:Dar a _volta
-gu:શોધો
-gu:ના માટે શોધો (_S): 
-gu:જોડણી સરખાવો (_M)
-gu:માત્ર આખા શબ્દને જ સરખાવો (_e)
-gu:Match as _regular expression
-gu:ઊંધી દિશામાં શોધો (_b)
-gu:ફરતે લપેટો (_W)
-he:חפש
-he:_חפש: 
-he:הת_אם רשיות
-he:התאם מילים _שלמות בלבד
-he:Match as _regular expression
-he:חפש _אחורה
-he:_גלוש מסביב
-hi:ढूँढें
-hi:इसके लिए ढूँढें: (_S)
-hi:स्थिति मिलान करें (_M)
-hi:केवल पूर्ण शब्द जोड़ मिलाएँ (_e)
-hi:Match as _regular expression
-hi:पीछे से ढूँढें (_b)
-hi:लपेटें (_W)
-hr:Nađi
-hr:_Traži: 
-hr:Uspoređuj mala i velika slova
-hr:Uspor_edi samo cijele riječi
-hr:Match as _regular expression
-hr:Traži u_natrag
-hr:Omotaj oko
-hu:Keresés
-hu:Keresés _erre: 
-hu:Kis- és _nagybetű
-hu:Csak _teljes szóra
-hu:Match as _regular expression
-hu:Keresés _visszafelé
-hu:Kö_rbe
-hy:Գտնել
-hy:Փնտրել սա՝
-hy:_Match case
-hy:Match _entire word only
-hy:Match as _regular expression
-hy:Search _backwards
-hy:_Wrap around
-id:Cari
-id:C_ari : 
-id:_Cocokkan huruf besar/kecil
-id:Cocokkan kes_eluruhan kata
-id:Match as _regular expression
-id:Cari _mundur
-id:_Penggalan kata
-it:Trova
-it:C_erca: 
-it:_Maiuscole/Minuscole
-it:Solo parole _intere 
-it:Match as _regular expression
-it:Cercare all'in_dietro
-it:_Ricominciare dall'inizio
-ja:検索
-ja:検索する文字列(_S): 
-ja:大/小文字を区別する(_M)
-ja:単語全体にマッチさせる(_E)
-ja:Match as _regular expression
-ja:先頭に向かって検索する(_B)
-ja:折り返しも対象にする(_W)
-ka:ძიება
-ka:_Search for: 
-ka:_Match case
-ka:Match _entire word only
-ka:Match as _regular expression
-ka:Search _backwards
-ka:_Wrap around
-kn:ಹುಡುಕು
-kn:ಇದಕ್ಕಾಗಿ ಹುಡುಕು(_S): 
-kn:ಕೇಸನ್ನು ಸರಿಹೊಂದಿಸು(_M)
-kn:ಕೇವಲ ಸಂಪೂರ್ಣ ಪದಕ್ಕಾಗಿ ಮಾತ್ರ ಹುಡುಕು (_e)
-kn:Match as _regular expression
-kn:ಹಿಂದಕ್ಕೆ ಹುಡುಕು(_b)
-kn:ಆವರಿಕೆ(_Wrap) ಮಾಡು
-ko:찾기
-ko:검색할 문자열(_S): 
-ko:대소문자 일치(_M)
-ko:전체가 맞는 단어만(_E)
-ko:Match as _regular expression
-ko:뒤로 검색(_B)
-ko:끝까지 가면 처음부터(_W)
-ku:Bibîne
-ku:_Lêgerîn: 
-ku:_Match case
-ku:Match _entire word only
-ku:Match as _regular expression
-ku:Search _backwards
-ku:Rûerdê _şeffaf
-lt:Ieškoti
-lt:_Ieškoti ko: 
-lt:Skirti raidžių _dydį
-lt:Tenkina tik _visas žodis
-lt:Match as _regular expression
-lt:Search _backwards
-lt:_Priėjus pabaigą, ieškoti nuo pradžios
-lv:Meklēt
-lv:_Meklēt: 
-lv:_Reģistrjūtīgs
-lv:Atrast tikai _veselus vārds
-lv:Match as _regular expression
-lv:Meklēt _pretējā virzienā
-lv:_Apskatīt visu failu
-mai:खोजू
-mai:खोजू (_S):
-mai:अक्षर मिलाबू (_M)
-mai:केवल पूर्ण शब्द जोड़ मिलाबू (_e)
-mai:Match as _regular expression
-mai:पाछाँ सँ खोजू (_b)
-mai:चारोकात व्रेप करू (_W)
-mg:Tadiavo
-mg:_Karohy:
-mg:_Hajao ny efitrefi-dohavipirinty
-mg:Ny mifanaraka amin'ilay _teny ihany
-mg:Match as _regular expression
-mg:Karoy _miverina
-mg:_Karoka miverimberina
-mk:Пронајди
-mk:_Барај:
-mk:Разликувај мали-големи
-mk:Барај само _цели зборови
-mk:Match as _regular expression
-mk:Пребарување _наназад
-mk:_Обиколи околу
-ml:കണ്ടെത്തുക
-ml:ഇതു് _തെരയുക:
-ml:വലിയചെറിയക്ഷരവ്യത്യാസം _കണക്കിലെടുക്കുക (ഇംഗ്ലീഷിന് മാത്രം)
-ml:വാക്ക് _പൂര്‍ണ്ണമായുണ്ടെങ്കില്‍ മാത്രം
-ml:Match as _regular expression
-ml:_പുറകോട്ട് തെരയുക
-ml:ചുറ്റും _ഒതുക്കുക
-mn:Хайх
-mn:_Ийг хайх: 
-mn:_Том/Жижиг бичэлт харгалзана
-mn:Зөвхөн _бүтэн үгсийг харгалзана
-mn:Match as _regular expression
-mn:_Гэдрэг хайх
-mn:_Мөр таслах
-mr:शोधा
-mr:याकरीता शोधा (_S): 
-mr:लिपी जुळवा(_M)
-mr:फक्त संपूर्ण शब्द जोडा (_e)
-mr:Match as _regular expression
-mr:मागे शोधा(_b)
-mr:घट्ट बसवा (_W)
-ms:Cari
-ms:_Cari: 
-ms:_Padan huruf kecil/besar
-ms:Padan ke_seluruhan perkataan sahaja
-ms:Match as _regular expression
-ms:Cari meng_undur
-ms:_Balut sekeliling
-nb:Finn
-nb:_Søk etter: 
-nb:_Skill mellom små/store bokstaver
-nb:Kun treff på _hele ord
-nb:Match as _regular expression
-nb:Søk _bakover
-nb:_Brytningsmodus
-nds:Finnen
-nds:_Söken nah:
-nds:_Match case
-nds:Match _entire word only
-nds:Match as _regular expression
-nds:Search _backwards
-nds:_Wrap around
-ne:फेला पार्नुहोस्
-ne:यसका लागि खोजी र्नुहोस्: 
-ne:केस मिलाउनुहोस्
-ne:सम्पूर्ण शब्द मात्र मिलाउनुहोस्
-ne:Match as _regular expression
-ne:पछाडि खोजी गर्नुहोस्
-ne:वरिपरि बेर्नुहोस्
-nl:Zoeken
-nl:_Zoeken naar: 
-nl:Hoo_fdlettergevoelig
-nl:_Enkel complete woorden
-nl:Match as _regular expression
-nl:_Achterwaarts zoeken
-nl:Doo_rgaan na documenteinde
-nn:Finn
-nn:_Søk etter: 
-nn:_Skil mellom små/store bokstavar
-nn:Finn berre h_eile ord
-nn:Match as _regular expression
-nn:Søk _bakover
-nn:S_øk rundt
-oc:Recercar
-oc:_Recercar : 
-oc:_Match case
-oc:Match _entire word only
-oc:Match as _regular expression
-oc:Search _backwards
-oc:_Wrap around
-or:ଖୋଜନ୍ତୁ
-or:ଖୋଜନ୍ତୁ: (_S)
-or:ଅକ୍ଷର ପ୍ରକାର ମିଳାନ୍ତୁ (_M)
-or:କେବଳ ସଂପୂର୍ଣ୍ଣ ଶବ୍ଦ ମିଳାନ୍ତୁ (_e)
-or:Match as _regular expression
-or:ପଛୁଆ ଖୋଜନ୍ତୁ (_b)
-or:ଆର ଧାଡ଼ିକି ମୋଡ଼ନ୍ତୁ (_W)
-pa:ਖੋਜ
-pa:ਇਸ ਦੀ ਖੋਜ(_S): 
-pa:ਮਿਲਦੀ ਸਥਿਤੀ(_M)
-pa:ਸਿਰਫ ਪੂਰਾ ਸ਼ਬਦ ਹੀ ਮਿਲਾਓ(_e)
-pa:Match as _regular expression
-pa:ਪਿੱਛੇ ਖੋਜ(_b)
-pa:ਪਾਸਿਓ ਸਮੇਟੋ(_W)
-pl:Znajdź
-pl:_Tekst: 
-pl:_Rozróżnianie małych i wielkich liter
-pl:Tylko _całe wyrazy
-pl:Match as _regular expression
-pl:Wyszukiwanie _wstecz
-pl:_Automatyczny powrót do początku
-ps:لټول
-ps::لپاره پلټل_
-ps:کېس سارول_
-ps:يوازې _بشپړه ويې سارول
-ps:Match as _regular expression
-ps:شاته پلټل_
-ps:_Wrap around
-pt:Procurar
-pt:Procura_r por: 
-pt:E_quivaler capitalização
-pt:Apenas _equivaler palavra completa
-pt:Match as _regular expression
-pt:Procurar para _trás
-pt:_Dar a volta
-pt_BR:Localizar
-pt_BR:_Pesquisar por: 
-pt_BR:_Diferenciar maiúsculas/minúsculas
-pt_BR:_Coincidir apenas com palavra completa
-pt_BR:Match as _regular expression
-pt_BR:Pesquisar para _trás
-pt_BR:_Voltar ao início
-ro:Caută
-ro:Cau_tă: 
-ro:_Majuscule semnificative
-ro:_Potrivire doar pentru întreg cuvântul
-ro:Match as _regular expression
-ro:Caută în sens _invers
-ro:_Reia de la început
-ru:Найти
-ru:На_йти: 
-ru:Учитывать _регистр
-ru:Только _полные слова
-ru:Match as _regular expression
-ru:Обратный поиск
-ru:Автоматически пере_ходить к началу документа
-rw:Gushaka
-rw:_Search for: 
-rw:_Match case
-rw:Match _entire word only
-rw:Match as _regular expression
-rw:Search _backwards
-rw:_Wrap around
-si:සොයන්න
-si:සඳහා සොයන්න (_S): 
-si:_Match case
-si:Match _entire word only
-si:Match as _regular expression
-si:පසුපසට සොයන්න
-si:වටා එතුම (_W)
-sk:Nájsť
-sk:_Nájsť:
-sk:_Rozlišovať veľkosť písmen
-sk:_Len celé slová
-sk:Match as _regular expression
-sk:Hľadať _dozadu
-sk:_Zalamovať
-sl:Poišči
-sl:_Poišči: 
-sl:_Upoštevaj velikost črk
-sl:Poišči le _cele besede
-sl:Match as _regular expression
-sl:Poišči _nazaj
-sl:_Prelomi vrstice
-sq:Gjej
-sq:_Kërko për: 
-sq:Respekto _Gërma të mëdha/vogla
-sq:V_etëm fjalën e plotë
-sq:Match as _regular expression
-sq:Kërko m_brapsht
-sq:_Rifillo nga fillimi
-sr:Пронађи
-sr:_Тражи: 
-sr:_Упореди мала и велика слова
-sr:Упор_еди само целе речи
-sr:Match as _regular expression
-sr:Тражи у_назад
-sr:Пре_ламај око
-sr@latin:Пронађи
-sr@latin:_Тражи: 
-sr@latin:_Упореди мала и велика слова
-sr@latin:Упор_еди само целе речи
-sr@latin:Match as _regular expression
-sr@latin:Тражи у_назад
-sr@latin:Пре_ламај око
-sv:Sök
-sv:_Sök efter: 
-sv:_Gör skillnad på gemener/VERSALER
-sv:Sök endast _hela ord
-sv:Match as _regular expression
-sv:Sök _baklänges
-sv:_Börja om från början
-ta:தேடு
-ta:_S தேடு: 
-ta:_M பொருத்த நிலை
-ta:_e உள்ளிடும் வார்தையை மட்டும் பொருத்து
-ta:Match as _regular expression
-ta:_ப தேடல் பின்னே
-ta:_W மடிந்து வருதல்
-te:కనిపెట్టు
-te:కొరకు వెతుకు(_S): 
-te:సందర్భంతో సరితూగు(_M)
-te:పూర్తి పదంతో సరితూగు(_e)
-te:Match as _regular expression
-te:వెనుకకు వెతుకు(_b)
-te:చుట్టూతా అమర్చు(_W)
-th:หา
-th:_ค้นหา: 
-th:ตัวพิมพ์ใหญ่-เ_ล็กตรงกัน
-th:ค้นหาทั้_งคำ
-th:Match as _regular expression
-th:ค้นหา_ย้อนกลับ
-th:หมดแล้วเ_ริ่มใหม่
-tr:Bul
-tr:_Ara: 
-tr:Büyük/küçük _harf eşleştir
-tr:Sadece tüm _kelimeyi eşleştir
-tr:Match as _regular expression
-tr:_Geriye doğru ara
-tr:_Böl
-uk:Знайти
-uk:Знай_ти:
-uk:Збігається _регістр
-uk:Збігається _ціле слово
-uk:Match as _regular expression
-uk:_Шукати назад
-uk:_Досягнувши кінця, починати спочатку
-vi:Tìm
-vi:_Tìm: 
-vi:_Khớp chữ hoa/thường
-vi:Chỉ khớp với t_oàn từ
-vi:Match as _regular expression
-vi:Tìm n_gược
-vi:_Cuộn
-wa:Trover
-wa:_Cweri après: 
-wa:_Match case
-wa:Match _entire word only
-wa:Match as _regular expression
-wa:Search _backwards
-wa:Môde _côpaedje di roye
-xh:Fumana
-xh:_Khangela i: 
-xh:_Ngqamanisa unobumba
-xh:Dibanisa igama _elipheleleyo qha
-xh:Match as _regular expression
-xh:Khangela usiya _ngasemva
-xh:U_qhubeleko-magama kumacala onke
-zh_CN:查找
-zh_CN:搜索(_S)：
-zh_CN:区分大小写(_M)
-zh_CN:匹配整个单词(_E)
-zh_CN:Match as _regular expression
-zh_CN:反向搜索(_B)
-zh_CN:回到文档头部继续搜索(_W)
-zh_HK:尋找
-zh_HK:搜尋(_S):
-zh_HK:符合大小寫(_M)
-zh_HK:只符合整個字詞(_E)
-zh_HK:Match as _regular expression
-zh_HK:向上搜尋(_B)
-zh_HK:回到檔案開始部份再搜尋(_W)
-zh_TW:尋找
-zh_TW:搜尋(_S):
-zh_TW:符合大小寫(_M)
-zh_TW:只符合整個字詞(_E)
-zh_TW:Match as _regular expression
-zh_TW:向上搜尋(_B)
-zh_TW:回到檔案開始部份再搜尋(_W)
+am@_Search@_ፈልግ
+am@_Find...@_ፈልግ...
+am@Find Ne_xt@_የሚቀጥለዉን ፈልግ
+am@Find Pre_vious@Find Pre_vious
+am@Find@ፈልግ
+am@_Search for: @_ፈልግ፦
+am@_Match case@የፊደሎቱን መጠን _አመሳስል
+am@Match _entire word only@Match _entire word only
+am@Match as _regular expression@Match as _regular expression
+am@Search _backwards@Search _backwards
+am@_Wrap around@_Wrap around
+ar@_Search@_بحث
+ar@_Find...@ا_بحث...
+ar@Find Ne_xt@ابحث عن الت_الي
+ar@Find Pre_vious@ابحث عن ال_سابق
+ar@Find@ابحث
+ar@_Search for: @ا_بحث عن:
+ar@_Match case@_طابِق الحالة
+ar@Match _entire word only@طابِق ك_امل الكلمة فقط
+ar@Match as _regular expression@Match as _regular expression
+ar@Search _backwards@ابحث إلى ال_خلف
+ar@_Wrap around@_لف حول
+as@_Search@অনুসন্ধান কৰক (_S)
+as@_Find...@অনুসন্ধান (_F)...
+as@Find Ne_xt@পৰবৰ্তী উপস্থিতি অনুসন্ধান কৰক (_x)
+as@Find Pre_vious@পূৰ্ববৰ্তী উপস্থিতি অনুসন্ধান কৰক (_v)
+as@Find@অনুসন্ধান
+as@_Search for: @অনুসন্ধান কৰা হ'ব (_S): 
+as@_Match case@কেছ মিলোৱা হ'ব (_M)
+as@Match _entire word only@অকল সম্পূৰ্ণ শব্দ অনুসন্ধান কৰা হ'ব (_e)
+as@Match as _regular expression@Match as _regular expression
+as@Search _backwards@বিপৰীত দিশায় অনুসন্ধান কৰা হ'ব (_b)
+as@_Wrap around@বিভাজন কৰা হ'ব (_W)
+ast@_Search@_Guetar
+ast@_Find...@_Atopar...
+ast@Find Ne_xt@Atopar Sig_uiente
+ast@Find Pre_vious@Atopar Anter_ior
+ast@Find@Atopar
+ast@_Search for: @_Atopar: 
+ast@_Match case@Concasar _Mayúscules
+ast@Match _entire word only@Namái concase la pallabra _entera
+ast@Match as _regular expression@Match as _regular expression
+ast@Search _backwards@Restolar d'a_trás p'alantre
+ast@_Wrap around@A_xuntar
+az@_Search@_Axtar
+az@_Find...@_Tap...
+az@Find Ne_xt@_Sonrakını Tap
+az@Find Pre_vious@Ə_vvəlkini Tap
+az@Find@Tap
+az@_Search for: @_Axtar:
+az@_Match case@Böyük/kiçik hərfi _diqqətə al
+az@Match _entire word only@Yalnız _bütün sözü uyğunlaşdır
+az@Match as _regular expression@Match as _regular expression
+az@Search _backwards@_Arxaya doğru axtar
+az@_Wrap around@_Birbaşa bük
+be@_Search@По_шук
+be@_Find...@_Пошук...
+be@Find Ne_xt@Шукаць далей
+be@Find Pre_vious@Шукаць _раней
+be@Find@Пошук
+be@_Search for: @_Шукаць: 
+be@_Match case@Ад_розьніваць вялікія/маленькія літары
+be@Match _entire word only@Слова супадае _цалкам
+be@Match as _regular expression@Match as _regular expression
+be@Search _backwards@Шукаць _раней
+be@_Wrap around@_Перанос наўкол
+be@latin@_Search@По_шук
+be@latin@_Find...@_Пошук...
+be@latin@Find Ne_xt@Шукаць далей
+be@latin@Find Pre_vious@Шукаць _раней
+be@latin@Find@Пошук
+be@latin@_Search for: @_Шукаць: 
+be@latin@_Match case@Ад_розьніваць вялікія/маленькія літары
+be@latin@Match _entire word only@Слова супадае _цалкам
+be@latin@Match as _regular expression@Match as _regular expression
+be@latin@Search _backwards@Шукаць _раней
+be@latin@_Wrap around@_Перанос наўкол
+bg@_Search@_Търсене
+bg@_Find...@_Търсене…
+bg@Find Ne_xt@_Следваща поява
+bg@Find Pre_vious@_Предишна поява
+bg@Find@Търсене
+bg@_Search for: @_Търсене за: 
+bg@_Match case@Зачитане на главни/_малки
+bg@Match _entire word only@Ако съвпада само с _цяла дума
+bg@Match as _regular expression@Match as _regular expression
+bg@Search _backwards@Търсене наза_д
+bg@_Wrap around@_След края — от началото
+bn@_Search@অনুসন্ধান (_S)
+bn@_Find...@অনুসন্ধান (_F)...
+bn@Find Ne_xt@পরবর্তী উপস্থিতি অনুসন্ধান করুন (_x)
+bn@Find Pre_vious@পূর্ববর্তী উপস্থিতি অনুসন্ধান করুন (_v)
+bn@Find@অনুসন্ধান
+bn@_Search for: @অনুসন্ধান করা হবে (_S): 
+bn@_Match case@হরফের ছাঁদ মেলানো হবে (_M)
+bn@Match _entire word only@শুধুমাত্র সম্পূর্ণ শব্দ অনুসন্ধান করা হবে (_e)
+bn@Match as _regular expression@Match as _regular expression
+bn@Search _backwards@বিপরীত দিশায় অনুসন্ধান করা হবে (_b)
+bn@_Wrap around@বিভাজন করা হবে (_W)
+bn_IN@_Search@অনুসন্ধান (_S)
+bn_IN@_Find...@অনুসন্ধান (_F)...
+bn_IN@Find Ne_xt@পরবর্তী উপস্থিতি অনুসন্ধান করুন (_x)
+bn_IN@Find Pre_vious@পূর্ববর্তী উপস্থিতি অনুসন্ধান করুন (_v)
+bn_IN@Find@অনুসন্ধান
+bn_IN@_Search for: @অনুসন্ধান করা হবে (_S): 
+bn_IN@_Match case@হরফের ছাঁদ মেলানো হবে (_M)
+bn_IN@Match _entire word only@শুধুমাত্র সম্পূর্ণ শব্দ অনুসন্ধান করা হবে (_e)
+bn_IN@Match as _regular expression@Match as _regular expression
+bn_IN@Search _backwards@বিপরীত দিশায় অনুসন্ধান করা হবে (_b)
+bn_IN@_Wrap around@বিভাজন করা হবে (_W)
+br@_Search@_Klask
+br@_Find...@_Klask...
+br@Find Ne_xt@Kavout war-lerc'h
+br@Find Pre_vious@Kavout a-raok
+br@Find@Klask
+br@_Search for: @_Klask : 
+br@_Match case@_Teurel evezh eus ar pennlizherennoù
+br@Match _entire word only@Klask ar ger a-_bezh hepken
+br@Match as _regular expression@Match as _regular expression
+br@Search _backwards@Klask war-_gil
+br@_Wrap around@Kleu_riañ
+bs@_Search@_Traži
+bs@_Find...@_Nađi...
+bs@Find Ne_xt@Nađi _sljedeće
+bs@Find Pre_vious@Nađi _prethodno
+bs@Find@Nađi
+bs@_Search for: @_Traži:
+bs@_Match case@_Upoređivanje razlikuje velika i mala slova
+bs@Match _entire word only@Upoređuj samo _cijele riječi
+bs@Match as _regular expression@Match as _regular expression
+bs@Search _backwards@Traži _unazad
+bs@_Wrap around@_Način lomljenja
+ca@_Search@_Cerca
+ca@_Find...@_Cerca...
+ca@Find Ne_xt@Cerca el _següent
+ca@Find Pre_vious@Cerca l'_anterior
+ca@Find@Cerca
+ca@_Search for: @_Cerca: 
+ca@_Match case@Coi_ncidència de majúscules i minúscules
+ca@Match _entire word only@Només coincid_eix la paraula sencera
+ca@Match as _regular expression@Match as _regular expression
+ca@Search _backwards@Cerca cap en_rere
+ca@_Wrap around@Continua des de l'_inici
+ca@valencia@_Search@_Cerca
+ca@valencia@_Find...@_Cerca...
+ca@valencia@Find Ne_xt@Cerca el _següent
+ca@valencia@Find Pre_vious@Cerca l'_anterior
+ca@valencia@Find@Cerca
+ca@valencia@_Search for: @_Cerca: 
+ca@valencia@_Match case@Coi_ncidència de majúscules i minúscules
+ca@valencia@Match _entire word only@Només coincid_eix la paraula sencera
+ca@valencia@Match as _regular expression@Match as _regular expression
+ca@valencia@Search _backwards@Cerca cap en_rere
+ca@valencia@_Wrap around@Continua des de l'_inici
+cs@_Search@_Hledat
+cs@_Find...@_Hledat…
+cs@Find Ne_xt@Hledat _následující
+cs@Find Pre_vious@Hledat _předchozí
+cs@Find@Hledat
+cs@_Search for: @_Hledat: 
+cs@_Match case@Rozlišovat velikost pís_men
+cs@Match _entire word only@Hledat pouze _celá slova
+cs@Match as _regular expression@Match as _regular expression
+cs@Search _backwards@Hledat _pozpátku
+cs@_Wrap around@P_okračovat od začátku
+cy@_Search@_Chwilio
+cy@_Find...@_Chwilio...
+cy@Find Ne_xt@Canfod _Nesaf
+cy@Find Pre_vious@Canfod _Blaenorol
+cy@Find@Chwilio
+cy@_Search for: @_Chwilio am: 
+cy@_Match case@_Cydweddu prif lythrennedd
+cy@Match _entire word only@Cydweddu gair _cyfan yn unig
+cy@Match as _regular expression@Match as _regular expression
+cy@Search _backwards@Chwilio am _yn ôl
+cy@_Wrap around@_Amlapio o gwmpas
+da@_Search@_Søg
+da@_Find...@_Find...
+da@Find Ne_xt@Find _næste
+da@Find Pre_vious@Find f_orrige
+da@Find@Find
+da@_Search for: @_Søg efter: 
+da@_Match case@_Forskel på små/store bogstaver
+da@Match _entire word only@Søg kun efter _hele ord
+da@Match as _regular expression@Match as _regular expression
+da@Search _backwards@Søg _bagud
+da@_Wrap around@_Begynd forfra ved slut
+de@_Search@_Suchen
+de@_Find...@_Suchen …
+de@Find Ne_xt@_Weitersuchen
+de@Find Pre_vious@_Rückwärts suchen
+de@Find@Suchen
+de@_Search for: @Suchen _nach: 
+de@_Match case@_Groß-/Kleinschreibung berücksichtigen
+de@Match _entire word only@Nur _vollständige Wörter berücksichtigen
+de@Match as _regular expression@Match as _regular expression
+de@Search _backwards@_Rückwärts suchen
+de@_Wrap around@Suche beim Erreichen des Endes am Anfang _fortsetzen
+dz@_Search@འཚོལ་ཞིབ། (_S)
+dz@_Find...@འཚོལ་…(_F)
+dz@Find Ne_xt@ཤུལ་མམ་འཚོལ། (_x)
+dz@Find Pre_vious@ཧེ་མམ་འཚོལ། (_v)
+dz@Find@འཚོལ།
+dz@_Search for: @དོན་ལུ་ འཚོལ་ཞིབ་འབད། (_S)
+dz@_Match case@གནད་དོན་མཐུན་སྒྲིག་འབད། (_M)
+dz@Match _entire word only@མིང་ཚིག་ཧྲིལ་བུ་རྐྱངམ་ མཐུན་སྒྲིག་འབད། (_e)
+dz@Match as _regular expression@Match as _regular expression
+dz@Search _backwards@རྒྱབ་ལོག་འཚོལ་ཞིབ་འབད། (_b)
+dz@_Wrap around@མཐའ་བསྐོར་ཏེ་ལོག (_W)
+el@_Search@Α_ναζήτηση
+el@_Find...@_Εύρεση...
+el@Find Ne_xt@Εύρεση επομέ_νου
+el@Find Pre_vious@Εύρεση προη_γουμένου
+el@Find@Εύρεση
+el@_Search for: @Α_ναζήτηση για: 
+el@_Match case@_Διάκριση πεζών από κεφαλαία
+el@Match _entire word only@Ταίριασμα ο_λόκληρης λέξης μόνο
+el@Match as _regular expression@Match as _regular expression
+el@Search _backwards@Αναζήτηση προς τα _πίσω
+el@_Wrap around@Αναδίπλ_ωση γύρω
+en_CA@_Search@_Search
+en_CA@_Find...@_Find...
+en_CA@Find Ne_xt@Find Ne_xt
+en_CA@Find Pre_vious@Find Pre_vious
+en_CA@Find@Find
+en_CA@_Search for: @_Search for: 
+en_CA@_Match case@_Match case
+en_CA@Match _entire word only@Match _entire word only
+en_CA@Match as _regular expression@Match as _regular expression
+en_CA@Search _backwards@Search _backwards
+en_CA@_Wrap around@_Wrap around
+en_GB@_Search@_Search
+en_GB@_Find...@_Find…
+en_GB@Find Ne_xt@Find Ne_xt
+en_GB@Find Pre_vious@Find Pre_vious
+en_GB@Find@Find
+en_GB@_Search for: @_Search for: 
+en_GB@_Match case@_Match case
+en_GB@Match _entire word only@Match _entire word only
+en_GB@Match as _regular expression@Match as _regular expression
+en_GB@Search _backwards@Search _backwards
+en_GB@_Wrap around@_Wrap around
+en@shaw@_Search@_Search
+en@shaw@_Find...@_Find...
+en@shaw@Find Ne_xt@Find Ne_xt
+en@shaw@Find Pre_vious@Find Pre_vious
+en@shaw@Find@Find
+en@shaw@_Search for: @_Search for: 
+en@shaw@_Match case@_Match case
+en@shaw@Match _entire word only@Match _entire word only
+en@shaw@Match as _regular expression@Match as _regular expression
+en@shaw@Search _backwards@Search _backwards
+en@shaw@_Wrap around@_Wrap around
+es@_Search@_Buscar
+es@_Find...@_Buscar…
+es@Find Ne_xt@Buscar _siguiente
+es@Find Pre_vious@Buscar _anterior
+es@Find@Buscar
+es@_Search for: @_Buscar: 
+es@_Match case@Coi_ncidir con capitalización
+es@Match _entire word only@Coincidir sólo con la palabra compl_eta
+es@Match as _regular expression@Match as _regular expression
+es@Search _backwards@Buscar hacia a_trás
+es@_Wrap around@A_justar aproximadamente
+et@_Search@_Otsing
+et@_Find...@_Otsi...
+et@Find Ne_xt@Otsi _uuesti
+et@Find Pre_vious@Otsi _eelmist
+et@Find@Otsi
+et@_Search for: @_Otsitav tekst:
+et@_Match case@_Tõstutundlik
+et@Match _entire word only@Kogu sõ_na peab vastavuses olema
+et@Match as _regular expression@Match as _regular expression
+et@Search _backwards@Otsitakse tagantpoolt _ettepoole
+et@_Wrap around@_Lõppu (või algusese) jõudmisel otsingut ei katkestata
+eu@_Search@_Bilatu
+eu@_Find...@_Bilatu...
+eu@Find Ne_xt@Bilatu _hurrengoa
+eu@Find Pre_vious@Bilatu _aurrekoa
+eu@Find@Bilatu
+eu@_Search for: @Bila_tu: 
+eu@_Match case@_Maiuskula/minuskula
+eu@Match _entire word only@_Hitz osoak soilik
+eu@Match as _regular expression@Match as _regular expression
+eu@Search _backwards@Bilatu _atzerantz
+eu@_Wrap around@_Doitu
+fa@_Search@_جستجو
+fa@_Find...@_پیدا کردن...
+fa@Find Ne_xt@پیدا کردن _بعدی
+fa@Find Pre_vious@پیدا کردن _قبلی
+fa@Find@پیدا کردن
+fa@_Search for: @_جست و جو به دنبال:
+fa@_Match case@_تطابق کوچک و بزرگی حروف
+fa@Match _entire word only@فقط تطبیق با کلمات _کامل
+fa@Match as _regular expression@Match as _regular expression
+fa@Search _backwards@جستجو رو به _عقب
+fa@_Wrap around@دور کامل
+fi@_Search@_Etsi
+fi@_Find...@_Etsi…
+fi@Find Ne_xt@Etsi _seuraava
+fi@Find Pre_vious@Etsi e_dellinen
+fi@Find@Etsi
+fi@_Search for: @_Hakusana: 
+fi@_Match case@_Huomioi kirjainkoko
+fi@Match _entire word only@Etsi _kokonaista sanaa
+fi@Match as _regular expression@Match as _regular expression
+fi@Search _backwards@Etsi _taaksepäin
+fi@_Wrap around@Jatka _alusta
+fr@_Search@_Rechercher
+fr@_Find...@_Rechercher...
+fr@Find Ne_xt@Rechercher le _suivant
+fr@Find Pre_vious@Rechercher le _précédent
+fr@Find@Rechercher
+fr@_Search for: @_Rechercher : 
+fr@_Match case@Re_specter la casse
+fr@Match _entire word only@_Mots entiers seulement
+fr@Match as _regular expression@Match as _regular expression
+fr@Search _backwards@Rechercher en _arrière
+fr@_Wrap around@Recherche _circulaire
+fur@_Search@_Search
+fur@_Find...@_Find...
+fur@Find Ne_xt@Find Ne_xt
+fur@Find Pre_vious@Find Pre_vious
+fur@Find@Find
+fur@_Search for: @_Search for: 
+fur@_Match case@_Match case
+fur@Match _entire word only@Match _entire word only
+fur@Match as _regular expression@Match as _regular expression
+fur@Search _backwards@Search _backwards
+fur@_Wrap around@_Wrap around
+ga@_Search@Cuar_daigh
+ga@_Find...@_Aimsigh...
+ga@Find Ne_xt@An Chéad Cheann _Eile
+ga@Find Pre_vious@_Roimhe Seo
+ga@Find@Aimsigh
+ga@_Search for: @_Cuardaigh ar: 
+ga@_Match case@_Meaitseáil an cás
+ga@Match _entire word only@Meaitseáil an focal ar _fad amháin
+ga@Match as _regular expression@Match as _regular expression
+ga@Search _backwards@Cuardaigh ar _gcúl
+ga@_Wrap around@_Timfhill
+gl@_Search@_Buscar
+gl@_Find...@_Buscar...
+gl@Find Ne_xt@Buscar segu_inte
+gl@Find Pre_vious@Buscar an_terior
+gl@Find@Buscar
+gl@_Search for: @_Buscar por: 
+gl@_Match case@_Diferenciar maiúsculas de minúsculas
+gl@Match _entire word only@Coincidir só coa palabra com_pleta
+gl@Match as _regular expression@Match as _regular expression
+gl@Search _backwards@Buscar cara a _atrás
+gl@_Wrap around@Dar a _volta
+gu@_Search@શોધો (_S)
+gu@_Find...@શોધો (_F)...
+gu@Find Ne_xt@પછીનું શોધો (_x)
+gu@Find Pre_vious@પહેલાનું શોધો (_v)
+gu@Find@શોધો
+gu@_Search for: @ના માટે શોધો (_S): 
+gu@_Match case@જોડણી સરખાવો (_M)
+gu@Match _entire word only@માત્ર આખા શબ્દને જ સરખાવો (_e)
+gu@Match as _regular expression@Match as _regular expression
+gu@Search _backwards@ઊંધી દિશામાં શોધો (_b)
+gu@_Wrap around@ફરતે લપેટો (_W)
+he@_Search@_חיפוש
+he@_Find...@_חפש...
+he@Find Ne_xt@חפש את ה_בא
+he@Find Pre_vious@חפש את ה_קודם
+he@Find@חפש
+he@_Search for: @_חפש: 
+he@_Match case@הת_אם רשיות
+he@Match _entire word only@התאם מילים _שלמות בלבד
+he@Match as _regular expression@Match as _regular expression
+he@Search _backwards@חפש _אחורה
+he@_Wrap around@_גלוש מסביב
+hi@_Search@ढूँढें (_S)
+hi@_Find...@ढूँढें (_F)...
+hi@Find Ne_xt@अगला ढूँढें (_x)
+hi@Find Pre_vious@पिछला ढूँढें (_v)
+hi@Find@ढूँढें
+hi@_Search for: @इसके लिए ढूँढें: (_S)
+hi@_Match case@स्थिति मिलान करें (_M)
+hi@Match _entire word only@केवल पूर्ण शब्द जोड़ मिलाएँ (_e)
+hi@Match as _regular expression@Match as _regular expression
+hi@Search _backwards@पीछे से ढूँढें (_b)
+hi@_Wrap around@लपेटें (_W)
+hr@_Search@_Traži
+hr@_Find...@_Traži...
+hr@Find Ne_xt@Traži _slijedeće
+hr@Find Pre_vious@Traži _prethodno
+hr@Find@Nađi
+hr@_Search for: @_Traži: 
+hr@_Match case@Uspoređuj mala i velika slova
+hr@Match _entire word only@Uspor_edi samo cijele riječi
+hr@Match as _regular expression@Match as _regular expression
+hr@Search _backwards@Traži u_natrag
+hr@_Wrap around@Omotaj oko
+hu@_Search@_Keresés
+hu@_Find...@_Keresés…
+hu@Find Ne_xt@Kö_vetkező találat
+hu@Find Pre_vious@Elő_ző találat
+hu@Find@Keresés
+hu@_Search for: @Keresés _erre: 
+hu@_Match case@Kis- és _nagybetű
+hu@Match _entire word only@Csak _teljes szóra
+hu@Match as _regular expression@Match as _regular expression
+hu@Search _backwards@Keresés _visszafelé
+hu@_Wrap around@Kö_rbe
+hy@_Search@Փնտրել
+hy@_Find...@Գտնել…
+hy@Find Ne_xt@Գտնել հաջորդը
+hy@Find Pre_vious@Գտնել նախկինը
+hy@Find@Գտնել
+hy@_Search for: @Փնտրել սա՝
+hy@_Match case@_Match case
+hy@Match _entire word only@Match _entire word only
+hy@Match as _regular expression@Match as _regular expression
+hy@Search _backwards@Search _backwards
+hy@_Wrap around@_Wrap around
+id@_Search@_Cari
+id@_Find...@_Cari...
+id@Find Ne_xt@Cari La_gi
+id@Find Pre_vious@Cari Sebe_lumnya
+id@Find@Cari
+id@_Search for: @C_ari : 
+id@_Match case@_Cocokkan huruf besar/kecil
+id@Match _entire word only@Cocokkan kes_eluruhan kata
+id@Match as _regular expression@Match as _regular expression
+id@Search _backwards@Cari _mundur
+id@_Wrap around@_Penggalan kata
+it@_Search@_Cerca
+it@_Find...@Tr_ova...
+it@Find Ne_xt@Trova successi_vo
+it@Find Pre_vious@Trova pr_ecedente
+it@Find@Trova
+it@_Search for: @C_erca: 
+it@_Match case@_Maiuscole/Minuscole
+it@Match _entire word only@Solo parole _intere 
+it@Match as _regular expression@Match as _regular expression
+it@Search _backwards@Cercare all'in_dietro
+it@_Wrap around@_Ricominciare dall'inizio
+ja@_Search@検索(_S)
+ja@_Find...@検索(_F)...
+ja@Find Ne_xt@次を検索(_X)
+ja@Find Pre_vious@前を検索(_V)
+ja@Find@検索
+ja@_Search for: @検索する文字列(_S): 
+ja@_Match case@大/小文字を区別する(_M)
+ja@Match _entire word only@単語全体にマッチさせる(_E)
+ja@Match as _regular expression@Match as _regular expression
+ja@Search _backwards@先頭に向かって検索する(_B)
+ja@_Wrap around@折り返しも対象にする(_W)
+ka@_Search@_ძებნა
+ka@_Find...@_ძიება...
+ka@Find Ne_xt@შემდეგის ძ_იება
+ka@Find Pre_vious@Find Pre_vious
+ka@Find@ძიება
+ka@_Search for: @_Search for: 
+ka@_Match case@_Match case
+ka@Match _entire word only@Match _entire word only
+ka@Match as _regular expression@Match as _regular expression
+ka@Search _backwards@Search _backwards
+ka@_Wrap around@_Wrap around
+kn@_Search@ಹುಡುಕು(_S)
+kn@_Find...@ಹುಡುಕು(_F)...
+kn@Find Ne_xt@ಮುಂದಕ್ಕೆ ಹುಡುಕು(_x)
+kn@Find Pre_vious@ಹಿಂದಿನದನ್ನು ಹುಡುಕು(_v)
+kn@Find@ಹುಡುಕು
+kn@_Search for: @ಇದಕ್ಕಾಗಿ ಹುಡುಕು(_S): 
+kn@_Match case@ಕೇಸನ್ನು ಸರಿಹೊಂದಿಸು(_M)
+kn@Match _entire word only@ಕೇವಲ ಸಂಪೂರ್ಣ ಪದಕ್ಕಾಗಿ ಮಾತ್ರ ಹುಡುಕು (_e)
+kn@Match as _regular expression@Match as _regular expression
+kn@Search _backwards@ಹಿಂದಕ್ಕೆ ಹುಡುಕು(_b)
+kn@_Wrap around@ಆವರಿಕೆ(_Wrap) ಮಾಡು
+ko@_Search@검색(_S)
+ko@_Find...@찾기(_F)...
+ko@Find Ne_xt@다음 찾기(_X)
+ko@Find Pre_vious@이전 찾기(_V)
+ko@Find@찾기
+ko@_Search for: @검색할 문자열(_S): 
+ko@_Match case@대소문자 일치(_M)
+ko@Match _entire word only@전체가 맞는 단어만(_E)
+ko@Match as _regular expression@Match as _regular expression
+ko@Search _backwards@뒤로 검색(_B)
+ko@_Wrap around@끝까지 가면 처음부터(_W)
+ku@_Search@_Lê bigere
+ku@_Find...@_Bibîne...
+ku@Find Ne_xt@Find Ne_xt
+ku@Find Pre_vious@Find Pre_vious
+ku@Find@Bibîne
+ku@_Search for: @_Lêgerîn: 
+ku@_Match case@_Match case
+ku@Match _entire word only@Match _entire word only
+ku@Match as _regular expression@Match as _regular expression
+ku@Search _backwards@Search _backwards
+ku@_Wrap around@Rûerdê _şeffaf
+lt@_Search@_Paieška
+lt@_Find...@_Ieškoti...
+lt@Find Ne_xt@Ieškoti _kito
+lt@Find Pre_vious@Ieškoti a_nkstesnio
+lt@Find@Ieškoti
+lt@_Search for: @_Ieškoti ko: 
+lt@_Match case@Skirti raidžių _dydį
+lt@Match _entire word only@Tenkina tik _visas žodis
+lt@Match as _regular expression@Match as _regular expression
+lt@Search _backwards@Search _backwards
+lt@_Wrap around@_Priėjus pabaigą, ieškoti nuo pradžios
+lv@_Search@_Meklēt
+lv@_Find...@_Meklēt...
+lv@Find Ne_xt@Meklēt _nākamo
+lv@Find Pre_vious@Meklēt ie_priekšējo
+lv@Find@Meklēt
+lv@_Search for: @_Meklēt: 
+lv@_Match case@_Reģistrjūtīgs
+lv@Match _entire word only@Atrast tikai _veselus vārds
+lv@Match as _regular expression@Match as _regular expression
+lv@Search _backwards@Meklēt _pretējā virzienā
+lv@_Wrap around@_Apskatīt visu failu
+mai@_Search@खोजू (_S)
+mai@_Find...@खोजू (_F)...
+mai@Find Ne_xt@अगिला खोजू (_x)
+mai@Find Pre_vious@पछिला खोजू (_v)
+mai@Find@खोजू
+mai@_Search for: @खोजू (_S):
+mai@_Match case@अक्षर मिलाबू (_M)
+mai@Match _entire word only@केवल पूर्ण शब्द जोड़ मिलाबू (_e)
+mai@Match as _regular expression@Match as _regular expression
+mai@Search _backwards@पाछाँ सँ खोजू (_b)
+mai@_Wrap around@चारोकात व्रेप करू (_W)
+mg@_Search@_Karohy
+mg@_Find...@_Karoy...
+mg@Find Ne_xt@Ma_naraka
+mg@Find Pre_vious@_Aloha
+mg@Find@Tadiavo
+mg@_Search for: @_Karohy:
+mg@_Match case@_Hajao ny efitrefi-dohavipirinty
+mg@Match _entire word only@Ny mifanaraka amin'ilay _teny ihany
+mg@Match as _regular expression@Match as _regular expression
+mg@Search _backwards@Karoy _miverina
+mg@_Wrap around@_Karoka miverimberina
+mk@_Search@_Барај
+mk@_Find...@_Пронајди...
+mk@Find Ne_xt@Најди сле_дно
+mk@Find Pre_vious@Најди пр_етходно
+mk@Find@Пронајди
+mk@_Search for: @_Барај:
+mk@_Match case@Разликувај мали-големи
+mk@Match _entire word only@Барај само _цели зборови
+mk@Match as _regular expression@Match as _regular expression
+mk@Search _backwards@Пребарување _наназад
+mk@_Wrap around@_Обиколи околу
+ml@_Search@_തെരച്ചില്‍
+ml@_Find...@കണ്ടെത്തുക...
+ml@Find Ne_xt@അ_ടുത്തതു് കണ്ടെത്തുക
+ml@Find Pre_vious@_മുമ്പുളളതു് കണ്ടെത്തുക
+ml@Find@കണ്ടെത്തുക
+ml@_Search for: @ഇതു് _തെരയുക:
+ml@_Match case@വലിയചെറിയക്ഷരവ്യത്യാസം _കണക്കിലെടുക്കുക (ഇംഗ്ലീഷിന് മാത്രം)
+ml@Match _entire word only@വാക്ക് _പൂര്‍ണ്ണമായുണ്ടെങ്കില്‍ മാത്രം
+ml@Match as _regular expression@Match as _regular expression
+ml@Search _backwards@_പുറകോട്ട് തെരയുക
+ml@_Wrap around@ചുറ്റും _ഒതുക്കുക
+mn@_Search@_Хайх
+mn@_Find...@_Хайх...
+mn@Find Ne_xt@_Цааш хайх
+mn@Find Pre_vious@Ө_мнөхийг олох
+mn@Find@Хайх
+mn@_Search for: @_Ийг хайх: 
+mn@_Match case@_Том/Жижиг бичэлт харгалзана
+mn@Match _entire word only@Зөвхөн _бүтэн үгсийг харгалзана
+mn@Match as _regular expression@Match as _regular expression
+mn@Search _backwards@_Гэдрэг хайх
+mn@_Wrap around@_Мөр таслах
+mr@_Search@शोधा (_S)
+mr@_Find...@शोधा (_F)...
+mr@Find Ne_xt@पुढिल शोधा (_x)
+mr@Find Pre_vious@मागील शोधा (_v)
+mr@Find@शोधा
+mr@_Search for: @याकरीता शोधा (_S): 
+mr@_Match case@लिपी जुळवा(_M)
+mr@Match _entire word only@फक्त संपूर्ण शब्द जोडा (_e)
+mr@Match as _regular expression@Match as _regular expression
+mr@Search _backwards@मागे शोधा(_b)
+mr@_Wrap around@घट्ट बसवा (_W)
+ms@_Search@_Cari
+ms@_Find...@_Cari...
+ms@Find Ne_xt@Cari _Lagi
+ms@Find Pre_vious@Cari Ter_dahulu
+ms@Find@Cari
+ms@_Search for: @_Cari: 
+ms@_Match case@_Padan huruf kecil/besar
+ms@Match _entire word only@Padan ke_seluruhan perkataan sahaja
+ms@Match as _regular expression@Match as _regular expression
+ms@Search _backwards@Cari meng_undur
+ms@_Wrap around@_Balut sekeliling
+nb@_Search@_Søk
+nb@_Find...@_Finn...
+nb@Find Ne_xt@Finn ne_ste
+nb@Find Pre_vious@Finn forri_ge
+nb@Find@Finn
+nb@_Search for: @_Søk etter: 
+nb@_Match case@_Skill mellom små/store bokstaver
+nb@Match _entire word only@Kun treff på _hele ord
+nb@Match as _regular expression@Match as _regular expression
+nb@Search _backwards@Søk _bakover
+nb@_Wrap around@_Brytningsmodus
+nds@_Search@_Sök
+nds@_Find...@_Finnen...
+nds@Find Ne_xt@Find Ne_xt
+nds@Find Pre_vious@Find Pre_vious
+nds@Find@Finnen
+nds@_Search for: @_Söken nah:
+nds@_Match case@_Match case
+nds@Match _entire word only@Match _entire word only
+nds@Match as _regular expression@Match as _regular expression
+nds@Search _backwards@Search _backwards
+nds@_Wrap around@_Wrap around
+ne@_Search@खोजी गर्नुहोस्
+ne@_Find...@फेला पार्नुहोस्...
+ne@Find Ne_xt@पछिल्लो फेला पार्नुहोस्
+ne@Find Pre_vious@अघिल्लो फेला पार्नुहोस्
+ne@Find@फेला पार्नुहोस्
+ne@_Search for: @यसका लागि खोजी र्नुहोस्: 
+ne@_Match case@केस मिलाउनुहोस्
+ne@Match _entire word only@सम्पूर्ण शब्द मात्र मिलाउनुहोस्
+ne@Match as _regular expression@Match as _regular expression
+ne@Search _backwards@पछाडि खोजी गर्नुहोस्
+ne@_Wrap around@वरिपरि बेर्नुहोस्
+nl@_Search@_Zoeken
+nl@_Find...@_Zoeken…
+nl@Find Ne_xt@V_olgende zoeken
+nl@Find Pre_vious@Zoek vo_rige
+nl@Find@Zoeken
+nl@_Search for: @_Zoeken naar: 
+nl@_Match case@Hoo_fdlettergevoelig
+nl@Match _entire word only@_Enkel complete woorden
+nl@Match as _regular expression@Match as _regular expression
+nl@Search _backwards@_Achterwaarts zoeken
+nl@_Wrap around@Doo_rgaan na documenteinde
+nn@_Search@_Søk
+nn@_Find...@_Finn …
+nn@Find Ne_xt@Finn ne_ste
+nn@Find Pre_vious@Finn f_ørre
+nn@Find@Finn
+nn@_Search for: @_Søk etter: 
+nn@_Match case@_Skil mellom små/store bokstavar
+nn@Match _entire word only@Finn berre h_eile ord
+nn@Match as _regular expression@Match as _regular expression
+nn@Search _backwards@Søk _bakover
+nn@_Wrap around@S_øk rundt
+oc@_Search@_Recercar
+oc@_Find...@_Recercar...
+oc@Find Ne_xt@Recercar lo seguent
+oc@Find Pre_vious@Recercar lo _precedent
+oc@Find@Recercar
+oc@_Search for: @_Recercar : 
+oc@_Match case@_Match case
+oc@Match _entire word only@Match _entire word only
+oc@Match as _regular expression@Match as _regular expression
+oc@Search _backwards@Search _backwards
+oc@_Wrap around@_Wrap around
+or@_Search@ଖୋଜନ୍ତୁ (_S)
+or@_Find...@ଖୋଜନ୍ତୁ (_F)...
+or@Find Ne_xt@ପରବର୍ତ୍ତୀକୁ ଖୋଜନ୍ତୁ (_x)
+or@Find Pre_vious@ପୂର୍ବବର୍ତ୍ତୀକୁ ଖୋଜନ୍ତୁ (_v)
+or@Find@ଖୋଜନ୍ତୁ
+or@_Search for: @ଖୋଜନ୍ତୁ: (_S)
+or@_Match case@ଅକ୍ଷର ପ୍ରକାର ମିଳାନ୍ତୁ (_M)
+or@Match _entire word only@କେବଳ ସଂପୂର୍ଣ୍ଣ ଶବ୍ଦ ମିଳାନ୍ତୁ (_e)
+or@Match as _regular expression@Match as _regular expression
+or@Search _backwards@ପଛୁଆ ଖୋଜନ୍ତୁ (_b)
+or@_Wrap around@ଆର ଧାଡ଼ିକି ମୋଡ଼ନ୍ତୁ (_W)
+pa@_Search@ਖੋਜ(_S)
+pa@_Find...@ਖੋਜ(_F)...
+pa@Find Ne_xt@ਅੱਗੇ ਖੋਜ(_X)
+pa@Find Pre_vious@ਪਿੱਛੇ ਖੋਜ(_V)
+pa@Find@ਖੋਜ
+pa@_Search for: @ਇਸ ਦੀ ਖੋਜ(_S): 
+pa@_Match case@ਮਿਲਦੀ ਸਥਿਤੀ(_M)
+pa@Match _entire word only@ਸਿਰਫ ਪੂਰਾ ਸ਼ਬਦ ਹੀ ਮਿਲਾਓ(_e)
+pa@Match as _regular expression@Match as _regular expression
+pa@Search _backwards@ਪਿੱਛੇ ਖੋਜ(_b)
+pa@_Wrap around@ਪਾਸਿਓ ਸਮੇਟੋ(_W)
+pl@_Search@Wy_szukiwanie
+pl@_Find...@_Znajdź...
+pl@Find Ne_xt@Znajdź _następne
+pl@Find Pre_vious@Znajdź _poprzednie
+pl@Find@Znajdź
+pl@_Search for: @_Tekst: 
+pl@_Match case@_Rozróżnianie małych i wielkich liter
+pl@Match _entire word only@Tylko _całe wyrazy
+pl@Match as _regular expression@Match as _regular expression
+pl@Search _backwards@Wyszukiwanie _wstecz
+pl@_Wrap around@_Automatyczny powrót do początku
+ps@_Search@پلټون_
+ps@_Find...@...لټول_
+ps@Find Ne_xt@را_تلونکی لټول
+ps@Find Pre_vious@مخک_نی لټول
+ps@Find@لټول
+ps@_Search for: @:لپاره پلټل_
+ps@_Match case@کېس سارول_
+ps@Match _entire word only@يوازې _بشپړه ويې سارول
+ps@Match as _regular expression@Match as _regular expression
+ps@Search _backwards@شاته پلټل_
+ps@_Wrap around@_Wrap around
+pt@_Search@Procur_ar
+pt@_Find...@_Procurar...
+pt@Find Ne_xt@Procurar _Seguinte
+pt@Find Pre_vious@Procurar _Anterior
+pt@Find@Procurar
+pt@_Search for: @Procura_r por: 
+pt@_Match case@E_quivaler capitalização
+pt@Match _entire word only@Apenas _equivaler palavra completa
+pt@Match as _regular expression@Match as _regular expression
+pt@Search _backwards@Procurar para _trás
+pt@_Wrap around@_Dar a volta
+pt_BR@_Search@_Pesquisar
+pt_BR@_Find...@_Localizar...
+pt_BR@Find Ne_xt@Localizar pró_xima
+pt_BR@Find Pre_vious@Localizar _anterior
+pt_BR@Find@Localizar
+pt_BR@_Search for: @_Pesquisar por: 
+pt_BR@_Match case@_Diferenciar maiúsculas/minúsculas
+pt_BR@Match _entire word only@_Coincidir apenas com palavra completa
+pt_BR@Match as _regular expression@Match as _regular expression
+pt_BR@Search _backwards@Pesquisar para _trás
+pt_BR@_Wrap around@_Voltar ao início
+ro@_Search@_Căutare
+ro@_Find...@Cau_tă...
+ro@Find Ne_xt@Caută _următorul
+ro@Find Pre_vious@Caută _precedentul
+ro@Find@Caută
+ro@_Search for: @Cau_tă: 
+ro@_Match case@_Majuscule semnificative
+ro@Match _entire word only@_Potrivire doar pentru întreg cuvântul
+ro@Match as _regular expression@Match as _regular expression
+ro@Search _backwards@Caută în sens _invers
+ro@_Wrap around@_Reia de la început
+ru@_Search@П_оиск
+ru@_Find...@_Найти...
+ru@Find Ne_xt@Найти след_ующее
+ru@Find Pre_vious@Найти пред_ыдущее
+ru@Find@Найти
+ru@_Search for: @На_йти: 
+ru@_Match case@Учитывать _регистр
+ru@Match _entire word only@Только _полные слова
+ru@Match as _regular expression@Match as _regular expression
+ru@Search _backwards@Обратный поиск
+ru@_Wrap around@Автоматически пере_ходить к началу документа
+rw@_Search@_Search
+rw@_Find...@_Find...
+rw@Find Ne_xt@Find Ne_xt
+rw@Find Pre_vious@Find Pre_vious
+rw@Find@Gushaka
+rw@_Search for: @_Search for: 
+rw@_Match case@_Match case
+rw@Match _entire word only@Match _entire word only
+rw@Match as _regular expression@Match as _regular expression
+rw@Search _backwards@Search _backwards
+rw@_Wrap around@_Wrap around
+si@_Search@සොයන්න (_S)
+si@_Find...@සොයන්න... (_F)
+si@Find Ne_xt@මීළඟ සෙවුම (_x)
+si@Find Pre_vious@පෙර සෙවුම (_x)
+si@Find@සොයන්න
+si@_Search for: @සඳහා සොයන්න (_S): 
+si@_Match case@_Match case
+si@Match _entire word only@Match _entire word only
+si@Match as _regular expression@Match as _regular expression
+si@Search _backwards@පසුපසට සොයන්න
+si@_Wrap around@වටා එතුම (_W)
+sk@_Search@_Nájsť
+sk@_Find...@_Nájsť...
+sk@Find Ne_xt@_Hľadať ďalej
+sk@Find Pre_vious@Nájsť pre_dchádzajúce
+sk@Find@Nájsť
+sk@_Search for: @_Nájsť:
+sk@_Match case@_Rozlišovať veľkosť písmen
+sk@Match _entire word only@_Len celé slová
+sk@Match as _regular expression@Match as _regular expression
+sk@Search _backwards@Hľadať _dozadu
+sk@_Wrap around@_Zalamovať
+sl@_Search@_Iskanje
+sl@_Find...@_Poišči ...
+sl@Find Ne_xt@Najdi _naslednje
+sl@Find Pre_vious@Najdi _predhodne
+sl@Find@Poišči
+sl@_Search for: @_Poišči: 
+sl@_Match case@_Upoštevaj velikost črk
+sl@Match _entire word only@Poišči le _cele besede
+sl@Match as _regular expression@Match as _regular expression
+sl@Search _backwards@Poišči _nazaj
+sl@_Wrap around@_Prelomi vrstice
+sq@_Search@_Kërko
+sq@_Find...@_Kërko...
+sq@Find Ne_xt@Gjej në va_zhdim
+sq@Find Pre_vious@Gjej Par_aardhësen
+sq@Find@Gjej
+sq@_Search for: @_Kërko për: 
+sq@_Match case@Respekto _Gërma të mëdha/vogla
+sq@Match _entire word only@V_etëm fjalën e plotë
+sq@Match as _regular expression@Match as _regular expression
+sq@Search _backwards@Kërko m_brapsht
+sq@_Wrap around@_Rifillo nga fillimi
+sr@_Search@Прет_рага
+sr@_Find...@Претра_жи...
+sr@Find Ne_xt@Тражи _следеће
+sr@Find Pre_vious@Тражи прет_ходно
+sr@Find@Пронађи
+sr@_Search for: @_Тражи: 
+sr@_Match case@_Упореди мала и велика слова
+sr@Match _entire word only@Упор_еди само целе речи
+sr@Match as _regular expression@Match as _regular expression
+sr@Search _backwards@Тражи у_назад
+sr@_Wrap around@Пре_ламај око
+sr@latin@_Search@Прет_рага
+sr@latin@_Find...@Претра_жи...
+sr@latin@Find Ne_xt@Тражи _следеће
+sr@latin@Find Pre_vious@Тражи прет_ходно
+sr@latin@Find@Пронађи
+sr@latin@_Search for: @_Тражи: 
+sr@latin@_Match case@_Упореди мала и велика слова
+sr@latin@Match _entire word only@Упор_еди само целе речи
+sr@latin@Match as _regular expression@Match as _regular expression
+sr@latin@Search _backwards@Тражи у_назад
+sr@latin@_Wrap around@Пре_ламај око
+sv@_Search@_Sök
+sv@_Find...@_Sök...
+sv@Find Ne_xt@Sök n_ästa
+sv@Find Pre_vious@Sök före_gående
+sv@Find@Sök
+sv@_Search for: @_Sök efter: 
+sv@_Match case@_Gör skillnad på gemener/VERSALER
+sv@Match _entire word only@Sök endast _hela ord
+sv@Match as _regular expression@Match as _regular expression
+sv@Search _backwards@Sök _baklänges
+sv@_Wrap around@_Börja om från början
+ta@_Search@_S தேடு
+ta@_Find...@_F கண்டுபிடி...
+ta@Find Ne_xt@_x அடுத்ததை தேடுக
+ta@Find Pre_vious@_v முந்தையதை தேடுக
+ta@Find@தேடு
+ta@_Search for: @_S தேடு: 
+ta@_Match case@_M பொருத்த நிலை
+ta@Match _entire word only@_e உள்ளிடும் வார்தையை மட்டும் பொருத்து
+ta@Match as _regular expression@Match as _regular expression
+ta@Search _backwards@_ப தேடல் பின்னே
+ta@_Wrap around@_W மடிந்து வருதல்
+te@_Search@వెతుకు(_S)
+te@_Find...@కనిపెట్టు(_F)...
+te@Find Ne_xt@తర్వాతది వెతుకు(_x)
+te@Find Pre_vious@ముందుది వెతుకు(_v)
+te@Find@కనిపెట్టు
+te@_Search for: @కొరకు వెతుకు(_S): 
+te@_Match case@సందర్భంతో సరితూగు(_M)
+te@Match _entire word only@పూర్తి పదంతో సరితూగు(_e)
+te@Match as _regular expression@Match as _regular expression
+te@Search _backwards@వెనుకకు వెతుకు(_b)
+te@_Wrap around@చుట్టూతా అమర్చు(_W)
+th@_Search@_ค้นหา
+th@_Find...@_หา...
+th@Find Ne_xt@หา_ต่อ
+th@Find Pre_vious@หา_ก่อนหน้า
+th@Find@หา
+th@_Search for: @_ค้นหา: 
+th@_Match case@ตัวพิมพ์ใหญ่-เ_ล็กตรงกัน
+th@Match _entire word only@ค้นหาทั้_งคำ
+th@Match as _regular expression@Match as _regular expression
+th@Search _backwards@ค้นหา_ย้อนกลับ
+th@_Wrap around@หมดแล้วเ_ริ่มใหม่
+tr@_Search@_Ara
+tr@_Find...@_Bul...
+tr@Find Ne_xt@Sonrakini B_ul
+tr@Find Pre_vious@Ö_ncekini Bul
+tr@Find@Bul
+tr@_Search for: @_Ara: 
+tr@_Match case@Büyük/küçük _harf eşleştir
+tr@Match _entire word only@Sadece tüm _kelimeyi eşleştir
+tr@Match as _regular expression@Match as _regular expression
+tr@Search _backwards@_Geriye doğru ara
+tr@_Wrap around@_Böl
+uk@_Search@З_найти
+uk@_Find...@З_найти...
+uk@Find Ne_xt@Зна_йти далі
+uk@Find Pre_vious@Знайти _попередній
+uk@Find@Знайти
+uk@_Search for: @Знай_ти:
+uk@_Match case@Збігається _регістр
+uk@Match _entire word only@Збігається _ціле слово
+uk@Match as _regular expression@Match as _regular expression
+uk@Search _backwards@_Шукати назад
+uk@_Wrap around@_Досягнувши кінця, починати спочатку
+vi@_Search@_Tìm
+vi@_Find...@_Tìm...
+vi@Find Ne_xt@Tìm _kế
+vi@Find Pre_vious@Tìm _lùi
+vi@Find@Tìm
+vi@_Search for: @_Tìm: 
+vi@_Match case@_Khớp chữ hoa/thường
+vi@Match _entire word only@Chỉ khớp với t_oàn từ
+vi@Match as _regular expression@Match as _regular expression
+vi@Search _backwards@Tìm n_gược
+vi@_Wrap around@_Cuộn
+wa@_Search@C_weri
+wa@_Find...@_Trover...
+wa@Find Ne_xt@Trover _shuvant
+wa@Find Pre_vious@Trover di _dvant
+wa@Find@Trover
+wa@_Search for: @_Cweri après: 
+wa@_Match case@_Match case
+wa@Match _entire word only@Match _entire word only
+wa@Match as _regular expression@Match as _regular expression
+wa@Search _backwards@Search _backwards
+wa@_Wrap around@Môde _côpaedje di roye
+xh@_Search@_Khangela
+xh@_Find...@_Fumana...
+xh@Find Ne_xt@Fumana oku_landelayo
+xh@Find Pre_vious@Fumana eza_ngaphambili
+xh@Find@Fumana
+xh@_Search for: @_Khangela i: 
+xh@_Match case@_Ngqamanisa unobumba
+xh@Match _entire word only@Dibanisa igama _elipheleleyo qha
+xh@Match as _regular expression@Match as _regular expression
+xh@Search _backwards@Khangela usiya _ngasemva
+xh@_Wrap around@U_qhubeleko-magama kumacala onke
+zh_CN@_Search@搜索(_S)
+zh_CN@_Find...@查找(_F)...
+zh_CN@Find Ne_xt@查找下一个(_X)
+zh_CN@Find Pre_vious@查找上一个(_V)
+zh_CN@Find@查找
+zh_CN@_Search for: @搜索(_S)：
+zh_CN@_Match case@区分大小写(_M)
+zh_CN@Match _entire word only@匹配整个单词(_E)
+zh_CN@Match as _regular expression@Match as _regular expression
+zh_CN@Search _backwards@反向搜索(_B)
+zh_CN@_Wrap around@回到文档头部继续搜索(_W)
+zh_HK@_Search@搜尋(_S)
+zh_HK@_Find...@尋找(_F)...
+zh_HK@Find Ne_xt@找下一個(_X)
+zh_HK@Find Pre_vious@找上一個(_V)
+zh_HK@Find@尋找
+zh_HK@_Search for: @搜尋(_S):
+zh_HK@_Match case@符合大小寫(_M)
+zh_HK@Match _entire word only@只符合整個字詞(_E)
+zh_HK@Match as _regular expression@Match as _regular expression
+zh_HK@Search _backwards@向上搜尋(_B)
+zh_HK@_Wrap around@回到檔案開始部份再搜尋(_W)
+zh_TW@_Search@搜尋(_S)
+zh_TW@_Find...@尋找(_F)...
+zh_TW@Find Ne_xt@找下一個(_X)
+zh_TW@Find Pre_vious@找上一個(_V)
+zh_TW@Find@尋找
+zh_TW@_Search for: @搜尋(_S):
+zh_TW@_Match case@符合大小寫(_M)
+zh_TW@Match _entire word only@只符合整個字詞(_E)
+zh_TW@Match as _regular expression@Match as _regular expression
+zh_TW@Search _backwards@向上搜尋(_B)
+zh_TW@_Wrap around@回到檔案開始部份再搜尋(_W)

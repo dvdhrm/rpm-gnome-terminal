@@ -17,28 +17,31 @@ fi
 mode=$1
 dir=$2
 translations=$3
-strings=("Find" "_Search for: " "_Match case" "Match _entire word only" "Match as _regular expression" "Search _backwards" "_Wrap around")
+gedit_strings=("_Search" "_Find..." "Find Ne_xt" "Find Pre_vious" "Find" "_Search for: " "_Match case" "Match _entire word only" "Match as _regular expression" "Search _backwards" "_Wrap around")
+our_strings=("_Search" "_Find..." "Find Ne_xt" "Find Pre_vious" "Find" "_Search for:" "_Match case" "Match _entire word only" "Match as _regular expression" "Search _backwards" "_Wrap around")
 
 if [ "$mode" = "--update" ]; then
   if ! rpm -q gedit >/dev/null ; then
     echo "Please install gedit"
     exit 1
   fi
-  for i in `grep -v "^#" $dir/po/LINGUAS`; do
-    for s in "${strings[@]}"; do
-      msgstr=`env LANGUAGE="$i.UTF-8" gettext --domain=gedit "$s"`
-      echo "$i:$s:$msgstr"
+  for l in `grep -v "^#" $dir/po/LINGUAS`; do
+    for s in "${gedit_strings[@]}"; do
+      msgstr=`env LANGUAGE="$l.UTF-8" gettext --domain=gedit "$s"`
+      echo "$l@$s@$msgstr"
     done
   done >$translations
 
 elif [ "$mode" = "--apply" ]; then
 
-  for i in `grep -v "^#" $dir/po/LINGUAS`; do
-    for s in "${strings[@]}"; do
-      msgstr=`grep "^$i:$s:" $translations | cut -d: -f3`
-      cat >>$dir/po/$i.po <<EOF
+  for l in `grep -v "^#" $dir/po/LINGUAS`; do
+    for (( i = 0; i < ${#our_strings[@]}; i++ )) ; do
+      s=${gedit_strings[$i]}
+      msgid=${our_strings[$i]}
+      msgstr=`grep "^$l@$s@" $translations | cut -d@ -f3`
+      cat >>$dir/po/$l.po <<EOF
 
-msgid "$s"
+msgid "$msgid"
 msgstr "$msgstr"
 EOF
     done

@@ -9,7 +9,7 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 2.31.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -120,6 +120,9 @@ rm -rf $RPM_BUILD_ROOT/var/scrollkeeper
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Tue May  4 2010 Matthias Clasen <mclasen@redhat.com> - 2.31.2-2
+- Add more translations for search UI
+
 * Tue May  4 2010 Matthias Clasen <mclasen@redhat.com> - 2.31.2-1
 - Update to 2.31.2
 - Add translations for search UI
