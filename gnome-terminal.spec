@@ -18,10 +18,6 @@ Source0: http://download.gnome.org/sources/gnome-terminal/2.31/gnome-terminal-%{
 # http://bugzilla.gnome.org/show_bug.cgi?id=588732
 Source1: profile-new-dialog.ui
 
-# steal gedit translations for search ui
-Source2: apply-extra-translations
-Source3: extra-translations
-
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
 Patch2: gnome-terminal-2.15.0-338913-revert-336325.patch
 
@@ -61,9 +57,6 @@ autoconf
 export PERL5LIB=/usr/lib64/perl5/vendor_perl/5.8.2 perl
 
 %configure --with-widget=vte --disable-scrollkeeper
-
-# patch in translations for extra Search UI strings
-%{SOURCE2} --apply . %{SOURCE3}
 
 make %{?_smp_mflags}
 
