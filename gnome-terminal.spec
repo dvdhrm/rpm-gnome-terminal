@@ -1,14 +1,14 @@
 %define gettext_package gnome-terminal
 
 %define glib2_version 2.16.0
-%define gtk2_version 2.14.0
+%define gtk2_version 2.18.0
 %define gconf_version 2.14.0
-%define vte_version 0.25.1
+%define vte_version 0.25.90
 %define desktop_file_utils_version 0.2.90
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 2.31.3
+Version: 2.31.90
 Release: 1%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
@@ -56,7 +56,7 @@ autoconf
 #workaround broken perl-XML-Parser on 64bit arches
 export PERL5LIB=/usr/lib64/perl5/vendor_perl/5.8.2 perl
 
-%configure --with-widget=vte --disable-scrollkeeper
+%configure --with-widget=vte --with-gtk=2.0 --disable-scrollkeeper
 
 make %{?_smp_mflags}
 
@@ -113,6 +113,9 @@ rm -rf $RPM_BUILD_ROOT/var/scrollkeeper
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Thu Aug 19 2010 Matthias Clasen <mclasen@redhat.com> - 2.31.90-1
+- Update to 2.31.90
+
 * Thu May 27 2010 Matthias Clasen <mclasen@redhat.com> - 2.31.3-1
 - Update to 2.31.3
 
