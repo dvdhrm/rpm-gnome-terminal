@@ -39,6 +39,7 @@ BuildRequires: gnome-doc-utils
 BuildRequires: intltool
 BuildRequires: gnome-common
 BuildRequires: autoconf automake libtool
+BuildRequires: libSM-devel
 
 %description
 gnome-terminal is a terminal emulator for GNOME. It supports translucent
