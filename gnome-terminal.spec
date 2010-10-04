@@ -8,13 +8,13 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 2.32.0
+Version: 2.33.0
 Release: 1%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
-Source0: http://download.gnome.org/sources/gnome-terminal/2.32/gnome-terminal-%{version}.tar.bz2
+Source0: http://download.gnome.org/sources/gnome-terminal/2.33/gnome-terminal-%{version}.tar.bz2
 # http://bugzilla.gnome.org/show_bug.cgi?id=588732
 Source1: profile-new-dialog.ui
 
@@ -50,28 +50,15 @@ clickable URLs.
 %setup -q
 %patch2 -p1 -b .338913-revert-336325
 
-autoconf
+autoreconf -i -f
 
 %build
-
-#workaround broken perl-XML-Parser on 64bit arches
-export PERL5LIB=/usr/lib64/perl5/vendor_perl/5.8.2 perl
-
 %configure --with-widget=vte --with-gtk=2.0 --disable-scrollkeeper
 
 make %{?_smp_mflags}
 
 cp %{SOURCE1} src
 
-# strip unneeded translations from .mo files
-cd po
-grep -v ".*[.]desktop[.]in.*\|.*[.]server[.]in$" POTFILES.in > POTFILES.keep
-mv POTFILES.keep POTFILES.in
-intltool-update --pot
-for p in *.po; do
-  msgmerge $p %{gettext_package}.pot > $p.out
-  msgfmt -o `basename $p .po`.gmo $p.out
-done
 
 %install
 export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
@@ -114,6 +101,9 @@ rm -rf $RPM_BUILD_ROOT/var/scrollkeeper
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Mon Oct  4 2010 Matthias Clasen <mclasen@redhat.com> - 2.33.0-1
+- Update to 2.33.0
+
 * Wed Sep 29 2010 Matthias Clasen <mclasen@redhat.com> - 2.32.0-1
 - Update to 2.32.0
 
