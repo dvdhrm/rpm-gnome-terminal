@@ -20,6 +20,7 @@ Source1: profile-new-dialog.ui
 
 # Fix gnome.org Bug 338913 – Terminal resized when switching tabs
 Patch2: gnome-terminal-2.15.0-338913-revert-336325.patch
+Patch3: gtk3-build.patch
 
 # gconftool-2
 Requires(pre): GConf2 >= %{gconf_version}
@@ -47,6 +48,7 @@ clickable URLs.
 %prep
 %setup -q
 %patch2 -p1 -b .338913-revert-336325
+%patch3 -p1 -b .gtk3-build
 
 autoreconf -i -f
 
