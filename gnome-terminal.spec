@@ -9,7 +9,7 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 2.33.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
