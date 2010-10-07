@@ -1,9 +1,9 @@
 %define gettext_package gnome-terminal
 
 %define glib2_version 2.16.0
-%define gtk2_version 2.18.0
+%define gtk3_version 2.91.0
 %define gconf_version 2.14.0
-%define vte_version 0.25.90
+%define vte3_version 0.27
 %define desktop_file_utils_version 0.2.90
 
 Summary: Terminal emulator for GNOME
@@ -27,11 +27,9 @@ Requires(post): GConf2 >= %{gconf_version}
 Requires(preun): GConf2 >= %{gconf_version}
 
 BuildRequires: glib2-devel >= %{glib2_version}
-BuildRequires: gtk2-devel >= %{gtk2_version}
+BuildRequires: gtk3-devel >= %{gtk3_version}
 BuildRequires: GConf2-devel >= %{gconf_version}
-BuildRequires: libglade2-devel
-BuildRequires: libgnomeui-devel
-BuildRequires: vte-devel >= %{vte_version}
+BuildRequires: vte3-devel >= %{vte3_version}
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
 BuildRequires: scrollkeeper
 BuildRequires: gettext
@@ -53,7 +51,7 @@ clickable URLs.
 autoreconf -i -f
 
 %build
-%configure --with-widget=vte --with-gtk=2.0 --disable-scrollkeeper
+%configure --with-gtk=3.0 --disable-scrollkeeper
 
 make %{?_smp_mflags}
 
@@ -101,6 +99,9 @@ rm -rf $RPM_BUILD_ROOT/var/scrollkeeper
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Thu Oct  7 2010 Matthias Clasen <mclasen@redhat.com> - 2.33.0-2
+- Build against gtk3
+
 * Mon Oct  4 2010 Matthias Clasen <mclasen@redhat.com> - 2.33.0-1
 - Update to 2.33.0
 
