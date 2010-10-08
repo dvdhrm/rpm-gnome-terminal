@@ -1,15 +1,15 @@
 %define gettext_package gnome-terminal
 
 %define glib2_version 2.16.0
-%define gtk3_version 2.91.0
+%define gtk2_version 2.18.0
 %define gconf_version 2.14.0
-%define vte3_version 0.27
+%define vte_version 0.25.90
 %define desktop_file_utils_version 0.2.90
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 2.33.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -28,9 +28,9 @@ Requires(post): GConf2 >= %{gconf_version}
 Requires(preun): GConf2 >= %{gconf_version}
 
 BuildRequires: glib2-devel >= %{glib2_version}
-BuildRequires: gtk3-devel >= %{gtk3_version}
+BuildRequires: gtk2-devel >= %{gtk2_version}
 BuildRequires: GConf2-devel >= %{gconf_version}
-BuildRequires: vte3-devel >= %{vte3_version}
+BuildRequires: vte-devel >= %{vte_version}
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
 BuildRequires: scrollkeeper
 BuildRequires: gettext
@@ -53,7 +53,7 @@ clickable URLs.
 autoreconf -i -f
 
 %build
-%configure --with-gtk=3.0 --disable-scrollkeeper
+%configure --with-widget=vte --with-gtk=2.0 --disable-scrollkeeper
 
 make %{?_smp_mflags}
 
@@ -101,6 +101,10 @@ rm -rf $RPM_BUILD_ROOT/var/scrollkeeper
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Fri Oct  8 2010 Owen Taylor <otaylor@redhat.com> - 2.33.0-3
+- Revert back to a gtk2 build - the gtk3 build has major sizing issues
+  (rhbz #641337)
+
 * Thu Oct  7 2010 Matthias Clasen <mclasen@redhat.com> - 2.33.0-2
 - Build against gtk3
 
