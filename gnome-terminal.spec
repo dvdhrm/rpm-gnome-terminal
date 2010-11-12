@@ -1,15 +1,15 @@
 %define gettext_package gnome-terminal
 
 %define glib2_version 2.16.0
-%define gtk2_version 2.18.0
+%define gtk3_version 2.91.3
 %define gconf_version 2.14.0
-%define vte_version 0.25.90
+%define vte_version 0.27
 %define desktop_file_utils_version 0.2.90
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 2.33.0
-Release: 3%{?dist}
+Version: 2.33.2
+Release: 1%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -18,21 +18,16 @@ Source0: http://download.gnome.org/sources/gnome-terminal/2.33/gnome-terminal-%{
 # http://bugzilla.gnome.org/show_bug.cgi?id=588732
 Source1: profile-new-dialog.ui
 
-# Fix gnome.org Bug 338913 – Terminal resized when switching tabs
-Patch2: gnome-terminal-2.15.0-338913-revert-336325.patch
-Patch3: gtk3-build.patch
-
 # gconftool-2
 Requires(pre): GConf2 >= %{gconf_version}
 Requires(post): GConf2 >= %{gconf_version}
 Requires(preun): GConf2 >= %{gconf_version}
 
 BuildRequires: glib2-devel >= %{glib2_version}
-BuildRequires: gtk2-devel >= %{gtk2_version}
+BuildRequires: gtk3-devel >= %{gtk3_version}
 BuildRequires: GConf2-devel >= %{gconf_version}
-BuildRequires: vte-devel >= %{vte_version}
+BuildRequires: vte3-devel >= %{vte_version}
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
-BuildRequires: scrollkeeper
 BuildRequires: gettext
 BuildRequires: gnome-doc-utils
 BuildRequires: intltool
@@ -47,13 +42,11 @@ clickable URLs.
 
 %prep
 %setup -q
-%patch2 -p1 -b .338913-revert-336325
-%patch3 -p1 -b .gtk3-build
 
 autoreconf -i -f
 
 %build
-%configure --with-widget=vte --with-gtk=2.0 --disable-scrollkeeper
+%configure --with-gtk=3.0
 
 make %{?_smp_mflags}
 
@@ -65,17 +58,11 @@ export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
 make install DESTDIR=$RPM_BUILD_ROOT
 unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
-sed -i -e "s/Icon=gnome-terminal.png/Icon=gnome-terminal/" \
-  $RPM_BUILD_ROOT%{_datadir}/applications/gnome-terminal.desktop
-
 desktop-file-install --vendor gnome --delete-original	\
   --dir $RPM_BUILD_ROOT%{_datadir}/applications		\
   --remove-category=Application				\
   --add-category=System					\
   $RPM_BUILD_ROOT%{_datadir}/applications/gnome-terminal.desktop
-
-# grr, --disable-scrollkeeper is not good enough
-rm -rf $RPM_BUILD_ROOT/var/scrollkeeper
 
 %find_lang %{gettext_package} --with-gnome
 
@@ -101,6 +88,10 @@ rm -rf $RPM_BUILD_ROOT/var/scrollkeeper
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Thu Nov 11 2010 Matthias Clasen <mclasen@redhat.com> - 2.33.2-1
+- Update to 2.33.2
+- Back to gtk3
+
 * Fri Oct  8 2010 Owen Taylor <otaylor@redhat.com> - 2.33.0-3
 - Revert back to a gtk2 build - the gtk3 build has major sizing issues
   (rhbz #641337)
