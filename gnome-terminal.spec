@@ -27,6 +27,8 @@ Requires(preun): GConf2 >= %{gconf_version}
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: gtk3-devel >= %{gtk3_version}
+# for gtk-builder-convert
+BuildRequires: gtk2-devel
 BuildRequires: GConf2-devel >= %{gconf_version}
 BuildRequires: vte3-devel >= %{vte_version}
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
