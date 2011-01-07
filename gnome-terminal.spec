@@ -18,6 +18,8 @@ Source0: http://download.gnome.org/sources/gnome-terminal/2.33/gnome-terminal-%{
 # http://bugzilla.gnome.org/show_bug.cgi?id=588732
 Source1: profile-new-dialog.ui
 
+Patch0: gnome-terminal-builder.patch
+
 # gconftool-2
 Requires(pre): GConf2 >= %{gconf_version}
 Requires(post): GConf2 >= %{gconf_version}
@@ -43,6 +45,7 @@ clickable URLs.
 
 %prep
 %setup -q
+%patch0 -p1 -b .builder
 
 autoreconf -i -f
 
