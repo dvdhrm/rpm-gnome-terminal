@@ -17,7 +17,10 @@ URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/gnome-terminal/2.33/gnome-terminal-%{version}.tar.bz2
 # http://bugzilla.gnome.org/show_bug.cgi?id=588732
 Source1: profile-new-dialog.ui
+
+# https://bugzilla.gnome.org/show_bug.cgi?id=639327
 Source2: find-dialog.ui
+Patch0: terminal-search.patch
 
 # gconftool-2
 Requires(pre): GConf2 >= %{gconf_version}
