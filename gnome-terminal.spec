@@ -8,8 +8,8 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 2.33.4
-Release: 2%{?dist}
+Version: 2.33.5
+Release: 1%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -17,10 +17,6 @@ URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/gnome-terminal/2.33/gnome-terminal-%{version}.tar.bz2
 # http://bugzilla.gnome.org/show_bug.cgi?id=588732
 Source1: profile-new-dialog.ui
-
-# https://bugzilla.gnome.org/show_bug.cgi?id=639327
-Source2: find-dialog.ui
-Patch0: terminal-search.patch
 
 # gconftool-2
 Requires(pre): GConf2 >= %{gconf_version}
@@ -49,17 +45,11 @@ clickable URLs.
 
 %prep
 %setup -q
-%patch0 -p1 -b .find-dialog
-
-autoreconf -i -f
 
 %build
 %configure --with-gtk=3.0
 
 make %{?_smp_mflags}
-
-#cp %{SOURCE1} src
-cp %{SOURCE2} src
 
 %install
 export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
@@ -96,6 +86,9 @@ desktop-file-install --vendor gnome --delete-original	\
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Wed Feb  2 2011 Matthias Clasen <mclasen@redhat.com> - 2.33.5-1
+- Update to 2.33.5
+
 * Wed Jan 12 2011 Matthias Clasen <mclasen@redhat.com> - 2.33.4-2
 - Make the find dialog work again
 
