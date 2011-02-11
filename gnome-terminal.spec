@@ -9,7 +9,7 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 2.33.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -86,6 +86,9 @@ desktop-file-install --vendor gnome --delete-original	\
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Thu Feb 10 2011 Matthias Clasen <mclasen@redhat.com> 2.33.5-3
+- Rebuild against newer gtk
+
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.33.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
