@@ -8,8 +8,8 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 2.33.5
-Release: 3%{?dist}
+Version: 2.33.90
+Release: 1%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -86,6 +86,9 @@ desktop-file-install --vendor gnome --delete-original	\
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Tue Feb 22 2011 Matthias Clasen <mclasen@redhat.com> 2.33.90-1
+- Update to 2.33.90
+
 * Thu Feb 10 2011 Matthias Clasen <mclasen@redhat.com> 2.33.5-3
 - Rebuild against newer gtk
 
