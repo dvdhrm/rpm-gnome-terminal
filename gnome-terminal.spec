@@ -8,13 +8,13 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.0.1
+Version: 3.2.0
 Release: 1%{?dist}
 License: GPLv2+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
-Source0: http://download.gnome.org/sources/gnome-terminal/3.0/gnome-terminal-%{version}.tar.bz2
+Source0: http://download.gnome.org/sources/gnome-terminal/3.0/gnome-terminal-%{version}.tar.xz
 # http://bugzilla.gnome.org/show_bug.cgi?id=588732
 Source1: profile-new-dialog.ui
 
@@ -87,6 +87,9 @@ desktop-file-install --vendor gnome --delete-original	\
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Tue Sep 27 2011 Ray <rstrode@redhat.com> - 3.2.0-1
+- Update to 3.2.0
+
 * Mon Apr 25 2011 Matthias Clasen <mclasen@redhat.com> 3.0.1-1
 - Update to 3.0.1
 
