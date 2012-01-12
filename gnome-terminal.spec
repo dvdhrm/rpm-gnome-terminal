@@ -87,7 +87,7 @@ desktop-file-install --vendor gnome --delete-original	\
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
-* Thu Jan 12 2011 Matthias Clasen <mclasen@redhat.com> - 3.2.1-2
+* Thu Jan 12 2012 Matthias Clasen <mclasen@redhat.com> - 3.2.1-2
 - Update license field (#639132)
 
 * Wed Oct 26 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.2.1-2
