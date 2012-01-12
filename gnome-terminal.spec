@@ -9,8 +9,8 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 3.2.1
-Release: 2%{?dist}
-License: GPLv2+ and GFDL
+Release: 3%{?dist}
+License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
@@ -87,6 +87,9 @@ desktop-file-install --vendor gnome --delete-original	\
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Thu Jan 12 2011 Matthias Clasen <mclasen@redhat.com> - 3.2.1-2
+- Update license field (#639132)
+
 * Wed Oct 26 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.2.1-2
 - Rebuilt for glibc bug#747377
 
