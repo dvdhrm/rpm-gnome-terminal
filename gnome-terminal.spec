@@ -15,8 +15,6 @@ Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
 Source0: http://download.gnome.org/sources/gnome-terminal/3.4/gnome-terminal-%{version}.tar.xz
-# http://bugzilla.gnome.org/show_bug.cgi?id=588732
-Source1: profile-new-dialog.ui
 
 # gconftool-2
 Requires(pre): GConf2 >= %{gconf_version}
