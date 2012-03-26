@@ -78,13 +78,13 @@ desktop-file-install --vendor gnome --delete-original	\
 
 %{_bindir}/gnome-terminal
 %{_datadir}/gnome-terminal
-%{_datadir}/omf/gnome-terminal
 %{_datadir}/applications/gnome-terminal.desktop
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
 * Tue Mar 27 2012 Kalev Lember <kalevlember@gmail.com> - 3.4.0.1-1
 - Update to 3.4.0.1
+- Avoid listing files twice in %%files
 
 * Tue Feb  7 2012 Matthias Clasen <mclasen@redhat.com> - 3.3.0-1
 - Update to 3.3.0
