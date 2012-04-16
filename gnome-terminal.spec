@@ -8,7 +8,7 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.4.0.1
+Version: 3.4.1.1
 Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
@@ -82,6 +82,9 @@ desktop-file-install --vendor gnome --delete-original	\
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Tue Apr 17 2012 Kalev Lember <kalevlember@gmail.com> - 3.4.1.1-1
+- Update to 3.4.1.1
+
 * Tue Mar 27 2012 Kalev Lember <kalevlember@gmail.com> - 3.4.0.1-1
 - Update to 3.4.0.1
 - Avoid listing files twice in %%files
