@@ -8,8 +8,8 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.4.1.1
-Release: 2%{?dist}
+Version: 3.5.90
+Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -82,6 +82,9 @@ desktop-file-install --vendor gnome --delete-original	\
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Tue Aug 21 2012 Richard Hughes <hughsient@gmail.com> - 3.5.90-1
+- Update to 3.5.90
+
 * Fri Jul 27 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.4.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
