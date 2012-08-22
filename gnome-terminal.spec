@@ -36,6 +36,7 @@ BuildRequires: gnome-common
 BuildRequires: autoconf automake libtool
 BuildRequires: libSM-devel
 BuildRequires: scrollkeeper
+BuildRequires: itstool
 
 %description
 gnome-terminal is a terminal emulator for GNOME. It supports translucent
