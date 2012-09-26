@@ -8,13 +8,13 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.5.90
+Version: 3.6.0
 Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
-Source0: http://download.gnome.org/sources/gnome-terminal/3.4/gnome-terminal-%{version}.tar.xz
+Source0: http://download.gnome.org/sources/gnome-terminal/3.6/gnome-terminal-%{version}.tar.xz
 
 # gconftool-2
 Requires(pre): GConf2 >= %{gconf_version}
@@ -83,6 +83,9 @@ desktop-file-install --vendor gnome --delete-original	\
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Tue Sep 25 2012 Matthias Clasen <mclasen@redhat.com> - 3.6.0-1
+- Update to 3.6.0
+
 * Tue Aug 21 2012 Richard Hughes <hughsient@gmail.com> - 3.5.90-1
 - Update to 3.5.90
 
