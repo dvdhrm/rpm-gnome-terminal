@@ -1,14 +1,14 @@
 %define gettext_package gnome-terminal
 
-%define glib2_version 2.16.0
-%define gtk3_version 2.91.3
-%define gconf_version 2.14.0
-%define vte_version 0.27
+%define glib2_version 2.26.0
+%define gtk3_version 3.0.0
+%define gconf_version 2.31.3
+%define vte_version 0.30.0
 %define desktop_file_utils_version 0.2.90
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.6.0
+Version: 3.6.1
 Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
@@ -37,6 +37,8 @@ BuildRequires: autoconf automake libtool
 BuildRequires: libSM-devel
 BuildRequires: scrollkeeper
 BuildRequires: itstool
+
+Requires: gsettings-desktop-schemas
 
 %description
 gnome-terminal is a terminal emulator for GNOME. It supports translucent
@@ -83,6 +85,9 @@ desktop-file-install --vendor gnome --delete-original	\
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Tue Oct 16 2012 Kalev Lember <kalevlember@gmail.com> - 3.6.1-1
+- Update to 3.6.1
+
 * Tue Sep 25 2012 Matthias Clasen <mclasen@redhat.com> - 3.6.0-1
 - Update to 3.6.0
 
