@@ -8,7 +8,7 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.6.1
+Version: 3.7.0
 Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
@@ -85,6 +85,9 @@ desktop-file-install --vendor gnome --delete-original	\
 %{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
 
 %changelog
+* Wed Jan 09 2013 Richard Hughes <hughsient@gmail.com> - 3.7.0-1
+- Update to 3.7.0
+
 * Tue Oct 16 2012 Kalev Lember <kalevlember@gmail.com> - 3.6.1-1
 - Update to 3.6.1
 
