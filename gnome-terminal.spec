@@ -25,7 +25,6 @@ BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: gtk3-devel >= %{gtk3_version}
 # for gtk-builder-convert
 BuildRequires: gtk2-devel
-BuildRequires: GConf2-devel
 BuildRequires: gsettings-desktop-schemas-devel
 BuildRequires: vte3-devel >= %{vte_version}
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
@@ -56,9 +55,7 @@ clickable URLs.
 make %{?_smp_mflags}
 
 %install
-export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
 make install DESTDIR=$RPM_BUILD_ROOT
-unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
 desktop-file-install --vendor gnome --delete-original	\
   --dir $RPM_BUILD_ROOT%{_datadir}/applications		\
@@ -68,23 +65,23 @@ desktop-file-install --vendor gnome --delete-original	\
 
 %find_lang %{gettext_package} --with-gnome
 
-%post
-%gconf_schema_upgrade gnome-terminal
+%postun
+if [ $1 -eq 0 ] ; then
+    /usr/bin/glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
+fi
 
-%pre
-%gconf_schema_prepare gnome-terminal
-
-%preun
-%gconf_schema_remove gnome-terminal
-
+%posttrans
+/usr/bin/glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 %files -f %{gettext_package}.lang
-%doc AUTHORS COPYING NEWS README
+%doc AUTHORS COPYING NEWS
 
 %{_bindir}/gnome-terminal
-%{_datadir}/gnome-terminal
 %{_datadir}/applications/gnome-terminal.desktop
-%{_sysconfdir}/gconf/schemas/gnome-terminal.schemas
+%{_libexecdir}/gnome-terminal-migration
+%{_libexecdir}/gnome-terminal-server
+%{_datadir}/dbus-1/services/org.gnome.Terminal.service
+%{_datadir}/glib-2.0/schemas/org.gnome.Terminal.gschema.xml
 
 %changelog
 * Wed Jan 16 2013 Richard Hughes <hughsient@gmail.com> - 3.7.1-1
