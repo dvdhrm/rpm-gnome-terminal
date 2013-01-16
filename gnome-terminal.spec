@@ -37,6 +37,8 @@ BuildRequires: autoconf automake libtool
 BuildRequires: libSM-devel
 BuildRequires: scrollkeeper
 BuildRequires: itstool
+BuildRequires: dconf-devel
+BuildRequires: libuuid-devel
 
 Requires: gsettings-desktop-schemas
 
