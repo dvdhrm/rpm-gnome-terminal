@@ -1,20 +1,20 @@
 %define gettext_package gnome-terminal
 
-%define glib2_version 2.26.0
-%define gtk3_version 3.0.0
+%define glib2_version 2.33.0
+%define gtk3_version 3.6.0
 %define gconf_version 2.31.3
-%define vte_version 0.30.0
+%define vte_version 0.34.0
 %define desktop_file_utils_version 0.2.90
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.7.1
+Version: 3.7.2
 Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
-Source0: http://download.gnome.org/sources/gnome-terminal/3.6/gnome-terminal-%{version}.tar.xz
+Source0: http://download.gnome.org/sources/gnome-terminal/3.7/gnome-terminal-%{version}.tar.xz
 
 # gconftool-2
 Requires(pre): GConf2 >= %{gconf_version}
@@ -85,6 +85,9 @@ fi
 %{_datadir}/glib-2.0/schemas/org.gnome.Terminal.gschema.xml
 
 %changelog
+* Fri Jan 25 2013 Kalev Lember <kalevlember@gmail.com> - 3.7.2-1
+- Update to 3.7.2
+
 * Wed Jan 16 2013 Richard Hughes <hughsient@gmail.com> - 3.7.1-1
 - Update to 3.7.1
 
