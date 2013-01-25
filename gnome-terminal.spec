@@ -26,7 +26,6 @@ BuildRequires: gettext
 BuildRequires: intltool
 BuildRequires: gnome-common
 BuildRequires: autoconf automake libtool
-BuildRequires: libSM-devel
 BuildRequires: itstool
 BuildRequires: dconf-devel
 BuildRequires: libuuid-devel
