@@ -34,9 +34,8 @@ BuildRequires: libuuid-devel
 Requires: gsettings-desktop-schemas
 
 %description
-gnome-terminal is a terminal emulator for GNOME. It supports translucent
-backgrounds, opening multiple terminals in a single window (tabs) and
-clickable URLs.
+gnome-terminal is a terminal emulator for GNOME. It features the ability to use
+multiple terminals in a single window (tabs) and profiles support.
 
 %prep
 %setup -q
