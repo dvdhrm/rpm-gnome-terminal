@@ -8,12 +8,13 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 3.7.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
 Source0: http://download.gnome.org/sources/gnome-terminal/3.7/gnome-terminal-%{version}.tar.xz
+Patch0: 0001-Don-t-assume-enum-size.patch
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: GConf2-devel
@@ -39,6 +40,7 @@ clickable URLs.
 
 %prep
 %setup -q
+%patch0 -p1 -b .enum_size
 
 %build
 %configure --with-gtk=3.0
@@ -75,6 +77,9 @@ fi
 %{_datadir}/glib-2.0/schemas/org.gnome.Terminal.gschema.xml
 
 %changelog
+* Fri Jan 25 2013 Kalev Lember <kalevlember@gmail.com> - 3.7.2-2
+- Backport a fix for a crash in terminal_screen_container_style_updated
+
 * Fri Jan 25 2013 Kalev Lember <kalevlember@gmail.com> - 3.7.2-1
 - Update to 3.7.2
 
