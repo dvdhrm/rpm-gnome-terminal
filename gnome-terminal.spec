@@ -2,7 +2,6 @@
 
 %define glib2_version 2.33.0
 %define gtk3_version 3.6.0
-%define gconf_version 2.31.3
 %define vte_version 0.34.0
 %define desktop_file_utils_version 0.2.90
 
@@ -16,26 +15,17 @@ URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
 Source0: http://download.gnome.org/sources/gnome-terminal/3.7/gnome-terminal-%{version}.tar.xz
 
-# gconftool-2
-Requires(pre): GConf2 >= %{gconf_version}
-Requires(post): GConf2 >= %{gconf_version}
-Requires(preun): GConf2 >= %{gconf_version}
-
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: GConf2-devel
 BuildRequires: gtk3-devel >= %{gtk3_version}
-# for gtk-builder-convert
-BuildRequires: gtk2-devel
 BuildRequires: gsettings-desktop-schemas-devel
 BuildRequires: vte3-devel >= %{vte_version}
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
 BuildRequires: gettext
-BuildRequires: gnome-doc-utils
 BuildRequires: intltool
 BuildRequires: gnome-common
 BuildRequires: autoconf automake libtool
 BuildRequires: libSM-devel
-BuildRequires: scrollkeeper
 BuildRequires: itstool
 BuildRequires: dconf-devel
 BuildRequires: libuuid-devel
