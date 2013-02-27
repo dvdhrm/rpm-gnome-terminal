@@ -8,13 +8,15 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 3.7.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
 Source0: http://download.gnome.org/sources/gnome-terminal/3.7/gnome-terminal-%{version}.tar.xz
 Patch0: 0001-Don-t-assume-enum-size.patch
+# upstream fix
+Patch1: 0001-Revert-Do-not-show-the-titlebar-when-the-window-is-m.patch
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: GConf2-devel
@@ -39,6 +41,7 @@ multiple terminals in a single window (tabs) and profiles support.
 %prep
 %setup -q
 %patch0 -p1 -b .enum_size
+%patch1 -p1 -b .titlebar
 
 %build
 %configure --with-gtk=3.0
@@ -75,6 +78,9 @@ fi
 %{_datadir}/glib-2.0/schemas/org.gnome.Terminal.gschema.xml
 
 %changelog
+* Tue Feb 26 2013 Matthias Clasen <mclasen@redhat.com> - 3.7.2-3
+- Bring back titlebars on maximized terminals
+
 * Fri Jan 25 2013 Kalev Lember <kalevlember@gmail.com> - 3.7.2-2
 - Backport a fix for a crash in terminal_screen_container_style_updated
 
