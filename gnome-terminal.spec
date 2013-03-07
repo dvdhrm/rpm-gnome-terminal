@@ -7,8 +7,8 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.7.2
-Release: 3%{?dist}
+Version: 3.7.91
+Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -78,6 +78,9 @@ fi
 %{_datadir}/glib-2.0/schemas/org.gnome.Terminal.gschema.xml
 
 %changelog
+* Thu Mar  7 2013 Matthias Clasen <mclasen@redhat.com> - 3.7.91-1
+- Update to 3.7.91
+
 * Tue Feb 26 2013 Matthias Clasen <mclasen@redhat.com> - 3.7.2-3
 - Bring back titlebars on maximized terminals
 
