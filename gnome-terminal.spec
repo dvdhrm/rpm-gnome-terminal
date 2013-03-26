@@ -7,13 +7,13 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.7.92
+Version: 3.8.0
 Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
-Source0: http://download.gnome.org/sources/gnome-terminal/3.7/gnome-terminal-%{version}.tar.xz
+Source0: http://download.gnome.org/sources/gnome-terminal/3.8/gnome-terminal-%{version}.tar.xz
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: GConf2-devel
@@ -73,6 +73,9 @@ fi
 %{_datadir}/glib-2.0/schemas/org.gnome.Terminal.gschema.xml
 
 %changelog
+* Tue Mar 26 2013 Kalev Lember <kalevlember@gmail.com> - 3.8.0-1
+- Update to 3.8.0
+
 * Tue Mar 19 2013 Richard Hughes <rhughes@redhat.com> - 3.7.92-1
 - Update to 3.7.92
 
