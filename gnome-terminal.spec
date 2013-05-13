@@ -7,7 +7,7 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.8.1
+Version: 3.8.2
 Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
@@ -73,6 +73,9 @@ fi
 %{_datadir}/glib-2.0/schemas/org.gnome.Terminal.gschema.xml
 
 %changelog
+* Mon May 13 2013 Richard Hughes <rhughes@redhat.com> - 3.8.2-1
+- Update to 3.8.2
+
 * Mon Apr 15 2013 Kalev Lember <kalevlember@gmail.com> - 3.8.1-1
 - Update to 3.8.1
 
