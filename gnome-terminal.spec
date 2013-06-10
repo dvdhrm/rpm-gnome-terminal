@@ -30,6 +30,7 @@ BuildRequires: dconf-devel
 BuildRequires: libuuid-devel
 
 Requires: gsettings-desktop-schemas
+Requires: vte3%{?_isa} >= %{vte_version}
 
 %description
 gnome-terminal is a terminal emulator for GNOME. It features the ability to use
