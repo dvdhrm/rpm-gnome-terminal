@@ -47,13 +47,10 @@ make %{?_smp_mflags}
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
 
-desktop-file-install --vendor gnome --delete-original	\
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications		\
-  --remove-category=Application				\
-  --add-category=System					\
-  $RPM_BUILD_ROOT%{_datadir}/applications/gnome-terminal.desktop
-
 %find_lang %{gettext_package} --with-gnome
+
+%check
+desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-terminal.desktop
 
 %postun
 if [ $1 -eq 0 ] ; then
@@ -76,6 +73,7 @@ fi
 %changelog
 * Mon Jun 10 2013 Kalev Lember <kalevlember@gmail.com> - 3.8.3-1
 - Update to 3.8.3
+- Use desktop-file-validate instead of desktop-file-install
 
 * Mon May 13 2013 Richard Hughes <rhughes@redhat.com> - 3.8.2-1
 - Update to 3.8.2
