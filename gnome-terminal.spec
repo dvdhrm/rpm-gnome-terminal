@@ -7,7 +7,7 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.8.3
+Version: 3.8.4
 Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
@@ -71,6 +71,10 @@ fi
 %{_datadir}/glib-2.0/schemas/org.gnome.Terminal.gschema.xml
 
 %changelog
+* Mon Jul  8 2013 Matthias Clasen <mclasen@redhat.com> - 3.8.4-1
+- Update to 3.8.4
+- Fixes a crash on session resume (#981440)
+
 * Mon Jun 10 2013 Kalev Lember <kalevlember@gmail.com> - 3.8.3-1
 - Update to 3.8.3
 - Use desktop-file-validate instead of desktop-file-install
