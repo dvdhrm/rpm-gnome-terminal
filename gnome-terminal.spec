@@ -8,7 +8,7 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 3.8.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -71,6 +71,9 @@ fi
 %{_datadir}/glib-2.0/schemas/org.gnome.Terminal.gschema.xml
 
 %changelog
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.8.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Mon Jul  8 2013 Matthias Clasen <mclasen@redhat.com> - 3.8.4-1
 - Update to 3.8.4
 - Fixes a crash on session resume (#981440)
