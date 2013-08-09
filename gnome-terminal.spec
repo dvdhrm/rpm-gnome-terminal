@@ -28,6 +28,7 @@ BuildRequires: autoconf automake libtool
 BuildRequires: itstool
 BuildRequires: dconf-devel
 BuildRequires: libuuid-devel
+BuildRequires: nautilus-devel
 
 Requires: gsettings-desktop-schemas
 Requires: vte3%{?_isa} >= %{vte_version}
@@ -36,16 +37,26 @@ Requires: vte3%{?_isa} >= %{vte_version}
 gnome-terminal is a terminal emulator for GNOME. It features the ability to use
 multiple terminals in a single window (tabs) and profiles support.
 
+%package nautilus
+Summary: GNOME Terminal extension for Nautilus
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description nautilus
+This package provides a Nautilus extension that adds the 'Open in Terminal'
+option to the right-click context menu in Nautilus.
+
 %prep
 %setup -q
 
 %build
-%configure --with-gtk=3.0
+%configure --disable-static --with-gtk=3.0
 
 make %{?_smp_mflags}
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
+
+rm -f $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-3.0/*.la
 
 %find_lang %{gettext_package} --with-gnome
 
@@ -70,9 +81,15 @@ fi
 %{_datadir}/dbus-1/services/org.gnome.Terminal.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Terminal.gschema.xml
 
+%files nautilus
+%dir %{_libdir}/nautilus
+%dir %{_libdir}/nautilus/extensions-3.0
+%{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
+
 %changelog
 * Fri Aug 09 2013 Kalev Lember <kalevlember@gmail.com> - 3.9.90-1
 - Update to 3.9.90
+- Package up the nautilus extension in gnome-terminal-nautilus subpackage
 
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.8.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
