@@ -82,8 +82,6 @@ fi
 %{_datadir}/glib-2.0/schemas/org.gnome.Terminal.gschema.xml
 
 %files nautilus
-%dir %{_libdir}/nautilus
-%dir %{_libdir}/nautilus/extensions-3.0
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
