@@ -7,7 +7,7 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.9.90
+Version: 3.9.92
 Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
@@ -49,7 +49,7 @@ option to the right-click context menu in Nautilus.
 %setup -q
 
 %build
-%configure --disable-static --with-gtk=3.0
+%configure --disable-static --with-gtk=3.0 --with-nautilus-extension
 
 make %{?_smp_mflags}
 
@@ -85,6 +85,9 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Wed Sep 18 2013 Kalev Lember <kalevlember@gmail.com> - 3.9.92-1
+- Update to 3.9.92
+
 * Fri Aug 09 2013 Kalev Lember <kalevlember@gmail.com> - 3.9.90-1
 - Update to 3.9.90
 - Package up the nautilus extension in gnome-terminal-nautilus subpackage
