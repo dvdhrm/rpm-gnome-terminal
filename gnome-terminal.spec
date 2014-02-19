@@ -7,8 +7,8 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.11.0
-Release: 2%{?dist}
+Version: 3.11.2
+Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -85,6 +85,9 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Wed Feb 19 2014 Richard Hughes <rhughes@redhat.com> - 3.11.2-1
+- Update to 3.11.2
+
 * Mon Nov 25 2013 Richard Hughes <rhughes@redhat.com> - 3.11.0-2
 - Re-issued tarball. Kinda unusual, but such is life.
 
