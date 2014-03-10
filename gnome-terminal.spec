@@ -8,7 +8,7 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 3.11.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -29,6 +29,7 @@ BuildRequires: itstool
 BuildRequires: dconf-devel
 BuildRequires: libuuid-devel
 BuildRequires: nautilus-devel
+BuildRequires: gnome-shell
 
 Requires: gsettings-desktop-schemas
 Requires: vte3%{?_isa} >= %{vte_version}
@@ -80,11 +81,16 @@ fi
 %{_libexecdir}/gnome-terminal-server
 %{_datadir}/dbus-1/services/org.gnome.Terminal.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Terminal.gschema.xml
+%{_datadir}/gnome-shell
 
 %files nautilus
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Mon Mar 10 2014 Kevin Fenzi <kevin@scrye.com> 3.11.3-2
+- Rebuild for new gnome-shell
+- Own datadir/gnome-shell for search provider
+
 * Wed Feb 19 2014 Richard Hughes <rhughes@redhat.com> - 3.11.3-1
 - Update to 3.11.3
 
