@@ -7,13 +7,13 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.11.3
-Release: 2%{?dist}
+Version: 3.12.0
+Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
-Source0: http://download.gnome.org/sources/gnome-terminal/3.11/gnome-terminal-%{version}.tar.xz
+Source0: http://download.gnome.org/sources/gnome-terminal/3.12/gnome-terminal-%{version}.tar.xz
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: GConf2-devel
@@ -87,6 +87,9 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Mon Mar 24 2014 Richard Hughes <rhughes@redhat.com> - 3.12.0-1
+- Update to 3.12.0
+
 * Mon Mar 10 2014 Kevin Fenzi <kevin@scrye.com> 3.11.3-2
 - Rebuild for new gnome-shell
 - Own datadir/gnome-shell for search provider
