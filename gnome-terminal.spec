@@ -30,6 +30,7 @@ BuildRequires: dconf-devel
 BuildRequires: libuuid-devel
 BuildRequires: nautilus-devel
 BuildRequires: gnome-shell
+BuildRequires: appdata-tools
 
 Requires: gsettings-desktop-schemas
 Requires: vte3%{?_isa} >= %{vte_version}
