@@ -77,6 +77,7 @@ fi
 %doc AUTHORS COPYING NEWS
 
 %{_bindir}/gnome-terminal
+%{_datadir}/appdata/gnome-terminal.appdata.xml
 %{_datadir}/applications/gnome-terminal.desktop
 %{_libexecdir}/gnome-terminal-migration
 %{_libexecdir}/gnome-terminal-server
