@@ -8,12 +8,13 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 3.12.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
 Source0: http://download.gnome.org/sources/gnome-terminal/3.12/gnome-terminal-%{version}.tar.xz
+Source1: org.gnome.Terminal.gschema.override
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: GConf2-devel
@@ -60,6 +61,8 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-3.0/*.la
 
+cp %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas
+
 %find_lang %{gettext_package} --with-gnome
 
 %check
@@ -83,12 +86,16 @@ fi
 %{_libexecdir}/gnome-terminal-server
 %{_datadir}/dbus-1/services/org.gnome.Terminal.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Terminal.gschema.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.Terminal.gschema.override
 %{_datadir}/gnome-shell
 
 %files nautilus
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Thu Apr 03 2014 Debarshi Ray <rishi@fedoraproject.org> - 3.12.0-2
+- Use the dark theme variant
+
 * Mon Mar 24 2014 Richard Hughes <rhughes@redhat.com> - 3.12.0-1
 - Update to 3.12.0
 
