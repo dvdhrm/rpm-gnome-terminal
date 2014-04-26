@@ -1,8 +1,8 @@
 %define gettext_package gnome-terminal
 
-%define glib2_version 2.33.2
+%define glib2_version 2.39.2
 %define gtk3_version 3.9.9
-%define vte_version 0.34.7
+%define vte_version 0.36.1
 %define desktop_file_utils_version 0.2.90
 
 Summary: Terminal emulator for GNOME
@@ -33,7 +33,9 @@ BuildRequires: nautilus-devel
 BuildRequires: gnome-shell
 BuildRequires: appdata-tools
 
+Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gsettings-desktop-schemas
+Requires: gtk3%{?_isa} >= %{gtk3_version}
 Requires: vte3%{?_isa} >= %{vte_version}
 
 %description
