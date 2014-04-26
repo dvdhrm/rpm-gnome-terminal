@@ -7,8 +7,8 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.12.0
-Release: 2%{?dist}
+Version: 3.12.1
+Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -93,6 +93,9 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Sat Apr 26 2014 Kalev Lember <kalevlember@gmail.com> - 3.12.1-1
+- Update to 3.12.1
+
 * Thu Apr 03 2014 Debarshi Ray <rishi@fedoraproject.org> - 3.12.0-2
 - Use the dark theme variant
 
