@@ -20,7 +20,7 @@ BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: GConf2-devel
 BuildRequires: gtk3-devel >= %{gtk3_version}
 BuildRequires: gsettings-desktop-schemas-devel
-BuildRequires: vte3-devel >= %{vte_version}
+BuildRequires: vte291-devel >= %{vte_version}
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
 BuildRequires: gettext
 BuildRequires: intltool
@@ -36,7 +36,7 @@ BuildRequires: appdata-tools
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gsettings-desktop-schemas
 Requires: gtk3%{?_isa} >= %{gtk3_version}
-Requires: vte3%{?_isa} >= %{vte_version}
+Requires: vte291%{?_isa} >= %{vte_version}
 
 %description
 gnome-terminal is a terminal emulator for GNOME. It features the ability to use
