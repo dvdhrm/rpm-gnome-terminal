@@ -8,13 +8,15 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 3.13.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
 Source0: http://download.gnome.org/sources/gnome-terminal/3.13/gnome-terminal-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
+
+Patch0: 0001-window-Fix-parent-class-in-template-definition.patch
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: GConf2-devel
@@ -52,6 +54,7 @@ option to the right-click context menu in Nautilus.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %configure --disable-static --with-gtk=3.0 --with-nautilus-extension
@@ -95,6 +98,9 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Wed May 28 2014 Kalev Lember <kalevlember@gmail.com> - 3.13.0-2
+- Fix parent class in template definition
+
 * Sun Apr 27 2014 Kalev Lember <kalevlember@gmail.com> - 3.13.0-1
 - Update to 3.13.0
 
