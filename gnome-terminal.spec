@@ -2,13 +2,13 @@
 
 %define glib2_version 2.40.0
 %define gtk3_version 3.9.9
-%define vte_version 0.37.1
+%define vte_version 0.37.90
 %define desktop_file_utils_version 0.2.90
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.13.2
-Release: 2%{?dist}
+Version: 3.13.90
+Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -96,6 +96,9 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Tue Aug 19 2014 Kalev Lember <kalevlember@gmail.com> - 3.13.90-1
+- Update to 3.13.90
+
 * Sat Aug 16 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.13.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
