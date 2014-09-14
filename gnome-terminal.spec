@@ -1,14 +1,14 @@
 %define gettext_package gnome-terminal
 
 %define glib2_version 2.40.0
-%define gtk3_version 3.9.9
-%define vte_version 0.37.90
+%define gtk3_version 3.10.0
+%define vte_version 0.38.0
 %define desktop_file_utils_version 0.2.90
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.13.90
-Release: 2%{?dist}
+Version: 3.13.92
+Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -99,6 +99,9 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Sun Sep 14 2014 Kalev Lember <kalevlember@gmail.com> - 3.13.92-1
+- Update to 3.13.92
+
 * Fri Sep 12 2014 Debarshi Ray <rishi@fedorapeople.org> - 3.13.90-2
 - Restore transparency
 
