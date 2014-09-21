@@ -7,13 +7,13 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.13.92
+Version: 3.14.0
 Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
-Source0: http://download.gnome.org/sources/gnome-terminal/3.13/gnome-terminal-%{version}.tar.xz
+Source0: http://download.gnome.org/sources/gnome-terminal/3.14/gnome-terminal-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
 
 Patch0: 0001-Restore-transparency-gnome-3-14.patch
@@ -99,6 +99,9 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Sun Sep 21 2014 Kalev Lember <kalevlember@gmail.com> - 3.14.0-1
+- Update to 3.14.0
+
 * Sun Sep 14 2014 Kalev Lember <kalevlember@gmail.com> - 3.13.92-1
 - Update to 3.13.92
 
