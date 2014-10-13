@@ -7,7 +7,7 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.14.0
+Version: 3.14.1
 Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
@@ -99,6 +99,9 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Mon Oct 13 2014 Kalev Lember <kalevlember@gmail.com> - 3.14.1-1
+- Update to 3.14.1
+
 * Sun Sep 21 2014 Kalev Lember <kalevlember@gmail.com> - 3.14.0-1
 - Update to 3.14.0
 
