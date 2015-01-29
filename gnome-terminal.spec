@@ -8,7 +8,7 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 3.14.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -17,6 +17,8 @@ Source0: http://download.gnome.org/sources/gnome-terminal/3.14/gnome-terminal-%{
 Source1: org.gnome.Terminal.gschema.override
 
 Patch0: 0001-Restore-transparency-gnome-3-14.patch
+# Company's initial patch for https://bugzilla.gnome.org/show_bug.cgi?id=743395
+Patch1: gnome-terminal-3.15-resize.patch
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: GConf2-devel
@@ -56,6 +58,7 @@ option to the right-click context menu in Nautilus.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %configure --disable-static --with-gtk=3.0 --with-nautilus-extension
@@ -99,6 +102,9 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Mon Jan 26 2015 Adam Williamson <awilliam@redhat.com> - 3.14.2-2
+- backport partial fix for BGO#743395
+
 * Mon Nov 10 2014 Kalev Lember <kalevlember@gmail.com> - 3.14.2-1
 - Update to 3.14.2
 
