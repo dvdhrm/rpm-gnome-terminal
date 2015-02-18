@@ -7,18 +7,18 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.14.2
-Release: 2%{?dist}
+Version: 3.15.90
+Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
-Source0: http://download.gnome.org/sources/gnome-terminal/3.14/gnome-terminal-%{version}.tar.xz
+Source0: http://download.gnome.org/sources/gnome-terminal/3.15/gnome-terminal-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
 
-Patch0: 0001-Restore-transparency-gnome-3-14.patch
-# Company's initial patch for https://bugzilla.gnome.org/show_bug.cgi?id=743395
-Patch1: gnome-terminal-3.15-resize.patch
+Patch100: gnome-terminal-restore-transparency.patch
+Patch101: gnome-terminal-restore-dark.patch
+Patch102: gnome-terminal-command-notify.patch
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: GConf2-devel
@@ -57,10 +57,12 @@ option to the right-click context menu in Nautilus.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+%patch100 -p1 -b .transparency
+%patch101 -p1 -b .dark
+%patch101 -p1 -b .command-notify
 
 %build
+autoreconf -f -i
 %configure --disable-static --with-gtk=3.0 --with-nautilus-extension
 
 make %{?_smp_mflags}
@@ -102,6 +104,12 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Wed Feb 18 2015 Debarshi Ray <rishi@fedoraproject.org> - 3.15.90-1
+- Update to 3.15.90
+- Restore translations for transparency strings
+- Restore dark terminals
+- Add command-notify patches
+
 * Mon Jan 26 2015 Adam Williamson <awilliam@redhat.com> - 3.14.2-2
 - backport partial fix for BGO#743395
 
