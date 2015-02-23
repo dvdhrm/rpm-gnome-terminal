@@ -36,7 +36,7 @@ BuildRequires: libuuid-devel
 BuildRequires: nautilus-devel
 BuildRequires: gnome-shell
 BuildRequires: appdata-tools
-BuildRequires: vala
+BuildRequires: vala-devel
 
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gsettings-desktop-schemas
