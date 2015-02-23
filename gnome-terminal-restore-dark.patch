@@ -1,4 +1,4 @@
-From 2abe546b53ee00005ab76c5ef26e557a9422b980 Mon Sep 17 00:00:00 2001
+From 7da7309d203e51fb03c002f87a9a6ddd8ee67978 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 17 Feb 2015 13:22:11 +0100
 Subject: [PATCH 1/2] Revert "prefs: Remove dark theme pref"
@@ -13,10 +13,10 @@ This reverts commit 5f6c514a8840a5d1b87a8c399defee3b5052ec18.
  5 files changed, 34 insertions(+), 1 deletion(-)
 
 diff --git a/src/org.gnome.Terminal.gschema.xml b/src/org.gnome.Terminal.gschema.xml
-index e480155..668e8e1 100644
+index 051bdc4..95c5405 100644
 --- a/src/org.gnome.Terminal.gschema.xml
 +++ b/src/org.gnome.Terminal.gschema.xml
-@@ -646,6 +646,11 @@
+@@ -656,6 +656,11 @@
        <summary>Whether to show the menubar in new windows</summary>
      </key>
  
@@ -105,10 +105,10 @@ index 97f6c33..a57dde6 100644
                     new_terminal_mode_combo,
                     "active-id",
 diff --git a/src/terminal-schemas.h b/src/terminal-schemas.h
-index 17ffdb2..8a1b45a 100644
+index 0fcbf52..c6acd7c 100644
 --- a/src/terminal-schemas.h
 +++ b/src/terminal-schemas.h
-@@ -66,6 +66,7 @@ G_BEGIN_DECLS
+@@ -69,6 +69,7 @@ G_BEGIN_DECLS
  
  #define TERMINAL_SETTING_CONFIRM_CLOSE_KEY              "confirm-close"
  #define TERMINAL_SETTING_DEFAULT_SHOW_MENUBAR_KEY       "default-show-menubar"
@@ -120,7 +120,7 @@ index 17ffdb2..8a1b45a 100644
 2.1.0
 
 
-From c940c71749614e32bf8878c9303432da6ac15164 Mon Sep 17 00:00:00 2001
+From 9fc68b087180e48cb4e2275f3134f66f2c43de14 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 17 Feb 2015 13:22:21 +0100
 Subject: [PATCH 2/2] Revert "help: Remove dark theme pref"
