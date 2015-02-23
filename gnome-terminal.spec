@@ -63,7 +63,7 @@ option to the right-click context menu in Nautilus.
 
 %build
 autoreconf -f -i
-%configure --disable-static --with-gtk=3.0 --with-nautilus-extension
+%configure --disable-static --disable-gterminal --with-gtk=3.0 --with-nautilus-extension
 
 make %{?_smp_mflags}
 
