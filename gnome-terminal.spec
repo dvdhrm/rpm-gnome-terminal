@@ -82,7 +82,7 @@ cp %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas
 %find_lang %{gettext_package} --with-gnome
 
 %check
-desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-terminal.desktop
+desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Terminal.desktop
 
 %postun
 if [ $1 -eq 0 ] ; then
@@ -96,8 +96,8 @@ fi
 %doc AUTHORS COPYING NEWS
 
 %{_bindir}/gnome-terminal
-%{_datadir}/appdata/gnome-terminal.appdata.xml
-%{_datadir}/applications/gnome-terminal.desktop
+%{_datadir}/appdata/org.gnome.Terminal.appdata.xml
+%{_datadir}/applications/org.gnome.Terminal.desktop
 %{_libexecdir}/gnome-terminal-migration
 %{_libexecdir}/gnome-terminal-server
 %{_datadir}/dbus-1/services/org.gnome.Terminal.service
