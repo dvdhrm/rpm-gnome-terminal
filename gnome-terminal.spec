@@ -59,7 +59,7 @@ option to the right-click context menu in Nautilus.
 %setup -q
 %patch100 -p1 -b .transparency
 %patch101 -p1 -b .dark
-%patch101 -p1 -b .command-notify
+%patch102 -p1 -b .command-notify
 
 %build
 autoreconf -f -i
