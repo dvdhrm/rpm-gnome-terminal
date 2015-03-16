@@ -8,7 +8,7 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 3.15.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -109,6 +109,9 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Mon Mar 16 2015 Debarshi Ray <rishi@fedoraproject.org> - 3.15.90-2
+- Withdraw the notification on focus-in-event
+
 * Wed Feb 18 2015 Debarshi Ray <rishi@fedoraproject.org> - 3.15.90-1
 - Update to 3.15.90
 - Restore translations for transparency strings

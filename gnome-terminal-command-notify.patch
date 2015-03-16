@@ -1,19 +1,18 @@
-From 2cfb5a8b205c61f773d5d438842b829ef3fcc220 Mon Sep 17 00:00:00 2001
+From 94b29611359d0d8510876be531825ec2edf44e09 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 27 Jan 2015 18:40:13 +0100
 Subject: [PATCH 1/3] Support desktop notifications from OSC 777
 
 https://bugzilla.gnome.org/show_bug.cgi?id=711059
 ---
- src/terminal-app.c       | 32 +++++++++++++++++++++++
- src/terminal-notebook.c  |  4 +++
- src/terminal-screen.c    | 68 ++++++++++++++++++++++++++++++++++++++++++++++++
- src/terminal-tab-label.c | 28 +++++++++++++++++++-
- src/terminal-tab-label.h |  4 +++
- 5 files changed, 135 insertions(+), 1 deletion(-)
+ src/terminal-app.c       |  32 ++++++++++++++
+ src/terminal-screen.c    | 108 +++++++++++++++++++++++++++++++++++++++++++++++
+ src/terminal-tab-label.c |  28 +++++++++++-
+ src/terminal-tab-label.h |   4 ++
+ 4 files changed, 171 insertions(+), 1 deletion(-)
 
 diff --git a/src/terminal-app.c b/src/terminal-app.c
-index 95302c5..ae2043e 100644
+index 94fa35b..de74532 100644
 --- a/src/terminal-app.c
 +++ b/src/terminal-app.c
 @@ -299,6 +299,31 @@ app_menu_quit_cb (GSimpleAction *action,
@@ -69,30 +68,8 @@ index 95302c5..ae2043e 100644
  
    builder = gtk_builder_new ();
    gtk_builder_add_from_resource (builder,
-diff --git a/src/terminal-notebook.c b/src/terminal-notebook.c
-index d855a7b..31f2771 100644
---- a/src/terminal-notebook.c
-+++ b/src/terminal-notebook.c
-@@ -243,6 +243,7 @@ terminal_notebook_switch_page (GtkNotebook     *gtk_notebook,
- {
-   TerminalNotebook *notebook = TERMINAL_NOTEBOOK (gtk_notebook);
-   TerminalNotebookPrivate *priv = notebook->priv;
-+  GtkWidget *tab_label;
-   TerminalScreen *screen, *old_active_screen;
- 
-   GTK_NOTEBOOK_CLASS (terminal_notebook_parent_class)->switch_page (gtk_notebook, child, page_num);
-@@ -253,6 +254,9 @@ terminal_notebook_switch_page (GtkNotebook     *gtk_notebook,
-   if (screen == old_active_screen)
-     return;
- 
-+  tab_label = gtk_notebook_get_tab_label (gtk_notebook, child);
-+  terminal_tab_label_set_icon (TERMINAL_TAB_LABEL (tab_label), NULL, NULL);
-+
-   /* Workaround to remove gtknotebook's feature of computing its size based on
-    * all pages. When the widget is hidden, its size will not be taken into
-    * account.
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 62c9f5e..78b9d43 100644
+index df3fdde..bb139e3 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
 @@ -48,6 +48,7 @@
@@ -111,7 +88,14 @@ index 62c9f5e..78b9d43 100644
    int child_pid;
    GSList *match_tags;
    guint launch_child_source_id;
-@@ -136,6 +138,9 @@ static gboolean terminal_screen_do_exec (TerminalScreen *screen,
+@@ -131,11 +133,16 @@ static void terminal_screen_system_font_changed_cb (GSettings *,
+ static gboolean terminal_screen_popup_menu (GtkWidget *widget);
+ static gboolean terminal_screen_button_press (GtkWidget *widget,
+                                               GdkEventButton *event);
++static gboolean terminal_screen_focus_in (GtkWidget *widget,
++                                          GdkEventFocus *event);
+ static gboolean terminal_screen_do_exec (TerminalScreen *screen,
+                                          FDSetupData    *data,
                                           GError **error);
  static void terminal_screen_child_exited  (VteTerminal *terminal,
                                             int status);
@@ -121,7 +105,14 @@ index 62c9f5e..78b9d43 100644
  
  static void terminal_screen_window_title_changed      (VteTerminal *vte_terminal,
                                                         TerminalScreen *screen);
-@@ -440,6 +445,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
+@@ -434,12 +441,14 @@ terminal_screen_class_init (TerminalScreenClass *klass)
+   object_class->get_property = terminal_screen_get_property;
+   object_class->set_property = terminal_screen_set_property;
+ 
++  widget_class->focus_in_event = terminal_screen_focus_in;
+   widget_class->realize = terminal_screen_realize;
+   widget_class->drag_data_received = terminal_screen_drag_data_received;
+   widget_class->button_press_event = terminal_screen_button_press;
    widget_class->popup_menu = terminal_screen_popup_menu;
  
    terminal_class->child_exited = terminal_screen_child_exited;
@@ -129,7 +120,7 @@ index 62c9f5e..78b9d43 100644
  
    signals[PROFILE_SET] =
      g_signal_new (I_("profile-set"),
-@@ -561,6 +567,10 @@ terminal_screen_dispose (GObject *object)
+@@ -561,6 +570,10 @@ terminal_screen_dispose (GObject *object)
    TerminalScreen *screen = TERMINAL_SCREEN (object);
    TerminalScreenPrivate *priv = screen->priv;
    GtkSettings *settings;
@@ -140,7 +131,51 @@ index 62c9f5e..78b9d43 100644
  
    settings = gtk_widget_get_settings (GTK_WIDGET (screen));
    g_signal_handlers_disconnect_matched (settings, G_SIGNAL_MATCH_DATA,
-@@ -1623,6 +1633,64 @@ terminal_screen_child_exited (VteTerminal *terminal,
+@@ -1502,6 +1515,43 @@ terminal_screen_button_press (GtkWidget      *widget,
+   return FALSE;
+ }
+ 
++static gboolean
++terminal_screen_focus_in (GtkWidget     *widget,
++                          GdkEventFocus *event)
++{
++  TerminalScreen *screen = TERMINAL_SCREEN (widget);
++  TerminalApp *app;
++  TerminalWindow *window;
++
++  window = terminal_screen_get_window (screen);
++  if (window != NULL)
++    {
++      TerminalScreenContainer *screen_container;
++
++      screen_container = terminal_screen_container_get_from_screen (screen);
++      if (screen_container != NULL)
++        {
++          GtkWidget *mdi_container;
++
++          mdi_container = terminal_window_get_mdi_container (window);
++          /* FIXME: add interface method to retrieve tab label */
++          if (GTK_IS_NOTEBOOK (mdi_container))
++            {
++              GtkWidget *tab_label;
++
++              tab_label = gtk_notebook_get_tab_label (GTK_NOTEBOOK (mdi_container), GTK_WIDGET (screen_container));
++              terminal_tab_label_set_bold (TERMINAL_TAB_LABEL (tab_label), FALSE);
++              terminal_tab_label_set_icon (TERMINAL_TAB_LABEL (tab_label), NULL, NULL);
++            }
++        }
++    }
++
++  app = terminal_app_get ();
++  g_application_withdraw_notification (G_APPLICATION (app), screen->priv->uuid);
++
++  return GTK_WIDGET_CLASS (terminal_screen_parent_class)->focus_in_event (widget, event);
++}
++
+ /**
+  * terminal_screen_get_current_dir:
+  * @screen:
+@@ -1603,6 +1653,64 @@ terminal_screen_child_exited (VteTerminal *terminal,
  }
  
  static void
@@ -284,7 +319,7 @@ index 20cfbce..a987025 100644
 2.1.0
 
 
-From a3413cd8453351cdb1fbe0e54166d5e326b27091 Mon Sep 17 00:00:00 2001
+From 261c88d13ede50b165aaef859f2f95660dc6c965 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 27 Jan 2015 19:04:19 +0100
 Subject: [PATCH 2/3] Make notifications based on org.gtk.Notification work
@@ -517,7 +552,7 @@ index b6506f2..1b9f81c 100644
 2.1.0
 
 
-From d65d9045e4458fc27a5a08450c07c8ac1fa29178 Mon Sep 17 00:00:00 2001
+From acd11f2b16e6fffebcb881a447b37913a960a324 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 29 Jan 2015 11:47:21 +0100
 Subject: [PATCH 3/3] Sprinkle debug messages for notifications
@@ -529,8 +564,8 @@ https://bugzilla.gnome.org/show_bug.cgi?id=711059
 ---
  src/terminal-debug.c  | 1 +
  src/terminal-debug.h  | 3 ++-
- src/terminal-screen.c | 4 ++++
- 3 files changed, 7 insertions(+), 1 deletion(-)
+ src/terminal-screen.c | 6 ++++++
+ 3 files changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/src/terminal-debug.c b/src/terminal-debug.c
 index 0ff321f..dac79c3 100644
@@ -559,10 +594,19 @@ index 5dc3ca4..7499ebe 100644
  
  void _terminal_debug_init(void);
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 78b9d43..3845b10 100644
+index bb139e3..cd12ab9 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
-@@ -1641,6 +1641,8 @@ terminal_screen_notification_received (VteTerminal *terminal,
+@@ -1523,6 +1523,8 @@ terminal_screen_focus_in (GtkWidget     *widget,
+   TerminalApp *app;
+   TerminalWindow *window;
+ 
++  _terminal_debug_print (TERMINAL_DEBUG_NOTIFICATIONS, "Notification withdrawn\n");
++
+   window = terminal_screen_get_window (screen);
+   if (window != NULL)
+     {
+@@ -1661,6 +1663,8 @@ terminal_screen_notification_received (VteTerminal *terminal,
    TerminalScreenPrivate *priv = screen->priv;
    TerminalWindow *window;
  
@@ -571,7 +615,7 @@ index 78b9d43..3845b10 100644
    if (G_UNLIKELY (!priv->shell_prompt_shown))
      {
        priv->shell_prompt_shown = TRUE;
-@@ -1672,6 +1674,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
+@@ -1692,6 +1696,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
            tab_label = gtk_notebook_get_tab_label (GTK_NOTEBOOK (mdi_container), GTK_WIDGET (screen_container));
            terminal_tab_label_set_bold (TERMINAL_TAB_LABEL (tab_label), TRUE);
            terminal_tab_label_set_icon (TERMINAL_TAB_LABEL (tab_label), "dialog-information-symbolic", summary);
@@ -579,7 +623,7 @@ index 78b9d43..3845b10 100644
          }
      }
    else
-@@ -1687,6 +1690,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
+@@ -1707,6 +1712,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
  
        app = terminal_app_get ();
        g_application_send_notification (G_APPLICATION (app), priv->uuid, notification);
