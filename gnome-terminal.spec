@@ -16,8 +16,7 @@ URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/gnome-terminal/3.15/gnome-terminal-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
 
-Patch0: 0001-all-Fix-various-format-specifiers-for-Wformat-signed.patch
-Patch1: 0001-build-Don-t-treat-warnings-as-errors.patch
+Patch0: 0001-build-Don-t-treat-warnings-as-errors.patch
 
 Patch100: gnome-terminal-restore-transparency.patch
 Patch101: gnome-terminal-restore-dark.patch
@@ -60,8 +59,7 @@ option to the right-click context menu in Nautilus.
 
 %prep
 %setup -q
-%patch0 -p1 -b .format
-%patch1 -p1 -b .warnings
+%patch0 -p1 -b .warnings
 %patch100 -p1 -b .transparency
 %patch101 -p1 -b .dark
 %patch102 -p1 -b .command-notify
@@ -111,6 +109,7 @@ fi
 %changelog
 * Tue Mar 17 2015 Debarshi Ray <rishi@fedoraproject.org> - 3.15.92-1
 - Update to 3.15.92
+- Drop upstreamed patch
 - Rebase the translations for transparency strings
 
 * Mon Mar 16 2015 Debarshi Ray <rishi@fedoraproject.org> - 3.15.90-2
