@@ -7,7 +7,7 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.16.0
+Version: 3.16.1
 Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
@@ -107,6 +107,9 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Tue Apr 14 2015 Kalev Lember <kalevlember@gmail.com> - 3.16.1-1
+- Update to 3.16.1
+
 * Tue Mar 24 2015 Debarshi Ray <rishi@fedoraproject.org> - 3.16.0-1
 - Update to 3.16.0
 - Rebase the translations for transparency strings
