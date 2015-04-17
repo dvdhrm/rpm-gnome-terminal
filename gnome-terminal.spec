@@ -40,6 +40,7 @@ BuildRequires: gnome-shell
 BuildRequires: appdata-tools
 BuildRequires: vala-devel
 
+Requires: dbus-x11
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gsettings-desktop-schemas
 Requires: gtk3%{?_isa} >= %{gtk3_version}
