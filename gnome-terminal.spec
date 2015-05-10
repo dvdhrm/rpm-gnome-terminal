@@ -92,7 +92,8 @@ fi
 /usr/bin/glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 %files -f %{gettext_package}.lang
-%doc AUTHORS COPYING NEWS
+%license COPYING
+%doc AUTHORS NEWS
 
 %{_bindir}/gnome-terminal
 %{_datadir}/appdata/org.gnome.Terminal.appdata.xml
