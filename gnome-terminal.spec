@@ -18,9 +18,8 @@ Source1: org.gnome.Terminal.gschema.override
 
 Patch0: 0001-build-Don-t-treat-warnings-as-errors.patch
 
-Patch100: gnome-terminal-restore-transparency.patch
-Patch101: gnome-terminal-restore-dark.patch
-Patch102: gnome-terminal-command-notify.patch
+Patch100: gnome-terminal-restore-dark-transparency.patch
+Patch101: gnome-terminal-command-notify.patch
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: GConf2-devel
@@ -61,9 +60,8 @@ option to the right-click context menu in Nautilus.
 %prep
 %setup -q
 %patch0 -p1 -b .warnings
-%patch100 -p1 -b .transparency
-%patch101 -p1 -b .dark
-%patch102 -p1 -b .command-notify
+%patch100 -p1 -b .dark-transparency
+%patch101 -p1 -b .command-notify
 
 %build
 autoreconf -f -i
