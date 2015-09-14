@@ -2,7 +2,7 @@
 
 %define glib2_version 2.40.0
 %define gtk3_version 3.10.0
-%define vte_version 0.40.2
+%define vte_version 0.41.90
 %define desktop_file_utils_version 0.2.90
 
 Summary: Terminal emulator for GNOME
