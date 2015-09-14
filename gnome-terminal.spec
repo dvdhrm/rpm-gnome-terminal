@@ -7,8 +7,8 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.16.2
-Release: 2%{?dist}
+Version: 3.17.91
+Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -109,6 +109,11 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Mon Sep 14 2015 Debarshi Ray <rishi@fedoraproject.org> - 3.17.91-1
+- Update to 3.17.91
+- Restore translations for dark variant strings
+- Rebase the translations for transparency strings
+
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.16.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 

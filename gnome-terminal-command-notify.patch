@@ -1,4 +1,4 @@
-From 94b29611359d0d8510876be531825ec2edf44e09 Mon Sep 17 00:00:00 2001
+From 3f4b0ca3b72fbb495f684af0b03433e83dd0d847 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 27 Jan 2015 18:40:13 +0100
 Subject: [PATCH 1/3] Support desktop notifications from OSC 777
@@ -12,10 +12,10 @@ https://bugzilla.gnome.org/show_bug.cgi?id=711059
  4 files changed, 171 insertions(+), 1 deletion(-)
 
 diff --git a/src/terminal-app.c b/src/terminal-app.c
-index 94fa35b..de74532 100644
+index 0d2a0e61786e..a068c3673971 100644
 --- a/src/terminal-app.c
 +++ b/src/terminal-app.c
-@@ -299,6 +299,31 @@ app_menu_quit_cb (GSimpleAction *action,
+@@ -353,6 +353,31 @@ app_menu_quit_cb (GSimpleAction *action,
      gtk_widget_destroy (GTK_WIDGET (window));
  }
  
@@ -47,7 +47,7 @@ index 94fa35b..de74532 100644
  /* Class implementation */
  
  G_DEFINE_TYPE (TerminalApp, terminal_app, GTK_TYPE_APPLICATION)
-@@ -321,6 +346,10 @@ terminal_app_startup (GApplication *application)
+@@ -375,6 +400,10 @@ terminal_app_startup (GApplication *application)
      { "quit",        app_menu_quit_cb,          NULL, NULL, NULL }
    };
  
@@ -55,10 +55,10 @@ index 94fa35b..de74532 100644
 +    { "activate-tab",   action_activate_tab_cb, "s",  NULL, NULL }
 +  };
 +
-   gs_unref_object GtkBuilder *builder;
-   GError *error = NULL;
+   g_application_set_resource_base_path (application, TERMINAL_RESOURCES_PATH_PREFIX);
  
-@@ -332,6 +361,9 @@ terminal_app_startup (GApplication *application)
+   G_APPLICATION_CLASS (terminal_app_parent_class)->startup (application);
+@@ -385,6 +414,9 @@ terminal_app_startup (GApplication *application)
    g_action_map_add_action_entries (G_ACTION_MAP (application),
                                     app_menu_actions, G_N_ELEMENTS (app_menu_actions),
                                     application);
@@ -66,13 +66,13 @@ index 94fa35b..de74532 100644
 +                                   other_actions, G_N_ELEMENTS (other_actions),
 +                                   application);
  
-   builder = gtk_builder_new ();
-   gtk_builder_add_from_resource (builder,
+ 
+   app_load_css (application);
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index df3fdde..bb139e3 100644
+index a48de105e953..fbc7d868d568 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
-@@ -48,6 +48,7 @@
+@@ -52,6 +52,7 @@
  #include "terminal-marshal.h"
  #include "terminal-schemas.h"
  #include "terminal-screen-container.h"
@@ -80,7 +80,7 @@ index df3fdde..bb139e3 100644
  #include "terminal-util.h"
  #include "terminal-window.h"
  #include "terminal-info-bar.h"
-@@ -81,6 +82,7 @@ struct _TerminalScreenPrivate
+@@ -85,6 +86,7 @@ struct _TerminalScreenPrivate
    char **initial_env;
    char **override_command;
    gboolean shell;
@@ -88,7 +88,7 @@ index df3fdde..bb139e3 100644
    int child_pid;
    GSList *match_tags;
    guint launch_child_source_id;
-@@ -131,11 +133,16 @@ static void terminal_screen_system_font_changed_cb (GSettings *,
+@@ -135,11 +137,16 @@ static void terminal_screen_system_font_changed_cb (GSettings *,
  static gboolean terminal_screen_popup_menu (GtkWidget *widget);
  static gboolean terminal_screen_button_press (GtkWidget *widget,
                                                GdkEventButton *event);
@@ -105,14 +105,15 @@ index df3fdde..bb139e3 100644
  
  static void terminal_screen_window_title_changed      (VteTerminal *vte_terminal,
                                                         TerminalScreen *screen);
-@@ -434,12 +441,14 @@ terminal_screen_class_init (TerminalScreenClass *klass)
+@@ -448,6 +455,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
    object_class->get_property = terminal_screen_get_property;
    object_class->set_property = terminal_screen_set_property;
  
 +  widget_class->focus_in_event = terminal_screen_focus_in;
    widget_class->realize = terminal_screen_realize;
+   widget_class->style_updated = terminal_screen_style_updated;
    widget_class->drag_data_received = terminal_screen_drag_data_received;
-   widget_class->button_press_event = terminal_screen_button_press;
+@@ -455,6 +463,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
    widget_class->popup_menu = terminal_screen_popup_menu;
  
    terminal_class->child_exited = terminal_screen_child_exited;
@@ -120,7 +121,7 @@ index df3fdde..bb139e3 100644
  
    signals[PROFILE_SET] =
      g_signal_new (I_("profile-set"),
-@@ -561,6 +570,10 @@ terminal_screen_dispose (GObject *object)
+@@ -576,6 +585,10 @@ terminal_screen_dispose (GObject *object)
    TerminalScreen *screen = TERMINAL_SCREEN (object);
    TerminalScreenPrivate *priv = screen->priv;
    GtkSettings *settings;
@@ -131,7 +132,7 @@ index df3fdde..bb139e3 100644
  
    settings = gtk_widget_get_settings (GTK_WIDGET (screen));
    g_signal_handlers_disconnect_matched (settings, G_SIGNAL_MATCH_DATA,
-@@ -1502,6 +1515,43 @@ terminal_screen_button_press (GtkWidget      *widget,
+@@ -1512,6 +1525,43 @@ terminal_screen_button_press (GtkWidget      *widget,
    return FALSE;
  }
  
@@ -175,7 +176,7 @@ index df3fdde..bb139e3 100644
  /**
   * terminal_screen_get_current_dir:
   * @screen:
-@@ -1603,6 +1653,64 @@ terminal_screen_child_exited (VteTerminal *terminal,
+@@ -1613,6 +1663,64 @@ terminal_screen_child_exited (VteTerminal *terminal,
  }
  
  static void
@@ -241,7 +242,7 @@ index df3fdde..bb139e3 100644
                                      GdkDragContext   *context,
                                      gint              x,
 diff --git a/src/terminal-tab-label.c b/src/terminal-tab-label.c
-index 0850652..987e93c 100644
+index cdd73d0653be..d6909a13ca65 100644
 --- a/src/terminal-tab-label.c
 +++ b/src/terminal-tab-label.c
 @@ -34,6 +34,7 @@
@@ -301,7 +302,7 @@ index 0850652..987e93c 100644
   * @tab_label: a #TerminalTabLabel
   *
 diff --git a/src/terminal-tab-label.h b/src/terminal-tab-label.h
-index 20cfbce..a987025 100644
+index 20cfbceb36b0..a987025e0524 100644
 --- a/src/terminal-tab-label.h
 +++ b/src/terminal-tab-label.h
 @@ -59,6 +59,10 @@ GtkWidget *     terminal_tab_label_new        (TerminalScreen *screen);
@@ -319,7 +320,7 @@ index 20cfbce..a987025 100644
 2.1.0
 
 
-From 261c88d13ede50b165aaef859f2f95660dc6c965 Mon Sep 17 00:00:00 2001
+From 4bf9c87627eca47b2c2721ea69bbec45e16a8040 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 27 Jan 2015 19:04:19 +0100
 Subject: [PATCH 2/3] Make notifications based on org.gtk.Notification work
@@ -344,7 +345,7 @@ https://bugzilla.gnome.org/show_bug.cgi?id=711059
  create mode 100644 org.gnome.Terminal.desktop.in.in
 
 diff --git a/Makefile.am b/Makefile.am
-index f6f41a6..3aa8677 100644
+index f6f41a6e2c73..3aa8677ed587 100644
 --- a/Makefile.am
 +++ b/Makefile.am
 @@ -14,7 +14,7 @@ DISTCHECK_CONFIGURE_FLAGS = \
@@ -366,10 +367,10 @@ index f6f41a6..3aa8677 100644
  @INTLTOOL_XML_RULE@
  
 diff --git a/configure.ac b/configure.ac
-index 523a0da..e68392d 100644
+index f1bc9023eb1b..839a7347b3ff 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -345,7 +345,7 @@ AC_SUBST([AM_LDFLAGS])
+@@ -353,7 +353,7 @@ AC_DEFINE_UNQUOTED([GDK_VERSION_MAX_ALLOWED],[GDK_VERSION_[]AS_TR_SH([$GTK_MAX_A
  
  AC_CONFIG_FILES([
  Makefile
@@ -380,7 +381,7 @@ index 523a0da..e68392d 100644
  help/Makefile
 diff --git a/gnome-terminal.appdata.xml.in b/gnome-terminal.appdata.xml.in
 deleted file mode 100644
-index 7ef61e9..0000000
+index 7ef61e967ae5..000000000000
 --- a/gnome-terminal.appdata.xml.in
 +++ /dev/null
 @@ -1,38 +0,0 @@
@@ -424,14 +425,14 @@ index 7ef61e9..0000000
 -</application>
 diff --git a/gnome-terminal.desktop.in.in b/gnome-terminal.desktop.in.in
 deleted file mode 100644
-index e01c998..0000000
+index 98ad8f9fe083..000000000000
 --- a/gnome-terminal.desktop.in.in
 +++ /dev/null
 @@ -1,16 +0,0 @@
 -[Desktop Entry]
 -_Name=Terminal
 -_Comment=Use the command line
--_Keywords=shell;prompt;command;commandline;
+-_Keywords=shell;prompt;command;commandline;cmd;
 -TryExec=gnome-terminal
 -Exec=gnome-terminal
 -Icon=utilities-terminal
@@ -446,7 +447,7 @@ index e01c998..0000000
 -X-GNOME-SingleWindow=false
 diff --git a/org.gnome.Terminal.appdata.xml.in b/org.gnome.Terminal.appdata.xml.in
 new file mode 100644
-index 0000000..ab4f23b
+index 000000000000..ab4f23b8329a
 --- /dev/null
 +++ b/org.gnome.Terminal.appdata.xml.in
 @@ -0,0 +1,38 @@
@@ -490,14 +491,14 @@ index 0000000..ab4f23b
 +</application>
 diff --git a/org.gnome.Terminal.desktop.in.in b/org.gnome.Terminal.desktop.in.in
 new file mode 100644
-index 0000000..e01c998
+index 000000000000..98ad8f9fe083
 --- /dev/null
 +++ b/org.gnome.Terminal.desktop.in.in
 @@ -0,0 +1,16 @@
 +[Desktop Entry]
 +_Name=Terminal
 +_Comment=Use the command line
-+_Keywords=shell;prompt;command;commandline;
++_Keywords=shell;prompt;command;commandline;cmd;
 +TryExec=gnome-terminal
 +Exec=gnome-terminal
 +Icon=utilities-terminal
@@ -511,7 +512,7 @@ index 0000000..e01c998
 +StartupNotify=true
 +X-GNOME-SingleWindow=false
 diff --git a/po/POTFILES.in b/po/POTFILES.in
-index af1304d..0aa03ec 100644
+index dcbc5fe2c5aa..ae304cdfbbe1 100644
 --- a/po/POTFILES.in
 +++ b/po/POTFILES.in
 @@ -1,8 +1,8 @@
@@ -526,7 +527,7 @@ index af1304d..0aa03ec 100644
  src/gterminal.vala
  src/migration.c
 diff --git a/po/POTFILES.skip b/po/POTFILES.skip
-index 7c37b7f..ef7c635 100644
+index 7c37b7fc2ca7..ef7c63561d4b 100644
 --- a/po/POTFILES.skip
 +++ b/po/POTFILES.skip
 @@ -1,4 +1,4 @@
@@ -536,7 +537,7 @@ index 7c37b7f..ef7c635 100644
 +org.gnome.Terminal.desktop.in
  src/gterminal.c
 diff --git a/src/gnome-terminal-search-provider.ini b/src/gnome-terminal-search-provider.ini
-index b6506f2..1b9f81c 100644
+index b6506f299f1d..1b9f81c10fcf 100644
 --- a/src/gnome-terminal-search-provider.ini
 +++ b/src/gnome-terminal-search-provider.ini
 @@ -14,7 +14,7 @@
@@ -552,7 +553,7 @@ index b6506f2..1b9f81c 100644
 2.1.0
 
 
-From acd11f2b16e6fffebcb881a447b37913a960a324 Mon Sep 17 00:00:00 2001
+From 28838b7ba5da1f5ee9f7f60d4f604a74cc273506 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 29 Jan 2015 11:47:21 +0100
 Subject: [PATCH 3/3] Sprinkle debug messages for notifications
@@ -568,7 +569,7 @@ https://bugzilla.gnome.org/show_bug.cgi?id=711059
  3 files changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/src/terminal-debug.c b/src/terminal-debug.c
-index 0ff321f..dac79c3 100644
+index 0ff321f1f0e2..dac79c38d82b 100644
 --- a/src/terminal-debug.c
 +++ b/src/terminal-debug.c
 @@ -38,6 +38,7 @@ _terminal_debug_init(void)
@@ -580,7 +581,7 @@ index 0ff321f..dac79c3 100644
  
    _terminal_debug_flags = g_parse_debug_string (g_getenv ("GNOME_TERMINAL_DEBUG"),
 diff --git a/src/terminal-debug.h b/src/terminal-debug.h
-index 5dc3ca4..7499ebe 100644
+index 5dc3ca4f3df0..7499ebe06c88 100644
 --- a/src/terminal-debug.h
 +++ b/src/terminal-debug.h
 @@ -34,7 +34,8 @@ typedef enum {
@@ -594,10 +595,10 @@ index 5dc3ca4..7499ebe 100644
  
  void _terminal_debug_init(void);
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index bb139e3..cd12ab9 100644
+index fbc7d868d568..f95ad2748e83 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
-@@ -1523,6 +1523,8 @@ terminal_screen_focus_in (GtkWidget     *widget,
+@@ -1533,6 +1533,8 @@ terminal_screen_focus_in (GtkWidget     *widget,
    TerminalApp *app;
    TerminalWindow *window;
  
@@ -606,7 +607,7 @@ index bb139e3..cd12ab9 100644
    window = terminal_screen_get_window (screen);
    if (window != NULL)
      {
-@@ -1661,6 +1663,8 @@ terminal_screen_notification_received (VteTerminal *terminal,
+@@ -1671,6 +1673,8 @@ terminal_screen_notification_received (VteTerminal *terminal,
    TerminalScreenPrivate *priv = screen->priv;
    TerminalWindow *window;
  
@@ -615,7 +616,7 @@ index bb139e3..cd12ab9 100644
    if (G_UNLIKELY (!priv->shell_prompt_shown))
      {
        priv->shell_prompt_shown = TRUE;
-@@ -1692,6 +1696,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
+@@ -1702,6 +1706,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
            tab_label = gtk_notebook_get_tab_label (GTK_NOTEBOOK (mdi_container), GTK_WIDGET (screen_container));
            terminal_tab_label_set_bold (TERMINAL_TAB_LABEL (tab_label), TRUE);
            terminal_tab_label_set_icon (TERMINAL_TAB_LABEL (tab_label), "dialog-information-symbolic", summary);
@@ -623,7 +624,7 @@ index bb139e3..cd12ab9 100644
          }
      }
    else
-@@ -1707,6 +1712,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
+@@ -1717,6 +1722,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
  
        app = terminal_app_get ();
        g_application_send_notification (G_APPLICATION (app), priv->uuid, notification);
