@@ -21,6 +21,7 @@ Patch0: 0001-build-Don-t-treat-warnings-as-errors.patch
 Patch100: gnome-terminal-restore-dark-transparency.patch
 Patch101: gnome-terminal-command-notify.patch
 
+BuildRequires: dbus-x11
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: GConf2-devel
 BuildRequires: gtk3-devel >= %{gtk3_version}
