@@ -8,7 +8,7 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 3.17.91
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -17,6 +17,8 @@ Source0: http://download.gnome.org/sources/gnome-terminal/3.16/gnome-terminal-%{
 Source1: org.gnome.Terminal.gschema.override
 
 Patch0: 0001-build-Don-t-treat-warnings-as-errors.patch
+# https://bugzilla.gnome.org/show_bug.cgi?id=755825
+Patch1: gnome-terminal-symbolic-new-tab-icon.patch
 
 Patch100: gnome-terminal-restore-dark-transparency.patch
 Patch101: gnome-terminal-command-notify.patch
@@ -61,6 +63,7 @@ option to the right-click context menu in Nautilus.
 %prep
 %setup -q
 %patch0 -p1 -b .warnings
+%patch1 -p1 -b .new-tab-icon
 %patch100 -p1 -b .dark-transparency
 %patch101 -p1 -b .command-notify
 
@@ -108,6 +111,9 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Thu Oct 01 2015 Michael Catanzaro <mcatanzaro@gnome.org> - 3.17.91-2
+- Use a symbolic new tab icon
+
 * Mon Sep 14 2015 Debarshi Ray <rishi@fedoraproject.org> - 3.17.91-1
 - Update to 3.17.91
 - Restore translations for dark variant strings
