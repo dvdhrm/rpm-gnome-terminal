@@ -1,30 +1,24 @@
 %define gettext_package gnome-terminal
 
-%define glib2_version 2.40.0
+%define glib2_version 2.42.0
 %define gtk3_version 3.10.0
-%define vte_version 0.41.90
+%define vte_version 0.42.1
 %define desktop_file_utils_version 0.2.90
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.18.0
+Version: 3.18.1
 Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
-Source0: http://download.gnome.org/sources/gnome-terminal/3.16/gnome-terminal-%{version}.tar.xz
+Source0: http://download.gnome.org/sources/gnome-terminal/3.18/gnome-terminal-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
 
 Patch0: 0001-build-Don-t-treat-warnings-as-errors.patch
 # https://bugzilla.gnome.org/show_bug.cgi?id=755825
 Patch1: gnome-terminal-symbolic-new-tab-icon.patch
-# https://bugzilla.gnome.org/show_bug.cgi?id=755240
-Patch2: 0001-notebook-Don-t-change-show-tabs-when-going-to-empty-.patch
-# https://bugzilla.gnome.org/show_bug.cgi?id=755240
-Patch3: 0001-window-Exit-early-from-screen-removed-handler-for-no.patch
-# https://bugzilla.gnome.org/show_bug.cgi?id=730128
-Patch4: 0001-window-Pass-tab-switching-keys-to-the-terminal-for-t.patch
 
 Patch100: gnome-terminal-restore-dark-transparency.patch
 Patch101: gnome-terminal-command-notify.patch
@@ -70,9 +64,6 @@ option to the right-click context menu in Nautilus.
 %setup -q
 %patch0 -p1 -b .warnings
 %patch1 -p1 -b .new-tab-icon
-%patch2 -p1 -b .dont-change-show-tabs
-%patch3 -p1 -b .exit-early-from-screen
-%patch4 -p1 -b .pass-tab-switching-keys
 %patch100 -p1 -b .dark-transparency
 %patch101 -p1 -b .command-notify
 
@@ -120,6 +111,9 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Wed Oct 14 2015 Kalev Lember <klember@redhat.com> - 3.18.1-1
+- Update to 3.18.1
+
 * Wed Oct 07 2015 Debarshi Ray <rishi@fedoraproject.org> - 3.18.0-1
 - Update to 3.18.0
 - Backport a few upstream fixes
