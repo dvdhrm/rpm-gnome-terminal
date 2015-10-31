@@ -8,7 +8,7 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 3.18.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -25,7 +25,6 @@ Patch101: gnome-terminal-command-notify.patch
 
 BuildRequires: dbus-x11
 BuildRequires: glib2-devel >= %{glib2_version}
-BuildRequires: GConf2-devel
 BuildRequires: gtk3-devel >= %{gtk3_version}
 BuildRequires: gsettings-desktop-schemas-devel
 BuildRequires: vte291-devel >= %{vte_version}
@@ -69,7 +68,7 @@ option to the right-click context menu in Nautilus.
 
 %build
 autoreconf -f -i
-%configure --disable-static --disable-gterminal --with-gtk=3.0 --with-nautilus-extension
+%configure --disable-static --disable-gterminal --disable-migration --with-gtk=3.0 --with-nautilus-extension
 
 make %{?_smp_mflags}
 
@@ -100,7 +99,6 @@ fi
 %{_bindir}/gnome-terminal
 %{_datadir}/appdata/org.gnome.Terminal.appdata.xml
 %{_datadir}/applications/org.gnome.Terminal.desktop
-%{_libexecdir}/gnome-terminal-migration
 %{_libexecdir}/gnome-terminal-server
 %{_datadir}/dbus-1/services/org.gnome.Terminal.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Terminal.gschema.xml
@@ -111,6 +109,9 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Sat Oct 31 2015 Kalev Lember <klember@redhat.com> - 3.18.1-2
+- Drop GConf migrator for F24 (#1276525)
+
 * Wed Oct 14 2015 Kalev Lember <klember@redhat.com> - 3.18.1-1
 - Update to 3.18.1
 
