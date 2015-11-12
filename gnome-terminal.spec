@@ -8,7 +8,7 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 3.18.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -111,7 +111,7 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
-* Thu Nov 12 2015 Owen Taylor <otaylor@redhat.com>
+* Thu Nov 12 2015 Owen Taylor <otaylor@redhat.com> - 3.18.1-3
 - Add patch fixing transparent mode under Wayland
 
 * Sat Oct 31 2015 Kalev Lember <klember@redhat.com> - 3.18.1-2
