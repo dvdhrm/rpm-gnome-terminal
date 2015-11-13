@@ -7,8 +7,8 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.18.1
-Release: 3%{?dist}
+Version: 3.18.2
+Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -20,9 +20,7 @@ Patch0: 0001-build-Don-t-treat-warnings-as-errors.patch
 # https://bugzilla.gnome.org/show_bug.cgi?id=755825
 Patch1: gnome-terminal-symbolic-new-tab-icon.patch
 
-Patch100: gnome-terminal-restore-dark-transparency.patch
-Patch101: gnome-terminal-command-notify.patch
-Patch102: gnome-terminal-wayland-transparency.patch
+Patch100: gnome-terminal-dark-transparency-notify.patch
 
 BuildRequires: dbus-x11
 BuildRequires: glib2-devel >= %{glib2_version}
@@ -64,9 +62,7 @@ option to the right-click context menu in Nautilus.
 %setup -q
 %patch0 -p1 -b .warnings
 %patch1 -p1 -b .new-tab-icon
-%patch100 -p1 -b .dark-transparency
-%patch101 -p1 -b .command-notify
-%patch102 -p1 -b .wayland-transparency
+%patch100 -p1 -b .dark-transparency-notify
 
 %build
 autoreconf -f -i
@@ -111,6 +107,11 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Fri Nov 13 2015 Debarshi Ray <rishi@fedoraproject.org> - 3.18.2-1
+- Update to 3.18.2
+- Consolidate all downstream features into a single patch to avoid conflicts
+- Rebase the translations
+
 * Thu Nov 12 2015 Owen Taylor <otaylor@redhat.com> - 3.18.1-3
 - Add patch fixing transparent mode under Wayland
 
