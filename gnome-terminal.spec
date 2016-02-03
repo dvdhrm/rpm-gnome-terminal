@@ -8,7 +8,7 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 3.18.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -107,6 +107,9 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
 * Fri Nov 13 2015 Debarshi Ray <rishi@fedoraproject.org> - 3.18.2-1
 - Update to 3.18.2
 - Consolidate all downstream features into a single patch to avoid conflicts
