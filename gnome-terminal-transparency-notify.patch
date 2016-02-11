@@ -1,7 +1,7 @@
-From da56656bf00ef6fecd4b865845a8091d7de84583 Mon Sep 17 00:00:00 2001
+From d640e1cc6c82d01df0dd284590b25d3721ad80d4 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Mon, 12 May 2014 14:57:18 +0200
-Subject: [PATCH 1/9] Restore transparency
+Subject: [PATCH 1/7] Restore transparency
 
 The transparency settings were removed as a side effect of
 2bff4b63ed3ceef6055e35563e9b0b33ad57349d
@@ -23,10 +23,10 @@ restore the translations of the string.
  6 files changed, 144 insertions(+), 1 deletion(-)
 
 diff --git a/src/org.gnome.Terminal.gschema.xml b/src/org.gnome.Terminal.gschema.xml
-index 6e24f564c91a..0a646370dd65 100644
+index d358bbe450d5..f3a8ee52dd98 100644
 --- a/src/org.gnome.Terminal.gschema.xml
 +++ b/src/org.gnome.Terminal.gschema.xml
-@@ -334,6 +334,16 @@
+@@ -340,6 +340,16 @@
        <default>'narrow'</default>
        <summary>Whether ambiguous-width characters are narrow or wide when using UTF-8 encoding</summary>
      </key>
@@ -177,7 +177,7 @@ index 579c28ff344f..edb264ba5d72 100644
                          </child>
                        </object>
 diff --git a/src/terminal-schemas.h b/src/terminal-schemas.h
-index a8a0d908beea..e35990d728dc 100644
+index 2c85c67a63f1..f5b1f4ab8923 100644
 --- a/src/terminal-schemas.h
 +++ b/src/terminal-schemas.h
 @@ -63,6 +63,9 @@ G_BEGIN_DECLS
@@ -191,10 +191,10 @@ index a8a0d908beea..e35990d728dc 100644
  #define TERMINAL_SETTING_DEFAULT_SHOW_MENUBAR_KEY       "default-show-menubar"
  #define TERMINAL_SETTING_ENABLE_MENU_BAR_ACCEL_KEY      "menu-accelerator-enabled"
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index a48de105e953..f5a70cdbcf81 100644
+index 6eae7ab8dd8a..25c2bfcb0295 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
-@@ -765,7 +765,9 @@ terminal_screen_profile_changed_cb (GSettings     *profile,
+@@ -822,7 +822,9 @@ terminal_screen_profile_changed_cb (GSettings     *profile,
        prop_name == I_(TERMINAL_PROFILE_BACKGROUND_COLOR_KEY) ||
        prop_name == I_(TERMINAL_PROFILE_BOLD_COLOR_SAME_AS_FG_KEY) ||
        prop_name == I_(TERMINAL_PROFILE_BOLD_COLOR_KEY) ||
@@ -205,7 +205,7 @@ index a48de105e953..f5a70cdbcf81 100644
      update_color_scheme (screen);
  
    if (!prop_name || prop_name == I_(TERMINAL_PROFILE_AUDIBLE_BELL_KEY))
-@@ -831,6 +833,8 @@ update_color_scheme (TerminalScreen *screen)
+@@ -888,6 +890,8 @@ update_color_scheme (TerminalScreen *screen)
    GdkRGBA fg, bg, bold, theme_fg, theme_bg;
    GdkRGBA *boldp;
    GtkStyleContext *context;
@@ -214,7 +214,7 @@ index a48de105e953..f5a70cdbcf81 100644
  
    context = gtk_widget_get_style_context (widget);
    gtk_style_context_get_color (context, gtk_style_context_get_state (context), &theme_fg);
-@@ -851,9 +855,25 @@ update_color_scheme (TerminalScreen *screen)
+@@ -908,9 +912,25 @@ update_color_scheme (TerminalScreen *screen)
      boldp = NULL;
  
    colors = terminal_g_settings_get_rgba_palette (priv->profile, TERMINAL_PROFILE_PALETTE_KEY, &n_colors);
@@ -241,10 +241,10 @@ index a48de105e953..f5a70cdbcf81 100644
  
  static void
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index 618425c0e4d5..637b533a4bff 100644
+index b3c264905ef8..95aadcf8900a 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
-@@ -2590,6 +2590,8 @@ terminal_window_init (TerminalWindow *window)
+@@ -2650,6 +2650,8 @@ terminal_window_init (TerminalWindow *window)
    TerminalWindowPrivate *priv;
    TerminalApp *app;
    TerminalSettingsList *profiles_list;
@@ -253,7 +253,7 @@ index 618425c0e4d5..637b533a4bff 100644
    GtkActionGroup *action_group;
    GtkAction *action;
    GtkUIManager *manager;
-@@ -2605,6 +2607,11 @@ terminal_window_init (TerminalWindow *window)
+@@ -2665,6 +2667,11 @@ terminal_window_init (TerminalWindow *window)
  
    gtk_widget_init_template (GTK_WIDGET (window));
  
@@ -269,10 +269,10 @@ index 618425c0e4d5..637b533a4bff 100644
 2.5.0
 
 
-From b29a3cf85006ef2b0d34c70fe2e350915d6d3574 Mon Sep 17 00:00:00 2001
+From eaf73ae38036367d0bd22f4df0445f270e4ff6ba Mon Sep 17 00:00:00 2001
 From: Lars Uebernickel <lars.uebernickel@canonical.com>
 Date: Wed, 28 May 2014 14:11:02 +0200
-Subject: [PATCH 2/9] window: Make the drawing robust across all themes
+Subject: [PATCH 2/7] window: Make the drawing robust across all themes
 
 There are lots of themes out there in the wild that do not specify a
 background-color for all widgets and the default is transparent. This
@@ -289,10 +289,10 @@ https://bugzilla.gnome.org/show_bug.cgi?id=730016
  1 file changed, 21 insertions(+)
 
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index 637b533a4bff..7385b1dd5369 100644
+index 95aadcf8900a..d7bd9113931a 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
-@@ -2229,6 +2229,26 @@ terminal_window_realize (GtkWidget *widget)
+@@ -2286,6 +2286,26 @@ terminal_window_realize (GtkWidget *widget)
  }
  
  static gboolean
@@ -319,7 +319,7 @@ index 637b533a4bff..7385b1dd5369 100644
  terminal_window_state_event (GtkWidget            *widget,
                               GdkEventWindowState  *event)
  {
-@@ -2791,6 +2811,7 @@ terminal_window_class_init (TerminalWindowClass *klass)
+@@ -2851,6 +2871,7 @@ terminal_window_class_init (TerminalWindowClass *klass)
  
    widget_class->show = terminal_window_show;
    widget_class->realize = terminal_window_realize;
@@ -331,207 +331,10 @@ index 637b533a4bff..7385b1dd5369 100644
 2.5.0
 
 
-From 6a353ac2ce5a21521a893ba6f99384fb59d123b5 Mon Sep 17 00:00:00 2001
-From: Debarshi Ray <debarshir@gnome.org>
-Date: Tue, 17 Feb 2015 13:22:11 +0100
-Subject: [PATCH 3/9] Revert "prefs: Remove dark theme pref"
-
-This reverts commit 5f6c514a8840a5d1b87a8c399defee3b5052ec18.
----
- src/org.gnome.Terminal.gschema.xml |  5 +++++
- src/preferences.ui                 | 16 ++++++++++++++++
- src/terminal-app.c                 |  4 ++++
- src/terminal-prefs.c               |  9 ++++++++-
- src/terminal-schemas.h             |  1 +
- 5 files changed, 34 insertions(+), 1 deletion(-)
-
-diff --git a/src/org.gnome.Terminal.gschema.xml b/src/org.gnome.Terminal.gschema.xml
-index 0a646370dd65..719a5f06ee33 100644
---- a/src/org.gnome.Terminal.gschema.xml
-+++ b/src/org.gnome.Terminal.gschema.xml
-@@ -658,6 +658,11 @@
-       <summary>Whether to show the menubar in new windows</summary>
-     </key>
- 
-+    <key name="dark-theme" type="b">
-+      <default>false</default>
-+      <summary>Whether to use a dark theme variant</summary>
-+    </key>
-+
-     <key name="new-terminal-mode" enum="org.gnome.Terminal.NewTerminalMode">
-       <default>'window'</default>
-       <summary>Whether to open new terminals as windows or tabs</summary>
-diff --git a/src/preferences.ui b/src/preferences.ui
-index bdb643d992cb..a918b1b9f565 100644
---- a/src/preferences.ui
-+++ b/src/preferences.ui
-@@ -99,6 +99,22 @@
-                   </packing>
-                 </child>
-                 <child>
-+                  <object class="GtkCheckButton" id="dark-theme-checkbutton">
-+                    <property name="label" translatable="yes">Use _dark theme variant</property>
-+                    <property name="visible">True</property>
-+                    <property name="can_focus">True</property>
-+                    <property name="receives_default">False</property>
-+                    <property name="use_underline">True</property>
-+                    <property name="xalign">0</property>
-+                    <property name="draw_indicator">True</property>
-+                  </object>
-+                  <packing>
-+                    <property name="expand">False</property>
-+                    <property name="fill">True</property>
-+                    <property name="position">3</property>
-+                  </packing>
-+                </child>
-+                <child>
-                   <object class="GtkBox" id="hbox140">
-                     <property name="visible">True</property>
-                     <property name="can_focus">False</property>
-diff --git a/src/terminal-app.c b/src/terminal-app.c
-index 0d2a0e61786e..96341e96cfad 100644
---- a/src/terminal-app.c
-+++ b/src/terminal-app.c
-@@ -409,6 +409,10 @@ terminal_app_init (TerminalApp *app)
- 
-   /* Terminal global settings */
-   app->global_settings = g_settings_new (TERMINAL_SETTING_SCHEMA);
-+  g_settings_bind (app->global_settings, TERMINAL_SETTING_DARK_THEME_KEY,
-+                   gtk_settings_get_default (),
-+                   "gtk-application-prefer-dark-theme",
-+                   G_SETTINGS_BIND_GET);
- 
-   /* Check if we need to migrate from gconf to dconf */
-   maybe_migrate_settings (app);
-diff --git a/src/terminal-prefs.c b/src/terminal-prefs.c
-index 230b0aec46f8..f2ce723771fe 100644
---- a/src/terminal-prefs.c
-+++ b/src/terminal-prefs.c
-@@ -560,7 +560,7 @@ terminal_prefs_show_preferences (GtkWindow *transient_parent,
-   GtkWidget *show_menubar_button, *disable_mnemonics_button, *disable_menu_accel_button;
-   GtkWidget *disable_shortcuts_button;
-   GtkWidget *tree_view_container, *new_button, *edit_button, *clone_button, *remove_button;
--  GtkWidget *new_terminal_mode_combo;
-+  GtkWidget *dark_theme_button, *new_terminal_mode_combo;
-   GtkWidget *default_hbox, *default_label;
-   GtkWidget *close_button, *help_button;
-   GtkTreeSelection *selection;
-@@ -584,6 +584,7 @@ terminal_prefs_show_preferences (GtkWindow *transient_parent,
-                                        "close-button", &close_button,
-                                        "help-button", &help_button,
-                                        "default-show-menubar-checkbutton", &show_menubar_button,
-+                                       "dark-theme-checkbutton", &dark_theme_button,
-                                        "new-terminal-mode-combobox", &new_terminal_mode_combo,
-                                        "disable-mnemonics-checkbutton", &disable_mnemonics_button,
-                                        "disable-shortcuts-checkbutton", &disable_shortcuts_button,
-@@ -614,6 +615,12 @@ terminal_prefs_show_preferences (GtkWindow *transient_parent,
-                    G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
- 
-   g_settings_bind (settings,
-+                   TERMINAL_SETTING_DARK_THEME_KEY,
-+                   dark_theme_button,
-+                   "active",
-+                   G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
-+
-+  g_settings_bind (settings,
-                    TERMINAL_SETTING_NEW_TERMINAL_MODE_KEY,
-                    new_terminal_mode_combo,
-                    "active-id",
-diff --git a/src/terminal-schemas.h b/src/terminal-schemas.h
-index e35990d728dc..d4f44d2f538e 100644
---- a/src/terminal-schemas.h
-+++ b/src/terminal-schemas.h
-@@ -68,6 +68,7 @@ G_BEGIN_DECLS
- 
- #define TERMINAL_SETTING_CONFIRM_CLOSE_KEY              "confirm-close"
- #define TERMINAL_SETTING_DEFAULT_SHOW_MENUBAR_KEY       "default-show-menubar"
-+#define TERMINAL_SETTING_DARK_THEME_KEY                 "dark-theme"
- #define TERMINAL_SETTING_ENABLE_MENU_BAR_ACCEL_KEY      "menu-accelerator-enabled"
- #define TERMINAL_SETTING_ENABLE_MNEMONICS_KEY           "mnemonics-enabled"
- #define TERMINAL_SETTING_ENABLE_SHORTCUTS_KEY           "shortcuts-enabled"
--- 
-2.5.0
-
-
-From 6a5ae778dd478ec76fb31c7fd038755f6244827f Mon Sep 17 00:00:00 2001
-From: Debarshi Ray <debarshir@gnome.org>
-Date: Tue, 17 Feb 2015 13:22:21 +0100
-Subject: [PATCH 4/9] Revert "help: Remove dark theme pref"
-
-This reverts commit baaca6a4cc5ca78d7b0e02cfaee6c159bad7ce4b.
----
- help/C/pref-theme.page | 41 +++++++++++++++++++++++++++++++++++++++++
- help/Makefile.am       |  1 +
- 2 files changed, 42 insertions(+)
- create mode 100644 help/C/pref-theme.page
-
-diff --git a/help/C/pref-theme.page b/help/C/pref-theme.page
-new file mode 100644
-index 000000000000..a997d14c0dfd
---- /dev/null
-+++ b/help/C/pref-theme.page
-@@ -0,0 +1,41 @@
-+<page xmlns="http://projectmallard.org/1.0/"
-+      xmlns:its="http://www.w3.org/2005/11/its"
-+      type="guide"
-+      id="pref-theme">
-+
-+  <info>
-+    <link type="guide" xref="index#appearance"/>
-+    <revision pkgversion="3.12" date="2014-02-26" status="review"/>
-+
-+    <credit type="author copyright">
-+      <name>Ekaterina Gerasimova</name>
-+      <email its:translate="no">kittykat3756@gmail.com</email>
-+      <years>2014</years>
-+    </credit>
-+    <!--<credit type="copyright editor">
-+      <name></name>
-+      <email its:translate="no"></email>
-+      <years></years>
-+    </credit>-->
-+
-+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
-+
-+    <desc>Use either the light or dark theme for <app>Terminal</app>.</desc>
-+  </info>
-+
-+  <title>Chose the window theme</title>
-+
-+  <p>You can chose to use either the dark theme or the light theme for the
-+  terminal window.</p>
-+
-+  <steps>
-+    <item>
-+      <p>Select
-+      <guiseq><gui style="menu">Edit</gui><gui style="menuitem">Preferences</gui><gui style="tab">General</gui></guiseq>.</p>
-+    </item>
-+    <item>
-+      <p>To use the dark theme, select <gui>Use dark theme variant</gui>.</p>
-+    </item>
-+  </steps>
-+
-+</page>
-diff --git a/help/Makefile.am b/help/Makefile.am
-index e3ca62732cf6..4bacc91265de 100644
---- a/help/Makefile.am
-+++ b/help/Makefile.am
-@@ -35,6 +35,7 @@ HELP_FILES = \
- 	pref-profile-encoding.page \
- 	pref-scrolling.page \
- 	pref-tab-window.page \
-+	pref-theme.page \
- 	pref-user-input.page \
- 	profile.page \
- 	prob-reset.page \
--- 
-2.5.0
-
-
-From 38a9536245918e521005ca3b4b473d3f68a24da4 Mon Sep 17 00:00:00 2001
+From 6051b13439329fe2e55427296b23dc97e3bf45b3 Mon Sep 17 00:00:00 2001
 From: "Owen W. Taylor" <otaylor@fishsoup.net>
 Date: Fri, 13 Nov 2015 15:16:42 +0100
-Subject: [PATCH 5/9] screen, window: Extra padding around transparent
+Subject: [PATCH 3/7] screen, window: Extra padding around transparent
  terminals in Wayland
 
 https://bugzilla.redhat.com/show_bug.cgi?id=1207943
@@ -541,10 +344,10 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1207943
  2 files changed, 49 insertions(+), 9 deletions(-)
 
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index f5a70cdbcf81..6838ee41957e 100644
+index 25c2bfcb0295..b67f6e7ca2e1 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
-@@ -135,6 +135,8 @@ static void terminal_screen_system_font_changed_cb (GSettings *,
+@@ -139,6 +139,8 @@ static void terminal_screen_system_font_changed_cb (GSettings *,
  static gboolean terminal_screen_popup_menu (GtkWidget *widget);
  static gboolean terminal_screen_button_press (GtkWidget *widget,
                                                GdkEventButton *event);
@@ -553,7 +356,7 @@ index f5a70cdbcf81..6838ee41957e 100644
  static gboolean terminal_screen_do_exec (TerminalScreen *screen,
                                           FDSetupData    *data,
                                           GError **error);
-@@ -453,6 +455,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
+@@ -522,6 +524,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
    widget_class->drag_data_received = terminal_screen_drag_data_received;
    widget_class->button_press_event = terminal_screen_button_press;
    widget_class->popup_menu = terminal_screen_popup_menu;
@@ -561,7 +364,7 @@ index f5a70cdbcf81..6838ee41957e 100644
  
    terminal_class->child_exited = terminal_screen_child_exited;
  
-@@ -823,6 +826,32 @@ terminal_screen_profile_changed_cb (GSettings     *profile,
+@@ -880,6 +883,32 @@ terminal_screen_profile_changed_cb (GSettings     *profile,
  }
  
  static void
@@ -594,7 +397,7 @@ index f5a70cdbcf81..6838ee41957e 100644
  update_color_scheme (TerminalScreen *screen)
  {
    GtkWidget *widget = GTK_WIDGET (screen);
-@@ -871,9 +900,7 @@ update_color_scheme (TerminalScreen *screen)
+@@ -928,9 +957,7 @@ update_color_scheme (TerminalScreen *screen)
                             colors, n_colors);
    vte_terminal_set_color_bold (VTE_TERMINAL (screen), boldp);
  
@@ -605,7 +408,7 @@ index f5a70cdbcf81..6838ee41957e 100644
  }
  
  static void
-@@ -1473,6 +1500,13 @@ terminal_screen_do_popup (TerminalScreen *screen,
+@@ -1533,6 +1560,13 @@ terminal_screen_do_popup (TerminalScreen *screen,
    terminal_screen_popup_info_unref (info);
  }
  
@@ -620,10 +423,10 @@ index f5a70cdbcf81..6838ee41957e 100644
  terminal_screen_button_press (GtkWidget      *widget,
                                GdkEventButton *event)
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index 7385b1dd5369..ce5a33f31dad 100644
+index d7bd9113931a..4573c2be3aaa 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
-@@ -2234,15 +2234,21 @@ terminal_window_draw (GtkWidget *widget,
+@@ -2291,15 +2291,21 @@ terminal_window_draw (GtkWidget *widget,
  {
    if (gtk_widget_get_app_paintable (widget))
      {
@@ -655,10 +458,10 @@ index 7385b1dd5369..ce5a33f31dad 100644
 2.5.0
 
 
-From 400488c2b07043e410666b6a98be58f530aa15b1 Mon Sep 17 00:00:00 2001
+From 4ecad2d6837b61378f9e03e09a4b2555109bdba7 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 27 Jan 2015 18:40:13 +0100
-Subject: [PATCH 6/9] Support desktop notifications from OSC 777
+Subject: [PATCH 4/7] Support desktop notifications from OSC 777
 
 https://bugzilla.gnome.org/show_bug.cgi?id=711059
 ---
@@ -669,10 +472,10 @@ https://bugzilla.gnome.org/show_bug.cgi?id=711059
  4 files changed, 171 insertions(+), 1 deletion(-)
 
 diff --git a/src/terminal-app.c b/src/terminal-app.c
-index 96341e96cfad..197ddfd48691 100644
+index dfde524f5365..da06a85f1bf2 100644
 --- a/src/terminal-app.c
 +++ b/src/terminal-app.c
-@@ -353,6 +353,31 @@ app_menu_quit_cb (GSimpleAction *action,
+@@ -374,6 +374,31 @@ app_menu_quit_cb (GSimpleAction *action,
      gtk_widget_destroy (GTK_WIDGET (window));
  }
  
@@ -704,7 +507,7 @@ index 96341e96cfad..197ddfd48691 100644
  /* Class implementation */
  
  G_DEFINE_TYPE (TerminalApp, terminal_app, GTK_TYPE_APPLICATION)
-@@ -375,6 +400,10 @@ terminal_app_startup (GApplication *application)
+@@ -396,6 +421,10 @@ terminal_app_startup (GApplication *application)
      { "quit",        app_menu_quit_cb,          NULL, NULL, NULL }
    };
  
@@ -715,7 +518,7 @@ index 96341e96cfad..197ddfd48691 100644
    g_application_set_resource_base_path (application, TERMINAL_RESOURCES_PATH_PREFIX);
  
    G_APPLICATION_CLASS (terminal_app_parent_class)->startup (application);
-@@ -385,6 +414,9 @@ terminal_app_startup (GApplication *application)
+@@ -406,6 +435,9 @@ terminal_app_startup (GApplication *application)
    g_action_map_add_action_entries (G_ACTION_MAP (application),
                                     app_menu_actions, G_N_ELEMENTS (app_menu_actions),
                                     application);
@@ -726,10 +529,10 @@ index 96341e96cfad..197ddfd48691 100644
  
    app_load_css (application);
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 6838ee41957e..6a4dbd18bf9f 100644
+index b67f6e7ca2e1..3bbb5f0abea9 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
-@@ -52,6 +52,7 @@
+@@ -56,6 +56,7 @@
  #include "terminal-marshal.h"
  #include "terminal-schemas.h"
  #include "terminal-screen-container.h"
@@ -737,7 +540,7 @@ index 6838ee41957e..6a4dbd18bf9f 100644
  #include "terminal-util.h"
  #include "terminal-window.h"
  #include "terminal-info-bar.h"
-@@ -85,6 +86,7 @@ struct _TerminalScreenPrivate
+@@ -89,6 +90,7 @@ struct _TerminalScreenPrivate
    char **initial_env;
    char **override_command;
    gboolean shell;
@@ -745,7 +548,7 @@ index 6838ee41957e..6a4dbd18bf9f 100644
    int child_pid;
    GSList *match_tags;
    guint launch_child_source_id;
-@@ -137,11 +139,16 @@ static gboolean terminal_screen_button_press (GtkWidget *widget,
+@@ -141,11 +143,16 @@ static gboolean terminal_screen_button_press (GtkWidget *widget,
                                                GdkEventButton *event);
  static void terminal_screen_hierarchy_changed (GtkWidget *widget,
                                                 GtkWidget *previous_toplevel);
@@ -762,7 +565,7 @@ index 6838ee41957e..6a4dbd18bf9f 100644
  
  static void terminal_screen_window_title_changed      (VteTerminal *vte_terminal,
                                                         TerminalScreen *screen);
-@@ -450,6 +457,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
+@@ -519,6 +526,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
    object_class->get_property = terminal_screen_get_property;
    object_class->set_property = terminal_screen_set_property;
  
@@ -770,7 +573,7 @@ index 6838ee41957e..6a4dbd18bf9f 100644
    widget_class->realize = terminal_screen_realize;
    widget_class->style_updated = terminal_screen_style_updated;
    widget_class->drag_data_received = terminal_screen_drag_data_received;
-@@ -458,6 +466,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
+@@ -527,6 +535,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
    widget_class->hierarchy_changed = terminal_screen_hierarchy_changed;
  
    terminal_class->child_exited = terminal_screen_child_exited;
@@ -778,7 +581,7 @@ index 6838ee41957e..6a4dbd18bf9f 100644
  
    signals[PROFILE_SET] =
      g_signal_new (I_("profile-set"),
-@@ -579,6 +588,10 @@ terminal_screen_dispose (GObject *object)
+@@ -636,6 +645,10 @@ terminal_screen_dispose (GObject *object)
    TerminalScreen *screen = TERMINAL_SCREEN (object);
    TerminalScreenPrivate *priv = screen->priv;
    GtkSettings *settings;
@@ -789,7 +592,7 @@ index 6838ee41957e..6a4dbd18bf9f 100644
  
    settings = gtk_widget_get_settings (GTK_WIDGET (screen));
    g_signal_handlers_disconnect_matched (settings, G_SIGNAL_MATCH_DATA,
-@@ -1566,6 +1579,43 @@ terminal_screen_button_press (GtkWidget      *widget,
+@@ -1630,6 +1643,43 @@ terminal_screen_button_press (GtkWidget      *widget,
    return FALSE;
  }
  
@@ -833,7 +636,7 @@ index 6838ee41957e..6a4dbd18bf9f 100644
  /**
   * terminal_screen_get_current_dir:
   * @screen:
-@@ -1667,6 +1717,64 @@ terminal_screen_child_exited (VteTerminal *terminal,
+@@ -1731,6 +1781,64 @@ terminal_screen_child_exited (VteTerminal *terminal,
  }
  
  static void
@@ -977,10 +780,10 @@ index 20cfbceb36b0..a987025e0524 100644
 2.5.0
 
 
-From 07508b34ae2635634310fb0ab3a49009e5bec56c Mon Sep 17 00:00:00 2001
+From cc6bd27dc0816fc18170d17b59a4c626a2170336 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 27 Jan 2015 19:04:19 +0100
-Subject: [PATCH 7/9] Make notifications based on org.gtk.Notification work
+Subject: [PATCH 5/7] Make notifications based on org.gtk.Notification work
 
 The desktop file should be named after the application ID for this.
 
@@ -1024,10 +827,10 @@ index f6f41a6e2c73..3aa8677ed587 100644
  @INTLTOOL_XML_RULE@
  
 diff --git a/configure.ac b/configure.ac
-index 35c799e70c54..3e63c04569e4 100644
+index 64a9349fab69..528e0c93c4be 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -353,7 +353,7 @@ AC_DEFINE_UNQUOTED([GDK_VERSION_MAX_ALLOWED],[GDK_VERSION_[]AS_TR_SH([$GTK_MAX_A
+@@ -380,7 +380,7 @@ AC_DEFINE_UNQUOTED([GDK_VERSION_MAX_ALLOWED],[GDK_VERSION_[]AS_TR_SH([$GTK_MAX_A
  
  AC_CONFIG_FILES([
  Makefile
@@ -1169,7 +972,7 @@ index 000000000000..98ad8f9fe083
 +StartupNotify=true
 +X-GNOME-SingleWindow=false
 diff --git a/po/POTFILES.in b/po/POTFILES.in
-index dcbc5fe2c5aa..ae304cdfbbe1 100644
+index cf1104b85d77..44a77eb4d65b 100644
 --- a/po/POTFILES.in
 +++ b/po/POTFILES.in
 @@ -1,8 +1,8 @@
@@ -1180,9 +983,9 @@ index dcbc5fe2c5aa..ae304cdfbbe1 100644
 -gnome-terminal.desktop.in.in
 +org.gnome.Terminal.appdata.xml.in
 +org.gnome.Terminal.desktop.in.in
- [type: gettext/glade]src/find-dialog.ui
  src/gterminal.vala
  src/migration.c
+ src/org.gnome.Terminal.gschema.xml
 diff --git a/po/POTFILES.skip b/po/POTFILES.skip
 index 7c37b7fc2ca7..ef7c63561d4b 100644
 --- a/po/POTFILES.skip
@@ -1210,10 +1013,10 @@ index b6506f299f1d..1b9f81c10fcf 100644
 2.5.0
 
 
-From 33fe553a2504e5ae2f8b4cc3e7a3eeb722b7ce93 Mon Sep 17 00:00:00 2001
+From 05ba63d7b28eb5d81982f372968a3907fc43f46e Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 29 Jan 2015 11:47:21 +0100
-Subject: [PATCH 8/9] Sprinkle debug messages for notifications
+Subject: [PATCH 6/7] Sprinkle debug messages for notifications
 
 This can be useful for finding out whether the escape sequence wasn't
 emitted or the filtering was faulty.
@@ -1252,10 +1055,10 @@ index 5dc3ca4f3df0..7499ebe06c88 100644
  
  void _terminal_debug_init(void);
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 6a4dbd18bf9f..7f9276319e2b 100644
+index 3bbb5f0abea9..ed6f1a8be4b6 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
-@@ -1587,6 +1587,8 @@ terminal_screen_focus_in (GtkWidget     *widget,
+@@ -1651,6 +1651,8 @@ terminal_screen_focus_in (GtkWidget     *widget,
    TerminalApp *app;
    TerminalWindow *window;
  
@@ -1264,7 +1067,7 @@ index 6a4dbd18bf9f..7f9276319e2b 100644
    window = terminal_screen_get_window (screen);
    if (window != NULL)
      {
-@@ -1725,6 +1727,8 @@ terminal_screen_notification_received (VteTerminal *terminal,
+@@ -1789,6 +1791,8 @@ terminal_screen_notification_received (VteTerminal *terminal,
    TerminalScreenPrivate *priv = screen->priv;
    TerminalWindow *window;
  
@@ -1273,7 +1076,7 @@ index 6a4dbd18bf9f..7f9276319e2b 100644
    if (G_UNLIKELY (!priv->shell_prompt_shown))
      {
        priv->shell_prompt_shown = TRUE;
-@@ -1756,6 +1760,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
+@@ -1820,6 +1824,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
            tab_label = gtk_notebook_get_tab_label (GTK_NOTEBOOK (mdi_container), GTK_WIDGET (screen_container));
            terminal_tab_label_set_bold (TERMINAL_TAB_LABEL (tab_label), TRUE);
            terminal_tab_label_set_icon (TERMINAL_TAB_LABEL (tab_label), "dialog-information-symbolic", summary);
@@ -1281,7 +1084,7 @@ index 6a4dbd18bf9f..7f9276319e2b 100644
          }
      }
    else
-@@ -1771,6 +1776,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
+@@ -1835,6 +1840,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
  
        app = terminal_app_get ();
        g_application_send_notification (G_APPLICATION (app), priv->uuid, notification);
@@ -1293,10 +1096,10 @@ index 6a4dbd18bf9f..7f9276319e2b 100644
 2.5.0
 
 
-From 3173ff8007f3cd52414c1d8e05f3aa592c2947d7 Mon Sep 17 00:00:00 2001
+From 2b7d94cd1c94aef13b2938dde5e0fc37e5feb365 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 17 Feb 2015 17:06:17 +0100
-Subject: [PATCH 9/9] Restore translations for dark terminals and transparency
+Subject: [PATCH 7/7] Restore translations for transparency
 
 ---
  po/am.po          |  4 ++--
@@ -1322,9 +1125,9 @@ Subject: [PATCH 9/9] Restore translations for dark terminals and transparency
  po/en_GB.po       |  4 ++--
  po/es.po          | 12 ++++++------
  po/et.po          |  3 +++
- po/eu.po          | 12 ++++++------
+ po/eu.po          |  8 ++++----
  po/fa.po          |  3 +++
- po/fi.po          | 11 +++++++----
+ po/fi.po          |  3 +++
  po/fr.po          | 11 +++++++----
  po/fur.po         |  4 ++++
  po/ga.po          |  3 +++
@@ -1385,10 +1188,10 @@ Subject: [PATCH 9/9] Restore translations for dark terminals and transparency
  po/vi.po          | 11 +++++++----
  po/wa.po          |  4 ++--
  po/xh.po          |  4 ++--
- po/zh_CN.po       | 10 ++++++++--
+ po/zh_CN.po       |  6 +++---
  po/zh_HK.po       |  3 +++
  po/zh_TW.po       | 11 +++++++----
- 89 files changed, 329 insertions(+), 212 deletions(-)
+ 89 files changed, 318 insertions(+), 207 deletions(-)
 
 diff --git a/po/am.po b/po/am.po
 index 27a7e9640668..04a8ad9f36a3 100644
@@ -1577,11 +1380,11 @@ index 1c279a0bf09c..4073f719906a 100644
 +msgid "Transparent background"
 +msgstr "Fons transparent"
 diff --git a/po/cs.po b/po/cs.po
-index 8737182b80bf..542f8135590e 100644
+index 1c38a0e92ae3..7c01afb87a78 100644
 --- a/po/cs.po
 +++ b/po/cs.po
-@@ -2056,3 +2056,6 @@ msgstr ""
- #: ../src/terminal-window.c:3694
+@@ -2086,3 +2086,6 @@ msgstr ""
+ #: ../src/terminal-window.c:3775
  msgid "C_lose Window"
  msgstr "_Zavřít okno"
 +
@@ -1794,10 +1597,10 @@ index 4b1c2a7c67e4..770761168806 100644
 +msgid "Transparent background"
 +msgstr "Läbipaistev taust"
 diff --git a/po/eu.po b/po/eu.po
-index 0080c74bb8de..a68e24b92337 100644
+index 786f9e2075d5..538bdc3e15a6 100644
 --- a/po/eu.po
 +++ b/po/eu.po
-@@ -2075,11 +2075,11 @@ msgstr "It_xi leihoa"
+@@ -2116,8 +2116,8 @@ msgstr "It_xi leihoa"
  #~ msgid "Missing command"
  #~ msgstr "Komandoa falta da"
  
@@ -1806,14 +1609,9 @@ index 0080c74bb8de..a68e24b92337 100644
 +msgid "Whether to use a dark theme variant"
 +msgstr "Gai ilunaren aldaera erabili edo ez"
  
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Erabili gai _ilunaren aldaera"
-+msgid "Use _dark theme variant"
-+msgstr "Erabili gai _ilunaren aldaera"
- 
  #~ msgid "COMMAND"
  #~ msgstr "KOMANDOA"
-@@ -2976,8 +2976,8 @@ msgstr "It_xi leihoa"
+@@ -3011,8 +3011,8 @@ msgstr "It_xi leihoa"
  #~ msgid "_Solid color"
  #~ msgstr "_Kolore solidoa"
  
@@ -1836,12 +1634,12 @@ index 52856cbdd6a4..2a89999af2bf 100644
 +msgid "Transparent background"
 +msgstr "پس‌زمینه‌ی شفاف"
 diff --git a/po/fi.po b/po/fi.po
-index f80a962e458a..ba11a5795b1c 100644
+index 7e4849083734..262634e78628 100644
 --- a/po/fi.po
 +++ b/po/fi.po
-@@ -2069,6 +2069,9 @@ msgstr ""
- msgid "C_lose Window"
- msgstr "_Sulje ikkuna"
+@@ -2118,6 +2118,9 @@ msgstr "_Sulje ikkuna"
+ #~ msgid "_Update login records when command is launched"
+ #~ msgstr "_Päivitä kirjautumistallenne kun komento käynnistetään"
  
 +msgid "Transparent background"
 +msgstr "Läpinäkyvä tausta"
@@ -1849,20 +1647,6 @@ index f80a962e458a..ba11a5795b1c 100644
  #~ msgid "Set the terminal title"
  #~ msgstr "Aseta päätteen otsikko"
  
-@@ -2079,8 +2082,8 @@ msgstr "_Sulje ikkuna"
- #~ msgid "Missing command"
- #~ msgstr "Puuttuva komento"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Käytetäänkö teeman tummaan muunnelmaa"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Käytetäänkö teeman tummaan muunnelmaa"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Käytä _teeman tummaa muunnelmaa"
-+msgid "Use _dark theme variant"
-+msgstr "Käytä _teeman tummaa muunnelmaa"
-\ No newline at end of file
 diff --git a/po/fr.po b/po/fr.po
 index 15c8ecc86124..506f0fcb5c49 100644
 --- a/po/fr.po
@@ -2693,10 +2477,10 @@ index 0197b14ca932..be4956eeeed5 100644
 +msgid "Transparent background"
 +msgstr "Провидна позадина"
 diff --git a/po/sr@latin.po b/po/sr@latin.po
-index 12afab128229..e8ccf218695e 100644
+index c82646ca4451..4ba3d9588643 100644
 --- a/po/sr@latin.po
 +++ b/po/sr@latin.po
-@@ -2152,11 +2152,11 @@ msgstr "_Zatvori prozor"
+@@ -2174,11 +2174,11 @@ msgstr "_Zatvori prozor"
  #~ msgid "Keyboard shortcut to set the terminal title"
  #~ msgstr "Prečica za postavljanje naslova terminala"
  
@@ -2712,7 +2496,7 @@ index 12afab128229..e8ccf218695e 100644
  
  #~ msgid "_Use the system fixed width font"
  #~ msgstr "_Koristi sistemski slovni lik stalne širine"
-@@ -2208,3 +2208,6 @@ msgstr "_Zatvori prozor"
+@@ -2230,3 +2230,6 @@ msgstr "_Zatvori prozor"
  
  #~ msgid "Close Window"
  #~ msgstr "Zatvori prozor"
@@ -2871,10 +2655,10 @@ index a8db018e0a9d..4b90b5c5ad9b 100644
  #~ msgid "Switch to Tab 2"
  #~ msgstr "До вкладки 2"
 diff --git a/po/vi.po b/po/vi.po
-index e5db4fb757d1..4eed0ecc4b93 100644
+index 9036f38a5350..4769d8c3db08 100644
 --- a/po/vi.po
 +++ b/po/vi.po
-@@ -2080,11 +2080,11 @@ msgstr "Đón_g cửa sổ"
+@@ -2081,11 +2081,11 @@ msgstr "Đón_g cửa sổ"
  #~ msgid "Missing command"
  #~ msgstr "Thiếu lệnh"
  
@@ -2890,7 +2674,7 @@ index e5db4fb757d1..4eed0ecc4b93 100644
  
  #~ msgid "Set the terminal title"
  #~ msgstr "Đặt tựa đề thiết bị cuối"
-@@ -2689,3 +2689,6 @@ msgstr "Đón_g cửa sổ"
+@@ -2690,3 +2690,6 @@ msgstr "Đón_g cửa sổ"
  #~ "Phím tắt để đặt lại thiết bị cuối. Dùng dạng chuỗi có cùng một khuôn dạng "
  #~ "với tập tin tài nguyên GTK+. Nếu bạn đặt tùy chọn là chuỗi “disabled” (bị "
  #~ "tắt), nghĩa là không có phím tắt cho hành động này."
@@ -2928,24 +2712,20 @@ index e5981c6ec5bf..7f9f8049c3df 100644
  #: ../src/gnome-terminal.glade2.h:103
  msgid "_Update login records when command is launched"
 diff --git a/po/zh_CN.po b/po/zh_CN.po
-index abc13e1e3abe..f9bd6ec53cbb 100644
+index b18a9e78cf05..e84ab44c94c6 100644
 --- a/po/zh_CN.po
 +++ b/po/zh_CN.po
-@@ -2102,8 +2102,11 @@ msgstr "关闭窗口(_L)"
+@@ -2037,9 +2037,6 @@ msgstr "关闭窗口(_L)"
  #~ msgid "Missing command"
  #~ msgstr "遗漏命令"
  
 -#~ msgid "Whether to use a dark theme variant"
 -#~ msgstr "是否使用暗色主题"
-+msgid "Whether to use a dark theme variant"
-+msgstr "是否使用暗色主题"
-+
-+msgid "Use _dark theme variant"
-+msgstr "使用暗色主题(_D)"
+-
+ #~ msgid "Use _dark theme variant"
+ #~ msgstr "使用暗色主题(_D)"
  
- #~ msgid "COMMAND"
- #~ msgstr "命令"
-@@ -2336,3 +2339,6 @@ msgstr "关闭窗口(_L)"
+@@ -2280,3 +2277,6 @@ msgstr "关闭窗口(_L)"
  
  #~ msgid "_Find..."
  #~ msgstr "查找(_F)..."

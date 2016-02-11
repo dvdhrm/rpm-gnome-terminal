@@ -7,20 +7,20 @@
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.18.2
-Release: 2%{?dist}
+Version: 3.19.1
+Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
-Source0: http://download.gnome.org/sources/gnome-terminal/3.18/gnome-terminal-%{version}.tar.xz
+Source0: http://download.gnome.org/sources/gnome-terminal/3.19/gnome-terminal-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
 
 Patch0: 0001-build-Don-t-treat-warnings-as-errors.patch
 # https://bugzilla.gnome.org/show_bug.cgi?id=755825
 Patch1: gnome-terminal-symbolic-new-tab-icon.patch
 
-Patch100: gnome-terminal-dark-transparency-notify.patch
+Patch100: gnome-terminal-transparency-notify.patch
 
 BuildRequires: dbus-x11
 BuildRequires: glib2-devel >= %{glib2_version}
@@ -107,6 +107,11 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Thu Feb 11 2016 Debarshi Ray <rishi@fedoraproject.org> - 3.19.1-1
+- Update to 3.19.1
+- Rebase transparency, command-notify and translation patches
+- Dark terminals have been restored upstream
+
 * Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
