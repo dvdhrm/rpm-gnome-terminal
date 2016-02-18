@@ -8,7 +8,7 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 3.19.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -107,6 +107,9 @@ fi
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
 
 %changelog
+* Thu Feb 18 2016 Debarshi Ray <rishi@fedoraproject.org> - 3.19.1-2
+- Adjust the dark terminal override to match the new setting
+
 * Thu Feb 11 2016 Debarshi Ray <rishi@fedoraproject.org> - 3.19.1-1
 - Update to 3.19.1
 - Rebase transparency, command-notify and translation patches
