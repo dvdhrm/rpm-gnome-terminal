@@ -1,7 +1,7 @@
-From d640e1cc6c82d01df0dd284590b25d3721ad80d4 Mon Sep 17 00:00:00 2001
+From a51996441422bc5078dfc75667f1e63617cee4fe Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Mon, 12 May 2014 14:57:18 +0200
-Subject: [PATCH 1/7] Restore transparency
+Subject: [PATCH 1/6] Restore transparency
 
 The transparency settings were removed as a side effect of
 2bff4b63ed3ceef6055e35563e9b0b33ad57349d
@@ -23,7 +23,7 @@ restore the translations of the string.
  6 files changed, 144 insertions(+), 1 deletion(-)
 
 diff --git a/src/org.gnome.Terminal.gschema.xml b/src/org.gnome.Terminal.gschema.xml
-index d358bbe450d5..f3a8ee52dd98 100644
+index 2a834ea175d7..74f5f921035c 100644
 --- a/src/org.gnome.Terminal.gschema.xml
 +++ b/src/org.gnome.Terminal.gschema.xml
 @@ -340,6 +340,16 @@
@@ -191,10 +191,10 @@ index 2c85c67a63f1..f5b1f4ab8923 100644
  #define TERMINAL_SETTING_DEFAULT_SHOW_MENUBAR_KEY       "default-show-menubar"
  #define TERMINAL_SETTING_ENABLE_MENU_BAR_ACCEL_KEY      "menu-accelerator-enabled"
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 6eae7ab8dd8a..25c2bfcb0295 100644
+index d786d7eada9f..03e3a39ff81b 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
-@@ -822,7 +822,9 @@ terminal_screen_profile_changed_cb (GSettings     *profile,
+@@ -823,7 +823,9 @@ terminal_screen_profile_changed_cb (GSettings     *profile,
        prop_name == I_(TERMINAL_PROFILE_BACKGROUND_COLOR_KEY) ||
        prop_name == I_(TERMINAL_PROFILE_BOLD_COLOR_SAME_AS_FG_KEY) ||
        prop_name == I_(TERMINAL_PROFILE_BOLD_COLOR_KEY) ||
@@ -205,7 +205,7 @@ index 6eae7ab8dd8a..25c2bfcb0295 100644
      update_color_scheme (screen);
  
    if (!prop_name || prop_name == I_(TERMINAL_PROFILE_AUDIBLE_BELL_KEY))
-@@ -888,6 +890,8 @@ update_color_scheme (TerminalScreen *screen)
+@@ -889,6 +891,8 @@ update_color_scheme (TerminalScreen *screen)
    GdkRGBA fg, bg, bold, theme_fg, theme_bg;
    GdkRGBA *boldp;
    GtkStyleContext *context;
@@ -214,7 +214,7 @@ index 6eae7ab8dd8a..25c2bfcb0295 100644
  
    context = gtk_widget_get_style_context (widget);
    gtk_style_context_get_color (context, gtk_style_context_get_state (context), &theme_fg);
-@@ -908,9 +912,25 @@ update_color_scheme (TerminalScreen *screen)
+@@ -909,9 +913,25 @@ update_color_scheme (TerminalScreen *screen)
      boldp = NULL;
  
    colors = terminal_g_settings_get_rgba_palette (priv->profile, TERMINAL_PROFILE_PALETTE_KEY, &n_colors);
@@ -241,10 +241,10 @@ index 6eae7ab8dd8a..25c2bfcb0295 100644
  
  static void
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index b3c264905ef8..95aadcf8900a 100644
+index 4caa9e987894..d9c64992a160 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
-@@ -2650,6 +2650,8 @@ terminal_window_init (TerminalWindow *window)
+@@ -2612,6 +2612,8 @@ terminal_window_init (TerminalWindow *window)
    TerminalWindowPrivate *priv;
    TerminalApp *app;
    TerminalSettingsList *profiles_list;
@@ -253,7 +253,7 @@ index b3c264905ef8..95aadcf8900a 100644
    GtkActionGroup *action_group;
    GtkAction *action;
    GtkUIManager *manager;
-@@ -2665,6 +2667,11 @@ terminal_window_init (TerminalWindow *window)
+@@ -2627,6 +2629,11 @@ terminal_window_init (TerminalWindow *window)
  
    gtk_widget_init_template (GTK_WIDGET (window));
  
@@ -269,10 +269,10 @@ index b3c264905ef8..95aadcf8900a 100644
 2.5.0
 
 
-From eaf73ae38036367d0bd22f4df0445f270e4ff6ba Mon Sep 17 00:00:00 2001
+From 7e88de11a2558a0f45c20551d600ef0d5f3c8a76 Mon Sep 17 00:00:00 2001
 From: Lars Uebernickel <lars.uebernickel@canonical.com>
 Date: Wed, 28 May 2014 14:11:02 +0200
-Subject: [PATCH 2/7] window: Make the drawing robust across all themes
+Subject: [PATCH 2/6] window: Make the drawing robust across all themes
 
 There are lots of themes out there in the wild that do not specify a
 background-color for all widgets and the default is transparent. This
@@ -289,10 +289,10 @@ https://bugzilla.gnome.org/show_bug.cgi?id=730016
  1 file changed, 21 insertions(+)
 
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index 95aadcf8900a..d7bd9113931a 100644
+index d9c64992a160..eb0def5ccb70 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
-@@ -2286,6 +2286,26 @@ terminal_window_realize (GtkWidget *widget)
+@@ -2284,6 +2284,26 @@ terminal_window_realize (GtkWidget *widget)
  }
  
  static gboolean
@@ -319,7 +319,7 @@ index 95aadcf8900a..d7bd9113931a 100644
  terminal_window_state_event (GtkWidget            *widget,
                               GdkEventWindowState  *event)
  {
-@@ -2851,6 +2871,7 @@ terminal_window_class_init (TerminalWindowClass *klass)
+@@ -2813,6 +2833,7 @@ terminal_window_class_init (TerminalWindowClass *klass)
  
    widget_class->show = terminal_window_show;
    widget_class->realize = terminal_window_realize;
@@ -331,10 +331,10 @@ index 95aadcf8900a..d7bd9113931a 100644
 2.5.0
 
 
-From 6051b13439329fe2e55427296b23dc97e3bf45b3 Mon Sep 17 00:00:00 2001
+From d1a03f1c2120dadcf0ad692b73dfc62d522bdefc Mon Sep 17 00:00:00 2001
 From: "Owen W. Taylor" <otaylor@fishsoup.net>
 Date: Fri, 13 Nov 2015 15:16:42 +0100
-Subject: [PATCH 3/7] screen, window: Extra padding around transparent
+Subject: [PATCH 3/6] screen, window: Extra padding around transparent
  terminals in Wayland
 
 https://bugzilla.redhat.com/show_bug.cgi?id=1207943
@@ -344,7 +344,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1207943
  2 files changed, 49 insertions(+), 9 deletions(-)
 
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 25c2bfcb0295..b67f6e7ca2e1 100644
+index 03e3a39ff81b..830495d07d2a 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
 @@ -139,6 +139,8 @@ static void terminal_screen_system_font_changed_cb (GSettings *,
@@ -356,7 +356,7 @@ index 25c2bfcb0295..b67f6e7ca2e1 100644
  static gboolean terminal_screen_do_exec (TerminalScreen *screen,
                                           FDSetupData    *data,
                                           GError **error);
-@@ -522,6 +524,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
+@@ -523,6 +525,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
    widget_class->drag_data_received = terminal_screen_drag_data_received;
    widget_class->button_press_event = terminal_screen_button_press;
    widget_class->popup_menu = terminal_screen_popup_menu;
@@ -364,7 +364,7 @@ index 25c2bfcb0295..b67f6e7ca2e1 100644
  
    terminal_class->child_exited = terminal_screen_child_exited;
  
-@@ -880,6 +883,32 @@ terminal_screen_profile_changed_cb (GSettings     *profile,
+@@ -881,6 +884,32 @@ terminal_screen_profile_changed_cb (GSettings     *profile,
  }
  
  static void
@@ -397,7 +397,7 @@ index 25c2bfcb0295..b67f6e7ca2e1 100644
  update_color_scheme (TerminalScreen *screen)
  {
    GtkWidget *widget = GTK_WIDGET (screen);
-@@ -928,9 +957,7 @@ update_color_scheme (TerminalScreen *screen)
+@@ -929,9 +958,7 @@ update_color_scheme (TerminalScreen *screen)
                             colors, n_colors);
    vte_terminal_set_color_bold (VTE_TERMINAL (screen), boldp);
  
@@ -408,7 +408,7 @@ index 25c2bfcb0295..b67f6e7ca2e1 100644
  }
  
  static void
-@@ -1533,6 +1560,13 @@ terminal_screen_do_popup (TerminalScreen *screen,
+@@ -1534,6 +1561,13 @@ terminal_screen_do_popup (TerminalScreen *screen,
    terminal_screen_popup_info_unref (info);
  }
  
@@ -423,10 +423,10 @@ index 25c2bfcb0295..b67f6e7ca2e1 100644
  terminal_screen_button_press (GtkWidget      *widget,
                                GdkEventButton *event)
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index d7bd9113931a..4573c2be3aaa 100644
+index eb0def5ccb70..9b1b0f8fa720 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
-@@ -2291,15 +2291,21 @@ terminal_window_draw (GtkWidget *widget,
+@@ -2289,15 +2289,21 @@ terminal_window_draw (GtkWidget *widget,
  {
    if (gtk_widget_get_app_paintable (widget))
      {
@@ -458,10 +458,10 @@ index d7bd9113931a..4573c2be3aaa 100644
 2.5.0
 
 
-From 4ecad2d6837b61378f9e03e09a4b2555109bdba7 Mon Sep 17 00:00:00 2001
+From 65d9816b14699476301638d0428e94b84a6ff074 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 27 Jan 2015 18:40:13 +0100
-Subject: [PATCH 4/7] Support desktop notifications from OSC 777
+Subject: [PATCH 4/6] Support desktop notifications from OSC 777
 
 https://bugzilla.gnome.org/show_bug.cgi?id=711059
 ---
@@ -529,7 +529,7 @@ index dfde524f5365..da06a85f1bf2 100644
  
    app_load_css (application);
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index b67f6e7ca2e1..3bbb5f0abea9 100644
+index 830495d07d2a..e33231b70cce 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
 @@ -56,6 +56,7 @@
@@ -565,7 +565,7 @@ index b67f6e7ca2e1..3bbb5f0abea9 100644
  
  static void terminal_screen_window_title_changed      (VteTerminal *vte_terminal,
                                                         TerminalScreen *screen);
-@@ -519,6 +526,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
+@@ -520,6 +527,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
    object_class->get_property = terminal_screen_get_property;
    object_class->set_property = terminal_screen_set_property;
  
@@ -573,7 +573,7 @@ index b67f6e7ca2e1..3bbb5f0abea9 100644
    widget_class->realize = terminal_screen_realize;
    widget_class->style_updated = terminal_screen_style_updated;
    widget_class->drag_data_received = terminal_screen_drag_data_received;
-@@ -527,6 +535,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
+@@ -528,6 +536,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
    widget_class->hierarchy_changed = terminal_screen_hierarchy_changed;
  
    terminal_class->child_exited = terminal_screen_child_exited;
@@ -581,7 +581,7 @@ index b67f6e7ca2e1..3bbb5f0abea9 100644
  
    signals[PROFILE_SET] =
      g_signal_new (I_("profile-set"),
-@@ -636,6 +645,10 @@ terminal_screen_dispose (GObject *object)
+@@ -637,6 +646,10 @@ terminal_screen_dispose (GObject *object)
    TerminalScreen *screen = TERMINAL_SCREEN (object);
    TerminalScreenPrivate *priv = screen->priv;
    GtkSettings *settings;
@@ -592,7 +592,7 @@ index b67f6e7ca2e1..3bbb5f0abea9 100644
  
    settings = gtk_widget_get_settings (GTK_WIDGET (screen));
    g_signal_handlers_disconnect_matched (settings, G_SIGNAL_MATCH_DATA,
-@@ -1630,6 +1643,43 @@ terminal_screen_button_press (GtkWidget      *widget,
+@@ -1631,6 +1644,43 @@ terminal_screen_button_press (GtkWidget      *widget,
    return FALSE;
  }
  
@@ -636,7 +636,7 @@ index b67f6e7ca2e1..3bbb5f0abea9 100644
  /**
   * terminal_screen_get_current_dir:
   * @screen:
-@@ -1731,6 +1781,64 @@ terminal_screen_child_exited (VteTerminal *terminal,
+@@ -1732,6 +1782,64 @@ terminal_screen_child_exited (VteTerminal *terminal,
  }
  
  static void
@@ -780,243 +780,10 @@ index 20cfbceb36b0..a987025e0524 100644
 2.5.0
 
 
-From cc6bd27dc0816fc18170d17b59a4c626a2170336 Mon Sep 17 00:00:00 2001
-From: Debarshi Ray <debarshir@gnome.org>
-Date: Tue, 27 Jan 2015 19:04:19 +0100
-Subject: [PATCH 5/7] Make notifications based on org.gtk.Notification work
-
-The desktop file should be named after the application ID for this.
-
-https://bugzilla.gnome.org/show_bug.cgi?id=711059
----
- Makefile.am                            |  4 ++--
- configure.ac                           |  2 +-
- gnome-terminal.appdata.xml.in          | 38 ----------------------------------
- gnome-terminal.desktop.in.in           | 16 --------------
- org.gnome.Terminal.appdata.xml.in      | 38 ++++++++++++++++++++++++++++++++++
- org.gnome.Terminal.desktop.in.in       | 16 ++++++++++++++
- po/POTFILES.in                         |  4 ++--
- po/POTFILES.skip                       |  2 +-
- src/gnome-terminal-search-provider.ini |  2 +-
- 9 files changed, 61 insertions(+), 61 deletions(-)
- delete mode 100644 gnome-terminal.appdata.xml.in
- delete mode 100644 gnome-terminal.desktop.in.in
- create mode 100644 org.gnome.Terminal.appdata.xml.in
- create mode 100644 org.gnome.Terminal.desktop.in.in
-
-diff --git a/Makefile.am b/Makefile.am
-index f6f41a6e2c73..3aa8677ed587 100644
---- a/Makefile.am
-+++ b/Makefile.am
-@@ -14,7 +14,7 @@ DISTCHECK_CONFIGURE_FLAGS = \
- 	$(NULL)
- 
- desktopdir = $(datadir)/applications
--desktop_in_files = @PACKAGE@.desktop.in.in
-+desktop_in_files = org.gnome.Terminal.desktop.in.in
- nodist_desktop_DATA = $(desktop_in_files:.desktop.in.in=.desktop)
- @INTLTOOL_DESKTOP_RULE@
- 
-@@ -25,7 +25,7 @@ desktop-file-validate: $(nodist_desktop_DATA)
- 	done
- 
- appdatadir = $(datadir)/appdata
--appdata_in_files = gnome-terminal.appdata.xml.in
-+appdata_in_files = org.gnome.Terminal.appdata.xml.in
- nodist_appdata_DATA = $(appdata_in_files:.xml.in=.xml)
- @INTLTOOL_XML_RULE@
- 
-diff --git a/configure.ac b/configure.ac
-index 64a9349fab69..528e0c93c4be 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -380,7 +380,7 @@ AC_DEFINE_UNQUOTED([GDK_VERSION_MAX_ALLOWED],[GDK_VERSION_[]AS_TR_SH([$GTK_MAX_A
- 
- AC_CONFIG_FILES([
- Makefile
--gnome-terminal.desktop.in
-+org.gnome.Terminal.desktop.in
- src/Makefile
- src/terminal-version.h
- help/Makefile
-diff --git a/gnome-terminal.appdata.xml.in b/gnome-terminal.appdata.xml.in
-deleted file mode 100644
-index 7ef61e967ae5..000000000000
---- a/gnome-terminal.appdata.xml.in
-+++ /dev/null
-@@ -1,38 +0,0 @@
--<?xml version="1.0" encoding="UTF-8"?>
--<!--
--  Copyright © 2014 Christian Persch
--
--  This program is free software; you can redistribute it and/or modify
--  it under the terms of the GNU General Public License as published by
--  the Free Software Foundation; either version 3, or (at your option)
--  any later version.
--
--  This program is distributed in the hope conf it will be useful,
--  but WITHOUT ANY WARRANTY; without even the implied warranty of
--  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
--  GNU General Public License for more details.
--
--  You should have received a copy of the GNU General Public License
--  along with this program.  If not, see <http://www.gnu.org/licenses/>.
---->
--<!-- FIXME: the xmlns for appdata is made-up -->
--<application
--  xmlns="https://www.freedesktop.org/standards/appdata/1.0"
--  xmlns:xi="http://www.w3.org/2001/XInclude"
--  xmlns:its="http://www.w3.org/2005/11/its">
--  <id type="desktop">gnome-terminal.desktop</id>
--  <metadata_license>GPL-3.0+</metadata_license>
--  <project_license>GPL-3.0+</project_license>
--  <_name>Terminal</_name>
--  <_summary>Use the command line</_summary>
--  <description>
--    <_p>GNOME Terminal is a terminal emulator application for accessing a UNIX shell environment which can be used to run programs available on your system.</_p>
--    <_p>It supports several profiles, multiple tabs and implements several keyboard shortcuts.</_p>
--  </description>
--  <screenshots>
--    <screenshot type="default">https://help.gnome.org/users/gnome-terminal/stable/figures/gnome-terminal.png</screenshot>
--  </screenshots>
--  <url type="homepage">https://wiki.gnome.org/Apps/Terminal</url>
--  <project_group>GNOME</project_group>
--  <updatecontact>https://wiki.gnome.org/Apps/Terminal/ReportingBugs</updatecontact>
--</application>
-diff --git a/gnome-terminal.desktop.in.in b/gnome-terminal.desktop.in.in
-deleted file mode 100644
-index 98ad8f9fe083..000000000000
---- a/gnome-terminal.desktop.in.in
-+++ /dev/null
-@@ -1,16 +0,0 @@
--[Desktop Entry]
--_Name=Terminal
--_Comment=Use the command line
--_Keywords=shell;prompt;command;commandline;cmd;
--TryExec=gnome-terminal
--Exec=gnome-terminal
--Icon=utilities-terminal
--Type=Application
--X-GNOME-DocPath=gnome-terminal/index.html
--X-GNOME-Bugzilla-Bugzilla=GNOME
--X-GNOME-Bugzilla-Product=gnome-terminal
--X-GNOME-Bugzilla-Component=BugBuddyBugs
--X-GNOME-Bugzilla-Version=@VERSION@
--Categories=GNOME;GTK;System;TerminalEmulator;
--StartupNotify=true
--X-GNOME-SingleWindow=false
-diff --git a/org.gnome.Terminal.appdata.xml.in b/org.gnome.Terminal.appdata.xml.in
-new file mode 100644
-index 000000000000..ab4f23b8329a
---- /dev/null
-+++ b/org.gnome.Terminal.appdata.xml.in
-@@ -0,0 +1,38 @@
-+<?xml version="1.0" encoding="UTF-8"?>
-+<!--
-+  Copyright © 2014 Christian Persch
-+
-+  This program is free software; you can redistribute it and/or modify
-+  it under the terms of the GNU General Public License as published by
-+  the Free Software Foundation; either version 3, or (at your option)
-+  any later version.
-+
-+  This program is distributed in the hope conf it will be useful,
-+  but WITHOUT ANY WARRANTY; without even the implied warranty of
-+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+  GNU General Public License for more details.
-+
-+  You should have received a copy of the GNU General Public License
-+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-+-->
-+<!-- FIXME: the xmlns for appdata is made-up -->
-+<application
-+  xmlns="https://www.freedesktop.org/standards/appdata/1.0"
-+  xmlns:xi="http://www.w3.org/2001/XInclude"
-+  xmlns:its="http://www.w3.org/2005/11/its">
-+  <id type="desktop">org.gnome.Terminal.desktop</id>
-+  <metadata_license>GPL-3.0+</metadata_license>
-+  <project_license>GPL-3.0+</project_license>
-+  <_name>Terminal</_name>
-+  <_summary>Use the command line</_summary>
-+  <description>
-+    <_p>GNOME Terminal is a terminal emulator application for accessing a UNIX shell environment which can be used to run programs available on your system.</_p>
-+    <_p>It supports several profiles, multiple tabs and implements several keyboard shortcuts.</_p>
-+  </description>
-+  <screenshots>
-+    <screenshot type="default">https://help.gnome.org/users/gnome-terminal/stable/figures/gnome-terminal.png</screenshot>
-+  </screenshots>
-+  <url type="homepage">https://wiki.gnome.org/Apps/Terminal</url>
-+  <project_group>GNOME</project_group>
-+  <updatecontact>https://wiki.gnome.org/Apps/Terminal/ReportingBugs</updatecontact>
-+</application>
-diff --git a/org.gnome.Terminal.desktop.in.in b/org.gnome.Terminal.desktop.in.in
-new file mode 100644
-index 000000000000..98ad8f9fe083
---- /dev/null
-+++ b/org.gnome.Terminal.desktop.in.in
-@@ -0,0 +1,16 @@
-+[Desktop Entry]
-+_Name=Terminal
-+_Comment=Use the command line
-+_Keywords=shell;prompt;command;commandline;cmd;
-+TryExec=gnome-terminal
-+Exec=gnome-terminal
-+Icon=utilities-terminal
-+Type=Application
-+X-GNOME-DocPath=gnome-terminal/index.html
-+X-GNOME-Bugzilla-Bugzilla=GNOME
-+X-GNOME-Bugzilla-Product=gnome-terminal
-+X-GNOME-Bugzilla-Component=BugBuddyBugs
-+X-GNOME-Bugzilla-Version=@VERSION@
-+Categories=GNOME;GTK;System;TerminalEmulator;
-+StartupNotify=true
-+X-GNOME-SingleWindow=false
-diff --git a/po/POTFILES.in b/po/POTFILES.in
-index cf1104b85d77..44a77eb4d65b 100644
---- a/po/POTFILES.in
-+++ b/po/POTFILES.in
-@@ -1,8 +1,8 @@
- [encoding: UTF-8]
- # List of source files containing translatable strings.
- # Please keep this file sorted alphabetically.
--gnome-terminal.appdata.xml.in
--gnome-terminal.desktop.in.in
-+org.gnome.Terminal.appdata.xml.in
-+org.gnome.Terminal.desktop.in.in
- src/gterminal.vala
- src/migration.c
- src/org.gnome.Terminal.gschema.xml
-diff --git a/po/POTFILES.skip b/po/POTFILES.skip
-index 7c37b7fc2ca7..ef7c63561d4b 100644
---- a/po/POTFILES.skip
-+++ b/po/POTFILES.skip
-@@ -1,4 +1,4 @@
- # List of source files that should *not* be translated.
- # Please keep this file sorted alphabetically.
--gnome-terminal.desktop.in
-+org.gnome.Terminal.desktop.in
- src/gterminal.c
-diff --git a/src/gnome-terminal-search-provider.ini b/src/gnome-terminal-search-provider.ini
-index b6506f299f1d..1b9f81c10fcf 100644
---- a/src/gnome-terminal-search-provider.ini
-+++ b/src/gnome-terminal-search-provider.ini
-@@ -14,7 +14,7 @@
- # along with this program.  If not, see <http://www.gnu.org/licenses/>.
- 
- [Shell Search Provider]
--DesktopId=gnome-terminal.desktop
-+DesktopId=org.gnome.Terminal.desktop
- BusName=org.gnome.Terminal
- ObjectPath=/org/gnome/Terminal/SearchProvider
- Version=2
--- 
-2.5.0
-
-
-From 05ba63d7b28eb5d81982f372968a3907fc43f46e Mon Sep 17 00:00:00 2001
+From 2582a457fd209c96f78be0aecc4793d03c995d7a Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 29 Jan 2015 11:47:21 +0100
-Subject: [PATCH 6/7] Sprinkle debug messages for notifications
+Subject: [PATCH 5/6] Sprinkle debug messages for notifications
 
 This can be useful for finding out whether the escape sequence wasn't
 emitted or the filtering was faulty.
@@ -1055,10 +822,10 @@ index 5dc3ca4f3df0..7499ebe06c88 100644
  
  void _terminal_debug_init(void);
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 3bbb5f0abea9..ed6f1a8be4b6 100644
+index e33231b70cce..ad0bf2b86572 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
-@@ -1651,6 +1651,8 @@ terminal_screen_focus_in (GtkWidget     *widget,
+@@ -1652,6 +1652,8 @@ terminal_screen_focus_in (GtkWidget     *widget,
    TerminalApp *app;
    TerminalWindow *window;
  
@@ -1067,7 +834,7 @@ index 3bbb5f0abea9..ed6f1a8be4b6 100644
    window = terminal_screen_get_window (screen);
    if (window != NULL)
      {
-@@ -1789,6 +1791,8 @@ terminal_screen_notification_received (VteTerminal *terminal,
+@@ -1790,6 +1792,8 @@ terminal_screen_notification_received (VteTerminal *terminal,
    TerminalScreenPrivate *priv = screen->priv;
    TerminalWindow *window;
  
@@ -1076,7 +843,7 @@ index 3bbb5f0abea9..ed6f1a8be4b6 100644
    if (G_UNLIKELY (!priv->shell_prompt_shown))
      {
        priv->shell_prompt_shown = TRUE;
-@@ -1820,6 +1824,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
+@@ -1821,6 +1825,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
            tab_label = gtk_notebook_get_tab_label (GTK_NOTEBOOK (mdi_container), GTK_WIDGET (screen_container));
            terminal_tab_label_set_bold (TERMINAL_TAB_LABEL (tab_label), TRUE);
            terminal_tab_label_set_icon (TERMINAL_TAB_LABEL (tab_label), "dialog-information-symbolic", summary);
@@ -1084,7 +851,7 @@ index 3bbb5f0abea9..ed6f1a8be4b6 100644
          }
      }
    else
-@@ -1835,6 +1840,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
+@@ -1836,6 +1841,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
  
        app = terminal_app_get ();
        g_application_send_notification (G_APPLICATION (app), priv->uuid, notification);
@@ -1096,102 +863,100 @@ index 3bbb5f0abea9..ed6f1a8be4b6 100644
 2.5.0
 
 
-From 2b7d94cd1c94aef13b2938dde5e0fc37e5feb365 Mon Sep 17 00:00:00 2001
+From 5aa252977ef757c2891028625b9acfb89930598e Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 17 Feb 2015 17:06:17 +0100
-Subject: [PATCH 7/7] Restore translations for transparency
+Subject: [PATCH 6/6] Restore translations for transparency
 
 ---
- po/am.po          |  4 ++--
- po/ar.po          | 13 ++++++-------
- po/as.po          |  4 ++--
- po/ast.po         |  4 ++--
- po/az.po          |  4 ++--
- po/be.po          |  3 +++
- po/be@latin.po    |  4 ++--
- po/bg.po          |  3 +++
- po/bn_IN.po       |  3 +++
- po/bs.po          |  4 ++++
- po/ca.po          | 11 +++++++----
- po/ca@valencia.po |  3 +++
- po/cs.po          |  3 +++
- po/cy.po          |  4 ++--
- po/da.po          | 12 ++++++------
- po/de.po          | 12 ++++++------
- po/dz.po          |  4 ++--
- po/el.po          | 11 +++++++----
- po/en@shaw.po     |  4 ++--
- po/en_CA.po       |  4 ++--
- po/en_GB.po       |  4 ++--
- po/es.po          | 12 ++++++------
- po/et.po          |  3 +++
- po/eu.po          |  8 ++++----
- po/fa.po          |  3 +++
- po/fi.po          |  3 +++
- po/fr.po          | 11 +++++++----
- po/fur.po         |  4 ++++
- po/ga.po          |  3 +++
- po/gd.po          |  9 ++++-----
- po/gl.po          | 12 ++++++------
- po/gu.po          |  4 ++--
- po/he.po          | 12 ++++++------
- po/hi.po          |  4 ++--
- po/hr.po          |  4 ++--
- po/hu.po          | 11 +++++++----
- po/hy.po          |  4 ++--
- po/id.po          |  3 +++
- po/it.po          |  3 +++
- po/ja.po          |  3 +++
- po/ka.po          |  2 +-
- po/kk.po          | 11 +++++++----
- po/kn.po          |  3 +++
- po/ko.po          | 11 +++++++----
- po/ku.po          |  4 ++--
- po/lt.po          | 11 +++++++----
- po/lv.po          |  3 +++
- po/mai.po         |  4 ++--
- po/mg.po          |  4 ++--
- po/mk.po          |  4 ++--
- po/ml.po          |  4 ++--
- po/mn.po          |  4 ++--
- po/mr.po          |  4 ++--
- po/ms.po          |  4 ++--
- po/nb.po          |  3 +++
- po/nds.po         |  4 ++--
- po/ne.po          |  4 ++--
- po/nl.po          |  3 +++
- po/nn.po          |  4 ++--
- po/oc.po          | 12 ++++++------
- po/or.po          |  4 ++--
- po/pa.po          |  4 ++--
- po/pl.po          |  3 +++
- po/ps.po          |  4 ++--
- po/pt.po          | 12 ++++++------
- po/pt_BR.po       | 11 +++++++----
- po/ro.po          |  4 ++--
- po/ru.po          |  3 +++
- po/rw.po          |  2 +-
- po/si.po          |  4 ++--
- po/sk.po          | 11 +++++++----
- po/sl.po          | 11 +++++++----
- po/sq.po          |  4 ++--
- po/sr.po          | 11 +++++++----
- po/sr@latin.po    | 11 +++++++----
- po/sv.po          |  3 +++
- po/ta.po          |  4 ++--
- po/te.po          |  4 ++--
- po/tg.po          |  8 ++++----
- po/th.po          | 12 ++++++------
- po/tr.po          |  3 +++
- po/ug.po          |  4 ++--
- po/uk.po          | 12 ++++++------
- po/vi.po          | 11 +++++++----
- po/wa.po          |  4 ++--
- po/xh.po          |  4 ++--
- po/zh_CN.po       |  6 +++---
- po/zh_HK.po       |  3 +++
- po/zh_TW.po       | 11 +++++++----
- 89 files changed, 318 insertions(+), 207 deletions(-)
+ po/am.po          | 4 ++--
+ po/ar.po          | 4 ++--
+ po/as.po          | 4 ++--
+ po/ast.po         | 4 ++--
+ po/az.po          | 4 ++--
+ po/be.po          | 3 +++
+ po/be@latin.po    | 4 ++--
+ po/bg.po          | 3 +++
+ po/bn_IN.po       | 3 +++
+ po/bs.po          | 4 ++++
+ po/ca.po          | 3 +++
+ po/ca@valencia.po | 3 +++
+ po/cs.po          | 3 +++
+ po/cy.po          | 4 ++--
+ po/da.po          | 4 ++--
+ po/de.po          | 4 ++--
+ po/dz.po          | 4 ++--
+ po/el.po          | 3 +++
+ po/en@shaw.po     | 4 ++--
+ po/en_CA.po       | 4 ++--
+ po/en_GB.po       | 4 ++--
+ po/es.po          | 4 ++--
+ po/et.po          | 3 +++
+ po/eu.po          | 4 ++--
+ po/fa.po          | 3 +++
+ po/fi.po          | 3 +++
+ po/fr.po          | 3 +++
+ po/fur.po         | 4 ++++
+ po/ga.po          | 3 +++
+ po/gl.po          | 4 ++--
+ po/gu.po          | 4 ++--
+ po/he.po          | 4 ++--
+ po/hi.po          | 4 ++--
+ po/hr.po          | 4 ++--
+ po/hu.po          | 3 +++
+ po/hy.po          | 4 ++--
+ po/id.po          | 3 +++
+ po/it.po          | 3 +++
+ po/ja.po          | 3 +++
+ po/ka.po          | 2 +-
+ po/kk.po          | 3 +++
+ po/kn.po          | 3 +++
+ po/ko.po          | 3 +++
+ po/ku.po          | 4 ++--
+ po/lt.po          | 3 +++
+ po/lv.po          | 3 +++
+ po/mai.po         | 4 ++--
+ po/mg.po          | 4 ++--
+ po/mk.po          | 4 ++--
+ po/ml.po          | 4 ++--
+ po/mn.po          | 4 ++--
+ po/mr.po          | 4 ++--
+ po/ms.po          | 4 ++--
+ po/nb.po          | 3 +++
+ po/nds.po         | 4 ++--
+ po/ne.po          | 4 ++--
+ po/nl.po          | 3 +++
+ po/nn.po          | 4 ++--
+ po/oc.po          | 4 ++--
+ po/or.po          | 4 ++--
+ po/pa.po          | 4 ++--
+ po/pl.po          | 3 +++
+ po/ps.po          | 4 ++--
+ po/pt.po          | 4 ++--
+ po/pt_BR.po       | 3 +++
+ po/ro.po          | 4 ++--
+ po/ru.po          | 3 +++
+ po/rw.po          | 2 +-
+ po/si.po          | 4 ++--
+ po/sk.po          | 3 +++
+ po/sl.po          | 3 +++
+ po/sq.po          | 4 ++--
+ po/sr.po          | 3 +++
+ po/sr@latin.po    | 3 +++
+ po/sv.po          | 3 +++
+ po/ta.po          | 4 ++--
+ po/te.po          | 4 ++--
+ po/th.po          | 4 ++--
+ po/tr.po          | 3 +++
+ po/ug.po          | 4 ++--
+ po/uk.po          | 4 ++--
+ po/vi.po          | 3 +++
+ po/wa.po          | 4 ++--
+ po/xh.po          | 4 ++--
+ po/zh_CN.po       | 3 +++
+ po/zh_HK.po       | 3 +++
+ po/zh_TW.po       | 3 +++
+ 87 files changed, 212 insertions(+), 96 deletions(-)
 
 diff --git a/po/am.po b/po/am.po
 index 27a7e9640668..04a8ad9f36a3 100644
@@ -1209,27 +974,10 @@ index 27a7e9640668..04a8ad9f36a3 100644
  #: ../src/gnome-terminal.glade2.h:103
  msgid "_Update login records when command is launched"
 diff --git a/po/ar.po b/po/ar.po
-index 43e55363d72d..f6ead579e064 100644
+index 43e55363d72d..8aea9693e705 100644
 --- a/po/ar.po
 +++ b/po/ar.po
-@@ -2074,12 +2074,11 @@ msgstr "أغ_لق النافذة"
- #~ msgid "Missing command"
- #~ msgstr "خطأ أثناء تحليل الأمر: %s"
- 
--#, fuzzy
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "فيما إذا سيستعمل خط النظام ثابت العرض"
-+msgid "Whether to use a dark theme variant"
-+msgstr "فيما إذا سيستعمل خط النظام ثابت العرض"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "استخدم سمة _داكنة"
-+msgid "Use _dark theme variant"
-+msgstr "استخدم سمة _داكنة"
- 
- #~ msgid "COMMAND"
- #~ msgstr "الأمر"
-@@ -2929,8 +2928,8 @@ msgstr "أغ_لق النافذة"
+@@ -2929,8 +2929,8 @@ msgstr "أغ_لق النافذة"
  #~ msgid "Background image _scrolls"
  #~ msgstr "صورة الخلفية ت_لتف"
  
@@ -1349,22 +1097,13 @@ index 49e710859ac9..fccfa86de311 100644
  msgid "Keyboard shortcut to make font normal-size"
  msgstr "Kratica tastature za postavljanje fonta na normalnu veličinu"
 diff --git a/po/ca.po b/po/ca.po
-index 567b3445927f..68ec312dcb5c 100644
+index 567b3445927f..156eed1a4501 100644
 --- a/po/ca.po
 +++ b/po/ca.po
-@@ -2106,8 +2106,11 @@ msgstr "Tanca la _finestra"
- #~ msgid "Missing command"
- #~ msgstr "Manca l'ordre"
+@@ -2111,3 +2111,6 @@ msgstr "Tanca la _finestra"
  
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Si s'ha d'utilitzar la variant de tema fosc"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Si s'ha d'utilitzar la variant de tema fosc"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Utilitza la variant de tema _fosc"
-+msgid "Use _dark theme variant"
-+msgstr "Utilitza la variant de tema _fosc"
+ #~ msgid "Use _dark theme variant"
+ #~ msgstr "Utilitza la variant de tema _fosc"
 +
 +msgid "Transparent background"
 +msgstr "Fons transparent"
@@ -1380,10 +1119,10 @@ index 1c279a0bf09c..4073f719906a 100644
 +msgid "Transparent background"
 +msgstr "Fons transparent"
 diff --git a/po/cs.po b/po/cs.po
-index 1c38a0e92ae3..7c01afb87a78 100644
+index 3b69e361b9e2..b33c0e24fc6d 100644
 --- a/po/cs.po
 +++ b/po/cs.po
-@@ -2086,3 +2086,6 @@ msgstr ""
+@@ -2112,3 +2112,6 @@ msgstr ""
  #: ../src/terminal-window.c:3775
  msgid "C_lose Window"
  msgstr "_Zavřít okno"
@@ -1406,25 +1145,9 @@ index 0739e201f83b..8b1ff006857a 100644
  #: ../src/profile-preferences.glade.h:74
  msgid "_Update login records when command is launched"
 diff --git a/po/da.po b/po/da.po
-index f420e1cdbbff..217b176092a9 100644
+index f420e1cdbbff..49d3bfbab1f2 100644
 --- a/po/da.po
 +++ b/po/da.po
-@@ -2094,11 +2094,11 @@ msgstr "_Luk vindue"
- #~ msgid "Missing command"
- #~ msgstr "Manglende kommando"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Om der skal bruges en mørk temavariant"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Om der skal bruges en mørk temavariant"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Brug _mørk temavariant"
-+msgid "Use _dark theme variant"
-+msgstr "Brug _mørk temavariant"
- 
- #~ msgid "COMMAND"
- #~ msgstr "KOMMANDO"
 @@ -2999,8 +2999,8 @@ msgstr "_Luk vindue"
  #~ msgid "_Solid color"
  #~ msgstr "_Ensfarvet"
@@ -1437,26 +1160,10 @@ index f420e1cdbbff..217b176092a9 100644
  #~ msgid ""
  #~ "You already have a profile called “%s”. Do you want to create another "
 diff --git a/po/de.po b/po/de.po
-index 7fbad63bb009..9d376b53eec9 100644
+index 4a71ce025c0d..1758a5acae18 100644
 --- a/po/de.po
 +++ b/po/de.po
-@@ -2134,11 +2134,11 @@ msgstr "Fenster _schließen"
- #~ msgid "Missing command"
- #~ msgstr "Fehlender Befehl"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Legt fest, ob eine dunkle Themenvariante verwendet wird"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Legt fest, ob eine dunkle Themenvariante verwendet wird"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Die _dunkle Themenvariante verwenden"
-+msgid "Use _dark theme variant"
-+msgstr "Die _dunkle Themenvariante verwenden"
- 
- #~ msgid "Set the terminal title"
- #~ msgstr "Den Titel des Terminals festlegen"
-@@ -3066,8 +3066,8 @@ msgstr "Fenster _schließen"
+@@ -3122,8 +3122,8 @@ msgstr "Fenster _schließen"
  #~ msgid "Background image _scrolls"
  #~ msgstr "Hintergrundbild _folgt Bildlauf"
  
@@ -1483,26 +1190,10 @@ index ecb8fd59329c..290934ad3e0f 100644
  #: ../src/profile-preferences.glade.h:78
  #, fuzzy
 diff --git a/po/el.po b/po/el.po
-index 587527cb7a99..b0dbdd2a60a7 100644
+index 6722b573eb30..1d9ad82f20cb 100644
 --- a/po/el.po
 +++ b/po/el.po
-@@ -2128,11 +2128,11 @@ msgstr "Κ_λείσιμο παραθύρου"
- #~ msgid "Missing command"
- #~ msgstr "Λείπει εντολή"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Εάν θα χρησιμοποιεί παραλλαγή σκοτεινού θέματος"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Εάν θα χρησιμοποιεί παραλλαγή σκοτεινού θέματος"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Χρήση παραλλαγής _σκοτεινού θέματος"
-+msgid "Use _dark theme variant"
-+msgstr "Χρήση παραλλαγής _σκοτεινού θέματος"
- 
- #~ msgid "_Use the system fixed width font"
- #~ msgstr "_Χρήση της γραμματοσειράς σταθερού πλάτους του συστήματος"
-@@ -2296,3 +2296,6 @@ msgstr "Κ_λείσιμο παραθύρου"
+@@ -2354,3 +2354,6 @@ msgstr "Κ_λείσιμο παραθύρου"
  
  #~ msgid "_Input Methods"
  #~ msgstr "_Μέθοδοι εισαγωγής"
@@ -1555,26 +1246,10 @@ index 4d38486679fe..69e71135d75c 100644
  #~ msgid "S_hade transparent or image background:"
  #~ msgstr "S_hade transparent or image background:"
 diff --git a/po/es.po b/po/es.po
-index 39b3d7e5f1cb..b7c0cab8dae8 100644
+index 10ef776cc810..2e39c1f47631 100644
 --- a/po/es.po
 +++ b/po/es.po
-@@ -2120,11 +2120,11 @@ msgstr "_Cerrar ventana"
- #~ msgid "Missing command"
- #~ msgstr "Falta el comando"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Indica si se debe usar la variante oscura del tema"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Indica si se debe usar la variante oscura del tema"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Usar la variante _oscura del tema"
-+msgid "Use _dark theme variant"
-+msgstr "Usar la variante _oscura del tema"
- 
- #~ msgid "Set the terminal title"
- #~ msgstr "Establece el título de la terminal"
-@@ -3103,8 +3103,8 @@ msgstr "_Cerrar ventana"
+@@ -3173,8 +3173,8 @@ msgstr "_Cerrar ventana"
  #~ msgid "_Solid color"
  #~ msgstr "Color _sólido"
  
@@ -1597,20 +1272,9 @@ index 4b1c2a7c67e4..770761168806 100644
 +msgid "Transparent background"
 +msgstr "Läbipaistev taust"
 diff --git a/po/eu.po b/po/eu.po
-index 786f9e2075d5..538bdc3e15a6 100644
+index 786f9e2075d5..a731d995e13f 100644
 --- a/po/eu.po
 +++ b/po/eu.po
-@@ -2116,8 +2116,8 @@ msgstr "It_xi leihoa"
- #~ msgid "Missing command"
- #~ msgstr "Komandoa falta da"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Gai ilunaren aldaera erabili edo ez"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Gai ilunaren aldaera erabili edo ez"
- 
- #~ msgid "COMMAND"
- #~ msgstr "KOMANDOA"
 @@ -3011,8 +3011,8 @@ msgstr "It_xi leihoa"
  #~ msgid "_Solid color"
  #~ msgstr "_Kolore solidoa"
@@ -1648,22 +1312,13 @@ index 7e4849083734..262634e78628 100644
  #~ msgstr "Aseta päätteen otsikko"
  
 diff --git a/po/fr.po b/po/fr.po
-index 15c8ecc86124..506f0fcb5c49 100644
+index 15c8ecc86124..f792aab2a03d 100644
 --- a/po/fr.po
 +++ b/po/fr.po
-@@ -2136,8 +2136,11 @@ msgstr "Fermer _la fenêtre"
- #~ msgid "Missing command"
- #~ msgstr "Commande manquante"
+@@ -2141,3 +2141,6 @@ msgstr "Fermer _la fenêtre"
  
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Indique s'il faut utiliser une variante de thème foncée"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Indique s'il faut utiliser une variante de thème foncée"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Utiliser une variante de thème _foncée"
-+msgid "Use _dark theme variant"
-+msgstr "Utiliser une variante de thème _foncée"
+ #~ msgid "Use _dark theme variant"
+ #~ msgstr "Utiliser une variante de thème _foncée"
 +
 +msgid "Transparent background"
 +msgstr "Arrière-plan transparent"
@@ -1693,44 +1348,10 @@ index 93d5fa9d1481..feb87dce3d6b 100644
 +
 +msgid "Transparent background"
 +msgstr "Cúlra trédhearcach"
-diff --git a/po/gd.po b/po/gd.po
-index 04a76e1de96a..4af1d80ececc 100644
---- a/po/gd.po
-+++ b/po/gd.po
-@@ -2071,9 +2071,8 @@ msgstr "_Dùin an uinneag"
- #~ msgid "Missing command"
- #~ msgstr "Tha àithne a dhìth"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr ""
--#~ "Co-dhiù an tèid tionndadh dorcha dhen ùrlar a chleachdadh gus nach tèid"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Co-dhiù an tèid tionndadh dorcha dhen ùrlar a chleachdadh gus nach tèid"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Cleachd tionndadh _dorcha dhen ùrlar"
-+msgid "Use _dark theme variant"
-+msgstr "Cleachd tionndadh _dorcha dhen ùrlar"
 diff --git a/po/gl.po b/po/gl.po
-index ad9af1ba5ddc..bdbfa91fcf13 100644
+index ad9af1ba5ddc..47af7f4c140f 100644
 --- a/po/gl.po
 +++ b/po/gl.po
-@@ -2106,11 +2106,11 @@ msgstr "P_echar a xanela"
- #~ msgid "Missing command"
- #~ msgstr "Falta a orde"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Indica se se usa a variante de tema escura"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Indica se se usa a variante de tema escura"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Usar variante do tema _escuro"
-+msgid "Use _dark theme variant"
-+msgstr "Usar variante do tema _escuro"
- 
- #~ msgid "_Use the system fixed width font"
- #~ msgstr "_Usar o tipo de letra de largura fixa do sistema"
 @@ -3060,8 +3060,8 @@ msgstr "P_echar a xanela"
  #~ msgid "Background image _scrolls"
  #~ msgstr "A imaxe de fondo _desprázase"
@@ -1758,25 +1379,9 @@ index 0bcb1954f634..f72a807d6e2b 100644
  #~ msgid "No such profile \"%s\", using default profile\n"
  #~ msgstr "\"%s\" જેવી કોઈ રૂપરેખા નથી, મૂળભૂત રૂપરેખા વાપરી રહ્યા છે\n"
 diff --git a/po/he.po b/po/he.po
-index f3b83b93f20f..68008ceda2d5 100644
+index f3b83b93f20f..1c83c3ecb74d 100644
 --- a/po/he.po
 +++ b/po/he.po
-@@ -2054,11 +2054,11 @@ msgstr "סגירת ה_חלון"
- #~ msgid "Missing command"
- #~ msgstr "Missing command"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Whether to use a dark theme variant"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Whether to use a dark theme variant"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "שימוש בערכת עיצוב בהגוון _כהה"
-+msgid "Use _dark theme variant"
-+msgstr "שימוש בערכת עיצוב בהגוון _כהה"
- 
- #~ msgid "Set the terminal title"
- #~ msgstr "Set the terminal title"
 @@ -3013,8 +3013,8 @@ msgstr "סגירת ה_חלון"
  #~ msgid "_Solid color"
  #~ msgstr "צבע _אחיד"
@@ -1819,26 +1424,10 @@ index cb48c52f708c..747cf488e7b4 100644
  #: ../src/profile-preferences.glade.h:70
  msgid "_Update login records when command is launched"
 diff --git a/po/hu.po b/po/hu.po
-index 62f6b48de0b5..16fd9439489b 100644
+index c59d144cc4e2..b049e637930b 100644
 --- a/po/hu.po
 +++ b/po/hu.po
-@@ -2090,11 +2090,11 @@ msgstr "_Ablak bezárása"
- #~ msgid "Missing command"
- #~ msgstr "Hiányzó parancs"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Használja-e a sötét témaváltozatot"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Használja-e a sötét témaváltozatot"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "_Sötét témaváltozat használata"
-+msgid "Use _dark theme variant"
-+msgstr "_Sötét témaváltozat használata"
- 
- #~ msgid "Set the terminal title"
- #~ msgstr "A terminál címének beállítása"
-@@ -2513,3 +2513,6 @@ msgstr "_Ablak bezárása"
+@@ -2437,3 +2437,6 @@ msgstr "_Ablak bezárása"
  
  #~ msgid "Background type"
  #~ msgstr "Háttér típusa"
@@ -1907,25 +1496,10 @@ index 8415e88f94ff..3717b7e75dcd 100644
  
  #: ../src/gnome-terminal.glade2.h:87
 diff --git a/po/kk.po b/po/kk.po
-index ed86f1b70460..639411cfce86 100644
+index 1e4b87c4c93f..d1c2489dd5c5 100644
 --- a/po/kk.po
 +++ b/po/kk.po
-@@ -2024,14 +2024,17 @@ msgstr "Терезені жа_бу"
- #~ msgid "Missing command"
- #~ msgstr "Команда жоқ болып тұр"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Қараңғылау тема нұсқасын қолдану керек пе"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Қараңғылау тема нұсқасын қолдану керек пе"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Теманың қ_араңғы нұсқасын қолдану"
-+msgid "Use _dark theme variant"
-+msgstr "Теманың қ_араңғы нұсқасын қолдану"
- 
- #~ msgid "COMMAND"
- #~ msgstr "КОМАНДА"
+@@ -2096,3 +2096,6 @@ msgstr "Терезені жа_бу"
  
  #~ msgid "Be quiet"
  #~ msgstr "Тыныш болу"
@@ -1944,22 +1518,13 @@ index c887f88a2c87..e899ef3ca8c1 100644
 +msgid "Transparent background"
 +msgstr "ಪಾರದರ್ಶಕ ಹಿನ್ನಲೆ"
 diff --git a/po/ko.po b/po/ko.po
-index 57c120389ac9..a41296a7fb0a 100644
+index 57c120389ac9..4e56164a55fe 100644
 --- a/po/ko.po
 +++ b/po/ko.po
-@@ -2079,8 +2079,11 @@ msgstr "창 닫기(_L)"
- #~ msgid "Missing command"
- #~ msgstr "명령어 없음"
+@@ -2084,3 +2084,6 @@ msgstr "창 닫기(_L)"
  
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "어두운 테마를 사용할 지 여부"
-+msgid "Whether to use a dark theme variant"
-+msgstr "어두운 테마를 사용할 지 여부"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "어두운 테마 사용(_D)"
-+msgid "Use _dark theme variant"
-+msgstr "어두운 테마 사용(_D)"
+ #~ msgid "Use _dark theme variant"
+ #~ msgstr "어두운 테마 사용(_D)"
 +
 +msgid "Transparent background"
 +msgstr "투명한 배경"
@@ -1979,22 +1544,13 @@ index 221825b29cd9..96e35811337b 100644
  #: ../src/gnome-terminal.glade2.h:87
  msgid "_Update login records when command is launched"
 diff --git a/po/lt.po b/po/lt.po
-index 8c9c9e660d28..71411ab7cf5b 100644
+index df05f5fbb1e2..f90cea1881f2 100644
 --- a/po/lt.po
 +++ b/po/lt.po
-@@ -2085,8 +2085,11 @@ msgstr "_Užverti langą"
- #~ msgid "Missing command"
- #~ msgstr "Trūksta komandos"
+@@ -2147,3 +2147,6 @@ msgstr "_Užverti langą"
  
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Ar naudoti tamsų temos variantą"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Ar naudoti tamsų temos variantą"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Nau_doti tamsų temos variantą"
-+msgid "Use _dark theme variant"
-+msgstr "Nau_doti tamsų temos variantą"
+ #~ msgid "Whether to use a dark theme variant"
+ #~ msgstr "Ar naudoti tamsų temos variantą"
 +
 +msgid "Transparent background"
 +msgstr "Permatomas fonas"
@@ -2115,11 +1671,11 @@ index 5b663aae2639..38a2afeecd2f 100644
  #: ../src/gnome-terminal.glade2.h:103
  msgid "_Update login records when command is launched"
 diff --git a/po/nb.po b/po/nb.po
-index eda809fab581..7ceaf06ca263 100644
+index ff6680716092..8ea486cd0dde 100644
 --- a/po/nb.po
 +++ b/po/nb.po
-@@ -2046,3 +2046,6 @@ msgstr ""
- #: ../src/terminal-window.c:3694
+@@ -2101,3 +2101,6 @@ msgstr ""
+ #: ../src/terminal-window.c:3726
  msgid "C_lose Window"
  msgstr "_Lukk vindu"
 +
@@ -2182,25 +1738,9 @@ index 91cd6ab918c9..92844590fcbe 100644
  #: ../src/profile-preferences.glade.h:74
  msgid "_Update login records when command is launched"
 diff --git a/po/oc.po b/po/oc.po
-index 194f13593def..04419c1e5ff9 100644
+index 194f13593def..c2834355f480 100644
 --- a/po/oc.po
 +++ b/po/oc.po
-@@ -2106,11 +2106,11 @@ msgstr "Tampar _la fenèstra"
- #~ msgid "Missing command"
- #~ msgstr "Comanda mancanta"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Indica se cal utilizar una variante de tèma foncée"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Indica se cal utilizar una variante de tèma foncée"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Utilizar una variante de tèma _foncée"
-+msgid "Use _dark theme variant"
-+msgstr "Utilizar una variante de tèma _foncée"
- 
- #~ msgid "Palette for terminal applications"
- #~ msgstr "Paleta per las aplicacions tèxte"
 @@ -3195,8 +3195,8 @@ msgstr "Tampar _la fenèstra"
  #~ msgid "Run;"
  #~ msgstr "Executar;Consòla;Shell;"
@@ -2269,26 +1809,10 @@ index b1de52c2ff34..a16ac4937d1a 100644
  #: ../src/profile-preferences.glade.h:70
  msgid "_Update login records when command is launched"
 diff --git a/po/pt.po b/po/pt.po
-index 2b37c0df18fa..ffd18b2d187b 100644
+index a361c662424f..ac7297e80ec4 100644
 --- a/po/pt.po
 +++ b/po/pt.po
-@@ -2077,11 +2077,11 @@ msgstr "Fechar jane_La"
- #~ "Se verdadeiro, os registos de sistema de início de sessão utmp e wtmp "
- #~ "serão atualizados ao iniciar um comando dentro do terminal."
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Se utilizar ou não uma variante escura do tema"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Se utilizar ou não uma variante escura do tema"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Utilizar variante _escura de tema"
-+msgid "Use _dark theme variant"
-+msgstr "Utilizar variante _escura de tema"
- 
- #~ msgid "_Update login records when command is launched"
- #~ msgstr "_Atualizar os registos de início de sessão ao executar um comando"
-@@ -2975,8 +2975,8 @@ msgstr "Fechar jane_La"
+@@ -3033,8 +3033,8 @@ msgstr "Fechar jane_La"
  #~ msgid "Background image _scrolls"
  #~ msgstr "Imagem de fundo _rola"
  
@@ -2300,26 +1824,10 @@ index 2b37c0df18fa..ffd18b2d187b 100644
  #~ msgid "S_hade transparent or image background:"
  #~ msgstr "Transparente som_breado ou imagem de fundo:"
 diff --git a/po/pt_BR.po b/po/pt_BR.po
-index dee5c31593cd..3c0a7d09e1a2 100644
+index 481d9397d57c..c270898ffeba 100644
 --- a/po/pt_BR.po
 +++ b/po/pt_BR.po
-@@ -2116,11 +2116,11 @@ msgstr "_Fechar janela"
- #~ msgid "TITLE"
- #~ msgstr "TÍTULO"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Se deve ou não usar uma variante de tema escuro"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Se deve ou não usar uma variante de tema escuro"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Usar variante de tema es_curo"
-+msgid "Use _dark theme variant"
-+msgstr "Usar variante de tema es_curo"
- 
- #~ msgid "COMMAND"
- #~ msgstr "COMANDO"
-@@ -2878,3 +2878,6 @@ msgstr "_Fechar janela"
+@@ -2930,3 +2930,6 @@ msgstr "_Fechar janela"
  #~ "terminal poderão usar. Essa é a paleta, na forma de uma lista de nomes de "
  #~ "cores separada por dois pontos. Os nomes de cores devem estar no formato "
  #~ "hexadecimal. Exemplo: \"#FF00FF\""
@@ -2381,52 +1889,20 @@ index 81dbf6589f89..5cb0e5ad52cc 100644
  #: ../src/gnome-terminal.glade2.h:87
  msgid "_Update login records when command is launched"
 diff --git a/po/sk.po b/po/sk.po
-index 3a8ede3b61f4..b9744bc7c14c 100644
+index acd552523c75..6052ba33e4c8 100644
 --- a/po/sk.po
 +++ b/po/sk.po
-@@ -2165,11 +2165,11 @@ msgstr "_Zavrieť okno"
- #~ msgstr "TITULOK"
- 
- # gsetting summary
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Či použiť tmavú verziu témy"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Či použiť tmavú verziu témy"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Použiť _tmavú verziu témy"
-+msgid "Use _dark theme variant"
-+msgstr "Použiť _tmavú verziu témy"
- 
- #~ msgid "COMMAND"
- #~ msgstr "PRÍKAZ"
-@@ -2188,3 +2188,6 @@ msgstr "_Zavrieť okno"
- #~ "  shell   Spustí použivateľský shell v novom termináli\n"
+@@ -2436,3 +2436,6 @@ msgstr "_Zavrieť okno"
  #~ "\n"
- #~ "Viac informácii o jednotlivých príkazoch získate pomocou „%s PRÍKAZ --help“.\n"
+ #~ "Viac informácii o jednotlivých príkazoch získate pomocou „%s PRÍKAZ --"
+ #~ "help“.\n"
 +
 +msgid "Transparent background"
 +msgstr "Priehľadné pozadie"
 diff --git a/po/sl.po b/po/sl.po
-index 72baf7b1e8ad..d7ff33ccfe8e 100644
+index 72baf7b1e8ad..83ad04ac019f 100644
 --- a/po/sl.po
 +++ b/po/sl.po
-@@ -2066,11 +2066,11 @@ msgstr "_Zapri okno"
- #~ msgid "Missing command"
- #~ msgstr "Manjka ukaz"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Ali naj se uporabi temna tema okna"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Ali naj se uporabi temna tema okna"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Uporabi _temno temo"
-+msgid "Use _dark theme variant"
-+msgstr "Uporabi _temno temo"
- 
- #~ msgid "Set the terminal title"
- #~ msgstr "Nastavi naziv terminala"
 @@ -2322,3 +2322,6 @@ msgstr "_Zapri okno"
  
  #~ msgid "_Profile Preferences…"
@@ -2450,25 +1926,9 @@ index e59c0b69d8f8..6fb409043319 100644
  #: ../src/gnome-terminal.glade2.h:86
  msgid "_Update login records when command is launched"
 diff --git a/po/sr.po b/po/sr.po
-index 0197b14ca932..be4956eeeed5 100644
+index 0197b14ca932..75721cda29ad 100644
 --- a/po/sr.po
 +++ b/po/sr.po
-@@ -2152,11 +2152,11 @@ msgstr "_Затвори прозор"
- #~ msgid "Keyboard shortcut to set the terminal title"
- #~ msgstr "Пречица за постављање наслова терминала"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Да ли ће бити коришћена варијанта тамне теме"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Да ли ће бити коришћена варијанта тамне теме"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Користи варијанту _тамне теме"
-+msgid "Use _dark theme variant"
-+msgstr "Користи варијанту _тамне теме"
- 
- #~ msgid "_Use the system fixed width font"
- #~ msgstr "_Користи системски словни лик сталне ширине"
 @@ -2208,3 +2208,6 @@ msgstr "_Затвори прозор"
  
  #~ msgid "Close Window"
@@ -2477,25 +1937,9 @@ index 0197b14ca932..be4956eeeed5 100644
 +msgid "Transparent background"
 +msgstr "Провидна позадина"
 diff --git a/po/sr@latin.po b/po/sr@latin.po
-index c82646ca4451..4ba3d9588643 100644
+index c82646ca4451..55f6a0ecd030 100644
 --- a/po/sr@latin.po
 +++ b/po/sr@latin.po
-@@ -2174,11 +2174,11 @@ msgstr "_Zatvori prozor"
- #~ msgid "Keyboard shortcut to set the terminal title"
- #~ msgstr "Prečica za postavljanje naslova terminala"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Da li će biti korišćena varijanta tamne teme"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Da li će biti korišćena varijanta tamne teme"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Koristi varijantu _tamne teme"
-+msgid "Use _dark theme variant"
-+msgstr "Koristi varijantu _tamne teme"
- 
- #~ msgid "_Use the system fixed width font"
- #~ msgstr "_Koristi sistemski slovni lik stalne širine"
 @@ -2230,3 +2230,6 @@ msgstr "_Zatvori prozor"
  
  #~ msgid "Close Window"
@@ -2504,10 +1948,10 @@ index c82646ca4451..4ba3d9588643 100644
 +msgid "Transparent background"
 +msgstr "Providna pozadina"
 diff --git a/po/sv.po b/po/sv.po
-index 745f7d985494..2cfce8bc6254 100644
+index ee0be6116e93..9259ef10c4e2 100644
 --- a/po/sv.po
 +++ b/po/sv.po
-@@ -2073,5 +2073,8 @@ msgstr "Stän_g fönster"
+@@ -2151,5 +2151,8 @@ msgstr "Stän_g fönster"
  #~ msgid "Unknown completion request for \"%s\""
  #~ msgstr "Okänd kompletteringsbegäran för \"%s\""
  
@@ -2546,47 +1990,11 @@ index 000cda30f86c..6dcf79399604 100644
  
  #~ msgid "S_hade transparent or image background:"
  #~ msgstr "పారదర్శకంగా మారు లేదా చిత్రము బ్యాక్‌గ్రౌండ్ కు మారు(_h):"
-diff --git a/po/tg.po b/po/tg.po
-index e3feef658e1e..a772744f269a 100644
---- a/po/tg.po
-+++ b/po/tg.po
-@@ -2096,11 +2096,11 @@ msgstr "П_ӯшонидани равзана"
- #~ msgid "Show server options"
- #~ msgstr "Намоиши имконоти сервер"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Оё варианти мавзӯи торик истифода шавад"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Оё варианти мавзӯи торик истифода шавад"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Истифодаи _варианти мавзӯи торик"
-+msgid "Use _dark theme variant"
-+msgstr "Истифодаи _варианти мавзӯи торик"
- 
- #~ msgid "_Use the system fixed width font"
- #~ msgstr "_Истифодаи шрифти бараш бо система таъиншуда"
 diff --git a/po/th.po b/po/th.po
-index f7a8d674657e..b0cc3a6014c2 100644
+index 91c78cc07fce..1f1fa486f941 100644
 --- a/po/th.po
 +++ b/po/th.po
-@@ -2040,11 +2040,11 @@ msgstr "ปิ_ดหน้าต่าง"
- #~ msgid "Missing command"
- #~ msgstr "ขาดคำสั่ง"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "ใช้ชุดตกแต่งแบบสีเข้มหรือไม่"
-+msgid "Whether to use a dark theme variant"
-+msgstr "ใช้ชุดตกแต่งแบบสีเข้มหรือไม่"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "ใช้ชุดตกแต่งแบบสีเ_ข้ม"
-+msgid "Use _dark theme variant"
-+msgstr "ใช้ชุดตกแต่งแบบสีเ_ข้ม"
- 
- #~ msgid "_Use the system fixed width font"
- #~ msgstr "ใ_ช้แบบอักษรความกว้างคงที่ของระบบ"
-@@ -2622,8 +2622,8 @@ msgstr "ปิ_ดหน้าต่าง"
+@@ -2676,8 +2676,8 @@ msgstr "ปิ_ดหน้าต่าง"
  #~ msgid "_Solid color"
  #~ msgstr "สี_ทึบ"
  
@@ -2624,25 +2032,9 @@ index 1673bb32d9db..e21e61e829d7 100644
  #~ msgid ""
  #~ "You already have a profile called “%s”. Do you want to create another "
 diff --git a/po/uk.po b/po/uk.po
-index a8db018e0a9d..4b90b5c5ad9b 100644
+index a8db018e0a9d..414c4134dee3 100644
 --- a/po/uk.po
 +++ b/po/uk.po
-@@ -2075,11 +2075,11 @@ msgstr "Закр_ити вікно"
- #~ msgid "Missing command"
- #~ msgstr "Бракує команди"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Чи використовувати темний варіант теми"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Чи використовувати темний варіант теми"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Використовувати _темний варіант теми"
-+msgid "Use _dark theme variant"
-+msgstr "Використовувати _темний варіант теми"
- 
- #~ msgid "COMMAND"
- #~ msgstr "КОМАНДА"
 @@ -2946,8 +2946,8 @@ msgstr "Закр_ити вікно"
  #~ msgid "_Solid color"
  #~ msgstr "_Суцільний колір"
@@ -2655,25 +2047,9 @@ index a8db018e0a9d..4b90b5c5ad9b 100644
  #~ msgid "Switch to Tab 2"
  #~ msgstr "До вкладки 2"
 diff --git a/po/vi.po b/po/vi.po
-index 9036f38a5350..4769d8c3db08 100644
+index 9036f38a5350..5cbcc8c626fa 100644
 --- a/po/vi.po
 +++ b/po/vi.po
-@@ -2081,11 +2081,11 @@ msgstr "Đón_g cửa sổ"
- #~ msgid "Missing command"
- #~ msgstr "Thiếu lệnh"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "Có nên dùng biến thể chủ đề tối hay không"
-+msgid "Whether to use a dark theme variant"
-+msgstr "Có nên dùng biến thể chủ đề tối hay không"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "Dùng biến thể chủ đề tố_i"
-+msgid "Use _dark theme variant"
-+msgstr "Dùng biến thể chủ đề tố_i"
- 
- #~ msgid "Set the terminal title"
- #~ msgstr "Đặt tựa đề thiết bị cuối"
 @@ -2690,3 +2690,6 @@ msgstr "Đón_g cửa sổ"
  #~ "Phím tắt để đặt lại thiết bị cuối. Dùng dạng chuỗi có cùng một khuôn dạng "
  #~ "với tập tin tài nguyên GTK+. Nếu bạn đặt tùy chọn là chuỗi “disabled” (bị "
@@ -2712,20 +2088,10 @@ index e5981c6ec5bf..7f9f8049c3df 100644
  #: ../src/gnome-terminal.glade2.h:103
  msgid "_Update login records when command is launched"
 diff --git a/po/zh_CN.po b/po/zh_CN.po
-index b18a9e78cf05..e84ab44c94c6 100644
+index e9a540f2963a..8473524960e6 100644
 --- a/po/zh_CN.po
 +++ b/po/zh_CN.po
-@@ -2037,9 +2037,6 @@ msgstr "关闭窗口(_L)"
- #~ msgid "Missing command"
- #~ msgstr "遗漏命令"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "是否使用暗色主题"
--
- #~ msgid "Use _dark theme variant"
- #~ msgstr "使用暗色主题(_D)"
- 
-@@ -2280,3 +2277,6 @@ msgstr "关闭窗口(_L)"
+@@ -2357,3 +2357,6 @@ msgstr "关闭窗口(_L)"
  
  #~ msgid "_Find..."
  #~ msgstr "查找(_F)..."
@@ -2744,25 +2110,9 @@ index eb0ede77e889..aceb184b2440 100644
 +msgid "Transparent background"
 +msgstr "透明背景"
 diff --git a/po/zh_TW.po b/po/zh_TW.po
-index 8326ad3b0171..a9062135a180 100644
+index 8326ad3b0171..d83024582e52 100644
 --- a/po/zh_TW.po
 +++ b/po/zh_TW.po
-@@ -2034,11 +2034,11 @@ msgstr "關閉視窗(_L)"
- #~ msgid "Missing command"
- #~ msgstr "遺失指令"
- 
--#~ msgid "Whether to use a dark theme variant"
--#~ msgstr "是否使用暗色系布景主題變體"
-+msgid "Whether to use a dark theme variant"
-+msgstr "是否使用暗色系布景主題變體"
- 
--#~ msgid "Use _dark theme variant"
--#~ msgstr "使用暗色系布景主題變體(_D)"
-+msgid "Use _dark theme variant"
-+msgstr "使用暗色系布景主題變體(_D)"
- 
- #~ msgid "_Use the system fixed width font"
- #~ msgstr "使用系統的固定寬度字型(_U)"
 @@ -2383,3 +2383,6 @@ msgstr "關閉視窗(_L)"
  
  #~ msgid "Show session management options"
