@@ -2,18 +2,18 @@
 
 %define glib2_version 2.42.0
 %define gtk3_version 3.12.0
-%define vte_version 0.43.91
+%define vte_version 0.44.0
 %define desktop_file_utils_version 0.2.90
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.19.92
+Version: 3.20.0
 Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
-Source0: http://download.gnome.org/sources/gnome-terminal/3.19/gnome-terminal-%{version}.tar.xz
+Source0: http://download.gnome.org/sources/gnome-terminal/3.20/gnome-terminal-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
 
 Patch0: 0001-build-Don-t-treat-warnings-as-errors.patch
@@ -105,6 +105,10 @@ fi
 %{_datadir}/appdata/org.gnome.Terminal.Nautilus.appdata.xml
 
 %changelog
+* Tue Mar 22 2016 Kalev Lember <klember@redhat.com> - 3.20.0-1
+- Update to 3.20.0
+- Rebase the translations
+
 * Thu Mar 17 2016 Debarshi Ray <rishi@fedoraproject.org> - 3.19.92-1
 - Update to 3.19.92
 - Rebase the translations
