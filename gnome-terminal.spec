@@ -8,7 +8,7 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 3.20.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -105,6 +105,9 @@ fi
 %{_datadir}/appdata/org.gnome.Terminal.Nautilus.appdata.xml
 
 %changelog
+* Tue May 10 2016 Debarshi Ray <rishi@fedoraproject.org> - 3.20.1-2
+- Rebuild against vte291 ABI fix
+
 * Mon Apr 11 2016 Debarshi Ray <rishi@fedoraproject.org> - 3.20.1-1
 - Update to 3.20.1
 - Rebase the translations
