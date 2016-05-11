@@ -36,6 +36,7 @@ BuildRequires: libuuid-devel
 BuildRequires: nautilus-devel
 BuildRequires: gnome-shell
 BuildRequires: appdata-tools
+BuildRequires: systemd
 BuildRequires: vala-devel
 
 Requires: dbus-x11
@@ -99,6 +100,7 @@ fi
 %{_datadir}/glib-2.0/schemas/org.gnome.Terminal.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.Terminal.gschema.override
 %{_datadir}/gnome-shell
+%{_userunitdir}/gnome-terminal-server.service
 
 %files nautilus
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
