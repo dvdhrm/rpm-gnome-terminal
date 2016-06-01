@@ -8,7 +8,7 @@
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 3.20.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
@@ -52,6 +52,9 @@ multiple terminals in a single window (tabs) and profiles support.
 %package nautilus
 Summary: GNOME Terminal extension for Nautilus
 Requires: %{name}%{?_isa} = %{version}-%{release}
+
+Provides: nautilus-open-terminal = %{version}-%{release}
+Obsoletes: nautilus-open-terminal < 0.20-8
 
 %description nautilus
 This package provides a Nautilus extension that adds the 'Open in Terminal'
@@ -107,6 +110,9 @@ fi
 %{_datadir}/appdata/org.gnome.Terminal.Nautilus.appdata.xml
 
 %changelog
+* Wed Jun 01 2016 Debarshi Ray <rishi@fedoraproject.org> - 3.20.2-2
+- Add Provides/Obsoletes to replace nautilus-open-terminal
+
 * Wed May 11 2016 Debarshi Ray <rishi@fedoraproject.org> - 3.20.2-1
 - Update to 3.20.2
 
