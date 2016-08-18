@@ -2,18 +2,18 @@
 
 %define glib2_version 2.42.0
 %define gtk3_version 3.12.0
-%define vte_version 0.44.2
+%define vte_version 0.45.90
 %define desktop_file_utils_version 0.2.90
 
 Summary: Terminal emulator for GNOME
 Name: gnome-terminal
-Version: 3.20.2
-Release: 2%{?dist}
+Version: 3.21.90
+Release: 1%{?dist}
 License: GPLv3+ and GFDL
 Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
-Source0: http://download.gnome.org/sources/gnome-terminal/3.20/gnome-terminal-%{version}.tar.xz
+Source0: http://download.gnome.org/sources/gnome-terminal/3.21/gnome-terminal-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
 
 Patch0: 0001-build-Don-t-treat-warnings-as-errors.patch
@@ -36,6 +36,7 @@ BuildRequires: libuuid-devel
 BuildRequires: nautilus-devel
 BuildRequires: gnome-shell
 BuildRequires: appdata-tools
+BuildRequires: pcre2-devel
 BuildRequires: systemd
 BuildRequires: vala-devel
 
@@ -107,9 +108,13 @@ fi
 
 %files nautilus
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
-%{_datadir}/appdata/org.gnome.Terminal.Nautilus.appdata.xml
+%{_datadir}/appdata/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Thu Aug 18 2016 Kalev Lember <klember@redhat.com> - 3.21.90-1
+- Update to 3.21.90
+- Rebase the translations
+
 * Wed Jun 01 2016 Debarshi Ray <rishi@fedoraproject.org> - 3.20.2-2
 - Add Provides/Obsoletes to replace nautilus-open-terminal
 
