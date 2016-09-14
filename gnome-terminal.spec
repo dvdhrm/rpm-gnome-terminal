@@ -72,7 +72,7 @@ autoreconf -f -i
 make %{?_smp_mflags}
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-3.0/*.la
 
@@ -114,6 +114,7 @@ fi
 - Update to 3.21.92
 - Rebase the translations
 - Don't set group tags
+- Use make_install macro
 
 * Fri Aug 19 2016 Kalev Lember <klember@redhat.com> - 3.21.90-2
 - Backport a patch to fix terminal shrinking with every line entered
