@@ -10,7 +10,6 @@ Name: gnome-terminal
 Version: 3.21.92
 Release: 1%{?dist}
 License: GPLv3+ and GFDL
-Group: User Interface/Desktops
 URL: http://www.gnome.org/
 #VCS: git:git://git.gnome.org/gnome-terminal
 Source0: http://download.gnome.org/sources/gnome-terminal/3.21/gnome-terminal-%{version}.tar.xz
@@ -114,6 +113,7 @@ fi
 * Wed Sep 14 2016 Kalev Lember <klember@redhat.com> - 3.21.92-1
 - Update to 3.21.92
 - Rebase the translations
+- Don't set group tags
 
 * Fri Aug 19 2016 Kalev Lember <klember@redhat.com> - 3.21.90-2
 - Backport a patch to fix terminal shrinking with every line entered
