@@ -5,13 +5,13 @@
 %define vte_version 0.45.92
 %define desktop_file_utils_version 0.2.90
 
-Summary: Terminal emulator for GNOME
 Name: gnome-terminal
 Version: 3.21.92
 Release: 1%{?dist}
+Summary: Terminal emulator for GNOME
+
 License: GPLv3+ and GFDL
 URL: http://www.gnome.org/
-#VCS: git:git://git.gnome.org/gnome-terminal
 Source0: http://download.gnome.org/sources/gnome-terminal/3.21/gnome-terminal-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
 
