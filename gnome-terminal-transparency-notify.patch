@@ -1,4 +1,4 @@
-From a53f87d75c18ff2c494d67cd746940728b666a27 Mon Sep 17 00:00:00 2001
+From 628b464a3045bc68a20b892f8514e9ef7fb588e4 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Mon, 12 May 2014 14:57:18 +0200
 Subject: [PATCH 1/6] Restore transparency
@@ -273,7 +273,7 @@ index a290d9fda733..020c6f00787f 100644
 2.7.4
 
 
-From f33e6356b5def8820857f66edf6a749d9f655192 Mon Sep 17 00:00:00 2001
+From bed8e7d05915b96206db06bf07e04f7498d5b38e Mon Sep 17 00:00:00 2001
 From: Lars Uebernickel <lars.uebernickel@canonical.com>
 Date: Wed, 28 May 2014 14:11:02 +0200
 Subject: [PATCH 2/6] window: Make the drawing robust across all themes
@@ -335,7 +335,7 @@ index 020c6f00787f..a9f3ff7d67e2 100644
 2.7.4
 
 
-From 8c3bd414e1222ae7be01555330cd5c9352b0d7d2 Mon Sep 17 00:00:00 2001
+From 3cc6743972870157e5a61ebc3d5579c46b43e5b1 Mon Sep 17 00:00:00 2001
 From: "Owen W. Taylor" <otaylor@fishsoup.net>
 Date: Fri, 13 Nov 2015 15:16:42 +0100
 Subject: [PATCH 3/6] screen, window: Extra padding around transparent
@@ -462,7 +462,7 @@ index a9f3ff7d67e2..d09484e40e66 100644
 2.7.4
 
 
-From fc463ea0c9fe73625ed33f58533ca182f4f6e3a9 Mon Sep 17 00:00:00 2001
+From 66463b32d8594c08f7edf51271240c49e65309f5 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 27 Jan 2015 18:40:13 +0100
 Subject: [PATCH 4/6] Support desktop notifications from OSC 777
@@ -784,7 +784,7 @@ index 20cfbceb36b0..a987025e0524 100644
 2.7.4
 
 
-From b2571def69942368d4c7c8ba2fadc466b62dcfb3 Mon Sep 17 00:00:00 2001
+From 7ae21658ee15fa96d0344d2330b313d19f59d256 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 29 Jan 2015 11:47:21 +0100
 Subject: [PATCH 5/6] Sprinkle debug messages for notifications
@@ -867,7 +867,7 @@ index 6a4925f6d1b1..7c6fa77bf71a 100644
 2.7.4
 
 
-From a6553f0f68e9fcdcf902b94784d3572c48d1911a Mon Sep 17 00:00:00 2001
+From 39d52982904c6d0245031e20d22ee3edc363b28a Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 17 Feb 2015 17:06:17 +0100
 Subject: [PATCH 6/6] Restore translations for transparency
@@ -977,10 +977,10 @@ index 3445d96da657..a5fadb3a8d48 100644
  #: ../src/gnome-terminal.glade2.h:103
  msgid "_Update login records when command is launched"
 diff --git a/po/ar.po b/po/ar.po
-index 47a7add14981..6f469994f9ee 100644
+index fa2b4b54ff13..22eff853c6d2 100644
 --- a/po/ar.po
 +++ b/po/ar.po
-@@ -3105,8 +3105,8 @@ msgstr "أغ_لق النافذة"
+@@ -3108,8 +3108,8 @@ msgstr "أغ_لق النافذة"
  #~ msgid "Background image _scrolls"
  #~ msgstr "صورة الخلفية ت_لتف"
  
@@ -1290,10 +1290,10 @@ index c7b9e2b4529e..551a9ba789ce 100644
  #~ msgid ""
  #~ "You already have a profile called “%s”. Do you want to create another "
 diff --git a/po/fa.po b/po/fa.po
-index 52856cbdd6a4..2a89999af2bf 100644
+index cb551a1ecd07..820987339fdf 100644
 --- a/po/fa.po
 +++ b/po/fa.po
-@@ -2240,3 +2240,6 @@ msgstr "_بستن پنجره"
+@@ -2449,3 +2449,6 @@ msgstr "_بستن پنجره"
  
  #~ msgid "_Title:"
  #~ msgstr "_عنوان:"
@@ -1464,11 +1464,11 @@ index b27605c49b9b..b05f2d0ecc43 100644
 +msgid "Transparent background"
 +msgstr "Latar belakang transparan"
 diff --git a/po/it.po b/po/it.po
-index 909a8c9f5062..982d702818d7 100644
+index b7bdc71451b0..c5033f2c2e24 100644
 --- a/po/it.po
 +++ b/po/it.po
-@@ -2284,3 +2284,6 @@ msgstr ""
- #: ../src/terminal-window.c:3727
+@@ -2289,3 +2289,6 @@ msgstr ""
+ #: ../src/terminal-window.c:3849
  msgid "C_lose Window"
  msgstr "Chiudi _finestra"
 +
@@ -1841,10 +1841,10 @@ index 179dd77fd166..f7fc7ae070cf 100644
  #: ../src/profile-preferences.glade.h:78
  msgid "_Underline color:"
 diff --git a/po/ru.po b/po/ru.po
-index 8ff3d59e696e..9b3342d2f0ce 100644
+index 6cd2cd49fb12..2477bfee5442 100644
 --- a/po/ru.po
 +++ b/po/ru.po
-@@ -2318,3 +2318,6 @@ msgstr "_Закрыть окно"
+@@ -2271,3 +2271,6 @@ msgstr "_Закрыть окно"
  
  #~ msgid "_Same as text color"
  #~ msgstr "_Цвет как у обычного текста"
@@ -2023,10 +2023,10 @@ index 313f76b98eae..be6089762082 100644
  #~ msgid ""
  #~ "You already have a profile called “%s”. Do you want to create another "
 diff --git a/po/uk.po b/po/uk.po
-index 0a04bc62af1b..c097f0c1d328 100644
+index a08f25914d12..62e872aa770f 100644
 --- a/po/uk.po
 +++ b/po/uk.po
-@@ -3126,8 +3126,8 @@ msgstr "Закр_ити вікно"
+@@ -3134,8 +3134,8 @@ msgstr "Закр_ити вікно"
  #~ msgid "_Solid color"
  #~ msgstr "_Суцільний колір"
  
