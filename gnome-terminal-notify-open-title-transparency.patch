@@ -1953,7 +1953,7 @@ index 2e08351d71cc..f45383ab54cd 100644
 2.9.3
 
 
-From a2acdf6195fb597488ba2ece85fd27ff82b9c14f Mon Sep 17 00:00:00 2001
+From d2cdce6bd77e1d17ce47823ffaa1eb8680b2805f Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 17 Feb 2015 17:06:17 +0100
 Subject: [PATCH 11/14] Restore translations for setting a title and
@@ -1994,7 +1994,7 @@ Subject: [PATCH 11/14] Restore translations for setting a title and
  po/gl.po          | 12 ++++++------
  po/gu.po          | 12 ++++++------
  po/he.po          | 12 ++++++------
- po/hi.po          | 12 ++++++------
+ po/hi.po          | 13 ++++++-------
  po/hr.po          |  7 +++++++
  po/hu.po          | 11 +++++++----
  po/hy.po          |  4 ++--
@@ -2050,7 +2050,7 @@ Subject: [PATCH 11/14] Restore translations for setting a title and
  po/zh_CN.po       | 11 +++++++----
  po/zh_HK.po       | 11 +++++++----
  po/zh_TW.po       | 11 +++++++----
- 90 files changed, 486 insertions(+), 257 deletions(-)
+ 90 files changed, 486 insertions(+), 258 deletions(-)
 
 diff --git a/po/am.po b/po/am.po
 index 3445d96da657..a5fadb3a8d48 100644
@@ -2794,13 +2794,14 @@ index 57cb2d0d110f..618cc5a878b3 100644
  #~ msgid "No such profile \"%s\", using default profile\n"
  #~ msgstr "No such profile \"%s\", using default profile\n"
 diff --git a/po/hi.po b/po/hi.po
-index 2d7dc5b14008..d71a880a4acb 100644
+index 2d7dc5b14008..4a0a03194bab 100644
 --- a/po/hi.po
 +++ b/po/hi.po
-@@ -2268,8 +2268,8 @@ msgstr "विंडो बंद करें (_l)"
+@@ -2267,9 +2267,8 @@ msgstr "विंडो बंद करें (_l)"
+ #~ msgid "Use custom default terminal si_ze"
  #~ msgstr "कस्टम डिफ़ॉल्ट टर्मिनल आकार का उपयोग करें (_z)"
  
- #~| msgid "_Title:"
+-#~| msgid "_Title:"
 -#~ msgid "Title"
 -#~ msgstr "शीर्षक"
 +msgid "Title"
@@ -2808,7 +2809,7 @@ index 2d7dc5b14008..d71a880a4acb 100644
  
  #~ msgid "When terminal commands set their o_wn titles:"
  #~ msgstr "जब टर्मिनल कमांड उनका अपना शीर्षक सेट करता है (_w):"
-@@ -2349,8 +2349,8 @@ msgstr "विंडो बंद करें (_l)"
+@@ -2349,8 +2348,8 @@ msgstr "विंडो बंद करें (_l)"
  #~ msgid "_Input Methods"
  #~ msgstr "इनपुट विधियाँ (_I)"
  
@@ -2819,7 +2820,7 @@ index 2d7dc5b14008..d71a880a4acb 100644
  
  #~ msgid "Disable connection to session manager"
  #~ msgstr "सत्र प्रबंधक में कनेक्शन निष्क्रिय करें"
-@@ -2979,8 +2979,8 @@ msgstr "विंडो बंद करें (_l)"
+@@ -2979,8 +2978,8 @@ msgstr "विंडो बंद करें (_l)"
  #~ msgid "_Background image"
  #~ msgstr "पृष्ठभूमि छवि (_B)"
  
@@ -4050,7 +4051,7 @@ index e85dda1047a6..40dda98fa89a 100644
 2.9.3
 
 
-From 10afebe53e285a41d6cfb6d1b980490f20e5fa40 Mon Sep 17 00:00:00 2001
+From 700c742cb27ef72c7bc117c82463cd19cab00980 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Wed, 25 May 2016 13:47:36 +0200
 Subject: [PATCH 12/14] Restore the action and shortcut to set a static title
@@ -4267,7 +4268,7 @@ index 242ebe13e240..d56b82f0301d 100644
 2.9.3
 
 
-From c79872718505355f35056e319c6ba9933f210e82 Mon Sep 17 00:00:00 2001
+From d9311d8557ce032d4d627117e5c49e5b14ba6c60 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 18:14:36 +0200
 Subject: [PATCH 13/14] screen: Style fix
@@ -4297,7 +4298,7 @@ index f45383ab54cd..feffc36cdf18 100644
 2.9.3
 
 
-From 2693eb8212bc3e68f54d4a46380670f3c2c2ca9f Mon Sep 17 00:00:00 2001
+From 1d0a0e0e5e5d2fcaf5750e270a550ecdc6484ebe Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 16:58:15 +0200
 Subject: [PATCH 14/14] Restore the rest of the title handling options and make
