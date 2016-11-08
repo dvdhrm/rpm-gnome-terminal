@@ -6,7 +6,7 @@
 %define desktop_file_utils_version 0.2.90
 
 Name: gnome-terminal
-Version: 3.22.0
+Version: 3.22.1
 Release: 1%{?dist}
 Summary: Terminal emulator for GNOME
 
@@ -17,7 +17,7 @@ Source1: org.gnome.Terminal.gschema.override
 
 Patch0: 0001-build-Don-t-treat-warnings-as-errors.patch
 
-Patch100: gnome-terminal-transparency-notify.patch
+Patch100: gnome-terminal-notify-open-title-transparency.patch
 
 BuildRequires: dbus-x11
 BuildRequires: glib2-devel >= %{glib2_version}
@@ -63,7 +63,7 @@ option to the right-click context menu in Nautilus.
 %prep
 %setup -q
 %patch0 -p1 -b .warnings
-%patch100 -p1 -b .dark-transparency-notify
+%patch100 -p1 -b .notify-open-title-transparency
 
 %build
 autoreconf -f -i
@@ -110,6 +110,12 @@ fi
 %{_datadir}/appdata/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Tue Nov 08 2016 Debarshi Ray <rishi@fedoraproject.org> - 3.22.1-1
+- Update to 3.22.1
+- Rebase the translations
+- Restore custom terminal titles
+- Restore separate menuitems for opening tabs and windows
+
 * Mon Sep 19 2016 Kalev Lember <klember@redhat.com> - 3.22.0-1
 - Update to 3.22.0
 - Rebase the translations
