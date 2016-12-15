@@ -1,4 +1,4 @@
-From f0da9cf1b54795970b1997921157e059be6900ff Mon Sep 17 00:00:00 2001
+From c46e1fa47dcb6cb41161a3f16cb2692901b1526f Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Mon, 12 May 2014 14:57:18 +0200
 Subject: [PATCH 01/14] Restore transparency
@@ -273,7 +273,7 @@ index a290d9fda733..020c6f00787f 100644
 2.9.3
 
 
-From 2a5f5cac4d06ab927819c79d2255df3252f070b8 Mon Sep 17 00:00:00 2001
+From b5df233b31807e6b168a48549631c221ef4f0b94 Mon Sep 17 00:00:00 2001
 From: Lars Uebernickel <lars.uebernickel@canonical.com>
 Date: Wed, 28 May 2014 14:11:02 +0200
 Subject: [PATCH 02/14] window: Make the drawing robust across all themes
@@ -335,7 +335,7 @@ index 020c6f00787f..a9f3ff7d67e2 100644
 2.9.3
 
 
-From 1547a94fc53d6598dd1885295edf24a44917bc00 Mon Sep 17 00:00:00 2001
+From 1b8c7402a3c88c117be627d02ce9aba819dfcd03 Mon Sep 17 00:00:00 2001
 From: "Owen W. Taylor" <otaylor@fishsoup.net>
 Date: Fri, 13 Nov 2015 15:16:42 +0100
 Subject: [PATCH 03/14] screen, window: Extra padding around transparent
@@ -462,7 +462,7 @@ index a9f3ff7d67e2..d09484e40e66 100644
 2.9.3
 
 
-From 3c9bfb4c03c8ccd55914041295d5e0460593b310 Mon Sep 17 00:00:00 2001
+From 403086028c941e4f772ee3e3179646850a9fb1e9 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 27 Jan 2015 18:40:13 +0100
 Subject: [PATCH 04/14] Support desktop notifications from OSC 777
@@ -784,7 +784,7 @@ index 20cfbceb36b0..a987025e0524 100644
 2.9.3
 
 
-From 263efa555d6b866586dddd979f6e356e5997ce2c Mon Sep 17 00:00:00 2001
+From a974ac21f6d067601e1f30fa989849fc449238f5 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 29 Jan 2015 11:47:21 +0100
 Subject: [PATCH 05/14] Sprinkle debug messages for notifications
@@ -867,7 +867,7 @@ index 1195cf10d71d..0fd57074930b 100644
 2.9.3
 
 
-From fda30e766cd72e1f863b8de207cc48126ac81a47 Mon Sep 17 00:00:00 2001
+From 48a15f9d58c4132793109da6f1a752f9e32cf314 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Mon, 31 Oct 2016 18:41:25 +0100
 Subject: [PATCH 06/14] profile: Drop the 'none' & 'full' markings from the
@@ -948,7 +948,7 @@ index b7decb284946..e1cb3470d0ee 100644
 2.9.3
 
 
-From e2f6ec56ea96deaeaa491d903eaeef351d635f2d Mon Sep 17 00:00:00 2001
+From 05c276b67fbbd71a57fe2630ee41f18350768f24 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 17 May 2016 21:08:55 +0200
 Subject: [PATCH 07/14] Restore separate menuitems for opening tabs and windows
@@ -1271,7 +1271,7 @@ index d830149a4738..242ebe13e240 100644
 2.9.3
 
 
-From 548ddf372d1281d51d85b7e7568461f1d9519082 Mon Sep 17 00:00:00 2001
+From 4e5cf41389681a8c22ba8a861d6b14a00c510af2 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 1 Nov 2016 13:10:01 +0100
 Subject: [PATCH 08/14] Revert "profile: Remove the "Command" sub-heading"
@@ -1557,7 +1557,7 @@ index e1cb3470d0ee..0c09bb08c202 100644
 2.9.3
 
 
-From 5dcf98af89fc6a351272f590db7e539efeedca23 Mon Sep 17 00:00:00 2001
+From 230722b918dcc893d11fc4a63219c1e4ce02f03a Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 16:02:13 +0200
 Subject: [PATCH 09/14] Revert "screen: Remove unused description and
@@ -1739,7 +1739,7 @@ index f3b4013d6157..133c2309e8a8 100644
 2.9.3
 
 
-From 324ec0e92f8514696bb49a279308ef7d3790677a Mon Sep 17 00:00:00 2001
+From 583c886605e65d36b197084759b3447fe0a729af Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 17:39:48 +0200
 Subject: [PATCH 10/14] Revert "Remove the static title setting from profile
@@ -1953,7 +1953,7 @@ index 2e08351d71cc..f45383ab54cd 100644
 2.9.3
 
 
-From d2cdce6bd77e1d17ce47823ffaa1eb8680b2805f Mon Sep 17 00:00:00 2001
+From 044e0872352c3011c02f698efaaa33d2aaf3b74b Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 17 Feb 2015 17:06:17 +0100
 Subject: [PATCH 11/14] Restore translations for setting a title and
@@ -2023,7 +2023,6 @@ Subject: [PATCH 11/14] Restore translations for setting a title and
  po/oc.po          |  8 ++++----
  po/or.po          |  4 ++--
  po/pa.po          | 19 +++++++++----------
- po/pl.po          |  6 ++++++
  po/ps.po          |  4 ++--
  po/pt.po          | 12 ++++++------
  po/pt_BR.po       | 11 +++++++----
@@ -2050,7 +2049,7 @@ Subject: [PATCH 11/14] Restore translations for setting a title and
  po/zh_CN.po       | 11 +++++++----
  po/zh_HK.po       | 11 +++++++----
  po/zh_TW.po       | 11 +++++++----
- 90 files changed, 486 insertions(+), 258 deletions(-)
+ 89 files changed, 480 insertions(+), 258 deletions(-)
 
 diff --git a/po/am.po b/po/am.po
 index 3445d96da657..a5fadb3a8d48 100644
@@ -3383,21 +3382,6 @@ index 9c95b66e7185..ea4c570cf06c 100644
  
  #~ msgid "S/Key Challenge Response"
  #~ msgstr "S/ਸਵਿੱਚ ਚੈਲੰਜ਼ ਜਵਾਬ"
-diff --git a/po/pl.po b/po/pl.po
-index baa03a7f5f67..c81a3157cd79 100644
---- a/po/pl.po
-+++ b/po/pl.po
-@@ -2293,3 +2293,9 @@ msgid ""
- msgstr ""
- "Wartość między 0 a 100, gdzie 0 oznacza nieprzezroczystość, a 100 oznacza "
- "całkowitą przezroczystość."
-+
-+msgid "Title"
-+msgstr "Tytuł"
-+
-+msgid "_Title:"
-+msgstr "_Tytuł:"
-\ No newline at end of file
 diff --git a/po/ps.po b/po/ps.po
 index b25a2cb41712..dcbaf0bc6c8c 100644
 --- a/po/ps.po
@@ -4051,7 +4035,7 @@ index e85dda1047a6..40dda98fa89a 100644
 2.9.3
 
 
-From 700c742cb27ef72c7bc117c82463cd19cab00980 Mon Sep 17 00:00:00 2001
+From 3a95c71674c0c8b124d5a2d7928589e77a89c474 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Wed, 25 May 2016 13:47:36 +0200
 Subject: [PATCH 12/14] Restore the action and shortcut to set a static title
@@ -4268,7 +4252,7 @@ index 242ebe13e240..d56b82f0301d 100644
 2.9.3
 
 
-From d9311d8557ce032d4d627117e5c49e5b14ba6c60 Mon Sep 17 00:00:00 2001
+From 6d7e6796e9549cf8af01c06ebaffad64fe8f40be Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 18:14:36 +0200
 Subject: [PATCH 13/14] screen: Style fix
@@ -4298,7 +4282,7 @@ index f45383ab54cd..feffc36cdf18 100644
 2.9.3
 
 
-From 1d0a0e0e5e5d2fcaf5750e270a550ecdc6484ebe Mon Sep 17 00:00:00 2001
+From 2d8977c1038ea4ce1abd345de1a8c1fd1ad1ea8f Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 16:58:15 +0200
 Subject: [PATCH 14/14] Restore the rest of the title handling options and make
