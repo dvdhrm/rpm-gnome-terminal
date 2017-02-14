@@ -6,19 +6,17 @@
 %define desktop_file_utils_version 0.2.90
 
 Name: gnome-terminal
-Version: 3.22.1
-Release: 3%{?dist}
+Version: 3.23.90
+Release: 1%{?dist}
 Summary: Terminal emulator for GNOME
 
 License: GPLv3+ and GFDL
 URL: http://www.gnome.org/
-Source0: http://download.gnome.org/sources/gnome-terminal/3.22/gnome-terminal-%{version}.tar.xz
+Source0: http://download.gnome.org/sources/gnome-terminal/3.23/gnome-terminal-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
 
 Patch0: 0001-build-Don-t-treat-warnings-as-errors.patch
-Patch1: 0001-search-provider-Fix-incorrect-assumption.patch
 
-Patch99:  0001-Update-Polish-translation.patch
 Patch100: gnome-terminal-notify-open-title-transparency.patch
 
 BuildRequires: dbus-x11
@@ -65,8 +63,6 @@ option to the right-click context menu in Nautilus.
 %prep
 %setup -q
 %patch0 -p1 -b .warnings
-%patch1 -p1 -b .incorrect-assumption
-%patch99 -p1 -b .translations
 %patch100 -p1 -b .notify-open-title-transparency
 
 %build
@@ -114,6 +110,9 @@ fi
 %{_datadir}/appdata/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Tue Feb 14 2017 Richard Hughes <rhughes@redhat.com> - 3.23.90-1
+- Update to 3.23.90
+
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
