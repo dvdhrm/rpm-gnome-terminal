@@ -2,7 +2,7 @@
 
 %define glib2_version 2.42.0
 %define gtk3_version 3.20.0
-%define vte_version 0.46.0
+%define vte_version 0.47.90
 %define desktop_file_utils_version 0.2.90
 
 Name: gnome-terminal
@@ -17,6 +17,7 @@ Source1: org.gnome.Terminal.gschema.override
 
 Patch0: 0001-build-Don-t-treat-warnings-as-errors.patch
 
+Patch99: gnome-terminal-translations.patch
 Patch100: gnome-terminal-notify-open-title-transparency.patch
 
 BuildRequires: dbus-x11
@@ -63,6 +64,7 @@ option to the right-click context menu in Nautilus.
 %prep
 %setup -q
 %patch0 -p1 -b .warnings
+%patch99 -p1 -b .translations
 %patch100 -p1 -b .notify-open-title-transparency
 
 %build
@@ -96,7 +98,7 @@ fi
 %doc AUTHORS NEWS
 
 %{_bindir}/gnome-terminal
-%{_datadir}/appdata/org.gnome.Terminal.appdata.xml
+%{_datadir}/metainfo/org.gnome.Terminal.appdata.xml
 %{_datadir}/applications/org.gnome.Terminal.desktop
 %{_libexecdir}/gnome-terminal-server
 %{_datadir}/dbus-1/services/org.gnome.Terminal.service
@@ -107,11 +109,15 @@ fi
 
 %files nautilus
 %{_libdir}/nautilus/extensions-3.0/libterminal-nautilus.so
-%{_datadir}/appdata/org.gnome.Terminal.Nautilus.metainfo.xml
+%{_datadir}/metainfo/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
-* Tue Feb 14 2017 Richard Hughes <rhughes@redhat.com> - 3.23.90-1
+* Mon Feb 27 2017 Debarshi Ray <rishi@fedoraproject.org> - 3.23.90-1
 - Update to 3.23.90
+- Update translations
+- Ensure that the transparency scale is sensitive only when a transparent
+  background is used
+- Rebase transparency, command-notify and translation patches
 
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
