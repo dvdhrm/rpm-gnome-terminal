@@ -20,7 +20,6 @@ Patch0: 0001-build-Don-t-treat-warnings-as-errors.patch
 Patch99: gnome-terminal-translations.patch
 Patch100: gnome-terminal-notify-open-title-transparency.patch
 
-BuildRequires: dbus-x11
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: gtk3-devel >= %{gtk3_version}
 BuildRequires: gsettings-desktop-schemas-devel
