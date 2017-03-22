@@ -1,4 +1,4 @@
-From 4f076634fcbf96056ae0dea6710c2d3863c6f8d6 Mon Sep 17 00:00:00 2001
+From 26e848e209265d6ebaca08d3fbbc4f9f9dd08c82 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Mon, 12 May 2014 14:57:18 +0200
 Subject: [PATCH 01/14] Restore transparency
@@ -225,10 +225,10 @@ index 2921c025596c..c41a73231bf4 100644
    uuid_unparse (u, uuidstr);
    priv->uuid = g_strdup (uuidstr);
 -- 
-2.9.3
+2.12.0
 
 
-From d01706e548500990292cb568b1a15dc35d38e7f8 Mon Sep 17 00:00:00 2001
+From 35cdbfcc31e648b64de6d34d25ce4d76f790966b Mon Sep 17 00:00:00 2001
 From: Lars Uebernickel <lars.uebernickel@canonical.com>
 Date: Wed, 28 May 2014 14:11:02 +0200
 Subject: [PATCH 02/14] window: Make the drawing robust across all themes
@@ -287,10 +287,10 @@ index c41a73231bf4..fb64fa89b3cc 100644
    widget_class->screen_changed = terminal_window_screen_changed;
    widget_class->style_updated = terminal_window_style_updated;
 -- 
-2.9.3
+2.12.0
 
 
-From 2e7b3cea69640625ad3eb93fbb132cb09db915cf Mon Sep 17 00:00:00 2001
+From 3c9051b8b0c38ab8d7a6930808d98e3c9525fcf9 Mon Sep 17 00:00:00 2001
 From: "Owen W. Taylor" <otaylor@fishsoup.net>
 Date: Fri, 13 Nov 2015 15:16:42 +0100
 Subject: [PATCH 03/14] screen, window: Extra padding around transparent
@@ -414,10 +414,10 @@ index fb64fa89b3cc..f1b1c7d1038d 100644
  
    return GTK_WIDGET_CLASS (terminal_window_parent_class)->draw (widget, cr);
 -- 
-2.9.3
+2.12.0
 
 
-From 6ca3ba9b247d4962d8abeafad7fbd0420b8c0292 Mon Sep 17 00:00:00 2001
+From 8ffc4c9bf8adc761c3ee450421953ca74b09cead Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Mon, 27 Feb 2017 16:53:51 +0100
 Subject: [PATCH 04/14] screen: Silence -Wunused variable
@@ -440,10 +440,10 @@ index 043a7ae9c4b2..dac1663a24ec 100644
    gboolean use_theme_colors;
  
 -- 
-2.9.3
+2.12.0
 
 
-From 4b3b84b3268a8972bf629d117a405341093e8162 Mon Sep 17 00:00:00 2001
+From da0e7e412130b328640741d926f7d49bd7a9963c Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 27 Jan 2015 18:40:13 +0100
 Subject: [PATCH 05/14] Support desktop notifications from OSC 777
@@ -762,10 +762,10 @@ index 20cfbceb36b0..a987025e0524 100644
  
  G_END_DECLS
 -- 
-2.9.3
+2.12.0
 
 
-From 6a766cbb31eca1ace35b216a57f5fbb7dd119407 Mon Sep 17 00:00:00 2001
+From 06d89d3fcef6526f1639b9ae1c00cb708a814076 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 29 Jan 2015 11:47:21 +0100
 Subject: [PATCH 06/14] Sprinkle debug messages for notifications
@@ -845,10 +845,10 @@ index 2e4d1d6d669d..d0d2c93fbb1d 100644
  }
  
 -- 
-2.9.3
+2.12.0
 
 
-From 632a1d4e111d436237259f3ecd5a79c2adf5f954 Mon Sep 17 00:00:00 2001
+From f1c55417a2cfa6517368d7df0864a9bf9b3b2ebb Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 17 May 2016 21:08:55 +0200
 Subject: [PATCH 07/14] Restore separate menuitems for opening tabs and windows
@@ -1168,10 +1168,10 @@ index d830149a4738..242ebe13e240 100644
      <menuitem action="PopupCopy" />
      <menuitem action="PopupPaste" />
 -- 
-2.9.3
+2.12.0
 
 
-From 78f9afa42c4c39a1e7a991776a7db6888eae5df6 Mon Sep 17 00:00:00 2001
+From eb3c9e65dfc3b73268b6326f4f0b371ae8b2d2c2 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 1 Nov 2016 13:10:01 +0100
 Subject: [PATCH 08/14] Revert "profile: Remove the "Command" sub-heading"
@@ -1454,10 +1454,10 @@ index e1cb3470d0ee..0c09bb08c202 100644
                      </child>
                    </object>
 -- 
-2.9.3
+2.12.0
 
 
-From 3cff81daa4f338170f9dc4cbeece74b77e5d10ce Mon Sep 17 00:00:00 2001
+From cb89dd61c7532ef49a29ef323fcef358169ec736 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 16:02:13 +0200
 Subject: [PATCH 09/14] Revert "screen: Remove unused description and
@@ -1636,10 +1636,10 @@ index f3b4013d6157..133c2309e8a8 100644
  char *terminal_screen_get_current_dir (TerminalScreen *screen);
  
 -- 
-2.9.3
+2.12.0
 
 
-From 9396c618d6a73dfea405a5c5699a2bb329bd18d7 Mon Sep 17 00:00:00 2001
+From 42225c4bcbaf4d2342cfdcc76b4f18d4a0a77efa Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 17:39:48 +0200
 Subject: [PATCH 10/14] Revert "Remove the static title setting from profile
@@ -1850,10 +1850,10 @@ index b5674d8001fb..ae03835a812a 100644
        (!prop_name ||
         prop_name == I_(TERMINAL_PROFILE_USE_SYSTEM_FONT_KEY) ||
 -- 
-2.9.3
+2.12.0
 
 
-From 1e59f280b38b7c4a85bc69a38573ac676d4ec520 Mon Sep 17 00:00:00 2001
+From 4b4724401670d9006aca20b83d7027c8607c006d Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 17 Feb 2015 17:06:17 +0100
 Subject: [PATCH 11/14] Restore translations for setting a title and
@@ -3369,10 +3369,10 @@ index aaf2d9b292da..4d466f164420 100644
  #: ../src/profile-preferences.glade.h:74
  msgid "_Update login records when command is launched"
 diff --git a/po/id.po b/po/id.po
-index 8622f882eb1a..c0c2867a39ad 100644
+index a7e0d866e539..c03b4751a782 100644
 --- a/po/id.po
 +++ b/po/id.po
-@@ -2357,3 +2357,18 @@ msgstr ""
+@@ -2268,3 +2268,18 @@ msgstr ""
  #: ../src/terminal-window.c:3852
  msgid "C_lose Window"
  msgstr "Tutup Jende_la"
@@ -3392,11 +3392,11 @@ index 8622f882eb1a..c0c2867a39ad 100644
 +msgid "_Set Title…"
 +msgstr "_Atur Judul…"
 diff --git a/po/it.po b/po/it.po
-index b7bdc71451b0..4dd6df246983 100644
+index e0faef47298a..6b8d12538cb3 100644
 --- a/po/it.po
 +++ b/po/it.po
-@@ -2289,3 +2289,18 @@ msgstr ""
- #: ../src/terminal-window.c:3849
+@@ -2374,3 +2374,18 @@ msgstr ""
+ #: ../src/terminal-window.c:3852
  msgid "C_lose Window"
  msgstr "Chiudi _finestra"
 +
@@ -3415,10 +3415,10 @@ index b7bdc71451b0..4dd6df246983 100644
 +msgid "_Set Title…"
 +msgstr "_Imposta titolo…"
 diff --git a/po/ja.po b/po/ja.po
-index f7235d9f4a0b..65625878b185 100644
+index b4f1fb99ee27..3e64b9d01077 100644
 --- a/po/ja.po
 +++ b/po/ja.po
-@@ -1907,3 +1907,18 @@ msgstr "ウィンドウを閉じる(_L)"
+@@ -2406,3 +2406,18 @@ msgstr "ウィンドウを閉じる(_L)"
  
  #~ msgid "_Update login records when command is launched"
  #~ msgstr "コマンドを実行した時にログイン記録を更新する(_U)"
@@ -3559,10 +3559,10 @@ index c887f88a2c87..3f3d7fe378b3 100644
 +msgid "Transparent background"
 +msgstr "ಪಾರದರ್ಶಕ ಹಿನ್ನಲೆ"
 diff --git a/po/ko.po b/po/ko.po
-index 366a5122c251..8a4cf476cab0 100644
+index 938cba133e13..3a36107793e7 100644
 --- a/po/ko.po
 +++ b/po/ko.po
-@@ -2281,3 +2281,18 @@ msgstr "창 닫기(_L)"
+@@ -2320,3 +2320,18 @@ msgstr "창 닫기(_L)"
  
  #~ msgid "Whether to use a dark theme variant"
  #~ msgstr "어두운 테마를 사용할 지 여부"
@@ -3608,10 +3608,10 @@ index bc2bb7f03de4..d2a83a007097 100644
  #: ../src/gnome-terminal.glade2.h:87
  msgid "_Update login records when command is launched"
 diff --git a/po/lt.po b/po/lt.po
-index c1c3ce0bfbab..68e9c03d2d43 100644
+index e8362f8da02d..567fc6b0495d 100644
 --- a/po/lt.po
 +++ b/po/lt.po
-@@ -2280,3 +2280,18 @@ msgstr "_Užverti langą"
+@@ -2296,3 +2296,18 @@ msgstr "_Užverti langą"
  
  #~ msgid "Whether to use a dark theme variant"
  #~ msgstr "Ar naudoti tamsų temos variantą"
@@ -3631,10 +3631,10 @@ index c1c3ce0bfbab..68e9c03d2d43 100644
 +msgid "_Set Title…"
 +msgstr "_Nustatyti pavadinimą…"
 diff --git a/po/lv.po b/po/lv.po
-index 959d1c3531fd..04683bd268e6 100644
+index 51105b99fe5e..f3323e1361b4 100644
 --- a/po/lv.po
 +++ b/po/lv.po
-@@ -2236,3 +2236,21 @@ msgstr ""
+@@ -2320,3 +2320,21 @@ msgstr ""
  msgid "C_lose Window"
  msgstr "Aizvērt _logu"
  
@@ -4335,13 +4335,13 @@ index 179dd77fd166..cf1b9986c923 100644
  #: ../src/profile-preferences.glade.h:78
  msgid "_Underline color:"
 diff --git a/po/ru.po b/po/ru.po
-index 6cd2cd49fb12..6f324c37cb4d 100644
+index 84c4e76ed0bf..e8e53a7c88af 100644
 --- a/po/ru.po
 +++ b/po/ru.po
-@@ -2271,3 +2271,22 @@ msgstr "_Закрыть окно"
- 
- #~ msgid "_Same as text color"
- #~ msgstr "_Цвет как у обычного текста"
+@@ -2274,3 +2274,22 @@ msgstr ""
+ #: ../src/terminal-window.c:3852
+ msgid "C_lose Window"
+ msgstr "_Закрыть окно"
 +
 +msgid "Transparent background"
 +msgstr "Прозрачный фон"
@@ -4953,10 +4953,10 @@ index a08f25914d12..a4fbcbe6e474 100644
  #~ msgid "Switch to Tab 2"
  #~ msgstr "До вкладки 2"
 diff --git a/po/vi.po b/po/vi.po
-index 01db48d95bf2..36b9ef10ed37 100644
+index a5bc6ffcc17b..67625e6166d0 100644
 --- a/po/vi.po
 +++ b/po/vi.po
-@@ -2400,8 +2400,8 @@ msgstr "Đón_g cửa sổ"
+@@ -2408,8 +2408,8 @@ msgstr "Đón_g cửa sổ"
  #~ msgid "Default size:"
  #~ msgstr "Cỡ mặc định:"
  
@@ -4967,7 +4967,7 @@ index 01db48d95bf2..36b9ef10ed37 100644
  
  #~ msgid "When terminal commands set their o_wn titles:"
  #~ msgstr "Khi câu lệnh thiết bị cuối tự đặt tựa đề _mình:"
-@@ -2421,8 +2421,8 @@ msgstr "Đón_g cửa sổ"
+@@ -2429,8 +2429,8 @@ msgstr "Đón_g cửa sổ"
  #~ msgid "Close Window"
  #~ msgstr "Đóng cửa sổ"
  
@@ -4978,7 +4978,7 @@ index 01db48d95bf2..36b9ef10ed37 100644
  
  #~ msgid "Switch to Tab 2"
  #~ msgstr "Chuyển sang Thanh 2"
-@@ -2469,8 +2469,8 @@ msgstr "Đón_g cửa sổ"
+@@ -2477,8 +2477,8 @@ msgstr "Đón_g cửa sổ"
  #~ msgid "_Close Window"
  #~ msgstr "Đón_g cửa sổ"
  
@@ -4989,7 +4989,7 @@ index 01db48d95bf2..36b9ef10ed37 100644
  
  #~ msgid "_Next Tab"
  #~ msgstr "Thanh _sau"
-@@ -2481,8 +2481,8 @@ msgstr "Đón_g cửa sổ"
+@@ -2489,8 +2489,8 @@ msgstr "Đón_g cửa sổ"
  #~ msgid "_Input Methods"
  #~ msgstr "K_iểu gõ"
  
@@ -5000,7 +5000,7 @@ index 01db48d95bf2..36b9ef10ed37 100644
  
  #~ msgid "Disable connection to session manager"
  #~ msgstr "Tắt kết nối đến trình quản lý phiên làm việc"
-@@ -2867,3 +2867,6 @@ msgstr "Đón_g cửa sổ"
+@@ -2875,3 +2875,6 @@ msgstr "Đón_g cửa sổ"
  #~ "Phím tắt để đặt lại thiết bị cuối. Dùng dạng chuỗi có cùng một khuôn dạng "
  #~ "với tập tin tài nguyên GTK+. Nếu bạn đặt tùy chọn là chuỗi “disabled” (bị "
  #~ "tắt), nghĩa là không có phím tắt cho hành động này."
@@ -5211,10 +5211,10 @@ index fb3fda0be7d6..bb73a0c743a9 100644
 +msgid "Transparent background"
 +msgstr "透明背景"
 -- 
-2.9.3
+2.12.0
 
 
-From 190e017cdab354c205005a1d8ddc2f18aa862538 Mon Sep 17 00:00:00 2001
+From 818a28936c6c59aea16ed418584cf5c17270c57a Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Wed, 25 May 2016 13:47:36 +0200
 Subject: [PATCH 12/14] Restore the action and shortcut to set a static title
@@ -5428,10 +5428,10 @@ index 242ebe13e240..d56b82f0301d 100644
      <menuitem action="FileCloseTab"/>
    </popup>
 -- 
-2.9.3
+2.12.0
 
 
-From f0ececc2b57ac7270db6959074bf331bae2ad2f9 Mon Sep 17 00:00:00 2001
+From 62e966c8256c6604e83ff775c342bca7dcf338f9 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 18:14:36 +0200
 Subject: [PATCH 13/14] screen: Style fix
@@ -5458,10 +5458,10 @@ index ae03835a812a..5a4c100b629c 100644
      const char *p;
  
 -- 
-2.9.3
+2.12.0
 
 
-From ba35601bd26aa8475cc0a97041717c30b7e7c5c9 Mon Sep 17 00:00:00 2001
+From 03307918b3d806ecb40dfc440e99b4b9d79955bf Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 16:58:15 +0200
 Subject: [PATCH 14/14] Restore the rest of the title handling options and make
@@ -6213,5 +6213,5 @@ index c8d9123d88ed..153d273bad75 100644
  
  static void
 -- 
-2.9.3
+2.12.0
 
