@@ -6,7 +6,7 @@
 %define desktop_file_utils_version 0.2.90
 
 Name: gnome-terminal
-Version: 3.24.1
+Version: 3.24.2
 Release: 1%{?dist}
 Summary: Terminal emulator for GNOME
 
@@ -109,6 +109,10 @@ fi
 %{_datadir}/metainfo/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Thu May 11 2017 Kalev Lember <klember@redhat.com> - 3.24.2-1
+- Update to 3.24.2
+- Rebase the translations
+
 * Thu Apr 13 2017 Kalev Lember <klember@redhat.com> - 3.24.1-1
 - Update to 3.24.1
 - Rebase the translations
