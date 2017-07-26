@@ -7,7 +7,7 @@
 
 Name: gnome-terminal
 Version: 3.24.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Terminal emulator for GNOME
 
 License: GPLv3+ and GFDL
@@ -109,6 +109,9 @@ fi
 %{_datadir}/metainfo/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Thu May 11 2017 Kalev Lember <klember@redhat.com> - 3.24.2-1
 - Update to 3.24.2
 - Rebase the translations
