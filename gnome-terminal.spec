@@ -2,17 +2,17 @@
 
 %define glib2_version 2.42.0
 %define gtk3_version 3.20.0
-%define vte_version 0.48.2
+%define vte_version 0.50.0
 %define desktop_file_utils_version 0.2.90
 
 Name: gnome-terminal
-Version: 3.24.2
-Release: 3%{?dist}
+Version: 3.26.0
+Release: 1%{?dist}
 Summary: Terminal emulator for GNOME
 
 License: GPLv3+ and GFDL
 URL: http://www.gnome.org/
-Source0: http://download.gnome.org/sources/gnome-terminal/3.24/gnome-terminal-%{version}.tar.xz
+Source0: http://download.gnome.org/sources/gnome-terminal/3.26/gnome-terminal-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
 
 Patch0: 0001-build-Don-t-treat-warnings-as-errors.patch
@@ -109,6 +109,10 @@ fi
 %{_datadir}/metainfo/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Thu Sep 14 2017 Kalev Lember <klember@redhat.com> - 3.26.0-1
+- Update to 3.26.0
+- Rebase downstream patches
+
 * Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
