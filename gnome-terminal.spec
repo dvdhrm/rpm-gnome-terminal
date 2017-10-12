@@ -2,11 +2,11 @@
 
 %define glib2_version 2.42.0
 %define gtk3_version 3.20.0
-%define vte_version 0.50.0
+%define vte_version 0.50.1
 %define desktop_file_utils_version 0.2.90
 
 Name: gnome-terminal
-Version: 3.26.0
+Version: 3.26.1
 Release: 1%{?dist}
 Summary: Terminal emulator for GNOME
 
@@ -109,6 +109,10 @@ fi
 %{_datadir}/metainfo/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Thu Oct 12 2017 Kalev Lember <klember@redhat.com> - 3.26.1-1
+- Update to 3.26.1
+- Rebase the translations
+
 * Thu Sep 14 2017 Kalev Lember <klember@redhat.com> - 3.26.0-1
 - Update to 3.26.0
 - Rebase downstream patches
