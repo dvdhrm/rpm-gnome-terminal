@@ -7,7 +7,7 @@
 
 Name: gnome-terminal
 Version: 3.26.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Terminal emulator for GNOME
 
 License: GPLv3+ and GFDL
@@ -81,6 +81,7 @@ cp %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas
 
 %check
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Terminal.desktop
+make check
 
 %postun
 if [ $1 -eq 0 ] ; then
@@ -109,6 +110,10 @@ fi
 %{_datadir}/metainfo/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Wed Oct 18 2017 Marek Kasik <mkasik@redhat.com> - 3.26.1-2
+- Enable unit tests
+- Resolves: #1502666
+
 * Thu Oct 12 2017 Kalev Lember <klember@redhat.com> - 3.26.1-1
 - Update to 3.26.1
 - Rebase the translations
