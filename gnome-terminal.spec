@@ -2,12 +2,12 @@
 
 %define glib2_version 2.42.0
 %define gtk3_version 3.20.0
-%define vte_version 0.50.1
+%define vte_version 0.50.2
 %define desktop_file_utils_version 0.2.90
 
 Name: gnome-terminal
-Version: 3.26.1
-Release: 2%{?dist}
+Version: 3.26.2
+Release: 1%{?dist}
 Summary: Terminal emulator for GNOME
 
 License: GPLv3+ and GFDL
@@ -110,6 +110,10 @@ fi
 %{_datadir}/metainfo/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Thu Nov 02 2017 Kalev Lember <klember@redhat.com> - 3.26.2-1
+- Update to 3.26.2
+- Rebase the translations
+
 * Wed Oct 18 2017 Marek Kasik <mkasik@redhat.com> - 3.26.1-2
 - Enable unit tests
 - Resolves: #1502666
