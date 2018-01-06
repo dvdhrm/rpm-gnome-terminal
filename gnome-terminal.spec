@@ -7,7 +7,7 @@
 
 Name: gnome-terminal
 Version: 3.26.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Terminal emulator for GNOME
 
 License: GPLv3+ and GFDL
@@ -83,14 +83,6 @@ cp %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Terminal.desktop
 make check
 
-%postun
-if [ $1 -eq 0 ] ; then
-    /usr/bin/glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
-fi
-
-%posttrans
-/usr/bin/glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
-
 %files -f %{gettext_package}.lang
 %license COPYING
 %doc AUTHORS NEWS
@@ -110,6 +102,9 @@ fi
 %{_datadir}/metainfo/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Sat Jan 06 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 3.26.2-2
+- Remove obsolete scriptlets
+
 * Thu Nov 02 2017 Kalev Lember <klember@redhat.com> - 3.26.2-1
 - Update to 3.26.2
 - Rebase the translations
