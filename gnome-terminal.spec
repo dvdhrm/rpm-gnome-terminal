@@ -2,20 +2,23 @@
 
 %define glib2_version 2.42.0
 %define gtk3_version 3.20.0
-%define vte_version 0.50.2
+%define vte_version 0.51.1
 %define desktop_file_utils_version 0.2.90
 
 Name: gnome-terminal
-Version: 3.26.2
-Release: 3%{?dist}
+Version: 3.27.1
+Release: 1%{?dist}
 Summary: Terminal emulator for GNOME
 
 License: GPLv3+ and GFDL
 URL: http://www.gnome.org/
-Source0: http://download.gnome.org/sources/gnome-terminal/3.26/gnome-terminal-%{version}.tar.xz
+Source0: http://download.gnome.org/sources/gnome-terminal/3.27/gnome-terminal-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
 
 Patch0: 0001-build-Don-t-treat-warnings-as-errors.patch
+
+# https://bugzilla.gnome.org/show_bug.cgi?id=794935
+Patch1: gnome-terminal-dont-misplace-the-notebook-popup-on-wayland.patch
 
 Patch100: gnome-terminal-notify-open-title-transparency.patch
 
@@ -62,11 +65,12 @@ option to the right-click context menu in Nautilus.
 %prep
 %setup -q
 %patch0 -p1 -b .warnings
+%patch1 -p1 -b .notebook-popup
 %patch100 -p1 -b .notify-open-title-transparency
 
 %build
 autoreconf -f -i
-%configure --disable-static --disable-gterminal --disable-migration --with-gtk=3.0 --with-nautilus-extension
+%configure --disable-static --disable-migration --with-gtk=3.0 --with-nautilus-extension
 
 make %{?_smp_mflags}
 
@@ -102,6 +106,10 @@ make check
 %{_datadir}/metainfo/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Tue Apr 03 2018 Debarshi Ray <rishi@fedoraproject.org> - 3.27.1-1
+- Update to 3.27.1
+- Rebase transparency, command-notify and translation patches
+
 * Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.26.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
