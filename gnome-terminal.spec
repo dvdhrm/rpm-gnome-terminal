@@ -6,7 +6,7 @@
 %define desktop_file_utils_version 0.2.90
 
 Name: gnome-terminal
-Version: 3.27.3
+Version: 3.27.4
 Release: 1%{?dist}
 Summary: Terminal emulator for GNOME
 
@@ -106,6 +106,10 @@ make check
 %{_datadir}/metainfo/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Fri Apr 06 2018 Debarshi Ray <rishi@fedoraproject.org> - 3.27.4-1
+- Update to 3.27.4
+- Rebase transparency, command-notify and translation patches
+
 * Fri Apr 06 2018 Debarshi Ray <rishi@fedoraproject.org> - 3.27.3-1
 - Update to 3.27.3
 - Rebase the translations
