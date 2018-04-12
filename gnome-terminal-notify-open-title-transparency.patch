@@ -1,7 +1,7 @@
-From 00ac77bdd898447c8c29ac4f15df9f82a0f65929 Mon Sep 17 00:00:00 2001
+From 6dd2681c633340672dbbb2ba533e53c30f4785f2 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Mon, 12 May 2014 14:57:18 +0200
-Subject: [PATCH 01/15] Restore transparency
+Subject: [PATCH 01/16] Restore transparency
 
 The transparency settings were removed as a side effect of
 2bff4b63ed3ceef6055e35563e9b0b33ad57349d
@@ -13,17 +13,19 @@ was not restored.
 The transparency checkbox lost its mnemonic accelerator because 't'
 is already taken and using any other letter would make it hard to
 restore the translations of the string.
+
+Some changes by Peter Weber <peter.weber@mailbox.org>
 ---
  src/org.gnome.Terminal.gschema.xml | 10 ++++++++
- src/profile-editor.c               | 11 +++++++++
- src/profile-preferences.ui         | 47 ++++++++++++++++++++++++++++++++++++++
+ src/preferences.ui                 | 47 ++++++++++++++++++++++++++++++++++++++
+ src/profile-editor.c               | 16 +++++++++++++
  src/terminal-schemas.h             |  3 +++
  src/terminal-screen.c              | 22 +++++++++++++++++-
  src/terminal-window.c              |  7 ++++++
- 6 files changed, 99 insertions(+), 1 deletion(-)
+ 6 files changed, 104 insertions(+), 1 deletion(-)
 
 diff --git a/src/org.gnome.Terminal.gschema.xml b/src/org.gnome.Terminal.gschema.xml
-index c07b115830d2..5a20bcc4e42f 100644
+index 2edeceacf9e5..b828471bd71d 100644
 --- a/src/org.gnome.Terminal.gschema.xml
 +++ b/src/org.gnome.Terminal.gschema.xml
 @@ -400,6 +400,16 @@
@@ -43,34 +45,11 @@ index c07b115830d2..5a20bcc4e42f 100644
    </schema>
  
    <!-- Keybinding settings -->
-diff --git a/src/profile-editor.c b/src/profile-editor.c
-index 3bc7bd91662a..ad935fdb23d2 100644
---- a/src/profile-editor.c
-+++ b/src/profile-editor.c
-@@ -1279,7 +1279,18 @@ terminal_profile_edit (GSettings  *profile,
-                    "active-id",
-                    G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
- 
-+  g_settings_bind (profile, TERMINAL_PROFILE_USE_TRANSPARENT_BACKGROUND,
-+                   gtk_builder_get_object (builder, "use-transparent-background"),
-+                   "active", G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
-+  g_settings_bind (profile, TERMINAL_PROFILE_USE_TRANSPARENT_BACKGROUND,
-+                   gtk_builder_get_object (builder, "background-transparent-scale"),
-+                   "sensitive", G_SETTINGS_BIND_GET | G_SETTINGS_BIND_NO_SENSITIVITY);
-+  g_settings_bind (profile, TERMINAL_PROFILE_BACKGROUND_TRANSPARENCY_PERCENT,
-+                   gtk_builder_get_object (builder, "background-transparent-adjustment"),
-+                   "value", G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
-+
-   /* Finished! */
-+
-   terminal_util_bind_mnemonic_label_sensitivity (editor);
- 
-   terminal_util_dialog_focus_widget (editor, widget_name);
-diff --git a/src/profile-preferences.ui b/src/profile-preferences.ui
-index 17cb1044c0fa..3b7634353253 100644
---- a/src/profile-preferences.ui
-+++ b/src/profile-preferences.ui
-@@ -37,6 +37,11 @@
+diff --git a/src/preferences.ui b/src/preferences.ui
+index 0f14fbcbf250..43b322bb972e 100644
+--- a/src/preferences.ui
++++ b/src/preferences.ui
+@@ -77,6 +77,11 @@
      <property name="step_increment">0.05</property>
      <property name="page_increment">0.25</property>
    </object>
@@ -82,55 +61,82 @@ index 17cb1044c0fa..3b7634353253 100644
    <object class="GtkListStore" id="cjk-ambiguous-width-model">
      <columns>
        <!-- column-name gchararray -->
-@@ -1214,6 +1219,48 @@
-                                 <property name="position">1</property>
-                               </packing>
-                             </child>
-+                            <child>
-+                              <object class="GtkBox" id="use-transparent-background-box">
-+                                <property name="visible">True</property>
-+                                <property name="can_focus">False</property>
-+                                <property name="orientation">horizontal</property>
-+                                <property name="spacing">12</property>
-+                                <child>
-+                                  <object class="GtkCheckButton" id="use-transparent-background">
-+                                    <property name="label" translatable="yes">Transparent background</property>
-+                                    <property name="visible">True</property>
-+                                    <property name="can_focus">True</property>
-+                                    <property name="receives_default">False</property>
-+                                    <property name="use_underline">True</property>
-+                                    <property name="xalign">0</property>
-+                                    <property name="draw_indicator">True</property>
-+                                  </object>
-+                                  <packing>
-+                                    <property name="expand">False</property>
-+                                    <property name="fill">False</property>
-+                                    <property name="position">0</property>
-+                                  </packing>
-+                                </child>
-+                                <child>
-+                                  <object class="GtkScale" id="background-transparent-scale">
-+                                    <property name="visible">True</property>
-+                                    <property name="can_focus">True</property>
-+                                    <property name="adjustment">background-transparent-adjustment</property>
-+                                    <property name="draw_value">False</property>
-+                                  </object>
-+                                  <packing>
-+                                    <property name="expand">True</property>
-+                                    <property name="fill">True</property>
-+                                    <property name="position">1</property>
-+                                  </packing>
-+                                </child>
-+                              </object>
-+                              <packing>
-+                                <property name="expand">True</property>
-+                                <property name="fill">True</property>
-+                                <property name="position">2</property>
-+                              </packing>
-+                            </child>
-                           </object>
-                         </child>
-                       </object>
+@@ -1317,6 +1322,48 @@
+                                             <property name="position">1</property>
+                                           </packing>
+                                         </child>
++                                        <child>
++                                          <object class="GtkBox" id="use-transparent-background-box">
++                                            <property name="visible">True</property>
++                                            <property name="can_focus">False</property>
++                                            <property name="orientation">horizontal</property>
++                                            <property name="spacing">12</property>
++                                            <child>
++                                              <object class="GtkCheckButton" id="use-transparent-background">
++                                                <property name="label" translatable="yes">Transparent background</property>
++                                                <property name="visible">True</property>
++                                                <property name="can_focus">True</property>
++                                                <property name="receives_default">False</property>
++                                                <property name="use_underline">True</property>
++                                                <property name="xalign">0</property>
++                                                <property name="draw_indicator">True</property>
++                                              </object>
++                                              <packing>
++                                                <property name="expand">False</property>
++                                                <property name="fill">False</property>
++                                                <property name="position">0</property>
++                                              </packing>
++                                            </child>
++                                            <child>
++                                              <object class="GtkScale" id="background-transparent-scale">
++                                                <property name="visible">True</property>
++                                                <property name="can_focus">True</property>
++                                                <property name="adjustment">background-transparent-adjustment</property>
++                                                <property name="draw_value">False</property>
++                                              </object>
++                                              <packing>
++                                                <property name="expand">True</property>
++                                                <property name="fill">True</property>
++                                                <property name="position">1</property>
++                                              </packing>
++                                            </child>
++                                          </object>
++                                          <packing>
++                                            <property name="expand">True</property>
++                                            <property name="fill">True</property>
++                                            <property name="position">2</property>
++                                          </packing>
++                                        </child>
+                                       </object>
+                                     </child>
+                                   </object>
+diff --git a/src/profile-editor.c b/src/profile-editor.c
+index c93a1912649c..8c25c6372901 100644
+--- a/src/profile-editor.c
++++ b/src/profile-editor.c
+@@ -1325,6 +1325,22 @@ profile_prefs_load (const char *uuid, GSettings *profile)
+                                w,
+                                "active-id",
+                                G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
++
++  profile_prefs_settings_bind (profile,
++                               TERMINAL_PROFILE_USE_TRANSPARENT_BACKGROUND,
++                               gtk_builder_get_object (builder, "use-transparent-background"),
++                               "active",
++                               G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
++  profile_prefs_settings_bind (profile,
++                               TERMINAL_PROFILE_USE_TRANSPARENT_BACKGROUND,
++                               gtk_builder_get_object (builder, "background-transparent-scale"),
++                               "sensitive",
++                               G_SETTINGS_BIND_GET | G_SETTINGS_BIND_NO_SENSITIVITY);
++  profile_prefs_settings_bind (profile,
++                               TERMINAL_PROFILE_BACKGROUND_TRANSPARENCY_PERCENT,
++                               gtk_builder_get_object (builder, "background-transparent-adjustment"),
++                               "value",
++                               G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
+ }
+ 
+ /* Called once per Preferences window, to destroy stuff that doesn't depend on the profile being edited */
 diff --git a/src/terminal-schemas.h b/src/terminal-schemas.h
 index 46ed321df074..8e79bb2e49f5 100644
 --- a/src/terminal-schemas.h
@@ -146,7 +152,7 @@ index 46ed321df074..8e79bb2e49f5 100644
  #define TERMINAL_SETTING_DEFAULT_SHOW_MENUBAR_KEY       "default-show-menubar"
  #define TERMINAL_SETTING_ENABLE_MENU_BAR_ACCEL_KEY      "menu-accelerator-enabled"
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 117315e1a1eb..5538dda7afd7 100644
+index 5f78de93dd5e..48293e6e7022 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
 @@ -832,7 +832,9 @@ terminal_screen_profile_changed_cb (GSettings     *profile,
@@ -200,10 +206,10 @@ index 117315e1a1eb..5538dda7afd7 100644
  
  static void
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index 8a1bf17883f6..2a9d31193ab0 100644
+index a8ff746cdad2..d99601956e19 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
-@@ -2175,6 +2175,8 @@ terminal_window_init (TerminalWindow *window)
+@@ -2157,6 +2157,8 @@ terminal_window_init (TerminalWindow *window)
    };
    TerminalWindowPrivate *priv;
    TerminalApp *app;
@@ -212,7 +218,7 @@ index 8a1bf17883f6..2a9d31193ab0 100644
    GSettings *gtk_debug_settings;
    GtkWindowGroup *window_group;
    //  GtkAccelGroup *accel_group;
-@@ -2189,6 +2191,11 @@ terminal_window_init (TerminalWindow *window)
+@@ -2171,6 +2173,11 @@ terminal_window_init (TerminalWindow *window)
  
    gtk_widget_init_template (GTK_WIDGET (window));
  
@@ -228,10 +234,10 @@ index 8a1bf17883f6..2a9d31193ab0 100644
 2.14.3
 
 
-From 5c33af62c66005b774326392c7e44c5c55c19a33 Mon Sep 17 00:00:00 2001
+From a36b28d300c091437d237c211d825de635df6159 Mon Sep 17 00:00:00 2001
 From: Lars Uebernickel <lars.uebernickel@canonical.com>
 Date: Wed, 28 May 2014 14:11:02 +0200
-Subject: [PATCH 02/15] window: Make the drawing robust across all themes
+Subject: [PATCH 02/16] window: Make the drawing robust across all themes
 
 There are lots of themes out there in the wild that do not specify a
 background-color for all widgets and the default is transparent. This
@@ -248,10 +254,10 @@ https://bugzilla.gnome.org/show_bug.cgi?id=730016
  1 file changed, 21 insertions(+)
 
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index 2a9d31193ab0..2718dabd0219 100644
+index d99601956e19..6972ecb0098c 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
-@@ -2023,6 +2023,26 @@ terminal_window_realize (GtkWidget *widget)
+@@ -2013,6 +2013,26 @@ terminal_window_realize (GtkWidget *widget)
    terminal_window_update_size (window);
  }
  
@@ -278,7 +284,7 @@ index 2a9d31193ab0..2718dabd0219 100644
  static gboolean
  terminal_window_state_event (GtkWidget            *widget,
                               GdkEventWindowState  *event)
-@@ -2337,6 +2357,7 @@ terminal_window_class_init (TerminalWindowClass *klass)
+@@ -2324,6 +2344,7 @@ terminal_window_class_init (TerminalWindowClass *klass)
  
    widget_class->show = terminal_window_show;
    widget_class->realize = terminal_window_realize;
@@ -290,10 +296,10 @@ index 2a9d31193ab0..2718dabd0219 100644
 2.14.3
 
 
-From c20e6efc177076517ba4f12b1c7c65c1fe599eeb Mon Sep 17 00:00:00 2001
+From c7da5977568c1b860875b49f519251fd3ceec47e Mon Sep 17 00:00:00 2001
 From: "Owen W. Taylor" <otaylor@fishsoup.net>
 Date: Fri, 13 Nov 2015 15:16:42 +0100
-Subject: [PATCH 03/15] screen, window: Extra padding around transparent
+Subject: [PATCH 03/16] screen, window: Extra padding around transparent
  terminals in Wayland
 
 https://bugzilla.redhat.com/show_bug.cgi?id=1207943
@@ -303,7 +309,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1207943
  2 files changed, 49 insertions(+), 9 deletions(-)
 
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 5538dda7afd7..e0889490c044 100644
+index 48293e6e7022..1a9745cd427f 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
 @@ -141,6 +141,8 @@ static void terminal_screen_system_font_changed_cb (GSettings *,
@@ -382,10 +388,10 @@ index 5538dda7afd7..e0889490c044 100644
  terminal_screen_button_press (GtkWidget      *widget,
                                GdkEventButton *event)
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index 2718dabd0219..fce5d19e9e52 100644
+index 6972ecb0098c..1b49ea66f846 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
-@@ -2029,15 +2029,21 @@ terminal_window_draw (GtkWidget *widget,
+@@ -2019,15 +2019,21 @@ terminal_window_draw (GtkWidget *widget,
  {
    if (gtk_widget_get_app_paintable (widget))
      {
@@ -417,10 +423,10 @@ index 2718dabd0219..fce5d19e9e52 100644
 2.14.3
 
 
-From 4983b90e9b67869685f81c7d24afe2d52011f665 Mon Sep 17 00:00:00 2001
+From 22d93911e7dd29633b2411021bbf3c935c2df7a2 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Mon, 27 Feb 2017 16:53:51 +0100
-Subject: [PATCH 04/15] screen: Silence -Wunused variable
+Subject: [PATCH 04/16] screen: Silence -Wunused variable
 
 https://bugzilla.redhat.com/show_bug.cgi?id=1207943
 ---
@@ -428,7 +434,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1207943
  1 file changed, 1 deletion(-)
 
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index e0889490c044..052b5bc76f51 100644
+index 1a9745cd427f..cdc93b57c630 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
 @@ -940,7 +940,6 @@ update_color_scheme (TerminalScreen *screen)
@@ -443,10 +449,10 @@ index e0889490c044..052b5bc76f51 100644
 2.14.3
 
 
-From 23bb0ef54fb28fa09226ab02ca6b8ffb1f4cf9fc Mon Sep 17 00:00:00 2001
+From 980dd246c74bf96499c7978d93aa03ed481eecc4 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 27 Jan 2015 18:40:13 +0100
-Subject: [PATCH 05/15] Support desktop notifications from OSC 777
+Subject: [PATCH 05/16] Support desktop notifications from OSC 777
 
 https://bugzilla.gnome.org/show_bug.cgi?id=711059
 ---
@@ -457,10 +463,10 @@ https://bugzilla.gnome.org/show_bug.cgi?id=711059
  4 files changed, 171 insertions(+), 1 deletion(-)
 
 diff --git a/src/terminal-app.c b/src/terminal-app.c
-index 5e782d9f20e6..84ef5bc2cc19 100644
+index f820d2bfd9a6..5736df102a35 100644
 --- a/src/terminal-app.c
 +++ b/src/terminal-app.c
-@@ -659,6 +659,31 @@ app_menu_quit_cb (GSimpleAction *action,
+@@ -652,6 +652,31 @@ app_menu_quit_cb (GSimpleAction *action,
      gtk_widget_destroy (GTK_WIDGET (window));
  }
  
@@ -492,7 +498,7 @@ index 5e782d9f20e6..84ef5bc2cc19 100644
  /* Class implementation */
  
  G_DEFINE_TYPE (TerminalApp, terminal_app, GTK_TYPE_APPLICATION)
-@@ -683,6 +708,10 @@ terminal_app_startup (GApplication *application)
+@@ -676,6 +701,10 @@ terminal_app_startup (GApplication *application)
      { "quit",        app_menu_quit_cb,          NULL, NULL, NULL }
    };
  
@@ -503,7 +509,7 @@ index 5e782d9f20e6..84ef5bc2cc19 100644
    g_application_set_resource_base_path (application, TERMINAL_RESOURCES_PATH_PREFIX);
  
    G_APPLICATION_CLASS (terminal_app_parent_class)->startup (application);
-@@ -693,6 +722,9 @@ terminal_app_startup (GApplication *application)
+@@ -686,6 +715,9 @@ terminal_app_startup (GApplication *application)
    g_action_map_add_action_entries (G_ACTION_MAP (application),
                                     action_entries, G_N_ELEMENTS (action_entries),
                                     application);
@@ -514,7 +520,7 @@ index 5e782d9f20e6..84ef5bc2cc19 100644
    app_load_css (application);
  
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 052b5bc76f51..af000a8d70dd 100644
+index cdc93b57c630..1799608172fa 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
 @@ -55,6 +55,7 @@
@@ -765,10 +771,10 @@ index 20cfbceb36b0..a987025e0524 100644
 2.14.3
 
 
-From 2537fc71447fc08b4bf904d9a31ed7967b8f6243 Mon Sep 17 00:00:00 2001
+From 189f7aa282fb1d4e2c0705bab1134675dc0fe8f1 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 29 Jan 2015 11:47:21 +0100
-Subject: [PATCH 06/15] Sprinkle debug messages for notifications
+Subject: [PATCH 06/16] Sprinkle debug messages for notifications
 
 This can be useful for finding out whether the escape sequence wasn't
 emitted or the filtering was faulty.
@@ -807,7 +813,7 @@ index 0fafcc3a846c..af1358683994 100644
  
  void _terminal_debug_init(void);
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index af000a8d70dd..ea66ad3ba6e8 100644
+index 1799608172fa..56d11ea76fc6 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
 @@ -1723,6 +1723,8 @@ terminal_screen_focus_in (GtkWidget     *widget,
@@ -848,10 +854,10 @@ index af000a8d70dd..ea66ad3ba6e8 100644
 2.14.3
 
 
-From ed3f45d70611f2693e7201b2cd49214f27f2672f Mon Sep 17 00:00:00 2001
+From b5807f562ceb4e5d0644cc91803314c36e6ea6a8 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Wed, 28 Mar 2018 18:50:16 +0200
-Subject: [PATCH 07/15] Restore separate menuitems for opening tabs and windows
+Subject: [PATCH 07/16] Restore separate menuitems for opening tabs and windows
 
 Without the separate menuitems, it was not possible to open new tabs or
 windows solely by using the mouse if the preference was set to windows
@@ -869,10 +875,10 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1300826
  1 file changed, 1 insertion(+)
 
 diff --git a/src/Makefile.am b/src/Makefile.am
-index 101367dbf93e..ae178b4a82f0 100644
+index 815333154958..3645c5548d25 100644
 --- a/src/Makefile.am
 +++ b/src/Makefile.am
-@@ -92,6 +92,7 @@ gnome_terminal_server_SOURCES = \
+@@ -94,6 +94,7 @@ gnome_terminal_server_SOURCES = \
  nodist_gnome_terminal_server_SOURCES = $(gnome_terminal_server_built)
  
  gnome_terminal_server_CPPFLAGS = \
@@ -884,51 +890,29 @@ index 101367dbf93e..ae178b4a82f0 100644
 2.14.3
 
 
-From 04e24d1e8a24e18f950a6ccd4fd674dd8c3b0696 Mon Sep 17 00:00:00 2001
+From a28ca4baa4ccbad5191765fab18a9df2bd630184 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
-Date: Tue, 1 Nov 2016 13:10:01 +0100
-Subject: [PATCH 08/15] Revert "profile: Remove the "Command" sub-heading"
+Date: Tue, 10 Apr 2018 15:39:35 +0200
+Subject: [PATCH 08/16] profile: Split the Command tab into two nested GtkGrids
 
-This reverts commit 8e27479299d075df0a52d0e8e7baeab344dcaa6c.
+This will let the subsequent patch add a "Command" sub-heading to keep
+the command settings separate from the to-be-restored title settings.
+
+https://bugzilla.redhat.com/show_bug.cgi?id=1296110
 ---
- src/profile-preferences.ui | 214 +++++++++++++++++++++++++--------------------
- 1 file changed, 121 insertions(+), 93 deletions(-)
+ src/preferences.ui | 173 ++++++++++++++++++++++++++++-------------------------
+ 1 file changed, 90 insertions(+), 83 deletions(-)
 
-diff --git a/src/profile-preferences.ui b/src/profile-preferences.ui
-index 3b7634353253..27686ba7927b 100644
---- a/src/profile-preferences.ui
-+++ b/src/profile-preferences.ui
-@@ -723,65 +723,127 @@
-                     <property name="can_focus">False</property>
-                     <property name="spacing">6</property>
-                     <child>
--                      <object class="GtkVBox" id="vbox81">
-+                      <object class="GtkLabel" id="label36">
-                         <property name="visible">True</property>
-                         <property name="can_focus">False</property>
-+                        <property name="xalign">0</property>
-+                        <property name="label" translatable="yes">Command</property>
-+                        <attributes>
-+                          <attribute name="weight" value="bold"/>
-+                        </attributes>
-+                      </object>
-+                      <packing>
-+                        <property name="expand">False</property>
-+                        <property name="fill">False</property>
-+                        <property name="position">0</property>
-+                      </packing>
-+                    </child>
-+                    <child>
-+                      <object class="GtkAlignment" id="alignment10107">
-+                        <property name="visible">True</property>
-+                        <property name="can_focus">False</property>
-+                        <property name="left_padding">12</property>
-                         <child>
--                          <object class="GtkVBox" id="vbox92">
-+                          <object class="GtkVBox" id="vbox81">
+diff --git a/src/preferences.ui b/src/preferences.ui
+index 43b322bb972e..5b1dd6cb4daa 100644
+--- a/src/preferences.ui
++++ b/src/preferences.ui
+@@ -1863,95 +1863,102 @@
                              <property name="visible">True</property>
                              <property name="can_focus">False</property>
--                            <property name="spacing">6</property>
+                             <property name="border_width">12</property>
+-                            <property name="column_spacing">12</property>
+-                            <property name="row_spacing">6</property>
 -                            <child>
 -                              <object class="GtkCheckButton" id="login-shell-checkbutton">
 -                                <property name="label" translatable="yes">_Run command as a login shell</property>
@@ -936,13 +920,12 @@ index 3b7634353253..27686ba7927b 100644
 -                                <property name="can_focus">True</property>
 -                                <property name="receives_default">False</property>
 -                                <property name="use_underline">True</property>
--                                <property name="xalign">0.5</property>
 -                                <property name="draw_indicator">True</property>
 -                              </object>
 -                              <packing>
--                                <property name="expand">False</property>
--                                <property name="fill">False</property>
--                                <property name="position">0</property>
+-                                <property name="top_attach">0</property>
+-                                <property name="left_attach">0</property>
+-                                <property name="width">2</property>
 -                              </packing>
 -                            </child>
 -                            <child>
@@ -952,228 +935,396 @@ index 3b7634353253..27686ba7927b 100644
 -                                <property name="can_focus">True</property>
 -                                <property name="receives_default">False</property>
 -                                <property name="use_underline">True</property>
--                                <property name="xalign">0.5</property>
 -                                <property name="draw_indicator">True</property>
 -                              </object>
 -                              <packing>
--                                <property name="expand">False</property>
--                                <property name="fill">False</property>
--                                <property name="position">1</property>
+-                                <property name="top_attach">1</property>
+-                                <property name="left_attach">0</property>
+-                                <property name="width">2</property>
 -                              </packing>
 -                            </child>
+-                            <child>
+-                              <object class="GtkLabel" id="custom-command-entry-label">
+-                                <property name="visible">True</property>
+-                                <property name="can_focus">False</property>
+-                                <property name="label" translatable="yes">Custom co_mmand:</property>
+-                                <property name="use_underline">True</property>
+-                                <property name="mnemonic_widget">custom-command-entry</property>
+-                                <property name="xalign">0</property>
+-                              </object>
+-                              <packing>
+-                                <property name="top_attach">2</property>
+-                                <property name="left_attach">0</property>
+-                              </packing>
+-                            </child>
++                            <property name="row_spacing">18</property>
                              <child>
--                              <object class="GtkAlignment" id="custom-command-box">
-+                              <object class="GtkVBox" id="vbox92">
+-                              <object class="GtkEntry" id="custom-command-entry">
+-                                <property name="visible">True</property>
+-                                <property name="can_focus">True</property>
+-                                <property name="hexpand">True</property>
+-                              </object>
+-                              <packing>
+-                                <property name="top_attach">2</property>
+-                                <property name="left_attach">1</property>
+-                              </packing>
+-                            </child>
+-                            <child>
+-                              <object class="GtkLabel" id="exit-action-combobox-label">
++                              <object class="GtkGrid">
                                  <property name="visible">True</property>
                                  <property name="can_focus">False</property>
--                                <property name="left_padding">12</property>
-+                                <property name="spacing">6</property>
-+                                <child>
+-                                <property name="label" translatable="yes">When command _exits:</property>
+-                                <property name="use_underline">True</property>
+-                                <property name="mnemonic_widget">exit-action-combobox</property>
+-                                <property name="xalign">0</property>
+-                              </object>
+-                              <packing>
+-                                <property name="top_attach">3</property>
+-                                <property name="left_attach">0</property>
+-                              </packing>
+-                            </child>
+-                            <child>
+-                              <object class="GtkComboBox" id="exit-action-combobox">
+-                                <property name="visible">True</property>
+-                                <property name="can_focus">False</property>
+-                                <property name="model">model3</property>
+-                                <property name="focus_on_click">False</property>
+-                                <property name="halign">start</property>
++                                <property name="column_spacing">12</property>
++                                <property name="row_spacing">6</property>
+                                 <child>
+-                                  <object class="GtkCellRendererText" id="renderer3"/>
+-                                  <attributes>
+-                                    <attribute name="text">0</attribute>
+-                                  </attributes>
 +                                  <object class="GtkCheckButton" id="login-shell-checkbutton">
 +                                    <property name="label" translatable="yes">_Run command as a login shell</property>
 +                                    <property name="visible">True</property>
 +                                    <property name="can_focus">True</property>
 +                                    <property name="receives_default">False</property>
 +                                    <property name="use_underline">True</property>
-+                                    <property name="xalign">0.5</property>
 +                                    <property name="draw_indicator">True</property>
 +                                  </object>
 +                                  <packing>
-+                                    <property name="expand">False</property>
-+                                    <property name="fill">False</property>
-+                                    <property name="position">0</property>
++                                    <property name="top_attach">0</property>
++                                    <property name="left_attach">0</property>
++                                    <property name="width">2</property>
 +                                  </packing>
 +                                </child>
-                                 <child>
--                                  <object class="GtkHBox" id="hbox134">
++                                <child>
 +                                  <object class="GtkCheckButton" id="use-custom-command-checkbutton">
 +                                    <property name="label" translatable="yes">Ru_n a custom command instead of my shell</property>
 +                                    <property name="visible">True</property>
 +                                    <property name="can_focus">True</property>
 +                                    <property name="receives_default">False</property>
 +                                    <property name="use_underline">True</property>
-+                                    <property name="xalign">0.5</property>
 +                                    <property name="draw_indicator">True</property>
 +                                  </object>
 +                                  <packing>
-+                                    <property name="expand">False</property>
-+                                    <property name="fill">False</property>
-+                                    <property name="position">1</property>
++                                    <property name="top_attach">1</property>
++                                    <property name="left_attach">0</property>
++                                    <property name="width">2</property>
 +                                  </packing>
 +                                </child>
 +                                <child>
-+                                  <object class="GtkAlignment" id="custom-command-box">
++                                  <object class="GtkLabel" id="custom-command-entry-label">
 +                                    <property name="visible">True</property>
 +                                    <property name="can_focus">False</property>
-+                                    <property name="left_padding">12</property>
++                                    <property name="label" translatable="yes">Custom co_mmand:</property>
++                                    <property name="use_underline">True</property>
++                                    <property name="mnemonic_widget">custom-command-entry</property>
++                                    <property name="xalign">0</property>
++                                  </object>
++                                  <packing>
++                                    <property name="top_attach">2</property>
++                                    <property name="left_attach">0</property>
++                                  </packing>
++                                </child>
++                                <child>
++                                  <object class="GtkEntry" id="custom-command-entry">
++                                    <property name="visible">True</property>
++                                    <property name="can_focus">True</property>
++                                    <property name="hexpand">True</property>
++                                  </object>
++                                  <packing>
++                                    <property name="top_attach">2</property>
++                                    <property name="left_attach">1</property>
++                                  </packing>
++                                </child>
++                                <child>
++                                  <object class="GtkLabel" id="exit-action-combobox-label">
++                                    <property name="visible">True</property>
++                                    <property name="can_focus">False</property>
++                                    <property name="label" translatable="yes">When command _exits:</property>
++                                    <property name="use_underline">True</property>
++                                    <property name="mnemonic_widget">exit-action-combobox</property>
++                                    <property name="xalign">0</property>
++                                  </object>
++                                  <packing>
++                                    <property name="top_attach">3</property>
++                                    <property name="left_attach">0</property>
++                                  </packing>
++                                </child>
++                                <child>
++                                  <object class="GtkComboBox" id="exit-action-combobox">
++                                    <property name="visible">True</property>
++                                    <property name="can_focus">False</property>
++                                    <property name="model">model3</property>
++                                    <property name="focus_on_click">False</property>
++                                    <property name="halign">start</property>
 +                                    <child>
-+                                      <object class="GtkHBox" id="hbox134">
-+                                        <property name="visible">True</property>
-+                                        <property name="can_focus">False</property>
-+                                        <property name="spacing">12</property>
-+                                        <child>
-+                                          <object class="GtkLabel" id="custom-command-entry-label">
-+                                            <property name="visible">True</property>
-+                                            <property name="can_focus">False</property>
-+                                            <property name="xalign">0</property>
-+                                            <property name="label" translatable="yes">Custom co_mmand:</property>
-+                                            <property name="use_underline">True</property>
-+                                            <property name="justify">center</property>
-+                                            <property name="mnemonic_widget">custom-command-entry</property>
-+                                          </object>
-+                                          <packing>
-+                                            <property name="expand">False</property>
-+                                            <property name="fill">False</property>
-+                                            <property name="position">0</property>
-+                                          </packing>
-+                                        </child>
-+                                        <child>
-+                                          <object class="GtkEntry" id="custom-command-entry">
-+                                            <property name="visible">True</property>
-+                                            <property name="can_focus">True</property>
-+                                          </object>
-+                                          <packing>
-+                                            <property name="expand">True</property>
-+                                            <property name="fill">True</property>
-+                                            <property name="position">1</property>
-+                                          </packing>
-+                                        </child>
-+                                      </object>
++                                      <object class="GtkCellRendererText" id="renderer3"/>
++                                      <attributes>
++                                        <attribute name="text">0</attribute>
++                                      </attributes>
 +                                    </child>
 +                                  </object>
 +                                  <packing>
-+                                    <property name="expand">False</property>
-+                                    <property name="fill">True</property>
-+                                    <property name="position">2</property>
++                                    <property name="top_attach">3</property>
++                                    <property name="left_attach">1</property>
 +                                  </packing>
-+                                </child>
-+                                <child>
-+                                  <object class="GtkHBox" id="hbox27">
+                                 </child>
+                               </object>
+-                              <packing>
+-                                <property name="top_attach">3</property>
+-                                <property name="left_attach">1</property>
+-                              </packing>
+                             </child>
+                           </object>
+                           <packing>
+-- 
+2.14.3
+
+
+From 7a9d25b856053110b661be240ec50d321ed5c3a5 Mon Sep 17 00:00:00 2001
+From: Debarshi Ray <debarshir@gnome.org>
+Date: Tue, 10 Apr 2018 16:01:51 +0200
+Subject: [PATCH 09/16] Revert "profile: Remove the "Command" sub-heading"
+
+This reverts commit 8e27479299d075df0a52d0e8e7baeab344dcaa6c.
+
+https://bugzilla.redhat.com/show_bug.cgi?id=1296110
+---
+ src/preferences.ui | 179 ++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 109 insertions(+), 70 deletions(-)
+
+diff --git a/src/preferences.ui b/src/preferences.ui
+index 5b1dd6cb4daa..a521dc8494ec 100644
+--- a/src/preferences.ui
++++ b/src/preferences.ui
+@@ -1871,94 +1871,133 @@
+                                 <property name="column_spacing">12</property>
+                                 <property name="row_spacing">6</property>
+                                 <child>
+-                                  <object class="GtkCheckButton" id="login-shell-checkbutton">
+-                                    <property name="label" translatable="yes">_Run command as a login shell</property>
+-                                    <property name="visible">True</property>
+-                                    <property name="can_focus">True</property>
+-                                    <property name="receives_default">False</property>
+-                                    <property name="use_underline">True</property>
+-                                    <property name="draw_indicator">True</property>
+-                                  </object>
+-                                  <packing>
+-                                    <property name="top_attach">0</property>
+-                                    <property name="left_attach">0</property>
+-                                    <property name="width">2</property>
+-                                  </packing>
+-                                </child>
+-                                <child>
+-                                  <object class="GtkCheckButton" id="use-custom-command-checkbutton">
+-                                    <property name="label" translatable="yes">Ru_n a custom command instead of my shell</property>
+-                                    <property name="visible">True</property>
+-                                    <property name="can_focus">True</property>
+-                                    <property name="receives_default">False</property>
+-                                    <property name="use_underline">True</property>
+-                                    <property name="draw_indicator">True</property>
+-                                  </object>
+-                                  <packing>
+-                                    <property name="top_attach">1</property>
+-                                    <property name="left_attach">0</property>
+-                                    <property name="width">2</property>
+-                                  </packing>
+-                                </child>
+-                                <child>
+-                                  <object class="GtkLabel" id="custom-command-entry-label">
++                                  <object class="GtkLabel">
                                      <property name="visible">True</property>
                                      <property name="can_focus">False</property>
-                                     <property name="spacing">12</property>
-                                     <child>
--                                      <object class="GtkLabel" id="custom-command-entry-label">
-+                                      <object class="GtkLabel" id="exit-action-combobox-label">
-                                         <property name="visible">True</property>
-                                         <property name="can_focus">False</property>
--                                        <property name="label" translatable="yes">Custom co_mmand:</property>
-+                                        <property name="xalign">0</property>
-+                                        <property name="label" translatable="yes">When command _exits:</property>
-                                         <property name="use_underline">True</property>
-                                         <property name="justify">center</property>
--                                        <property name="mnemonic_widget">custom-command-entry</property>
--                                        <property name="xalign">0</property>
-+                                        <property name="mnemonic_widget">exit-action-combobox</property>
-                                       </object>
-                                       <packing>
-                                         <property name="expand">False</property>
-@@ -790,70 +852,36 @@
-                                       </packing>
-                                     </child>
-                                     <child>
--                                      <object class="GtkEntry" id="custom-command-entry">
-+                                      <object class="GtkComboBox" id="exit-action-combobox">
-                                         <property name="visible">True</property>
--                                        <property name="can_focus">True</property>
-+                                        <property name="can_focus">False</property>
-+                                        <property name="model">model3</property>
-+                                        <property name="focus_on_click">False</property>
-+                                        <child>
-+                                          <object class="GtkCellRendererText" id="renderer3"/>
-+                                          <attributes>
-+                                            <attribute name="text">0</attribute>
-+                                          </attributes>
-+                                        </child>
-                                       </object>
-                                       <packing>
--                                        <property name="expand">True</property>
-+                                        <property name="expand">False</property>
-                                         <property name="fill">True</property>
-                                         <property name="position">1</property>
-                                       </packing>
-                                     </child>
-                                   </object>
+-                                    <property name="label" translatable="yes">Custom co_mmand:</property>
+-                                    <property name="use_underline">True</property>
+-                                    <property name="mnemonic_widget">custom-command-entry</property>
+-                                    <property name="xalign">0</property>
+-                                  </object>
+-                                  <packing>
+-                                    <property name="top_attach">2</property>
+-                                    <property name="left_attach">0</property>
+-                                  </packing>
 -                                </child>
--                              </object>
--                              <packing>
--                                <property name="expand">False</property>
--                                <property name="fill">False</property>
--                                <property name="position">2</property>
--                              </packing>
--                            </child>
--                            <child>
--                              <object class="GtkHBox" id="hbox27">
--                                <property name="visible">True</property>
--                                <property name="can_focus">False</property>
--                                <property name="spacing">12</property>
+-                                <child>
+-                                  <object class="GtkEntry" id="custom-command-entry">
+-                                    <property name="visible">True</property>
+-                                    <property name="can_focus">True</property>
+-                                    <property name="hexpand">True</property>
+-                                  </object>
+-                                  <packing>
+-                                    <property name="top_attach">2</property>
+-                                    <property name="left_attach">1</property>
+-                                  </packing>
+-                                </child>
 -                                <child>
 -                                  <object class="GtkLabel" id="exit-action-combobox-label">
 -                                    <property name="visible">True</property>
 -                                    <property name="can_focus">False</property>
 -                                    <property name="label" translatable="yes">When command _exits:</property>
 -                                    <property name="use_underline">True</property>
--                                    <property name="justify">center</property>
 -                                    <property name="mnemonic_widget">exit-action-combobox</property>
--                                    <property name="xalign">0</property>
--                                  </object>
+                                     <property name="xalign">0</property>
++                                    <property name="label" translatable="yes">Command</property>
++                                    <attributes>
++                                      <attribute name="weight" value="bold"/>
++                                    </attributes>
+                                   </object>
                                    <packing>
-                                     <property name="expand">False</property>
--                                    <property name="fill">False</property>
--                                    <property name="position">0</property>
--                                  </packing>
--                                </child>
--                                <child>
+-                                    <property name="top_attach">3</property>
++                                    <property name="top_attach">0</property>
+                                     <property name="left_attach">0</property>
+                                   </packing>
+                                 </child>
+                                 <child>
 -                                  <object class="GtkComboBox" id="exit-action-combobox">
--                                    <property name="visible">True</property>
--                                    <property name="can_focus">False</property>
++                                  <object class="GtkAlignment">
+                                     <property name="visible">True</property>
+                                     <property name="can_focus">False</property>
 -                                    <property name="model">model3</property>
 -                                    <property name="focus_on_click">False</property>
--                                    <child>
+-                                    <property name="halign">start</property>
++                                    <property name="left_padding">12</property>
+                                     <child>
 -                                      <object class="GtkCellRendererText" id="renderer3"/>
 -                                      <attributes>
 -                                        <attribute name="text">0</attribute>
 -                                      </attributes>
--                                    </child>
--                                  </object>
--                                  <packing>
--                                    <property name="expand">False</property>
--                                    <property name="fill">False</property>
--                                    <property name="position">1</property>
-+                                    <property name="fill">True</property>
-+                                    <property name="position">3</property>
++                                      <object class="GtkGrid">
++                                        <property name="visible">True</property>
++                                        <property name="can_focus">False</property>
++                                        <property name="column_spacing">12</property>
++                                        <property name="row_spacing">6</property>
++                                        <child>
++                                          <object class="GtkCheckButton" id="login-shell-checkbutton">
++                                            <property name="label" translatable="yes">_Run command as a login shell</property>
++                                            <property name="visible">True</property>
++                                            <property name="can_focus">True</property>
++                                            <property name="receives_default">False</property>
++                                            <property name="use_underline">True</property>
++                                            <property name="draw_indicator">True</property>
++                                          </object>
++                                          <packing>
++                                            <property name="top_attach">0</property>
++                                            <property name="left_attach">0</property>
++                                            <property name="width">2</property>
++                                          </packing>
++                                        </child>
++                                        <child>
++                                          <object class="GtkCheckButton" id="use-custom-command-checkbutton">
++                                            <property name="label" translatable="yes">Ru_n a custom command instead of my shell</property>
++                                            <property name="visible">True</property>
++                                            <property name="can_focus">True</property>
++                                            <property name="receives_default">False</property>
++                                            <property name="use_underline">True</property>
++                                            <property name="draw_indicator">True</property>
++                                          </object>
++                                          <packing>
++                                            <property name="top_attach">1</property>
++                                            <property name="left_attach">0</property>
++                                            <property name="width">2</property>
++                                          </packing>
++                                        </child>
++                                        <child>
++                                          <object class="GtkLabel" id="custom-command-entry-label">
++                                            <property name="visible">True</property>
++                                            <property name="can_focus">False</property>
++                                            <property name="label" translatable="yes">Custom co_mmand:</property>
++                                            <property name="use_underline">True</property>
++                                            <property name="mnemonic_widget">custom-command-entry</property>
++                                            <property name="xalign">0</property>
++                                          </object>
++                                          <packing>
++                                            <property name="top_attach">2</property>
++                                            <property name="left_attach">0</property>
++                                          </packing>
++                                        </child>
++                                        <child>
++                                          <object class="GtkEntry" id="custom-command-entry">
++                                            <property name="visible">True</property>
++                                            <property name="can_focus">True</property>
++                                            <property name="hexpand">True</property>
++                                          </object>
++                                          <packing>
++                                            <property name="top_attach">2</property>
++                                            <property name="left_attach">1</property>
++                                          </packing>
++                                        </child>
++                                        <child>
++                                          <object class="GtkLabel" id="exit-action-combobox-label">
++                                            <property name="visible">True</property>
++                                            <property name="can_focus">False</property>
++                                            <property name="label" translatable="yes">When command _exits:</property>
++                                            <property name="use_underline">True</property>
++                                            <property name="mnemonic_widget">exit-action-combobox</property>
++                                            <property name="xalign">0</property>
++                                          </object>
++                                          <packing>
++                                            <property name="top_attach">3</property>
++                                            <property name="left_attach">0</property>
++                                          </packing>
++                                        </child>
++                                        <child>
++                                          <object class="GtkComboBox" id="exit-action-combobox">
++                                            <property name="visible">True</property>
++                                            <property name="can_focus">False</property>
++                                            <property name="model">model3</property>
++                                            <property name="focus_on_click">False</property>
++                                            <property name="halign">start</property>
++                                            <child>
++                                              <object class="GtkCellRendererText" id="renderer3"/>
++                                              <attributes>
++                                                <attribute name="text">0</attribute>
++                                              </attributes>
++                                            </child>
++                                          </object>
++                                          <packing>
++                                            <property name="top_attach">3</property>
++                                            <property name="left_attach">1</property>
++                                          </packing>
++                                        </child>
++                                      </object>
+                                     </child>
+                                   </object>
+                                   <packing>
+-                                    <property name="top_attach">3</property>
+-                                    <property name="left_attach">1</property>
++                                    <property name="top_attach">1</property>
++                                    <property name="left_attach">0</property>
++                                    <property name="width">3</property>
                                    </packing>
                                  </child>
                                </object>
-                               <packing>
-                                 <property name="expand">False</property>
--                                <property name="fill">False</property>
--                                <property name="position">3</property>
-+                                <property name="fill">True</property>
-+                                <property name="position">0</property>
-                               </packing>
++                              <packing>
++                                <property name="top_attach">1</property>
++                                <property name="left_attach">0</property>
++                              </packing>
                              </child>
                            </object>
-@@ -865,9 +893,9 @@
-                         </child>
-                       </object>
-                       <packing>
--                        <property name="expand">True</property>
-+                        <property name="expand">False</property>
-                         <property name="fill">True</property>
--                        <property name="position">0</property>
-+                        <property name="position">1</property>
-                       </packing>
-                     </child>
-                   </object>
+                           <packing>
 -- 
 2.14.3
 
 
-From dfb6fb390c3895f7d37a48ef65ad38b70ecb70d5 Mon Sep 17 00:00:00 2001
+From 0de4b727da4ecd4102a91d2ac0ba0614c069a522 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 16:02:13 +0200
-Subject: [PATCH 09/15] Revert "screen: Remove unused description and
+Subject: [PATCH 10/16] Revert "screen: Remove unused description and
  user_title API"
 
 This reverts commit 3bb41272b7509a16ec2a5cd93e44f73d5743b626.
@@ -1185,7 +1336,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1296110
  2 files changed, 69 insertions(+)
 
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index ea66ad3ba6e8..eec75d753ac4 100644
+index 56d11ea76fc6..d39ad4ffa56d 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
 @@ -88,6 +88,7 @@ struct _TerminalScreenPrivate
@@ -1352,10 +1503,10 @@ index 743071d5e38f..63f9c47e115a 100644
 2.14.3
 
 
-From 04aff3d2e9e571def5490f6ad84a517961993bf3 Mon Sep 17 00:00:00 2001
+From 512b012751fce0482b8a82f1373e1540965c5c64 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 17:39:48 +0200
-Subject: [PATCH 10/15] Revert "Remove the static title setting from profile
+Subject: [PATCH 11/16] Revert "Remove the static title setting from profile
  preferences"
 
 This reverts commit e9cb8fea14a849704074c5d69f173bcf4dc2fb27.
@@ -1364,14 +1515,14 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1296110
 ---
  src/migration.c                    |  3 ++
  src/org.gnome.Terminal.gschema.xml |  5 +++
- src/profile-editor.c               |  3 ++
- src/profile-preferences.ui         | 86 ++++++++++++++++++++++++++++++++++++++
+ src/preferences.ui                 | 71 ++++++++++++++++++++++++++++++++++++++
+ src/profile-editor.c               |  5 +++
  src/terminal-schemas.h             |  1 +
- src/terminal-screen.c              |  9 ++++
- 6 files changed, 107 insertions(+)
+ src/terminal-screen.c              |  9 +++++
+ 6 files changed, 94 insertions(+)
 
 diff --git a/src/migration.c b/src/migration.c
-index 68acd419ac72..d99f42937274 100644
+index e3ae04b11506..88eadafe1e09 100644
 --- a/src/migration.c
 +++ b/src/migration.c
 @@ -89,6 +89,7 @@ enum {
@@ -1392,7 +1543,7 @@ index 68acd419ac72..d99f42937274 100644
                  settings, TERMINAL_PROFILE_ALLOW_BOLD_KEY,
                  FALSE);
 diff --git a/src/org.gnome.Terminal.gschema.xml b/src/org.gnome.Terminal.gschema.xml
-index 5a20bcc4e42f..677f83bbc467 100644
+index b828471bd71d..ff54ebb2544f 100644
 --- a/src/org.gnome.Terminal.gschema.xml
 +++ b/src/org.gnome.Terminal.gschema.xml
 @@ -183,6 +183,11 @@
@@ -1407,117 +1558,104 @@ index 5a20bcc4e42f..677f83bbc467 100644
      <key name="allow-bold" type="b">
        <default>true</default>
        <summary>Whether to allow bold text</summary>
-diff --git a/src/profile-editor.c b/src/profile-editor.c
-index ad935fdb23d2..da5a02611501 100644
---- a/src/profile-editor.c
-+++ b/src/profile-editor.c
-@@ -1225,6 +1225,9 @@ terminal_profile_edit (GSettings  *profile,
-                    "active",
-                    G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET |
-                    G_SETTINGS_BIND_INVERT_BOOLEAN);
-+  g_settings_bind (profile, TERMINAL_PROFILE_TITLE_KEY,
-+                   gtk_builder_get_object (builder, "title-entry"), "text",
-+                   G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
-   g_settings_bind (profile, TERMINAL_PROFILE_USE_CUSTOM_COMMAND_KEY,
-                    gtk_builder_get_object (builder,
-                                            "use-custom-command-checkbutton"),
-diff --git a/src/profile-preferences.ui b/src/profile-preferences.ui
-index 27686ba7927b..0e15c1b3a84a 100644
---- a/src/profile-preferences.ui
-+++ b/src/profile-preferences.ui
-@@ -717,6 +717,92 @@
-                 <property name="can_focus">False</property>
-                 <property name="border_width">12</property>
-                 <property name="spacing">18</property>
-+                <child>
-+                  <object class="GtkVBox" id="vbox79">
-+                    <property name="visible">True</property>
-+                    <property name="can_focus">False</property>
-+                    <property name="spacing">6</property>
-+                    <child>
-+                      <object class="GtkLabel" id="label33">
-+                        <property name="visible">True</property>
-+                        <property name="can_focus">False</property>
-+                        <property name="xalign">0</property>
-+                        <property name="label" translatable="yes">Title</property>
-+                        <attributes>
-+                          <attribute name="weight" value="bold"/>
-+                        </attributes>
-+                      </object>
-+                      <packing>
-+                        <property name="expand">False</property>
-+                        <property name="fill">False</property>
-+                        <property name="position">0</property>
-+                      </packing>
-+                    </child>
-+                    <child>
-+                      <object class="GtkAlignment" id="alignment10108">
-+                        <property name="visible">True</property>
-+                        <property name="can_focus">False</property>
-+                        <property name="left_padding">12</property>
-+                        <child>
-+                          <object class="GtkVBox" id="vbox93">
-+                            <property name="visible">True</property>
-+                            <property name="can_focus">False</property>
-+                            <property name="spacing">6</property>
+diff --git a/src/preferences.ui b/src/preferences.ui
+index a521dc8494ec..cef3de7cd00b 100644
+--- a/src/preferences.ui
++++ b/src/preferences.ui
+@@ -1864,6 +1864,77 @@
+                             <property name="can_focus">False</property>
+                             <property name="border_width">12</property>
+                             <property name="row_spacing">18</property>
 +                            <child>
-+                              <object class="GtkHBox" id="hbox137">
++                              <object class="GtkGrid">
 +                                <property name="visible">True</property>
 +                                <property name="can_focus">False</property>
-+                                <property name="spacing">12</property>
++                                <property name="row_spacing">6</property>
 +                                <child>
-+                                  <object class="GtkLabel" id="title-entry-label">
++                                  <object class="GtkLabel">
 +                                    <property name="visible">True</property>
 +                                    <property name="can_focus">False</property>
 +                                    <property name="xalign">0</property>
-+                                    <property name="label" translatable="yes">_Title:</property>
-+                                    <property name="use_underline">True</property>
-+                                    <property name="justify">center</property>
-+                                    <property name="mnemonic_widget">title-entry</property>
++                                    <property name="label" translatable="yes">Title</property>
++                                    <attributes>
++                                      <attribute name="weight" value="bold"/>
++                                    </attributes>
 +                                  </object>
 +                                  <packing>
-+                                    <property name="expand">False</property>
-+                                    <property name="fill">False</property>
-+                                    <property name="position">0</property>
++                                    <property name="top_attach">0</property>
++                                    <property name="left_attach">0</property>
 +                                  </packing>
 +                                </child>
 +                                <child>
-+                                  <object class="GtkEntry" id="title-entry">
++                                  <object class="GtkAlignment">
 +                                    <property name="visible">True</property>
-+                                    <property name="can_focus">True</property>
++                                    <property name="can_focus">False</property>
++                                    <property name="left_padding">12</property>
++                                    <child>
++                                      <object class="GtkGrid">
++                                        <property name="visible">True</property>
++                                        <property name="can_focus">False</property>
++                                        <property name="column_spacing">12</property>
++                                        <property name="row_spacing">6</property>
++                                        <child>
++                                          <object class="GtkLabel" id="title-entry-label">
++                                            <property name="visible">True</property>
++                                            <property name="can_focus">False</property>
++                                            <property name="xalign">0</property>
++                                            <property name="label" translatable="yes">Title:</property>
++                                            <property name="use_underline">True</property>
++                                            <property name="mnemonic_widget">title-entry</property>
++                                          </object>
++                                          <packing>
++                                            <property name="top_attach">0</property>
++                                            <property name="left_attach">0</property>
++                                          </packing>
++                                        </child>
++                                        <child>
++                                          <object class="GtkEntry" id="title-entry">
++                                            <property name="visible">True</property>
++                                            <property name="can_focus">True</property>
++                                            <property name="hexpand">True</property>
++                                          </object>
++                                          <packing>
++                                            <property name="top_attach">0</property>
++                                            <property name="left_attach">1</property>
++                                          </packing>
++                                        </child>
++                                      </object>
++                                    </child>
 +                                  </object>
 +                                  <packing>
-+                                    <property name="expand">True</property>
-+                                    <property name="fill">True</property>
-+                                    <property name="position">1</property>
++                                    <property name="top_attach">1</property>
++                                    <property name="left_attach">0</property>
++                                    <property name="width">3</property>
 +                                  </packing>
 +                                </child>
 +                              </object>
 +                              <packing>
-+                                <property name="expand">False</property>
-+                                <property name="fill">True</property>
-+                                <property name="position">0</property>
++                                <property name="top_attach">0</property>
++                                <property name="left_attach">0</property>
 +                              </packing>
 +                            </child>
-+                          </object>
-+                        </child>
-+                      </object>
-+                      <packing>
-+                        <property name="expand">False</property>
-+                        <property name="fill">True</property>
-+                        <property name="position">1</property>
-+                      </packing>
-+                    </child>
-+                  </object>
-+                  <packing>
-+                    <property name="expand">False</property>
-+                    <property name="fill">True</property>
-+                    <property name="position">0</property>
-+                  </packing>
-+                </child>
-                 <child>
-                   <object class="GtkVBox" id="vbox80">
-                     <property name="visible">True</property>
+                             <child>
+                               <object class="GtkGrid">
+                                 <property name="visible">True</property>
+diff --git a/src/profile-editor.c b/src/profile-editor.c
+index 8c25c6372901..5a1866d35884 100644
+--- a/src/profile-editor.c
++++ b/src/profile-editor.c
+@@ -1272,6 +1272,11 @@ profile_prefs_load (const char *uuid, GSettings *profile)
+                                "active",
+                                G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET |
+                                G_SETTINGS_BIND_INVERT_BOOLEAN);
++  profile_prefs_settings_bind (profile,
++                               TERMINAL_PROFILE_TITLE_KEY,
++                               gtk_builder_get_object (builder, "title-entry"),
++                               "text",
++                               G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
+   profile_prefs_settings_bind (profile, TERMINAL_PROFILE_USE_CUSTOM_COMMAND_KEY,
+                                gtk_builder_get_object (builder,
+                                                        "use-custom-command-checkbutton"),
 diff --git a/src/terminal-schemas.h b/src/terminal-schemas.h
 index 8e79bb2e49f5..b9c6990e356c 100644
 --- a/src/terminal-schemas.h
@@ -1531,7 +1669,7 @@ index 8e79bb2e49f5..b9c6990e356c 100644
  #define TERMINAL_PROFILE_USE_SKEY_KEY                   "use-skey"
  #define TERMINAL_PROFILE_USE_SYSTEM_FONT_KEY            "use-system-font"
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index eec75d753ac4..f2a80da1b79a 100644
+index d39ad4ffa56d..ddd3aca4d23a 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
 @@ -808,11 +808,14 @@ char *
@@ -1566,10 +1704,10 @@ index eec75d753ac4..f2a80da1b79a 100644
 2.14.3
 
 
-From 7c1c92749f19f8b964464980b8aad3a7ca9c5f2d Mon Sep 17 00:00:00 2001
+From dc3e29d1b362e85be7c2a52fd84339441a14b723 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 17 Feb 2015 17:06:17 +0100
-Subject: [PATCH 11/15] Restore translations for setting a title and
+Subject: [PATCH 12/16] Restore translations for setting a title and
  transparency
 
 ---
@@ -1602,21 +1740,21 @@ Subject: [PATCH 11/15] Restore translations for setting a title and
  po/et.po          |  3 +++
  po/eu.po          | 16 ++++++++--------
  po/fa.po          | 15 +++++++++------
- po/fi.po          | 15 +++++++++++++++
- po/fr.po          | 15 +++++++++++++++
- po/fur.po         | 15 +++++++++++----
+ po/fi.po          | 12 ++++++++++++
+ po/fr.po          | 12 ++++++++++++
+ po/fur.po         | 11 +++++++++--
  po/ga.po          |  3 +++
  po/gl.po          | 16 ++++++++--------
- po/gu.po          | 20 ++++++++++----------
- po/he.po          | 20 ++++++++++----------
- po/hi.po          | 21 ++++++++++-----------
- po/hr.po          | 13 +++++++++++++
- po/hu.po          | 14 ++++++++++++++
+ po/gu.po          | 16 ++++++++--------
+ po/he.po          | 16 ++++++++--------
+ po/hi.po          | 17 ++++++++---------
+ po/hr.po          | 10 ++++++++++
+ po/hu.po          | 12 ++++++++++++
  po/hy.po          |  8 ++++----
  po/id.po          | 12 ++++++++++++
- po/it.po          | 15 +++++++++++++++
- po/ja.po          | 15 +++++++++++++++
- po/ka.po          | 10 +++++-----
+ po/it.po          | 12 ++++++++++++
+ po/ja.po          | 12 ++++++++++++
+ po/ka.po          |  6 +++---
  po/kk.po          | 15 +++++++++++++++
  po/km.po          |  4 ++--
  po/kn.po          | 19 +++++++++++--------
@@ -1641,7 +1779,7 @@ Subject: [PATCH 11/15] Restore translations for setting a title and
  po/pa.po          | 27 +++++++++++++--------------
  po/ps.po          |  8 ++++----
  po/pt.po          | 20 ++++++++++----------
- po/pt_BR.po       | 19 +++++++++++--------
+ po/pt_BR.po       | 15 +++++++++------
  po/ro.po          |  4 ++--
  po/ru.po          | 19 +++++++++++++++++++
  po/rw.po          |  3 +--
@@ -1665,7 +1803,7 @@ Subject: [PATCH 11/15] Restore translations for setting a title and
  po/zh_CN.po       | 19 +++++++++++--------
  po/zh_HK.po       | 19 +++++++++++--------
  po/zh_TW.po       | 19 +++++++++++--------
- 92 files changed, 793 insertions(+), 417 deletions(-)
+ 92 files changed, 764 insertions(+), 405 deletions(-)
 
 diff --git a/po/am.po b/po/am.po
 index 3445d96da657..ee992f0712a5 100644
@@ -2022,10 +2160,10 @@ index 49e710859ac9..8703552984b1 100644
 +msgid "Set Title"
 +msgstr "Postavi naslov"
 diff --git a/po/ca.po b/po/ca.po
-index ad74fe9c0919..74b76944e8e7 100644
+index 493ce74cb96f..d6cac97e4600 100644
 --- a/po/ca.po
 +++ b/po/ca.po
-@@ -2357,3 +2357,15 @@ msgstr "Tanca la _finestra"
+@@ -2473,3 +2473,15 @@ msgstr "Tanca la _finestra"
  
  #~ msgid "Whether to use a dark theme variant"
  #~ msgstr "Si s'ha d'utilitzar la variant de tema fosc"
@@ -2127,11 +2265,11 @@ index 305147fa0e12..fe8445e17aa1 100644
 +msgid "Transparent background"
 +msgstr "Gennemsigtig baggrund"
 diff --git a/po/de.po b/po/de.po
-index 0da6be78e075..7de12ae1303f 100644
+index 79f42cfe7f4c..8d0bfcd53fe2 100644
 --- a/po/de.po
 +++ b/po/de.po
-@@ -2359,3 +2359,15 @@ msgstr ""
- #: ../src/terminal-window.c:3353
+@@ -2380,3 +2380,15 @@ msgstr ""
+ #: ../src/terminal-window.c:3354
  msgid "C_lose Window"
  msgstr "Fenster _schließen"
 +
@@ -2334,10 +2472,10 @@ index 567c08dc1da8..c59f57c6a8d5 100644
  #~ msgid "On the left side"
  #~ msgstr "Maldekstre"
 diff --git a/po/es.po b/po/es.po
-index 532b632ccad0..d0919b97489d 100644
+index 142347b3720a..9325d95de22f 100644
 --- a/po/es.po
 +++ b/po/es.po
-@@ -2665,17 +2665,17 @@ msgstr "_Cerrar ventana"
+@@ -2741,17 +2741,17 @@ msgstr "_Cerrar ventana"
  #~ msgid "Default size:"
  #~ msgstr "Tamaño predeterminado:"
  
@@ -2361,7 +2499,7 @@ index 532b632ccad0..d0919b97489d 100644
  
  #~ msgid "Current Locale"
  #~ msgstr "Configuración regional actual"
-@@ -3504,8 +3504,8 @@ msgstr "_Cerrar ventana"
+@@ -3577,8 +3577,8 @@ msgstr "_Cerrar ventana"
  #~ msgid "_Solid color"
  #~ msgstr "Color _sólido"
  
@@ -2463,10 +2601,10 @@ index 8b0ca26eebe5..6079d0c40a1d 100644
 +msgid "Transparent background"
 +msgstr "پس‌زمینه‌ی شفاف"
 diff --git a/po/fi.po b/po/fi.po
-index 58029541b6ca..83733eb6a49e 100644
+index 976926087a4b..30858cd309de 100644
 --- a/po/fi.po
 +++ b/po/fi.po
-@@ -2361,9 +2361,24 @@ msgstr "_Sulje ikkuna"
+@@ -2516,9 +2516,21 @@ msgstr "_Sulje ikkuna"
  #~ msgid "_Update login records when command is launched"
  #~ msgstr "_Päivitä kirjautumistallenne kun komento käynnistetään"
  
@@ -2488,14 +2626,11 @@ index 58029541b6ca..83733eb6a49e 100644
 +
 +msgid "Set Title"
 +msgstr "Aseta otsikko"
-+
-+msgid "_Set Title…"
-+msgstr "Aseta otsikko…"
 diff --git a/po/fr.po b/po/fr.po
-index 4ccd9e2e8c0f..ee382ff30491 100644
+index 4ccd9e2e8c0f..a136368e8db1 100644
 --- a/po/fr.po
 +++ b/po/fr.po
-@@ -2355,3 +2355,18 @@ msgstr "Fermer _la fenêtre"
+@@ -2355,3 +2355,15 @@ msgstr "Fermer _la fenêtre"
  
  #~ msgid "_Same as text color"
  #~ msgstr "_Même couleur que le texte"
@@ -2511,14 +2646,11 @@ index 4ccd9e2e8c0f..ee382ff30491 100644
 +
 +msgid "Set Title"
 +msgstr "Définir le titre"
-+
-+msgid "_Set Title…"
-+msgstr "_Modifier le titre…"
 diff --git a/po/fur.po b/po/fur.po
-index ccee5d7d102e..09076c1127cb 100644
+index 3f5429cfecd8..e637a6c0dc5f 100644
 --- a/po/fur.po
 +++ b/po/fur.po
-@@ -416,6 +416,10 @@ msgstr ""
+@@ -454,6 +454,10 @@ msgstr ""
  msgid "Which encoding to use"
  msgstr "Codifiche di doprâ"
  
@@ -2526,10 +2658,10 @@ index ccee5d7d102e..09076c1127cb 100644
 +msgid "Transparent background"
 +msgstr "Fondâl trasparent"
 +
- #: ../src/org.gnome.Terminal.gschema.xml.h:63
+ #: ../src/org.gnome.Terminal.gschema.xml.h:68
  msgid ""
  "Whether ambiguous-width characters are narrow or wide when using UTF-8 "
-@@ -3194,6 +3198,9 @@ msgstr "_Siere barcon"
+@@ -3371,6 +3375,9 @@ msgstr "_Siere barcon"
  #~ msgid "The text you clicked on doesn't seem to be a valid OTP challenge."
  #~ msgstr "Il test fracât nol samee jessi un OTP challenge."
  
@@ -2539,7 +2671,7 @@ index ccee5d7d102e..09076c1127cb 100644
  #~ msgid "Switch to Tab 3"
  #~ msgstr "Passe a la schede 3"
  
-@@ -3249,8 +3256,8 @@ msgstr "_Siere barcon"
+@@ -3426,8 +3433,8 @@ msgstr "_Siere barcon"
  #~ msgid "_Input Methods"
  #~ msgstr "_Cemût inserî test"
  
@@ -2550,17 +2682,6 @@ index ccee5d7d102e..09076c1127cb 100644
  
  #~ msgid ""
  #~ "text/plain dropped on terminal had wrong format (%d) or length (%d)\n"
-@@ -3312,8 +3319,8 @@ msgstr "_Siere barcon"
- #~ msgid "Show Menu_bar"
- #~ msgstr "Mostre ba_re di menu"
- 
--#~ msgid "_Set Title..."
--#~ msgstr "_Imposte titul..."
-+msgid "_Set Title…"
-+msgstr "_Imposte titul…"
- 
- #~ msgid "Close all tabs?"
- #~ msgstr "Sierâ dutis lis schedis?"
 diff --git a/po/ga.po b/po/ga.po
 index 93d5fa9d1481..feb87dce3d6b 100644
 --- a/po/ga.po
@@ -2612,7 +2733,7 @@ index 4b51afb0df44..d7472f57c717 100644
  #~ msgid "S_hade transparent or image background:"
  #~ msgstr "_Sombra transparente ou imaxe de fondo:"
 diff --git a/po/gu.po b/po/gu.po
-index 76b459cf8dc5..47e41333dd5a 100644
+index 76b459cf8dc5..485beeac98b7 100644
 --- a/po/gu.po
 +++ b/po/gu.po
 @@ -2155,8 +2155,8 @@ msgstr "વિન્ડો બંધ કરો (_l)"
@@ -2637,17 +2758,6 @@ index 76b459cf8dc5..47e41333dd5a 100644
  
  #~ msgid "The shortcut key “%s” is already bound to the “%s” action"
  #~ msgstr "ટુંકાણ કી “%s“ એ પહેલાથી ક્રિયા “%s“ સાથે બંધાયેલી છે"
-@@ -2191,8 +2191,8 @@ msgstr "વિન્ડો બંધ કરો (_l)"
- #~ msgid "_Close Window"
- #~ msgstr "વિન્ડો બંધ કરો (_C)"
- 
--#~ msgid "_Set Title…"
--#~ msgstr "શીર્ષકની ગોઠવણી કરો (_S)..."
-+msgid "_Set Title…"
-+msgstr "શીર્ષકની ગોઠવણી કરો (_S)..."
- 
- #~ msgid "_Next Tab"
- #~ msgstr "પછીનું ટેબ (_N)"
 @@ -2203,8 +2203,8 @@ msgstr "વિન્ડો બંધ કરો (_l)"
  #~ msgid "_Input Methods"
  #~ msgstr "ઈનપુટ માટેની પધ્ધિતિઓ (_I)"
@@ -2671,10 +2781,10 @@ index 76b459cf8dc5..47e41333dd5a 100644
  #~ msgid "No such profile \"%s\", using default profile\n"
  #~ msgstr "\"%s\" જેવી કોઈ રૂપરેખા નથી, મૂળભૂત રૂપરેખા વાપરી રહ્યા છે\n"
 diff --git a/po/he.po b/po/he.po
-index 57cb2d0d110f..058d9e97780d 100644
+index 57cb2d0d110f..efe8fa100074 100644
 --- a/po/he.po
 +++ b/po/he.po
-@@ -2333,23 +2333,23 @@ msgstr "סגירת ה_חלון"
+@@ -2333,17 +2333,17 @@ msgstr "סגירת ה_חלון"
  #~ msgid "Default size:"
  #~ msgstr "גודל בררת מחדל:"
  
@@ -2698,14 +2808,6 @@ index 57cb2d0d110f..058d9e97780d 100644
  
  #~ msgid "Current Locale"
  #~ msgstr "השפה הנוכחית"
- 
--#~ msgid "_Set Title…"
--#~ msgstr "הגדרת _כותרת..."
-+msgid "_Set Title…"
-+msgstr "הגדרת _כותרת..."
- 
- #~ msgid "_Next Tab"
- #~ msgstr "הלשונית ה_באה"
 @@ -3194,8 +3194,8 @@ msgstr "סגירת ה_חלון"
  #~ msgid "_Solid color"
  #~ msgstr "צבע _אחיד"
@@ -2718,7 +2820,7 @@ index 57cb2d0d110f..058d9e97780d 100644
  #~ msgid "No such profile \"%s\", using default profile\n"
  #~ msgstr "No such profile \"%s\", using default profile\n"
 diff --git a/po/hi.po b/po/hi.po
-index 2d7dc5b14008..acbff9a1a2ad 100644
+index 2d7dc5b14008..8d3d0529df61 100644
 --- a/po/hi.po
 +++ b/po/hi.po
 @@ -2267,9 +2267,8 @@ msgstr "विंडो बंद करें (_l)"
@@ -2744,17 +2846,6 @@ index 2d7dc5b14008..acbff9a1a2ad 100644
  
  #~ msgid "Switch to Tab 2"
  #~ msgstr "टैब 2 पर जाएँ"
-@@ -2337,8 +2336,8 @@ msgstr "विंडो बंद करें (_l)"
- #~ msgid "_Close Window"
- #~ msgstr "विंडो बंद करें (_C)"
- 
--#~ msgid "_Set Title…"
--#~ msgstr "शीर्षक नियत करें (_S)"
-+msgid "_Set Title…"
-+msgstr "शीर्षक नियत करें (_S)"
- 
- #~ msgid "_Next Tab"
- #~ msgstr "अगला टेब  (_N)"
 @@ -2349,8 +2348,8 @@ msgstr "विंडो बंद करें (_l)"
  #~ msgid "_Input Methods"
  #~ msgstr "इनपुट विधियाँ (_I)"
@@ -2778,10 +2869,10 @@ index 2d7dc5b14008..acbff9a1a2ad 100644
  #~ msgid "S/Key Challenge Response"
  #~ msgstr "एस/कुंजी चैलेंज प्रतिक्रिया"
 diff --git a/po/hr.po b/po/hr.po
-index ac7dcd93b766..33e4267b659a 100644
+index ac7dcd93b766..88e562be0699 100644
 --- a/po/hr.po
 +++ b/po/hr.po
-@@ -2391,3 +2391,16 @@ msgstr "_Zatvori prozor"
+@@ -2391,3 +2391,13 @@ msgstr "_Zatvori prozor"
  
  #~ msgid "Use transparency from system theme"
  #~ msgstr "Koristi prozirnost iz teme sustava"
@@ -2795,17 +2886,15 @@ index ac7dcd93b766..33e4267b659a 100644
 +
 +msgid "Set Title"
 +msgstr "Postavi naslov"
-+
-+msgid "_Set Title…"
-+msgstr "Postavi naslov"
 diff --git a/po/hu.po b/po/hu.po
-index e188662c18f1..601599a74e60 100644
+index 401ae619d5d2..b6e96230111b 100644
 --- a/po/hu.po
 +++ b/po/hu.po
-@@ -2312,3 +2312,17 @@ msgstr ""
- msgid "C_lose Window"
- msgstr "_Ablak bezárása"
+@@ -2370,3 +2370,15 @@ msgstr "_Ablak bezárása"
  
+ #~ msgid "_Profile Preferences"
+ #~ msgstr "_Profil beállításai"
++
 +msgid "Title"
 +msgstr "Cím"
 +
@@ -2814,9 +2903,6 @@ index e188662c18f1..601599a74e60 100644
 +
 +msgid "Set Title"
 +msgstr "Cím beállítása"
-+
-+msgid "_Set Title…"
-+msgstr "_Cím beállítása…"
 +
 +msgid "Transparent background"
 +msgstr "Áttetsző háttér"
@@ -2867,10 +2953,10 @@ index a95c58aad3af..b8432186e500 100644
 +msgid "Set Title"
 +msgstr "Atur Judul"
 diff --git a/po/it.po b/po/it.po
-index d0c44222b261..57cdb749b990 100644
+index d0c44222b261..b277bf9abb8b 100644
 --- a/po/it.po
 +++ b/po/it.po
-@@ -2332,3 +2332,18 @@ msgstr ""
+@@ -2332,3 +2332,15 @@ msgstr ""
  #: ../src/terminal-window.c:3953
  msgid "C_lose Window"
  msgstr "Chiudi _finestra"
@@ -2886,14 +2972,11 @@ index d0c44222b261..57cdb749b990 100644
 +
 +msgid "Set Title"
 +msgstr "Imposta titolo"
-+
-+msgid "_Set Title…"
-+msgstr "_Imposta titolo…"
 diff --git a/po/ja.po b/po/ja.po
-index 9a18d3db624f..e46a373097df 100644
+index 9a18d3db624f..bbfd18e6ab24 100644
 --- a/po/ja.po
 +++ b/po/ja.po
-@@ -2096,3 +2096,18 @@ msgstr "この端末には未だ実行中のプロセスが存在しています
+@@ -2096,3 +2096,15 @@ msgstr "この端末には未だ実行中のプロセスが存在しています
  #: ../src/terminal-window.c:3953
  msgid "C_lose Window"
  msgstr "ウィンドウを閉じる(_L)"
@@ -2909,11 +2992,8 @@ index 9a18d3db624f..e46a373097df 100644
 +
 +msgid "Set Title"
 +msgstr "タイトルを設定する"
-+
-+msgid "_Set Title…"
-+msgstr "タイトルを指定する(_S)…"
 diff --git a/po/ka.po b/po/ka.po
-index 2a0bc91fad40..f87c4496d591 100644
+index 2a0bc91fad40..c289e30eb4fa 100644
 --- a/po/ka.po
 +++ b/po/ka.po
 @@ -219,8 +219,8 @@ msgid "<b>Background</b>"
@@ -2936,17 +3016,6 @@ index 2a0bc91fad40..f87c4496d591 100644
  msgstr "გამჭირვალე"
  
  #: ../src/gnome-terminal.glade2.h:87
-@@ -2193,8 +2193,8 @@ msgid "Change _Profile"
- msgstr "პროფილის _შეცვლა"
- 
- #: ../src/terminal-window.c:981
--msgid "_Set Title..."
--msgstr "_სათაურის მითითება..."
-+msgid "_Set Title…"
-+msgstr "_სათაურის მითითება…"
- 
- #: ../src/terminal-window.c:988
- msgid "Set _Character Encoding"
 diff --git a/po/kk.po b/po/kk.po
 index 963a7ba1cebf..28afd931cb76 100644
 --- a/po/kk.po
@@ -3714,10 +3783,10 @@ index 5181419ad973..40eb8227f333 100644
  #~ msgid "S_hade transparent or image background:"
  #~ msgstr "Transparente som_breado ou imagem de fundo:"
 diff --git a/po/pt_BR.po b/po/pt_BR.po
-index 3f24385e86b6..cb449b221df8 100644
+index 956b0141d1f0..f898179ee27c 100644
 --- a/po/pt_BR.po
 +++ b/po/pt_BR.po
-@@ -2437,23 +2437,23 @@ msgstr "_Fechar janela"
+@@ -2670,17 +2670,17 @@ msgstr "_Fechar janela"
  #~ msgid "Default size:"
  #~ msgstr "Tamanho padrão:"
  
@@ -3741,15 +3810,7 @@ index 3f24385e86b6..cb449b221df8 100644
  
  #~ msgid "Current Locale"
  #~ msgstr "Codificação atual"
- 
--#~ msgid "_Set Title…"
--#~ msgstr "Definir _título…"
-+msgid "_Set Title…"
-+msgstr "Definir _título…"
- 
- #~ msgid "_Next Tab"
- #~ msgstr "Pró_xima aba"
-@@ -3106,3 +3106,6 @@ msgstr "_Fechar janela"
+@@ -3306,3 +3306,6 @@ msgstr "_Fechar janela"
  #~ "terminal poderão usar. Essa é a paleta, na forma de uma lista de nomes de "
  #~ "cores separada por dois pontos. Os nomes de cores devem estar no formato "
  #~ "hexadecimal. Exemplo: \"#FF00FF\""
@@ -3857,10 +3918,10 @@ index adca7d5acba9..adeea9e95544 100644
  #: ../src/terminal-window.c:1025
  msgid "Set _Character Encoding"
 diff --git a/po/sk.po b/po/sk.po
-index 98bba7bcd28a..fbf190d1b778 100644
+index 8cf2a62bd08c..586a95b12cec 100644
 --- a/po/sk.po
 +++ b/po/sk.po
-@@ -2631,3 +2631,18 @@ msgstr "_Zavrieť okno"
+@@ -2632,3 +2632,18 @@ msgstr "_Zavrieť okno"
  #~ "\n"
  #~ "Viac informácii o jednotlivých príkazoch získate pomocou „%s PRÍKAZ --"
  #~ "help“.\n"
@@ -4651,10 +4712,10 @@ index f5e3110135c3..f9d7c6449a3e 100644
 2.14.3
 
 
-From ed2a49d0a285d320e6127049acb14e5da0953975 Mon Sep 17 00:00:00 2001
+From d07a8c3fe3825e8ddadae8a25fd2f0aa8bae3289 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Fri, 6 Apr 2018 14:40:29 +0200
-Subject: [PATCH 12/15] notebook-menu: Add placeholder item for win.set-title
+Subject: [PATCH 13/16] notebook-menu: Add placeholder item for win.set-title
 
 ... to match the one in the main menubar.
 
@@ -4683,10 +4744,10 @@ index 8854a7b35e44..d5c7f41e7561 100644
 2.14.3
 
 
-From 56afd5e6a393a82f15b6e6e3c8688e2bbbc263ee Mon Sep 17 00:00:00 2001
+From 715fc47c3782e0b48566713b2b3a9df0fd64de1b Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Wed, 25 May 2016 13:47:36 +0200
-Subject: [PATCH 13/15] Restore the action and shortcut to set a static title
+Subject: [PATCH 14/16] Restore the action and shortcut to set a static title
  from the menus
 
 This reverts 9bbe19e98f62aa3c9020913a3a5a8080a5177505 with various
@@ -4701,10 +4762,10 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1296110
  4 files changed, 82 insertions(+)
 
 diff --git a/src/migration.c b/src/migration.c
-index d99f42937274..6899fb0da242 100644
+index 88eadafe1e09..46398614f3f3 100644
 --- a/src/migration.c
 +++ b/src/migration.c
-@@ -552,6 +552,7 @@ migrate_accels (GSettings *global_settings,
+@@ -551,6 +551,7 @@ migrate_accels (GSettings *global_settings,
      { "zoom_in",          "zoom-in"            },
      { "zoom_out",         "zoom-out"           },
      { "zoom_normal",      "zoom-normal"        },
@@ -4713,10 +4774,10 @@ index d99f42937274..6899fb0da242 100644
      { "reset_and_clear",  "reset-and-clear"    },
      { "prev_tab",         "prev-tab"           },
 diff --git a/src/org.gnome.Terminal.gschema.xml b/src/org.gnome.Terminal.gschema.xml
-index 677f83bbc467..34c506a7b571 100644
+index ff54ebb2544f..147d36017c1f 100644
 --- a/src/org.gnome.Terminal.gschema.xml
 +++ b/src/org.gnome.Terminal.gschema.xml
-@@ -488,6 +488,10 @@
+@@ -480,6 +480,10 @@
        <default>'disabled'</default>
        <summary>Keyboard shortcut to toggle the read-only state</summary>
      </key>
@@ -4728,10 +4789,10 @@ index 677f83bbc467..34c506a7b571 100644
        <default>'disabled'</default>
        <summary>Keyboard shortcut to reset the terminal</summary>
 diff --git a/src/terminal-accels.c b/src/terminal-accels.c
-index 1ea02ce8ae8b..ea2a429d8382 100644
+index bbe3268bc9a4..3162108071bf 100644
 --- a/src/terminal-accels.c
 +++ b/src/terminal-accels.c
-@@ -77,6 +77,7 @@
+@@ -75,6 +75,7 @@
  #define KEY_RESET               "reset"
  #define KEY_SAVE_CONTENTS       "save-contents"
  #define KEY_SELECT_ALL          "select-all"
@@ -4739,7 +4800,7 @@ index 1ea02ce8ae8b..ea2a429d8382 100644
  #define KEY_TOGGLE_MENUBAR      "toggle-menubar"
  #define KEY_ZOOM_IN             "zoom-in"
  #define KEY_ZOOM_NORMAL         "zoom-normal"
-@@ -167,6 +168,7 @@ static KeyEntry terminal_entries[] = {
+@@ -163,6 +164,7 @@ static KeyEntry terminal_entries[] = {
    ENTRY (N_("Read-Only"),       KEY_READ_ONLY,          "read-only", NULL, NULL   ),
    ENTRY (N_("Reset"),           KEY_RESET,              "reset",     "b",  "false"),
    ENTRY (N_("Reset and Clear"), KEY_RESET_AND_CLEAR,    "reset",     "b",  "true" ),
@@ -4748,10 +4809,10 @@ index 1ea02ce8ae8b..ea2a429d8382 100644
  
  static KeyEntry tabs_entries[] = {
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index fce5d19e9e52..06359b5fbe23 100644
+index 1b49ea66f846..f65c359feece 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
-@@ -763,6 +763,80 @@ action_select_all_cb (GSimpleAction *action,
+@@ -751,6 +751,80 @@ action_select_all_cb (GSimpleAction *action,
    vte_terminal_select_all (VTE_TERMINAL (priv->active_screen));
  }
  
@@ -4832,7 +4893,7 @@ index fce5d19e9e52..06359b5fbe23 100644
  static void
  action_reset_cb (GSimpleAction *action,
                   GVariant *parameter,
-@@ -2167,6 +2241,7 @@ terminal_window_init (TerminalWindow *window)
+@@ -2149,6 +2223,7 @@ terminal_window_init (TerminalWindow *window)
      { "paste-uris",          action_paste_uris_cb,       NULL,   NULL, NULL },
      { "reset",               action_reset_cb,            "b",    NULL, NULL },
      { "select-all",          action_select_all_cb,       NULL,   NULL, NULL },
@@ -4844,10 +4905,10 @@ index fce5d19e9e52..06359b5fbe23 100644
 2.14.3
 
 
-From d84637f57c91bc08af93c99464d23b5dbaf73ba3 Mon Sep 17 00:00:00 2001
+From 5e4f1ffef57d785e262215f9fa09969f5e08f744 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 18:14:36 +0200
-Subject: [PATCH 14/15] screen: Style fix
+Subject: [PATCH 15/16] screen: Style fix
 
 This brings the code in line with how it was before
 de0dc7c2649c42e2aa02a66e4be27d262b34452d
@@ -4858,7 +4919,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1296110
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index f2a80da1b79a..3a13878db843 100644
+index ddd3aca4d23a..bf5cd891ed90 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
 @@ -713,7 +713,7 @@ terminal_screen_new (GSettings       *profile,
@@ -4874,10 +4935,10 @@ index f2a80da1b79a..3a13878db843 100644
 2.14.3
 
 
-From b6f840d8865dd3c87fc291ad14c801dd57b0912b Mon Sep 17 00:00:00 2001
+From 9e8e8adea285f1aac3a55dcc36642f328dc7fdd9 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 16:58:15 +0200
-Subject: [PATCH 15/15] Restore the rest of the title handling options and make
+Subject: [PATCH 16/16] Restore the rest of the title handling options and make
  it all work
 
 This reverts commit f27bf0135a2d18ba22158d28bf1f8c5f6ec066c8 and makes
@@ -4887,17 +4948,17 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1296110
 ---
  src/migration.c                    |   4 +
  src/org.gnome.Terminal.gschema.xml |  12 ++
- src/profile-editor.c               |   8 +
- src/profile-preferences.ui         |  48 +++++-
+ src/preferences.ui                 |  33 +++-
+ src/profile-editor.c               |   9 +
  src/terminal-enums.h               |   8 +
  src/terminal-schemas.h             |   1 +
  src/terminal-screen.c              | 328 ++++++++++++++++++++++++++++---------
  src/terminal-screen.h              |   8 +-
  src/terminal-window.c              |  11 +-
- 9 files changed, 348 insertions(+), 80 deletions(-)
+ 9 files changed, 334 insertions(+), 80 deletions(-)
 
 diff --git a/src/migration.c b/src/migration.c
-index 6899fb0da242..ff1ff87db6ed 100644
+index 46398614f3f3..710b2cdb7090 100644
 --- a/src/migration.c
 +++ b/src/migration.c
 @@ -89,6 +89,7 @@ enum {
@@ -4919,7 +4980,7 @@ index 6899fb0da242..ff1ff87db6ed 100644
                    settings, TERMINAL_PROFILE_TITLE_KEY);
    migrate_bool (client, path, KEY_ALLOW_BOLD,
 diff --git a/src/org.gnome.Terminal.gschema.xml b/src/org.gnome.Terminal.gschema.xml
-index 34c506a7b571..4ed00e32a66a 100644
+index 147d36017c1f..04be15324d3d 100644
 --- a/src/org.gnome.Terminal.gschema.xml
 +++ b/src/org.gnome.Terminal.gschema.xml
 @@ -24,6 +24,13 @@
@@ -4948,91 +5009,77 @@ index 34c506a7b571..4ed00e32a66a 100644
      <key name="title" type="s">
        <default l10n="messages" context="title">'Terminal'</default>
        <summary>Title for terminal</summary>
+diff --git a/src/preferences.ui b/src/preferences.ui
+index cef3de7cd00b..d6deb580dcd2 100644
+--- a/src/preferences.ui
++++ b/src/preferences.ui
+@@ -1900,7 +1900,7 @@
+                                             <property name="visible">True</property>
+                                             <property name="can_focus">False</property>
+                                             <property name="xalign">0</property>
+-                                            <property name="label" translatable="yes">Title:</property>
++                                            <property name="label" translatable="yes">Initial _title:</property>
+                                             <property name="use_underline">True</property>
+                                             <property name="mnemonic_widget">title-entry</property>
+                                           </object>
+@@ -1920,6 +1920,37 @@
+                                             <property name="left_attach">1</property>
+                                           </packing>
+                                         </child>
++                                        <child>
++                                          <object class="GtkLabel" id="title-mode-combobox-label">
++                                            <property name="visible">True</property>
++                                            <property name="can_focus">False</property>
++                                            <property name="xalign">0</property>
++                                            <property name="label" translatable="yes">When terminal commands set their o_wn titles:</property>
++                                            <property name="use_underline">True</property>
++                                            <property name="mnemonic_widget">title-mode-combobox</property>
++                                          </object>
++                                          <packing>
++                                            <property name="top_attach">1</property>
++                                            <property name="left_attach">0</property>
++                                          </packing>
++                                        </child>
++                                        <child>
++                                          <object class="GtkComboBox" id="title-mode-combobox">
++                                            <property name="visible">True</property>
++                                            <property name="can_focus">False</property>
++                                            <property name="model">model2</property>
++                                            <child>
++                                              <object class="GtkCellRendererText"/>
++                                              <attributes>
++                                                <attribute name="text">0</attribute>
++                                              </attributes>
++                                            </child>
++                                          </object>
++                                          <packing>
++                                            <property name="top_attach">1</property>
++                                            <property name="left_attach">1</property>
++                                          </packing>
++                                        </child>
+                                       </object>
+                                     </child>
+                                   </object>
 diff --git a/src/profile-editor.c b/src/profile-editor.c
-index da5a02611501..51b647345720 100644
+index 5a1866d35884..0b8f2b6951a7 100644
 --- a/src/profile-editor.c
 +++ b/src/profile-editor.c
-@@ -1228,6 +1228,14 @@ terminal_profile_edit (GSettings  *profile,
-   g_settings_bind (profile, TERMINAL_PROFILE_TITLE_KEY,
-                    gtk_builder_get_object (builder, "title-entry"), "text",
-                    G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
-+  g_settings_bind_with_mapping (profile, TERMINAL_PROFILE_TITLE_MODE_KEY,
-+                                gtk_builder_get_object (builder,
-+                                                        "title-mode-combobox"),
-+                                "active",
-+                                G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET,
-+                                (GSettingsBindGetMapping) string_to_enum,
-+                                (GSettingsBindSetMapping) enum_to_string,
-+                                terminal_title_mode_get_type, NULL);
-   g_settings_bind (profile, TERMINAL_PROFILE_USE_CUSTOM_COMMAND_KEY,
-                    gtk_builder_get_object (builder,
-                                            "use-custom-command-checkbutton"),
-diff --git a/src/profile-preferences.ui b/src/profile-preferences.ui
-index 0e15c1b3a84a..9b067695c21e 100644
---- a/src/profile-preferences.ui
-+++ b/src/profile-preferences.ui
-@@ -758,7 +758,7 @@
-                                     <property name="visible">True</property>
-                                     <property name="can_focus">False</property>
-                                     <property name="xalign">0</property>
--                                    <property name="label" translatable="yes">_Title:</property>
-+                                    <property name="label" translatable="yes">Initial _title:</property>
-                                     <property name="use_underline">True</property>
-                                     <property name="justify">center</property>
-                                     <property name="mnemonic_widget">title-entry</property>
-@@ -787,6 +787,52 @@
-                                 <property name="position">0</property>
-                               </packing>
-                             </child>
-+                            <child>
-+                              <object class="GtkHBox" id="hbox138">
-+                                <property name="visible">True</property>
-+                                <property name="can_focus">False</property>
-+                                <property name="spacing">12</property>
-+                                <child>
-+                                  <object class="GtkLabel" id="title-mode-combobox-label">
-+                                    <property name="visible">True</property>
-+                                    <property name="can_focus">False</property>
-+                                    <property name="xalign">0</property>
-+                                    <property name="label" translatable="yes">When terminal commands set their o_wn titles:</property>
-+                                    <property name="use_underline">True</property>
-+                                    <property name="justify">center</property>
-+                                    <property name="mnemonic_widget">title-mode-combobox</property>
-+                                  </object>
-+                                  <packing>
-+                                    <property name="expand">False</property>
-+                                    <property name="fill">False</property>
-+                                    <property name="position">0</property>
-+                                  </packing>
-+                                </child>
-+                                <child>
-+                                  <object class="GtkComboBox" id="title-mode-combobox">
-+                                    <property name="visible">True</property>
-+                                    <property name="can_focus">False</property>
-+                                    <property name="model">model2</property>
-+                                    <child>
-+                                      <object class="GtkCellRendererText"/>
-+                                      <attributes>
-+                                        <attribute name="text">0</attribute>
-+                                      </attributes>
-+                                    </child>
-+                                  </object>
-+                                  <packing>
-+                                    <property name="expand">False</property>
-+                                    <property name="fill">True</property>
-+                                    <property name="position">1</property>
-+                                  </packing>
-+                                </child>
-+                              </object>
-+                              <packing>
-+                                <property name="expand">False</property>
-+                                <property name="fill">True</property>
-+                                <property name="position">1</property>
-+                              </packing>
-+                            </child>
-                           </object>
-                         </child>
-                       </object>
+@@ -1277,6 +1277,15 @@ profile_prefs_load (const char *uuid, GSettings *profile)
+                                gtk_builder_get_object (builder, "title-entry"),
+                                "text",
+                                G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
++  profile_prefs_settings_bind_with_mapping (profile,
++                                            TERMINAL_PROFILE_TITLE_MODE_KEY,
++                                            gtk_builder_get_object (builder,
++                                                                    "title-mode-combobox"),
++                                            "active",
++                                            G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET,
++                                            (GSettingsBindGetMapping) string_to_enum,
++                                            (GSettingsBindSetMapping) enum_to_string,
++                                            terminal_title_mode_get_type, NULL);
+   profile_prefs_settings_bind (profile, TERMINAL_PROFILE_USE_CUSTOM_COMMAND_KEY,
+                                gtk_builder_get_object (builder,
+                                                        "use-custom-command-checkbutton"),
 diff --git a/src/terminal-enums.h b/src/terminal-enums.h
 index bdd354e38360..731dcf2aaebc 100644
 --- a/src/terminal-enums.h
@@ -5065,7 +5112,7 @@ index b9c6990e356c..240213fead43 100644
  #define TERMINAL_PROFILE_USE_CUSTOM_COMMAND_KEY         "use-custom-command"
  #define TERMINAL_PROFILE_USE_SKEY_KEY                   "use-skey"
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 3a13878db843..cf46be351626 100644
+index bf5cd891ed90..2f89c976dee4 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
 @@ -88,13 +88,17 @@ struct _TerminalScreenPrivate
@@ -5597,10 +5644,10 @@ index 63f9c47e115a..51472685f402 100644
  char *terminal_screen_get_current_dir (TerminalScreen *screen);
  
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index 06359b5fbe23..ec49e440d384 100644
+index f65c359feece..d9def99d77d8 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
-@@ -781,6 +781,12 @@ terminal_set_title_dialog_response_cb (GtkWidget *dialog,
+@@ -769,6 +769,12 @@ terminal_set_title_dialog_response_cb (GtkWidget *dialog,
    gtk_widget_destroy (dialog);
  }
  
@@ -5613,7 +5660,7 @@ index 06359b5fbe23..ec49e440d384 100644
  static void
  action_set_title_cb (GSimpleAction *action,
                       GVariant *parameter,
-@@ -2584,14 +2590,11 @@ sync_screen_title (TerminalScreen *screen,
+@@ -2578,14 +2584,11 @@ sync_screen_title (TerminalScreen *screen,
                     TerminalWindow *window)
  {
    TerminalWindowPrivate *priv = window->priv;
