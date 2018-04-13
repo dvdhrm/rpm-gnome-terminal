@@ -1,8 +1,8 @@
 %define gettext_package gnome-terminal
 
-%define glib2_version 2.42.0
-%define gtk3_version 3.20.0
-%define vte_version 0.51.3
+%define glib2_version 2.50.0
+%define gtk3_version 3.22.27
+%define vte_version 0.52.1
 %define desktop_file_utils_version 0.2.90
 
 Name: gnome-terminal
