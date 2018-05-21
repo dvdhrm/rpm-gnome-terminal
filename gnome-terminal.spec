@@ -2,11 +2,11 @@
 
 %define glib2_version 2.50.0
 %define gtk3_version 3.22.27
-%define vte_version 0.52.1
+%define vte_version 0.52.2
 %define desktop_file_utils_version 0.2.90
 
 Name: gnome-terminal
-Version: 3.28.1
+Version: 3.28.2
 Release: 1%{?dist}
 Summary: Terminal emulator for GNOME
 
@@ -102,6 +102,9 @@ make check
 %{_datadir}/metainfo/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Mon May 21 2018 Kalev Lember <klember@redhat.com> - 3.28.2-1
+- Update to 3.28.2
+
 * Fri Apr 13 2018 Debarshi Ray <rishi@fedoraproject.org> - 3.28.1-1
 - Update to 3.28.1
 - Rebase the translations
