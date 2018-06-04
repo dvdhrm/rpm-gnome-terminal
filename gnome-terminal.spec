@@ -7,7 +7,7 @@
 
 Name: gnome-terminal
 Version: 3.28.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Terminal emulator for GNOME
 
 License: GPLv3+ and GFDL
@@ -16,6 +16,7 @@ Source0: http://download.gnome.org/sources/gnome-terminal/3.28/gnome-terminal-%{
 Source1: org.gnome.Terminal.gschema.override
 
 Patch0: 0001-build-Don-t-treat-warnings-as-errors.patch
+Patch1: 0001-client-legacy-Fix-invalid-free.patch
 
 Patch100: gnome-terminal-notify-open-title-transparency.patch
 
@@ -62,6 +63,7 @@ option to the right-click context menu in Nautilus.
 %prep
 %setup -q
 %patch0 -p1 -b .warnings
+%patch1 -p1 -b .client-free
 %patch100 -p1 -b .notify-open-title-transparency
 
 %build
@@ -102,6 +104,9 @@ make check
 %{_datadir}/metainfo/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Mon Jun 04 2018 Debarshi Ray <rishi@fedoraproject.org> - 3.28.2-2
+- Backport fix for client-side memory error (GNOME/gnome-terminal#1)
+
 * Mon May 21 2018 Kalev Lember <klember@redhat.com> - 3.28.2-1
 - Update to 3.28.2
 
