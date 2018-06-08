@@ -34,7 +34,6 @@ BuildRequires: dconf-devel
 BuildRequires: libuuid-devel
 BuildRequires: nautilus-devel
 BuildRequires: gnome-shell
-BuildRequires: appdata-tools
 BuildRequires: pcre2-devel
 BuildRequires: systemd
 BuildRequires: vala-devel
