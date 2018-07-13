@@ -7,7 +7,7 @@
 
 Name: gnome-terminal
 Version: 3.28.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Terminal emulator for GNOME
 
 License: GPLv3+ and GFDL
@@ -103,6 +103,9 @@ make check
 %{_datadir}/metainfo/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.28.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Mon Jun 04 2018 Debarshi Ray <rishi@fedoraproject.org> - 3.28.2-2
 - Backport fix for client-side memory error (GNOME/gnome-terminal#1)
 
