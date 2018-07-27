@@ -7,10 +7,10 @@
 
 Name: gnome-terminal
 Version: 3.28.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Terminal emulator for GNOME
 
-License: GPLv3+ and GFDL
+License: GPLv3+ and GFDL and LGPLv2+
 URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/gnome-terminal/3.28/gnome-terminal-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
@@ -103,6 +103,9 @@ make check
 %{_datadir}/metainfo/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Fri Jul 27 2018 Debarshi Ray <rishi@fedoraproject.org> - 3.28.2-4
+- Include LGPLv2+ in the list of licenses
+
 * Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.28.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
