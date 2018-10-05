@@ -1,4 +1,4 @@
-From a2cdc37b6c5e27a75c0428e4806522646f65e25b Mon Sep 17 00:00:00 2001
+From 5a7a968a84cdf1cbd053bb5ad1d0f47657a74600 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Mon, 12 May 2014 14:57:18 +0200
 Subject: [PATCH 01/15] Restore transparency
@@ -25,7 +25,7 @@ Some changes by Peter Weber <peter.weber@mailbox.org>
  6 files changed, 104 insertions(+), 1 deletion(-)
 
 diff --git a/src/org.gnome.Terminal.gschema.xml b/src/org.gnome.Terminal.gschema.xml
-index a4adc663a145..736e329cd301 100644
+index 945b0bd661c5..c581f3cf2553 100644
 --- a/src/org.gnome.Terminal.gschema.xml
 +++ b/src/org.gnome.Terminal.gschema.xml
 @@ -400,6 +400,16 @@
@@ -138,7 +138,7 @@ index eaad9182fed2..e03e35fc1bea 100644
  
  /* Called once per Preferences window, to destroy stuff that doesn't depend on the profile being edited */
 diff --git a/src/terminal-schemas.h b/src/terminal-schemas.h
-index 46ed321df074..8e79bb2e49f5 100644
+index 5b0d8c3ed416..4da44232e491 100644
 --- a/src/terminal-schemas.h
 +++ b/src/terminal-schemas.h
 @@ -73,6 +73,9 @@ G_BEGIN_DECLS
@@ -206,7 +206,7 @@ index a85fcefd40e1..26202e4555ea 100644
  
  static void
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index 91fa09d16908..e6de77ce5150 100644
+index 4ed3647498b2..8fc70ce74252 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
 @@ -2088,6 +2088,8 @@ terminal_window_init (TerminalWindow *window)
@@ -234,7 +234,7 @@ index 91fa09d16908..e6de77ce5150 100644
 2.14.4
 
 
-From 735b06e87a365575aa41da55b626d0c3b5af663d Mon Sep 17 00:00:00 2001
+From a5e63c8ebb436f08a25ee0b107ef0abe8977d3f2 Mon Sep 17 00:00:00 2001
 From: Lars Uebernickel <lars.uebernickel@canonical.com>
 Date: Wed, 28 May 2014 14:11:02 +0200
 Subject: [PATCH 02/15] window: Make the drawing robust across all themes
@@ -254,7 +254,7 @@ https://bugzilla.gnome.org/show_bug.cgi?id=730016
  1 file changed, 21 insertions(+)
 
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index e6de77ce5150..ea4b667e8629 100644
+index 8fc70ce74252..1707ada83ce8 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
 @@ -1944,6 +1944,26 @@ terminal_window_realize (GtkWidget *widget)
@@ -296,7 +296,7 @@ index e6de77ce5150..ea4b667e8629 100644
 2.14.4
 
 
-From c2bf8720732c5ae4bd6d9a45cfc7c13b23594b08 Mon Sep 17 00:00:00 2001
+From a7d2159896b0409c61089e17696b2653a88aaf66 Mon Sep 17 00:00:00 2001
 From: "Owen W. Taylor" <otaylor@fishsoup.net>
 Date: Fri, 13 Nov 2015 15:16:42 +0100
 Subject: [PATCH 03/15] screen, window: Extra padding around transparent
@@ -388,7 +388,7 @@ index 26202e4555ea..c0ce8a89126c 100644
  terminal_screen_button_press (GtkWidget      *widget,
                                GdkEventButton *event)
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index ea4b667e8629..ae605431f485 100644
+index 1707ada83ce8..a3c5a7fc2f46 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
 @@ -1950,15 +1950,21 @@ terminal_window_draw (GtkWidget *widget,
@@ -423,7 +423,7 @@ index ea4b667e8629..ae605431f485 100644
 2.14.4
 
 
-From 8abde786047f175521b5cf297edead453c72dee8 Mon Sep 17 00:00:00 2001
+From 0db67508ccbe961a0424f012afdb9e2ae6403139 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Mon, 27 Feb 2017 16:53:51 +0100
 Subject: [PATCH 04/15] screen: Silence -Wunused variable
@@ -449,7 +449,7 @@ index c0ce8a89126c..1b763a3890dd 100644
 2.14.4
 
 
-From 3d6642646de23f538bc2247dd735f066a44d3544 Mon Sep 17 00:00:00 2001
+From 92f0f2e6ff0ae529cb9526082e50f6ecd027a8b4 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 27 Jan 2015 18:40:13 +0100
 Subject: [PATCH 05/15] Support desktop notifications from OSC 777
@@ -463,10 +463,10 @@ https://bugzilla.gnome.org/show_bug.cgi?id=711059
  4 files changed, 171 insertions(+), 1 deletion(-)
 
 diff --git a/src/terminal-app.c b/src/terminal-app.c
-index 1c251f5d0f50..f96e1fd7fa99 100644
+index f8e290d577ef..35a8c79e530e 100644
 --- a/src/terminal-app.c
 +++ b/src/terminal-app.c
-@@ -594,6 +594,31 @@ app_menu_quit_cb (GSimpleAction *action,
+@@ -601,6 +601,31 @@ app_menu_quit_cb (GSimpleAction *action,
      gtk_widget_destroy (GTK_WIDGET (window));
  }
  
@@ -498,7 +498,7 @@ index 1c251f5d0f50..f96e1fd7fa99 100644
  /* Class implementation */
  
  G_DEFINE_TYPE (TerminalApp, terminal_app, GTK_TYPE_APPLICATION)
-@@ -618,6 +643,10 @@ terminal_app_startup (GApplication *application)
+@@ -625,6 +650,10 @@ terminal_app_startup (GApplication *application)
      { "quit",        app_menu_quit_cb,          NULL, NULL, NULL }
    };
  
@@ -509,7 +509,7 @@ index 1c251f5d0f50..f96e1fd7fa99 100644
    g_application_set_resource_base_path (application, TERMINAL_RESOURCES_PATH_PREFIX);
  
    G_APPLICATION_CLASS (terminal_app_parent_class)->startup (application);
-@@ -628,6 +657,9 @@ terminal_app_startup (GApplication *application)
+@@ -635,6 +664,9 @@ terminal_app_startup (GApplication *application)
    g_action_map_add_action_entries (G_ACTION_MAP (application),
                                     action_entries, G_N_ELEMENTS (action_entries),
                                     application);
@@ -771,7 +771,7 @@ index 20cfbceb36b0..a987025e0524 100644
 2.14.4
 
 
-From 26732de4d2c796660beacdc0bb743cb8f766cd25 Mon Sep 17 00:00:00 2001
+From cad92b3f80f69e39c42777813449059c48c0798b Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 29 Jan 2015 11:47:21 +0100
 Subject: [PATCH 06/15] Sprinkle debug messages for notifications
@@ -854,43 +854,60 @@ index ced2cdfe8a30..36a9afa3ded9 100644
 2.14.4
 
 
-From a409d7f1e0275e41a193695f627053da319d644e Mon Sep 17 00:00:00 2001
+From b99cbf89328d978c57a69413d76e1670316615ab Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Wed, 28 Mar 2018 18:50:16 +0200
-Subject: [PATCH 07/15] Restore separate menuitems for opening tabs and windows
+Subject: [PATCH 07/15] prefs: Fix the visibility of the new-terminal-mode
+ GSetting UI
 
-Without the separate menuitems, it was not possible to open new tabs or
-windows solely by using the mouse if the preference was set to windows
-or tabs respectively. This isn't ideal for accessibility.
+... when the new-terminal menus are disunified.
 
-The preference is also hard to discover and there was simply no strong
-justification for unifying the menuitems in the first place.
+Since it's not possible to use DISUNIFY_NEW_TERMINAL_SECTION, it
+should check the unified-menu GSetting instead.
 
-The org.gnome.Terminal.Legacy.Settings:new-terminal-mode preference is
-now ignored.
+Fallout from 30efce621ad04276771aa311f52731b468c4adfd
 
-https://bugzilla.redhat.com/show_bug.cgi?id=1300826
+https://gitlab.gnome.org/GNOME/gnome-terminal/issues/37
 ---
- src/Makefile.am | 1 +
- 1 file changed, 1 insertion(+)
+ src/terminal-prefs.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/src/Makefile.am b/src/Makefile.am
-index 29e6c4def910..41cdd37ffe0e 100644
---- a/src/Makefile.am
-+++ b/src/Makefile.am
-@@ -94,6 +94,7 @@ gnome_terminal_server_SOURCES = \
- nodist_gnome_terminal_server_SOURCES = $(gnome_terminal_server_built)
+diff --git a/src/terminal-prefs.c b/src/terminal-prefs.c
+index 5bc7718632f2..1cccfa923dd3 100644
+--- a/src/terminal-prefs.c
++++ b/src/terminal-prefs.c
+@@ -849,16 +849,16 @@ terminal_prefs_show_preferences (GSettings *profile, const char *widget_name)
+   gtk_widget_set_visible (theme_variant_combo, FALSE);
+ #endif /* GTK+ 3.19 */
  
- gnome_terminal_server_CPPFLAGS = \
-+	-DDISUNIFY_NEW_TERMINAL_SECTION \
- 	-DTERMINAL_COMPILATION \
- 	-DVTE_DISABLE_DEPRECATION_WARNINGS \
- 	-DTERM_LOCALEDIR="\"$(datadir)/locale\"" \
+-#ifndef DISUNIFY_NEW_TERMINAL_SECTION
+-  g_settings_bind (settings,
+-                   TERMINAL_SETTING_NEW_TERMINAL_MODE_KEY,
+-                   new_terminal_mode_combo,
+-                   "active-id",
+-                   G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
+-#else
+-  gtk_widget_set_visible (new_terminal_mode_label, FALSE);
+-  gtk_widget_set_visible (new_terminal_mode_combo, FALSE);
+-#endif
++  if (terminal_app_get_menu_unified (app)) {
++    g_settings_bind (settings,
++                     TERMINAL_SETTING_NEW_TERMINAL_MODE_KEY,
++                     new_terminal_mode_combo,
++                     "active-id",
++                     G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
++  } else {
++    gtk_widget_set_visible (new_terminal_mode_label, FALSE);
++    gtk_widget_set_visible (new_terminal_mode_combo, FALSE);
++  }
+ 
+   if (shell_shows_menubar) {
+     gtk_widget_set_visible (disable_mnemonics_button, FALSE);
 -- 
 2.14.4
 
 
-From b01c71836743c693133f3290c5acd795708ecf62 Mon Sep 17 00:00:00 2001
+From d3234cf0cbcdbfc24e524a7f3194e04e6fbe6cae Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 10 Apr 2018 15:39:35 +0200
 Subject: [PATCH 08/15] profile: Split the Command tab into two nested GtkGrids
@@ -1097,7 +1114,7 @@ index f5c366f14e10..edd924689d35 100644
 2.14.4
 
 
-From cb842d26baf08cbc71b10cdd0f2aa583af791b47 Mon Sep 17 00:00:00 2001
+From 6d6480aa54c00df7121b888b63fa56fb8ba4b0c8 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 10 Apr 2018 16:01:51 +0200
 Subject: [PATCH 09/15] Revert "profile: Remove the "Command" sub-heading"
@@ -1321,7 +1338,7 @@ index edd924689d35..11a283064996 100644
 2.14.4
 
 
-From 187ae54979b1971eb87bab03ac0279c80bf5cd0c Mon Sep 17 00:00:00 2001
+From 6c103036b31c3ce394d47315162c38c87a1a2b87 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 16:02:13 +0200
 Subject: [PATCH 10/15] Revert "screen: Remove unused description and
@@ -1500,7 +1517,7 @@ index ff77fcf78947..af9583e7cbaf 100644
 2.14.4
 
 
-From b0b26a7197d195d114848a88e2ea95d016c68ae4 Mon Sep 17 00:00:00 2001
+From 865f41677e3430b78fbccce0b674a9fc99f4ebf2 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 17:39:48 +0200
 Subject: [PATCH 11/15] Revert "Remove the static title setting from profile
@@ -1518,7 +1535,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1296110
  5 files changed, 91 insertions(+)
 
 diff --git a/src/org.gnome.Terminal.gschema.xml b/src/org.gnome.Terminal.gschema.xml
-index 736e329cd301..465f98efb4c4 100644
+index c581f3cf2553..c070ca024222 100644
 --- a/src/org.gnome.Terminal.gschema.xml
 +++ b/src/org.gnome.Terminal.gschema.xml
 @@ -183,6 +183,11 @@
@@ -1632,7 +1649,7 @@ index e03e35fc1bea..28c536fc4a5a 100644
                                 gtk_builder_get_object (builder,
                                                         "use-custom-command-checkbutton"),
 diff --git a/src/terminal-schemas.h b/src/terminal-schemas.h
-index 8e79bb2e49f5..b9c6990e356c 100644
+index 4da44232e491..c52ae53fcc92 100644
 --- a/src/terminal-schemas.h
 +++ b/src/terminal-schemas.h
 @@ -66,6 +66,7 @@ G_BEGIN_DECLS
@@ -1679,7 +1696,7 @@ index 8e6f2e935ba4..bf3618cb41b0 100644
 2.14.4
 
 
-From 60c4b1b2766bce0ac7ddf70b72be871621dde87d Mon Sep 17 00:00:00 2001
+From 0eeb6d9f05a13b6922b642e23666e180c9af964a Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 17 Feb 2015 17:06:17 +0100
 Subject: [PATCH 12/15] Restore translations for setting a title and
@@ -2286,7 +2303,7 @@ index d97e6102b850..a768fe4adc54 100644
  #: ../src/profile-preferences.glade.h:78
  #, fuzzy
 diff --git a/po/el.po b/po/el.po
-index 5ac8477c0a2f..e6e0b45c3e9b 100644
+index a32f5b1684f6..7fa98b45e6f5 100644
 --- a/po/el.po
 +++ b/po/el.po
 @@ -2710,17 +2710,17 @@ msgstr "Κ_λείσιμο παραθύρου"
@@ -4501,7 +4518,7 @@ index b9890ad91bdc..18e55e2e945c 100644
 2.14.4
 
 
-From 9884a65ed3eb45c649507ab6337fb3a2d4fb1a59 Mon Sep 17 00:00:00 2001
+From 8d309ffd19b0ed50ab55042cf6d7b249c2395328 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Wed, 25 May 2016 13:47:36 +0200
 Subject: [PATCH 13/15] Restore the action and shortcut to set a static title
@@ -4518,7 +4535,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1296110
  3 files changed, 81 insertions(+)
 
 diff --git a/src/org.gnome.Terminal.gschema.xml b/src/org.gnome.Terminal.gschema.xml
-index 465f98efb4c4..d2ecf67a40fc 100644
+index c070ca024222..ee0a6c4f0c87 100644
 --- a/src/org.gnome.Terminal.gschema.xml
 +++ b/src/org.gnome.Terminal.gschema.xml
 @@ -480,6 +480,10 @@
@@ -4533,7 +4550,7 @@ index 465f98efb4c4..d2ecf67a40fc 100644
        <default>'disabled'</default>
        <summary>Keyboard shortcut to reset the terminal</summary>
 diff --git a/src/terminal-accels.c b/src/terminal-accels.c
-index a7d9527c401f..2d5c3ef7c81a 100644
+index e412180f173e..14bf97768065 100644
 --- a/src/terminal-accels.c
 +++ b/src/terminal-accels.c
 @@ -75,6 +75,7 @@
@@ -4553,7 +4570,7 @@ index a7d9527c401f..2d5c3ef7c81a 100644
  
  static KeyEntry tabs_entries[] = {
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index ae605431f485..2ab6654687b8 100644
+index a3c5a7fc2f46..8df7707ab77f 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
 @@ -739,6 +739,80 @@ action_select_all_cb (GSimpleAction *action,
@@ -4649,7 +4666,7 @@ index ae605431f485..2ab6654687b8 100644
 2.14.4
 
 
-From f36728d315367515dde72b878ab85e29d332a9b7 Mon Sep 17 00:00:00 2001
+From 157d04e4f3897a8383f867818ff88c805299b0c5 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 18:14:36 +0200
 Subject: [PATCH 14/15] screen: Style fix
@@ -4679,7 +4696,7 @@ index bf3618cb41b0..6caa002ddece 100644
 2.14.4
 
 
-From e2a872c8686d51b6ac4c785db549d4ddeba1a547 Mon Sep 17 00:00:00 2001
+From dd28d5a586befa6a8137202aa9cac5eeb81ae4d5 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 16:58:15 +0200
 Subject: [PATCH 15/15] Restore the rest of the title handling options and make
@@ -4701,7 +4718,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1296110
  8 files changed, 265 insertions(+), 78 deletions(-)
 
 diff --git a/src/org.gnome.Terminal.gschema.xml b/src/org.gnome.Terminal.gschema.xml
-index d2ecf67a40fc..787f8ba905db 100644
+index ee0a6c4f0c87..3e07770d0469 100644
 --- a/src/org.gnome.Terminal.gschema.xml
 +++ b/src/org.gnome.Terminal.gschema.xml
 @@ -24,6 +24,13 @@
@@ -4821,7 +4838,7 @@ index bdd354e38360..731dcf2aaebc 100644
    TERMINAL_EXIT_CLOSE,
    TERMINAL_EXIT_RESTART,
 diff --git a/src/terminal-schemas.h b/src/terminal-schemas.h
-index b9c6990e356c..240213fead43 100644
+index c52ae53fcc92..af5d884d20f1 100644
 --- a/src/terminal-schemas.h
 +++ b/src/terminal-schemas.h
 @@ -66,6 +66,7 @@ G_BEGIN_DECLS
@@ -5278,7 +5295,7 @@ index af9583e7cbaf..a75bd4f06659 100644
  
  void       terminal_screen_get_size (TerminalScreen *screen,
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index 2ab6654687b8..69e3b786aae6 100644
+index 8df7707ab77f..37bbcca35580 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
 @@ -757,6 +757,12 @@ terminal_set_title_dialog_response_cb (GtkWidget *dialog,

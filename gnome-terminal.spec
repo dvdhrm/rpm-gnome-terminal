@@ -2,11 +2,11 @@
 
 %define glib2_version 2.50.0
 %define gtk3_version 3.22.27
-%define vte_version 0.54.0
+%define vte_version 0.54.1
 %define desktop_file_utils_version 0.2.90
 
 Name: gnome-terminal
-Version: 3.30.0
+Version: 3.30.1
 Release: 1%{?dist}
 Summary: Terminal emulator for GNOME
 
@@ -104,6 +104,11 @@ make check
 %{_datadir}/metainfo/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Fri Oct 05 2018 Debarshi Ray <rishi@fedoraproject.org> - 3.30.0-1
+- Update to 3.30.1
+- Rebase transparency, command-notify, custom title and translation patches
+- Use a GSettings override to separate the new-terminal menuitems
+
 * Fri Oct 05 2018 Debarshi Ray <rishi@fedoraproject.org> - 3.30.0-1
 - Update to 3.30.0
 
