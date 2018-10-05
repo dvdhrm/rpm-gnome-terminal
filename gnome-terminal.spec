@@ -2,20 +2,18 @@
 
 %define glib2_version 2.50.0
 %define gtk3_version 3.22.27
-%define vte_version 0.52.2
+%define vte_version 0.53.92
 %define desktop_file_utils_version 0.2.90
 
 Name: gnome-terminal
-Version: 3.28.2
-Release: 4%{?dist}
+Version: 3.29.92
+Release: 1%{?dist}
 Summary: Terminal emulator for GNOME
 
 License: GPLv3+ and GFDL and LGPLv2+
 URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/gnome-terminal/3.28/gnome-terminal-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
-
-Patch0: 0001-client-legacy-Fix-invalid-free.patch
 
 Patch100: gnome-terminal-notify-open-title-transparency.patch
 Patch101: 0001-build-Don-t-treat-warnings-as-errors.patch
@@ -61,15 +59,18 @@ option to the right-click context menu in Nautilus.
 
 %prep
 %setup -q
-%patch0 -p1 -b .client-free
 %patch100 -p1 -b .notify-open-title-transparency
 %patch101 -p1 -b .warnings
 
 %build
 autoreconf -f -i
-%configure --disable-static --disable-migration --with-gtk=3.0 --with-nautilus-extension
+%configure \
+    --disable-silent-rules \
+    --disable-static \
+    --with-gtk=3.0 \
+    --with-nautilus-extension
 
-make %{?_smp_mflags}
+%make_build
 
 %install
 %make_install
@@ -103,6 +104,11 @@ make check
 %{_datadir}/metainfo/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Fri Oct 05 2018 Debarshi Ray <rishi@fedoraproject.org> - 3.29.92-1
+- Update to 3.29.92
+- Rebase transparency, command-notify, custom title and translation patches
+- Remove upstreamed patches
+
 * Fri Jul 27 2018 Debarshi Ray <rishi@fedoraproject.org> - 3.28.2-4
 - Include LGPLv2+ in the list of licenses
 

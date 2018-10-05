@@ -1,7 +1,7 @@
-From 8280180dd48841ea04c9eb437c2d015423673763 Mon Sep 17 00:00:00 2001
+From 9513f6ca5f46b8c4b6de5c80f80b3e5881249d59 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Mon, 12 May 2014 14:57:18 +0200
-Subject: [PATCH 01/16] Restore transparency
+Subject: [PATCH 01/15] Restore transparency
 
 The transparency settings were removed as a side effect of
 2bff4b63ed3ceef6055e35563e9b0b33ad57349d
@@ -25,7 +25,7 @@ Some changes by Peter Weber <peter.weber@mailbox.org>
  6 files changed, 104 insertions(+), 1 deletion(-)
 
 diff --git a/src/org.gnome.Terminal.gschema.xml b/src/org.gnome.Terminal.gschema.xml
-index 2edeceacf9e5..b828471bd71d 100644
+index a4adc663a145..736e329cd301 100644
 --- a/src/org.gnome.Terminal.gschema.xml
 +++ b/src/org.gnome.Terminal.gschema.xml
 @@ -400,6 +400,16 @@
@@ -111,10 +111,10 @@ index 6259aac0f02f..f5c366f14e10 100644
                                      </child>
                                    </object>
 diff --git a/src/profile-editor.c b/src/profile-editor.c
-index c93a1912649c..8c25c6372901 100644
+index eaad9182fed2..e03e35fc1bea 100644
 --- a/src/profile-editor.c
 +++ b/src/profile-editor.c
-@@ -1325,6 +1325,22 @@ profile_prefs_load (const char *uuid, GSettings *profile)
+@@ -1254,6 +1254,22 @@ profile_prefs_load (const char *uuid, GSettings *profile)
                                 w,
                                 "active-id",
                                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
@@ -152,10 +152,10 @@ index 46ed321df074..8e79bb2e49f5 100644
  #define TERMINAL_SETTING_DEFAULT_SHOW_MENUBAR_KEY       "default-show-menubar"
  #define TERMINAL_SETTING_ENABLE_MENU_BAR_ACCEL_KEY      "menu-accelerator-enabled"
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index f67f8a2fd995..1d99ba0cb289 100644
+index a85fcefd40e1..26202e4555ea 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
-@@ -832,7 +832,9 @@ terminal_screen_profile_changed_cb (GSettings     *profile,
+@@ -800,7 +800,9 @@ terminal_screen_profile_changed_cb (GSettings     *profile,
        prop_name == I_(TERMINAL_PROFILE_HIGHLIGHT_COLORS_SET_KEY) ||
        prop_name == I_(TERMINAL_PROFILE_HIGHLIGHT_BACKGROUND_COLOR_KEY) ||
        prop_name == I_(TERMINAL_PROFILE_HIGHLIGHT_FOREGROUND_COLOR_KEY) ||
@@ -166,7 +166,7 @@ index f67f8a2fd995..1d99ba0cb289 100644
      update_color_scheme (screen);
  
    if (!prop_name || prop_name == I_(TERMINAL_PROFILE_AUDIBLE_BELL_KEY))
-@@ -909,6 +911,8 @@ update_color_scheme (TerminalScreen *screen)
+@@ -877,6 +879,8 @@ update_color_scheme (TerminalScreen *screen)
    GdkRGBA *cursor_bgp = NULL, *cursor_fgp = NULL;
    GdkRGBA *highlight_bgp = NULL, *highlight_fgp = NULL;
    GtkStyleContext *context;
@@ -175,7 +175,7 @@ index f67f8a2fd995..1d99ba0cb289 100644
    gboolean use_theme_colors;
  
    context = gtk_widget_get_style_context (widget);
-@@ -950,6 +954,18 @@ update_color_scheme (TerminalScreen *screen)
+@@ -918,6 +922,18 @@ update_color_scheme (TerminalScreen *screen)
      }
  
    colors = terminal_g_settings_get_rgba_palette (priv->profile, TERMINAL_PROFILE_PALETTE_KEY, &n_colors);
@@ -194,7 +194,7 @@ index f67f8a2fd995..1d99ba0cb289 100644
    vte_terminal_set_colors (VTE_TERMINAL (screen), &fg, &bg,
                             colors, n_colors);
    vte_terminal_set_color_bold (VTE_TERMINAL (screen), boldp);
-@@ -957,6 +973,10 @@ update_color_scheme (TerminalScreen *screen)
+@@ -925,6 +941,10 @@ update_color_scheme (TerminalScreen *screen)
    vte_terminal_set_color_cursor_foreground (VTE_TERMINAL (screen), cursor_fgp);
    vte_terminal_set_color_highlight (VTE_TERMINAL (screen), highlight_bgp);
    vte_terminal_set_color_highlight_foreground (VTE_TERMINAL (screen), highlight_fgp);
@@ -206,10 +206,10 @@ index f67f8a2fd995..1d99ba0cb289 100644
  
  static void
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index a348a8032c18..b665d3101b10 100644
+index 91fa09d16908..e6de77ce5150 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
-@@ -2100,6 +2100,8 @@ terminal_window_init (TerminalWindow *window)
+@@ -2088,6 +2088,8 @@ terminal_window_init (TerminalWindow *window)
    };
    TerminalWindowPrivate *priv;
    TerminalApp *app;
@@ -218,7 +218,7 @@ index a348a8032c18..b665d3101b10 100644
    GSettings *gtk_debug_settings;
    GtkWindowGroup *window_group;
    //  GtkAccelGroup *accel_group;
-@@ -2114,6 +2116,11 @@ terminal_window_init (TerminalWindow *window)
+@@ -2102,6 +2104,11 @@ terminal_window_init (TerminalWindow *window)
  
    gtk_widget_init_template (GTK_WIDGET (window));
  
@@ -231,13 +231,13 @@ index a348a8032c18..b665d3101b10 100644
    uuid_unparse (u, uuidstr);
    priv->uuid = g_strdup (uuidstr);
 -- 
-2.14.3
+2.14.4
 
 
-From 44fd3a09d263851285a0e72f73f213dc50d0d797 Mon Sep 17 00:00:00 2001
+From c06bc7f6ec322b2f3cd271ca15a2e9619c4af371 Mon Sep 17 00:00:00 2001
 From: Lars Uebernickel <lars.uebernickel@canonical.com>
 Date: Wed, 28 May 2014 14:11:02 +0200
-Subject: [PATCH 02/16] window: Make the drawing robust across all themes
+Subject: [PATCH 02/15] window: Make the drawing robust across all themes
 
 There are lots of themes out there in the wild that do not specify a
 background-color for all widgets and the default is transparent. This
@@ -254,10 +254,10 @@ https://bugzilla.gnome.org/show_bug.cgi?id=730016
  1 file changed, 21 insertions(+)
 
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index b665d3101b10..3835c617b660 100644
+index e6de77ce5150..ea4b667e8629 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
-@@ -1956,6 +1956,26 @@ terminal_window_realize (GtkWidget *widget)
+@@ -1944,6 +1944,26 @@ terminal_window_realize (GtkWidget *widget)
    terminal_window_update_size (window);
  }
  
@@ -284,7 +284,7 @@ index b665d3101b10..3835c617b660 100644
  static gboolean
  terminal_window_state_event (GtkWidget            *widget,
                               GdkEventWindowState  *event)
-@@ -2267,6 +2287,7 @@ terminal_window_class_init (TerminalWindowClass *klass)
+@@ -2255,6 +2275,7 @@ terminal_window_class_init (TerminalWindowClass *klass)
  
    widget_class->show = terminal_window_show;
    widget_class->realize = terminal_window_realize;
@@ -293,13 +293,13 @@ index b665d3101b10..3835c617b660 100644
    widget_class->screen_changed = terminal_window_screen_changed;
    widget_class->style_updated = terminal_window_style_updated;
 -- 
-2.14.3
+2.14.4
 
 
-From 6603429319268785b3314a5e301a88f6571687f9 Mon Sep 17 00:00:00 2001
+From bd0122dadc219e091300f807a78b6a0f1029bd66 Mon Sep 17 00:00:00 2001
 From: "Owen W. Taylor" <otaylor@fishsoup.net>
 Date: Fri, 13 Nov 2015 15:16:42 +0100
-Subject: [PATCH 03/16] screen, window: Extra padding around transparent
+Subject: [PATCH 03/15] screen, window: Extra padding around transparent
  terminals in Wayland
 
 https://bugzilla.redhat.com/show_bug.cgi?id=1207943
@@ -309,10 +309,10 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1207943
  2 files changed, 49 insertions(+), 9 deletions(-)
 
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 1d99ba0cb289..e074bbf35405 100644
+index 26202e4555ea..c0ce8a89126c 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
-@@ -141,6 +141,8 @@ static void terminal_screen_system_font_changed_cb (GSettings *,
+@@ -139,6 +139,8 @@ static void terminal_screen_system_font_changed_cb (GSettings *,
  static gboolean terminal_screen_popup_menu (GtkWidget *widget);
  static gboolean terminal_screen_button_press (GtkWidget *widget,
                                                GdkEventButton *event);
@@ -321,7 +321,7 @@ index 1d99ba0cb289..e074bbf35405 100644
  static gboolean terminal_screen_do_exec (TerminalScreen *screen,
                                           FDSetupData    *data,
                                           GError **error);
-@@ -490,6 +492,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
+@@ -475,6 +477,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
    widget_class->drag_data_received = terminal_screen_drag_data_received;
    widget_class->button_press_event = terminal_screen_button_press;
    widget_class->popup_menu = terminal_screen_popup_menu;
@@ -329,7 +329,7 @@ index 1d99ba0cb289..e074bbf35405 100644
  
    terminal_class->child_exited = terminal_screen_child_exited;
  
-@@ -896,6 +899,32 @@ terminal_screen_profile_changed_cb (GSettings     *profile,
+@@ -864,6 +867,32 @@ terminal_screen_profile_changed_cb (GSettings     *profile,
    g_object_thaw_notify (object);
  }
  
@@ -362,7 +362,7 @@ index 1d99ba0cb289..e074bbf35405 100644
  static void
  update_color_scheme (TerminalScreen *screen)
  {
-@@ -974,9 +1003,7 @@ update_color_scheme (TerminalScreen *screen)
+@@ -942,9 +971,7 @@ update_color_scheme (TerminalScreen *screen)
    vte_terminal_set_color_highlight (VTE_TERMINAL (screen), highlight_bgp);
    vte_terminal_set_color_highlight_foreground (VTE_TERMINAL (screen), highlight_fgp);
  
@@ -373,7 +373,7 @@ index 1d99ba0cb289..e074bbf35405 100644
  }
  
  static void
-@@ -1581,6 +1608,13 @@ terminal_screen_do_popup (TerminalScreen *screen,
+@@ -1549,6 +1576,13 @@ terminal_screen_do_popup (TerminalScreen *screen,
    terminal_screen_popup_info_unref (info);
  }
  
@@ -388,10 +388,10 @@ index 1d99ba0cb289..e074bbf35405 100644
  terminal_screen_button_press (GtkWidget      *widget,
                                GdkEventButton *event)
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index 3835c617b660..662475af107e 100644
+index ea4b667e8629..ae605431f485 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
-@@ -1962,15 +1962,21 @@ terminal_window_draw (GtkWidget *widget,
+@@ -1950,15 +1950,21 @@ terminal_window_draw (GtkWidget *widget,
  {
    if (gtk_widget_get_app_paintable (widget))
      {
@@ -420,13 +420,13 @@ index 3835c617b660..662475af107e 100644
  
    return GTK_WIDGET_CLASS (terminal_window_parent_class)->draw (widget, cr);
 -- 
-2.14.3
+2.14.4
 
 
-From 7f61a674fb8afc3f1546442610165d131819b9e6 Mon Sep 17 00:00:00 2001
+From 2530965f4aae6f1b445d6bbb01cf96616d124562 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Mon, 27 Feb 2017 16:53:51 +0100
-Subject: [PATCH 04/16] screen: Silence -Wunused variable
+Subject: [PATCH 04/15] screen: Silence -Wunused variable
 
 https://bugzilla.redhat.com/show_bug.cgi?id=1207943
 ---
@@ -434,10 +434,10 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1207943
  1 file changed, 1 deletion(-)
 
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index e074bbf35405..1894bc0c366d 100644
+index c0ce8a89126c..1b763a3890dd 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
-@@ -940,7 +940,6 @@ update_color_scheme (TerminalScreen *screen)
+@@ -908,7 +908,6 @@ update_color_scheme (TerminalScreen *screen)
    GdkRGBA *cursor_bgp = NULL, *cursor_fgp = NULL;
    GdkRGBA *highlight_bgp = NULL, *highlight_fgp = NULL;
    GtkStyleContext *context;
@@ -446,13 +446,13 @@ index e074bbf35405..1894bc0c366d 100644
    gboolean use_theme_colors;
  
 -- 
-2.14.3
+2.14.4
 
 
-From 793a0c45f37cbfa55a09b71369ee36f4ddb33f80 Mon Sep 17 00:00:00 2001
+From be34577a34b5f1f99c8a76baf9bbe61e87f893f2 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 27 Jan 2015 18:40:13 +0100
-Subject: [PATCH 05/16] Support desktop notifications from OSC 777
+Subject: [PATCH 05/15] Support desktop notifications from OSC 777
 
 https://bugzilla.gnome.org/show_bug.cgi?id=711059
 ---
@@ -463,10 +463,10 @@ https://bugzilla.gnome.org/show_bug.cgi?id=711059
  4 files changed, 171 insertions(+), 1 deletion(-)
 
 diff --git a/src/terminal-app.c b/src/terminal-app.c
-index 6a7ba4731df7..2f087f8fa333 100644
+index 1c251f5d0f50..f96e1fd7fa99 100644
 --- a/src/terminal-app.c
 +++ b/src/terminal-app.c
-@@ -651,6 +651,31 @@ app_menu_quit_cb (GSimpleAction *action,
+@@ -594,6 +594,31 @@ app_menu_quit_cb (GSimpleAction *action,
      gtk_widget_destroy (GTK_WIDGET (window));
  }
  
@@ -498,7 +498,7 @@ index 6a7ba4731df7..2f087f8fa333 100644
  /* Class implementation */
  
  G_DEFINE_TYPE (TerminalApp, terminal_app, GTK_TYPE_APPLICATION)
-@@ -675,6 +700,10 @@ terminal_app_startup (GApplication *application)
+@@ -618,6 +643,10 @@ terminal_app_startup (GApplication *application)
      { "quit",        app_menu_quit_cb,          NULL, NULL, NULL }
    };
  
@@ -509,7 +509,7 @@ index 6a7ba4731df7..2f087f8fa333 100644
    g_application_set_resource_base_path (application, TERMINAL_RESOURCES_PATH_PREFIX);
  
    G_APPLICATION_CLASS (terminal_app_parent_class)->startup (application);
-@@ -685,6 +714,9 @@ terminal_app_startup (GApplication *application)
+@@ -628,6 +657,9 @@ terminal_app_startup (GApplication *application)
    g_action_map_add_action_entries (G_ACTION_MAP (application),
                                     action_entries, G_N_ELEMENTS (action_entries),
                                     application);
@@ -520,7 +520,7 @@ index 6a7ba4731df7..2f087f8fa333 100644
    app_load_css (application);
  
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 1894bc0c366d..fa967c5e1593 100644
+index 1b763a3890dd..ced2cdfe8a30 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
 @@ -55,6 +55,7 @@
@@ -539,7 +539,7 @@ index 1894bc0c366d..fa967c5e1593 100644
    int child_pid;
    GSList *match_tags;
    guint launch_child_source_id;
-@@ -143,11 +145,16 @@ static gboolean terminal_screen_button_press (GtkWidget *widget,
+@@ -141,11 +143,16 @@ static gboolean terminal_screen_button_press (GtkWidget *widget,
                                                GdkEventButton *event);
  static void terminal_screen_hierarchy_changed (GtkWidget *widget,
                                                 GtkWidget *previous_toplevel);
@@ -556,7 +556,7 @@ index 1894bc0c366d..fa967c5e1593 100644
  
  static void terminal_screen_window_title_changed      (VteTerminal *vte_terminal,
                                                         TerminalScreen *screen);
-@@ -487,6 +494,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
+@@ -472,6 +479,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
    object_class->get_property = terminal_screen_get_property;
    object_class->set_property = terminal_screen_set_property;
  
@@ -564,7 +564,7 @@ index 1894bc0c366d..fa967c5e1593 100644
    widget_class->realize = terminal_screen_realize;
    widget_class->style_updated = terminal_screen_style_updated;
    widget_class->drag_data_received = terminal_screen_drag_data_received;
-@@ -495,6 +503,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
+@@ -480,6 +488,7 @@ terminal_screen_class_init (TerminalScreenClass *klass)
    widget_class->hierarchy_changed = terminal_screen_hierarchy_changed;
  
    terminal_class->child_exited = terminal_screen_child_exited;
@@ -572,7 +572,7 @@ index 1894bc0c366d..fa967c5e1593 100644
  
    signals[PROFILE_SET] =
      g_signal_new (I_("profile-set"),
-@@ -604,6 +613,10 @@ terminal_screen_dispose (GObject *object)
+@@ -575,6 +584,10 @@ terminal_screen_dispose (GObject *object)
    TerminalScreen *screen = TERMINAL_SCREEN (object);
    TerminalScreenPrivate *priv = screen->priv;
    GtkSettings *settings;
@@ -581,9 +581,9 @@ index 1894bc0c366d..fa967c5e1593 100644
 +  app = terminal_app_get ();
 +  g_application_withdraw_notification (G_APPLICATION (app), priv->uuid);
  
-   settings = gtk_widget_get_settings (GTK_WIDGET (screen));
-   g_signal_handlers_disconnect_matched (settings, G_SIGNAL_MATCH_DATA,
-@@ -1696,6 +1709,43 @@ terminal_screen_button_press (GtkWidget      *widget,
+   /* Unset child PID so that when an eventual child-exited signal arrives,
+    * we don't emit "close".
+@@ -1664,6 +1677,43 @@ terminal_screen_button_press (GtkWidget      *widget,
    return FALSE;
  }
  
@@ -627,7 +627,7 @@ index 1894bc0c366d..fa967c5e1593 100644
  /**
   * terminal_screen_get_current_dir:
   * @screen:
-@@ -1796,6 +1846,64 @@ terminal_screen_child_exited (VteTerminal *terminal,
+@@ -1760,6 +1810,64 @@ terminal_screen_child_exited (VteTerminal *terminal,
      }
  }
  
@@ -768,13 +768,13 @@ index 20cfbceb36b0..a987025e0524 100644
  
  G_END_DECLS
 -- 
-2.14.3
+2.14.4
 
 
-From 870a2ff157140309dbf5ba777f5f7c3625fb9dab Mon Sep 17 00:00:00 2001
+From c991897ebe9135ceae0f99055cead363b34b645d Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 29 Jan 2015 11:47:21 +0100
-Subject: [PATCH 06/16] Sprinkle debug messages for notifications
+Subject: [PATCH 06/15] Sprinkle debug messages for notifications
 
 This can be useful for finding out whether the escape sequence wasn't
 emitted or the filtering was faulty.
@@ -813,10 +813,10 @@ index 0fafcc3a846c..af1358683994 100644
  
  void _terminal_debug_init(void);
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index fa967c5e1593..41d30b0350a4 100644
+index ced2cdfe8a30..36a9afa3ded9 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
-@@ -1717,6 +1717,8 @@ terminal_screen_focus_in (GtkWidget     *widget,
+@@ -1685,6 +1685,8 @@ terminal_screen_focus_in (GtkWidget     *widget,
    TerminalApp *app;
    TerminalWindow *window;
  
@@ -825,7 +825,7 @@ index fa967c5e1593..41d30b0350a4 100644
    window = terminal_screen_get_window (screen);
    if (window != NULL)
      {
-@@ -1855,6 +1857,8 @@ terminal_screen_notification_received (VteTerminal *terminal,
+@@ -1819,6 +1821,8 @@ terminal_screen_notification_received (VteTerminal *terminal,
    TerminalScreenPrivate *priv = screen->priv;
    TerminalWindow *window;
  
@@ -834,7 +834,7 @@ index fa967c5e1593..41d30b0350a4 100644
    if (G_UNLIKELY (!priv->shell_prompt_shown))
      {
        priv->shell_prompt_shown = TRUE;
-@@ -1886,6 +1890,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
+@@ -1850,6 +1854,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
            tab_label = gtk_notebook_get_tab_label (GTK_NOTEBOOK (mdi_container), GTK_WIDGET (screen_container));
            terminal_tab_label_set_bold (TERMINAL_TAB_LABEL (tab_label), TRUE);
            terminal_tab_label_set_icon (TERMINAL_TAB_LABEL (tab_label), "dialog-information-symbolic", summary);
@@ -842,7 +842,7 @@ index fa967c5e1593..41d30b0350a4 100644
          }
      }
    else
-@@ -1901,6 +1906,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
+@@ -1865,6 +1870,7 @@ terminal_screen_notification_received (VteTerminal *terminal,
  
        app = terminal_app_get ();
        g_application_send_notification (G_APPLICATION (app), priv->uuid, notification);
@@ -851,13 +851,13 @@ index fa967c5e1593..41d30b0350a4 100644
  }
  
 -- 
-2.14.3
+2.14.4
 
 
-From cbccd30b5e871b4f012af78b70ca0b141506101c Mon Sep 17 00:00:00 2001
+From 7a0880dee94dc8b971b4e3213a77898a6b08c7a8 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Wed, 28 Mar 2018 18:50:16 +0200
-Subject: [PATCH 07/16] Restore separate menuitems for opening tabs and windows
+Subject: [PATCH 07/15] Restore separate menuitems for opening tabs and windows
 
 Without the separate menuitems, it was not possible to open new tabs or
 windows solely by using the mouse if the preference was set to windows
@@ -875,7 +875,7 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1300826
  1 file changed, 1 insertion(+)
 
 diff --git a/src/Makefile.am b/src/Makefile.am
-index 815333154958..3645c5548d25 100644
+index 29e6c4def910..41cdd37ffe0e 100644
 --- a/src/Makefile.am
 +++ b/src/Makefile.am
 @@ -94,6 +94,7 @@ gnome_terminal_server_SOURCES = \
@@ -884,16 +884,16 @@ index 815333154958..3645c5548d25 100644
  gnome_terminal_server_CPPFLAGS = \
 +	-DDISUNIFY_NEW_TERMINAL_SECTION \
  	-DTERMINAL_COMPILATION \
+ 	-DVTE_DISABLE_DEPRECATION_WARNINGS \
  	-DTERM_LOCALEDIR="\"$(datadir)/locale\"" \
- 	-DTERM_LIBEXECDIR="\"$(libexecdir)\"" \
 -- 
-2.14.3
+2.14.4
 
 
-From f85b35457d680b2c7d50470a69f461d9bbe33425 Mon Sep 17 00:00:00 2001
+From c2a94148332b9eefb05072b140f57b53695f6f5b Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 10 Apr 2018 15:39:35 +0200
-Subject: [PATCH 08/16] profile: Split the Command tab into two nested GtkGrids
+Subject: [PATCH 08/15] profile: Split the Command tab into two nested GtkGrids
 
 This will let the subsequent patch add a "Command" sub-heading to keep
 the command settings separate from the to-be-restored title settings.
@@ -1094,13 +1094,13 @@ index f5c366f14e10..edd924689d35 100644
                            </object>
                            <packing>
 -- 
-2.14.3
+2.14.4
 
 
-From b1c245c19e2c28f1a3a91f212047acfe9e0f6ff7 Mon Sep 17 00:00:00 2001
+From 4522473122a8de38ecfc81d17f038a6dcf20e274 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 10 Apr 2018 16:01:51 +0200
-Subject: [PATCH 09/16] Revert "profile: Remove the "Command" sub-heading"
+Subject: [PATCH 09/15] Revert "profile: Remove the "Command" sub-heading"
 
 This reverts commit 8e27479299d075df0a52d0e8e7baeab344dcaa6c.
 
@@ -1318,13 +1318,13 @@ index edd924689d35..11a283064996 100644
                            </object>
                            <packing>
 -- 
-2.14.3
+2.14.4
 
 
-From 04de9c589603437e09d19079d621295a954dc5c8 Mon Sep 17 00:00:00 2001
+From dfce55c251c412116074ef4b97d13d09e302f49f Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 16:02:13 +0200
-Subject: [PATCH 10/16] Revert "screen: Remove unused description and
+Subject: [PATCH 10/15] Revert "screen: Remove unused description and
  user_title API"
 
 This reverts commit 3bb41272b7509a16ec2a5cd93e44f73d5743b626.
@@ -1332,11 +1332,11 @@ This reverts commit 3bb41272b7509a16ec2a5cd93e44f73d5743b626.
 https://bugzilla.redhat.com/show_bug.cgi?id=1296110
 ---
  src/terminal-screen.c | 63 +++++++++++++++++++++++++++++++++++++++++++++++++++
- src/terminal-screen.h |  6 +++++
- 2 files changed, 69 insertions(+)
+ src/terminal-screen.h |  5 ++++
+ 2 files changed, 68 insertions(+)
 
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 41d30b0350a4..4b972922c783 100644
+index 36a9afa3ded9..8e6f2e935ba4 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
 @@ -88,6 +88,7 @@ struct _TerminalScreenPrivate
@@ -1347,15 +1347,15 @@ index 41d30b0350a4..4b972922c783 100644
    char *initial_working_directory;
    char **initial_env;
    char **override_command;
-@@ -113,6 +114,7 @@ enum {
-   PROP_ICON_TITLE,
-   PROP_ICON_TITLE_SET,
+@@ -111,6 +112,7 @@ enum {
+   PROP_0,
+   PROP_PROFILE,
    PROP_TITLE,
 +  PROP_DESCRIPTION,
    PROP_INITIAL_ENVIRONMENT
  };
  
-@@ -448,6 +450,9 @@ terminal_screen_get_property (GObject *object,
+@@ -435,6 +437,9 @@ terminal_screen_get_property (GObject *object,
        case PROP_TITLE:
          g_value_set_string (value, terminal_screen_get_title (screen));
          break;
@@ -1365,15 +1365,15 @@ index 41d30b0350a4..4b972922c783 100644
        default:
          G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
          break;
-@@ -473,6 +478,7 @@ terminal_screen_set_property (GObject *object,
-       case PROP_ICON_TITLE:
-       case PROP_ICON_TITLE_SET:
+@@ -458,6 +463,7 @@ terminal_screen_set_property (GObject *object,
+         terminal_screen_set_initial_environment (screen, g_value_get_boxed (value));
+         break;
        case PROP_TITLE:
 +      case PROP_DESCRIPTION:
          /* not writable */
        default:
          G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-@@ -574,6 +580,13 @@ terminal_screen_class_init (TerminalScreenClass *klass)
+@@ -545,6 +551,13 @@ terminal_screen_class_init (TerminalScreenClass *klass)
                            NULL,
                            G_PARAM_READABLE | G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB));
  
@@ -1387,7 +1387,7 @@ index 41d30b0350a4..4b972922c783 100644
    g_object_class_install_property
      (object_class,
       PROP_INITIAL_ENVIRONMENT,
-@@ -649,6 +662,7 @@ terminal_screen_finalize (GObject *object)
+@@ -630,6 +643,7 @@ terminal_screen_finalize (GObject *object)
  
    terminal_screen_set_profile (screen, NULL);
  
@@ -1395,8 +1395,8 @@ index 41d30b0350a4..4b972922c783 100644
    g_free (priv->initial_working_directory);
    g_strfreev (priv->override_command);
    g_strfreev (priv->initial_env);
-@@ -790,6 +804,21 @@ terminal_screen_get_icon_title_set (TerminalScreen *screen)
-   return vte_terminal_get_icon_title (VTE_TERMINAL (screen)) != NULL;
+@@ -758,6 +772,21 @@ terminal_screen_get_title (TerminalScreen *screen)
+   return vte_terminal_get_window_title (VTE_TERMINAL (screen));
  }
  
 +char *
@@ -1417,7 +1417,7 @@ index 41d30b0350a4..4b972922c783 100644
  static void
  terminal_screen_profile_changed_cb (GSettings     *profile,
                                      const char    *prop_name,
-@@ -1107,6 +1136,7 @@ terminal_screen_set_profile (TerminalScreen *screen,
+@@ -1075,6 +1104,7 @@ terminal_screen_set_profile (TerminalScreen *screen,
      g_object_unref (old_profile);
  
    g_object_notify (G_OBJECT (screen), "profile");
@@ -1425,7 +1425,7 @@ index 41d30b0350a4..4b972922c783 100644
  }
  
  GSettings*
-@@ -1437,6 +1467,8 @@ spawn_result_cb (VteTerminal *terminal,
+@@ -1405,6 +1435,8 @@ spawn_result_cb (VteTerminal *terminal,
  
    priv->child_pid = pid;
  
@@ -1434,7 +1434,7 @@ index 41d30b0350a4..4b972922c783 100644
    if (error) {
      GtkWidget *info_bar;
  
-@@ -1748,6 +1780,35 @@ terminal_screen_focus_in (GtkWidget     *widget,
+@@ -1716,6 +1748,35 @@ terminal_screen_focus_in (GtkWidget     *widget,
    return GTK_WIDGET_CLASS (terminal_screen_parent_class)->focus_in_event (widget, event);
  }
  
@@ -1470,7 +1470,7 @@ index 41d30b0350a4..4b972922c783 100644
  /**
   * terminal_screen_get_current_dir:
   * @screen:
-@@ -1805,6 +1866,8 @@ terminal_screen_child_exited (VteTerminal *terminal,
+@@ -1769,6 +1830,8 @@ terminal_screen_child_exited (VteTerminal *terminal,
  
    priv->child_pid = -1;
    
@@ -1480,70 +1480,45 @@ index 41d30b0350a4..4b972922c783 100644
    
    switch (action)
 diff --git a/src/terminal-screen.h b/src/terminal-screen.h
-index 743071d5e38f..63f9c47e115a 100644
+index ff77fcf78947..af9583e7cbaf 100644
 --- a/src/terminal-screen.h
 +++ b/src/terminal-screen.h
-@@ -103,9 +103,15 @@ void         terminal_screen_set_initial_environment (TerminalScreen  *screen,
+@@ -103,7 +103,12 @@ void         terminal_screen_set_initial_environment (TerminalScreen  *screen,
                                                        char           **argv);
  char **      terminal_screen_get_initial_environment (TerminalScreen  *screen);
  
 +const char *terminal_screen_get_user_title     (TerminalScreen *screen);
  const char* terminal_screen_get_title          (TerminalScreen *screen);
- const char* terminal_screen_get_icon_title     (TerminalScreen *screen);
- gboolean    terminal_screen_get_icon_title_set (TerminalScreen *screen);
 +char *      terminal_screen_get_description    (TerminalScreen *screen);
 +
 +void terminal_screen_set_user_title (TerminalScreen *screen,
 +                                     const char *text);
-+
  
  char *terminal_screen_get_current_dir (TerminalScreen *screen);
  
 -- 
-2.14.3
+2.14.4
 
 
-From 946b733a351cb2010452ae04110010968e494e18 Mon Sep 17 00:00:00 2001
+From c976cb2fa1d49d73b89035f708323ee303c35d44 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 17:39:48 +0200
-Subject: [PATCH 11/16] Revert "Remove the static title setting from profile
+Subject: [PATCH 11/15] Revert "Remove the static title setting from profile
  preferences"
 
 This reverts commit e9cb8fea14a849704074c5d69f173bcf4dc2fb27.
 
 https://bugzilla.redhat.com/show_bug.cgi?id=1296110
 ---
- src/migration.c                    |  3 ++
  src/org.gnome.Terminal.gschema.xml |  5 +++
  src/preferences.ui                 | 71 ++++++++++++++++++++++++++++++++++++++
  src/profile-editor.c               |  5 +++
  src/terminal-schemas.h             |  1 +
  src/terminal-screen.c              |  9 +++++
- 6 files changed, 94 insertions(+)
+ 5 files changed, 91 insertions(+)
 
-diff --git a/src/migration.c b/src/migration.c
-index e3ae04b11506..88eadafe1e09 100644
---- a/src/migration.c
-+++ b/src/migration.c
-@@ -89,6 +89,7 @@ enum {
- #define KEY_SCROLL_ON_KEYSTROKE "scroll_on_keystroke"
- #define KEY_SCROLL_ON_OUTPUT "scroll_on_output"
- #define KEY_SILENT_BELL "silent_bell"
-+#define KEY_TITLE "title"
- #define KEY_USE_CUSTOM_COMMAND "use_custom_command"
- #define KEY_USE_SYSTEM_FONT "use_system_font"
- #define KEY_USE_THEME_COLORS "use_theme_colors"
-@@ -411,6 +412,8 @@ migrate_profile (TerminalSettingsList *list,
-   migrate_bool (client, path, KEY_BOLD_COLOR_SAME_AS_FG,
-                 settings, TERMINAL_PROFILE_BOLD_COLOR_SAME_AS_FG_KEY,
-                 FALSE);
-+  migrate_string (client, path, KEY_TITLE,
-+                  settings, TERMINAL_PROFILE_TITLE_KEY);
-   migrate_bool (client, path, KEY_ALLOW_BOLD,
-                 settings, TERMINAL_PROFILE_ALLOW_BOLD_KEY,
-                 FALSE);
 diff --git a/src/org.gnome.Terminal.gschema.xml b/src/org.gnome.Terminal.gschema.xml
-index b828471bd71d..ff54ebb2544f 100644
+index 736e329cd301..465f98efb4c4 100644
 --- a/src/org.gnome.Terminal.gschema.xml
 +++ b/src/org.gnome.Terminal.gschema.xml
 @@ -183,6 +183,11 @@
@@ -1641,10 +1616,10 @@ index 11a283064996..baa65c705b32 100644
                                <object class="GtkGrid">
                                  <property name="visible">True</property>
 diff --git a/src/profile-editor.c b/src/profile-editor.c
-index 8c25c6372901..5a1866d35884 100644
+index e03e35fc1bea..28c536fc4a5a 100644
 --- a/src/profile-editor.c
 +++ b/src/profile-editor.c
-@@ -1272,6 +1272,11 @@ profile_prefs_load (const char *uuid, GSettings *profile)
+@@ -1201,6 +1201,11 @@ profile_prefs_load (const char *uuid, GSettings *profile)
                                 "active",
                                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET |
                                 G_SETTINGS_BIND_INVERT_BOOLEAN);
@@ -1669,10 +1644,10 @@ index 8e79bb2e49f5..b9c6990e356c 100644
  #define TERMINAL_PROFILE_USE_SKEY_KEY                   "use-skey"
  #define TERMINAL_PROFILE_USE_SYSTEM_FONT_KEY            "use-system-font"
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 4b972922c783..0e4c23fa8e8c 100644
+index 8e6f2e935ba4..bf3618cb41b0 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
-@@ -808,11 +808,14 @@ char *
+@@ -776,11 +776,14 @@ char *
  terminal_screen_get_description (TerminalScreen *screen)
  {
    TerminalScreenPrivate *priv = screen->priv;
@@ -1687,7 +1662,7 @@ index 4b972922c783..0e4c23fa8e8c 100644
  
    return g_strdup_printf ("%s — %d",
                            title && title[0] ? title : _("Terminal"),
-@@ -857,6 +860,12 @@ terminal_screen_profile_changed_cb (GSettings     *profile,
+@@ -825,6 +828,12 @@ terminal_screen_profile_changed_cb (GSettings     *profile,
        vte_terminal_set_cjk_ambiguous_width (vte_terminal, (int) width);
      }
  
@@ -1701,13 +1676,13 @@ index 4b972922c783..0e4c23fa8e8c 100644
        (!prop_name ||
         prop_name == I_(TERMINAL_PROFILE_USE_SYSTEM_FONT_KEY) ||
 -- 
-2.14.3
+2.14.4
 
 
-From b58560467b9022905b56d58b3ff60cf3154a7a81 Mon Sep 17 00:00:00 2001
+From dd11eb885ef1dcc5e41023ac9d270623493ecc7e Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 17 Feb 2015 17:06:17 +0100
-Subject: [PATCH 12/16] Restore translations for setting a title and
+Subject: [PATCH 12/15] Restore translations for setting a title and
  transparency
 
 ---
@@ -1724,7 +1699,7 @@ Subject: [PATCH 12/16] Restore translations for setting a title and
  po/bn_IN.po       | 11 +++++++----
  po/br.po          |  6 +++---
  po/bs.po          | 10 ++++++++++
- po/ca.po          | 13 +++++++++++++
+ po/ca.po          | 12 ++++++++++++
  po/ca@valencia.po | 12 ++++++++++++
  po/cs.po          | 12 ++++++++++++
  po/cy.po          |  8 ++++----
@@ -1803,7 +1778,7 @@ Subject: [PATCH 12/16] Restore translations for setting a title and
  po/zh_CN.po       | 15 +++++++++------
  po/zh_HK.po       | 15 +++++++++------
  po/zh_TW.po       | 15 +++++++++------
- 92 files changed, 708 insertions(+), 371 deletions(-)
+ 92 files changed, 707 insertions(+), 371 deletions(-)
 
 diff --git a/po/am.po b/po/am.po
 index 3445d96da657..ee992f0712a5 100644
@@ -1869,10 +1844,10 @@ index fcec2668aa11..9e07cb682c57 100644
  #~ msgid "Keyboard Shortcuts"
  #~ msgstr "Alcorces de teclau"
 diff --git a/po/ar.po b/po/ar.po
-index 076043f99937..ab4042814dd7 100644
+index 6f5e80cc2a66..53e15b97f312 100644
 --- a/po/ar.po
 +++ b/po/ar.po
-@@ -2558,11 +2558,11 @@ msgstr "أغ_لق النافذة"
+@@ -2553,11 +2553,11 @@ msgstr "أغ_لق النافذة"
  #~ msgid "Default size:"
  #~ msgstr "الحجم المبدئي:"
  
@@ -1888,7 +1863,7 @@ index 076043f99937..ab4042814dd7 100644
  
  #~ msgid "Title and Command"
  #~ msgstr "العنوان والأمر"
-@@ -2570,8 +2570,8 @@ msgstr "أغ_لق النافذة"
+@@ -2565,8 +2565,8 @@ msgstr "أغ_لق النافذة"
  #~ msgid "_Unlimited"
  #~ msgstr "_غير محدود"
  
@@ -1899,7 +1874,7 @@ index 076043f99937..ab4042814dd7 100644
  
  #~ msgid "Current Locale"
  #~ msgstr "المحليّة الحالية"
-@@ -3314,8 +3314,8 @@ msgstr "أغ_لق النافذة"
+@@ -3309,8 +3309,8 @@ msgstr "أغ_لق النافذة"
  #~ msgid "Background image _scrolls"
  #~ msgstr "صورة الخلفية ت_لتف"
  
@@ -2160,13 +2135,13 @@ index 49e710859ac9..8703552984b1 100644
 +msgid "Set Title"
 +msgstr "Postavi naslov"
 diff --git a/po/ca.po b/po/ca.po
-index fdd3a5ae5982..94f69c2cde31 100644
+index 4a612fcfc0ba..6091324a9547 100644
 --- a/po/ca.po
 +++ b/po/ca.po
-@@ -2333,3 +2333,16 @@ msgstr ""
- #: ../src/terminal-window.c:3353
- msgid "C_lose Window"
- msgstr "Tanca la _finestra"
+@@ -2333,3 +2333,15 @@ msgstr "Tanca la _finestra"
+ 
+ #~ msgid "Open the terminal file manager Midnight Commander"
+ #~ msgstr "Obre el gestor de fitxers del terminal Midnight Commander"
 +
 +msgid "Transparent background"
 +msgstr "Fons transparent"
@@ -2179,7 +2154,6 @@ index fdd3a5ae5982..94f69c2cde31 100644
 +
 +msgid "Set Title"
 +msgstr "Estableix el títol"
-+
 diff --git a/po/ca@valencia.po b/po/ca@valencia.po
 index a6e8fb4250dc..c9ed8508228d 100644
 --- a/po/ca@valencia.po
@@ -2266,11 +2240,11 @@ index 65cfb20d9ad3..8c5c97c7465a 100644
 +msgid "Transparent background"
 +msgstr "Gennemsigtig baggrund"
 diff --git a/po/de.po b/po/de.po
-index 79f42cfe7f4c..8d0bfcd53fe2 100644
+index 205f69111437..61b0214daf5b 100644
 --- a/po/de.po
 +++ b/po/de.po
-@@ -2380,3 +2380,15 @@ msgstr ""
- #: ../src/terminal-window.c:3354
+@@ -2342,3 +2342,15 @@ msgstr ""
+ #: ../src/terminal-window.c:3210
  msgid "C_lose Window"
  msgstr "Fenster _schließen"
 +
@@ -2312,10 +2286,10 @@ index d97e6102b850..a768fe4adc54 100644
  #: ../src/profile-preferences.glade.h:78
  #, fuzzy
 diff --git a/po/el.po b/po/el.po
-index d4d2e487df32..eebd8e602b17 100644
+index a68154bd6532..beadf98e1390 100644
 --- a/po/el.po
 +++ b/po/el.po
-@@ -2484,17 +2484,17 @@ msgstr "Κ_λείσιμο παραθύρου"
+@@ -2743,17 +2743,17 @@ msgstr "Κ_λείσιμο παραθύρου"
  #~ msgid "Default size:"
  #~ msgstr "Προεπιλεγμένο μέγεθος:"
  
@@ -2339,7 +2313,7 @@ index d4d2e487df32..eebd8e602b17 100644
  
  #~ msgid "Current Locale"
  #~ msgstr "Τρέχουσα τοπική ρύθμιση"
-@@ -2559,3 +2559,6 @@ msgstr "Κ_λείσιμο παραθύρου"
+@@ -2791,3 +2791,6 @@ msgstr "Κ_λείσιμο παραθύρου"
  
  #~ msgid "_Input Methods"
  #~ msgstr "_Μέθοδοι εισαγωγής"
@@ -3452,10 +3426,10 @@ index 4fe16cc88a9a..53fb89134be0 100644
  #~ msgid ""
  #~ "text/plain dropped on terminal had wrong format (%d) or length (%d)\n"
 diff --git a/po/nl.po b/po/nl.po
-index d411dad7fa8d..710211ccb6fd 100644
+index 5f070152cade..560e472f0917 100644
 --- a/po/nl.po
 +++ b/po/nl.po
-@@ -2594,3 +2594,15 @@ msgstr "Venster sl_uiten"
+@@ -2596,3 +2596,15 @@ msgstr "Venster sl_uiten"
  
  #~ msgid "_Add or Remove…"
  #~ msgstr "_Toevoegen of verwijderen…"
@@ -3498,10 +3472,10 @@ index 5aa43b113ed9..f892290c256f 100644
  #: ../src/profile-preferences.glade.h:74
  msgid "_Update login records when command is launched"
 diff --git a/po/oc.po b/po/oc.po
-index b1befba5b372..56d697a6828d 100644
+index 9a6f6186019a..6e51ea2f8980 100644
 --- a/po/oc.po
 +++ b/po/oc.po
-@@ -2549,8 +2549,8 @@ msgstr "Tampar _la fenèstra"
+@@ -2944,8 +2944,8 @@ msgstr "Tampar _la fenèstra"
  #~ msgid "Save as..."
  #~ msgstr "Enregistrar jos..."
  
@@ -3510,9 +3484,9 @@ index b1befba5b372..56d697a6828d 100644
 +msgid "_Title:"
 +msgstr "_Títol :"
  
- #~ msgid "Move Tab _Right"
- #~ msgstr "Desplaçar l'onglet cap a _dreita"
-@@ -3019,8 +3019,8 @@ msgstr "Tampar _la fenèstra"
+ #~ msgid "_Detach tab"
+ #~ msgstr "Des_tacar l'onglet"
+@@ -3405,8 +3405,8 @@ msgstr "Tampar _la fenèstra"
  #~ msgid "_Use the system fixed width font"
  #~ msgstr "_Utilizar la poliça de chassa fixa del sistèma"
  
@@ -3521,9 +3495,9 @@ index b1befba5b372..56d697a6828d 100644
 +msgid "Set Title"
 +msgstr "Definir lo títol"
  
- #~ msgid "Switch to Previous Tab"
- #~ msgstr "Onglet precedent"
-@@ -3352,8 +3352,8 @@ msgstr "Tampar _la fenèstra"
+ #~ msgid "The shortcut key “%s” is already bound to the “%s” action"
+ #~ msgstr "L'acorchi de clavièr « %s » es ja atribuit a l'accion « %s »"
+@@ -3723,8 +3723,8 @@ msgstr "Tampar _la fenèstra"
  #~ msgid "Run;"
  #~ msgstr "Executar;Consòla;Shell;"
  
@@ -3550,10 +3524,10 @@ index ec1e6bfb9a28..218acd712df6 100644
  #~ msgid "S_hade transparent or image background:"
  #~ msgstr "ଛାୟା ସ୍ବଚ୍ଛ କିମ୍ବା ଚିତ୍ର ପୃଷ୍ଠଭୂମି (_h):"
 diff --git a/po/pa.po b/po/pa.po
-index f1abdb6306f6..3ceb7aa4df44 100644
+index 1cb4b46dc2aa..2bdd01fecaab 100644
 --- a/po/pa.po
 +++ b/po/pa.po
-@@ -2449,10 +2449,9 @@ msgstr "ਵਿੰਡੋ ਬੰਦ ਕਰੋ(_l)"
+@@ -2718,10 +2718,9 @@ msgstr "ਵਿੰਡੋ ਬੰਦ ਕਰੋ(_l)"
  #~ msgid "GNOME Terminal Client"
  #~ msgstr "ਗਨੋਮ ਟਰਮੀਨਲ ਕਲਾਇਟ"
  
@@ -3567,7 +3541,7 @@ index f1abdb6306f6..3ceb7aa4df44 100644
  
  #~ msgid "Title for terminal"
  #~ msgstr "ਟਰਮੀਨਲ ਲਈ ਟਾਈਟਲ"
-@@ -2497,11 +2496,11 @@ msgstr "ਵਿੰਡੋ ਬੰਦ ਕਰੋ(_l)"
+@@ -2766,11 +2765,11 @@ msgstr "ਵਿੰਡੋ ਬੰਦ ਕਰੋ(_l)"
  #~ msgid "Default size:"
  #~ msgstr "ਡਿਫਾਲਟ ਸਾਈਜ਼:"
  
@@ -3583,7 +3557,7 @@ index f1abdb6306f6..3ceb7aa4df44 100644
  
  #~ msgid "Title and Command"
  #~ msgstr "ਟਾਈਟਲ ਅਤੇ ਕਮਾਂਡ"
-@@ -2509,8 +2508,8 @@ msgstr "ਵਿੰਡੋ ਬੰਦ ਕਰੋ(_l)"
+@@ -2778,8 +2777,8 @@ msgstr "ਵਿੰਡੋ ਬੰਦ ਕਰੋ(_l)"
  #~ msgid "_Unlimited"
  #~ msgstr "ਬੇਅੰਤ(_U)"
  
@@ -3594,7 +3568,7 @@ index f1abdb6306f6..3ceb7aa4df44 100644
  
  #~ msgid "Current Locale"
  #~ msgstr "ਮੌਜੂਦ ਲੋਕੇਲ"
-@@ -3326,8 +3325,8 @@ msgstr "ਵਿੰਡੋ ਬੰਦ ਕਰੋ(_l)"
+@@ -3559,8 +3558,8 @@ msgstr "ਵਿੰਡੋ ਬੰਦ ਕਰੋ(_l)"
  #~ msgid "_Solid color"
  #~ msgstr "ਇੱਕ ਰੰਗ ਵਰਤੋਂ(_S)"
  
@@ -3709,7 +3683,7 @@ index c40dba26b08a..9be7eec414e9 100644
 +msgid "Transparent background"
 +msgstr "Fundo transparente"
 diff --git a/po/ro.po b/po/ro.po
-index acd25ab33eca..5bd7303eb50c 100644
+index 53dd72be9c45..d694adf36934 100644
 --- a/po/ro.po
 +++ b/po/ro.po
 @@ -3412,8 +3412,8 @@ msgstr "Î_nchide fereastra"
@@ -3815,10 +3789,10 @@ index d0282159b459..01dd96a06939 100644
 +msgid "Set Title"
 +msgstr "Nastaviť titulok"
 diff --git a/po/sl.po b/po/sl.po
-index 2302966b5585..ea8d20160cd0 100644
+index db9cb98834fe..261abe9c1e64 100644
 --- a/po/sl.po
 +++ b/po/sl.po
-@@ -2428,17 +2428,17 @@ msgstr "_Zapri okno"
+@@ -2663,17 +2663,17 @@ msgstr "_Zapri okno"
  #~ msgid "Default size:"
  #~ msgstr "Privzeta velikost:"
  
@@ -3842,7 +3816,7 @@ index 2302966b5585..ea8d20160cd0 100644
  
  #~ msgid "Current Locale"
  #~ msgstr "Trenutne jezikovne nastavitve"
-@@ -2589,3 +2589,6 @@ msgstr "_Zapri okno"
+@@ -2788,3 +2788,6 @@ msgstr "_Zapri okno"
  
  #~ msgid "_Profile Preferences…"
  #~ msgstr "Možnosti _profila ..."
@@ -4419,10 +4393,10 @@ index 44a8e21c7842..12aa6d190d99 100644
  #: ../src/terminal-window.c:986
  msgid "Set _Character Encoding"
 diff --git a/po/zh_CN.po b/po/zh_CN.po
-index b64071ce4bae..3f4aefe744fd 100644
+index 6c80dcd1231a..51e5f9999176 100644
 --- a/po/zh_CN.po
 +++ b/po/zh_CN.po
-@@ -2356,17 +2356,17 @@ msgstr "关闭窗口(_L)"
+@@ -2580,17 +2580,17 @@ msgstr "关闭窗口(_L)"
  #~ msgid "Default size:"
  #~ msgstr "默认大小："
  
@@ -4446,7 +4420,7 @@ index b64071ce4bae..3f4aefe744fd 100644
  
  #~ msgid "Current Locale"
  #~ msgstr "当前区域"
-@@ -2512,3 +2512,6 @@ msgstr "关闭窗口(_L)"
+@@ -2703,3 +2703,6 @@ msgstr "关闭窗口(_L)"
  
  #~ msgid "_Find..."
  #~ msgstr "查找(_F)..."
@@ -4489,10 +4463,10 @@ index 61153529f0c7..c366abddd1af 100644
 +msgid "Transparent background"
 +msgstr "透明背景"
 diff --git a/po/zh_TW.po b/po/zh_TW.po
-index 169c0bd009f9..2a3448af26ef 100644
+index b9890ad91bdc..18e55e2e945c 100644
 --- a/po/zh_TW.po
 +++ b/po/zh_TW.po
-@@ -2570,17 +2570,17 @@ msgstr "關閉視窗(_L)"
+@@ -2562,17 +2562,17 @@ msgstr "關閉視窗(_L)"
  #~ msgid "Default size:"
  #~ msgstr "預設大小："
  
@@ -4516,7 +4490,7 @@ index 169c0bd009f9..2a3448af26ef 100644
  
  #~ msgid "Current Locale"
  #~ msgstr "目前的地區設定"
-@@ -2792,3 +2792,6 @@ msgstr "關閉視窗(_L)"
+@@ -2784,3 +2784,6 @@ msgstr "關閉視窗(_L)"
  
  #~ msgid "Show session management options"
  #~ msgstr "顯示作業階段管理選項"
@@ -4524,45 +4498,13 @@ index 169c0bd009f9..2a3448af26ef 100644
 +msgid "Transparent background"
 +msgstr "透明背景"
 -- 
-2.14.3
+2.14.4
 
 
-From 09085f916e0984d7e4cf7d3da0e8ed5a799f963d Mon Sep 17 00:00:00 2001
-From: Debarshi Ray <debarshir@gnome.org>
-Date: Fri, 6 Apr 2018 14:40:29 +0200
-Subject: [PATCH 13/16] notebook-menu: Add placeholder item for win.set-title
-
-... to match the one in the main menubar.
-
-https://bugzilla.gnome.org/show_bug.cgi?id=795027
----
- src/terminal-notebook-menu.ui | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/src/terminal-notebook-menu.ui b/src/terminal-notebook-menu.ui
-index 8854a7b35e44..d5c7f41e7561 100644
---- a/src/terminal-notebook-menu.ui
-+++ b/src/terminal-notebook-menu.ui
-@@ -32,6 +32,11 @@
-         <attribute name="label" translatable="yes">_Detach Terminal</attribute>
-         <attribute name="action">win.tab-detach</attribute>
-       </item>
-+      <item>
-+        <attribute name="label" translatable="yes">Set _Title…</attribute>
-+        <attribute name="action">win.set-title</attribute>
-+        <attribute name="hidden-when">action-missing</attribute>
-+      </item>
-     </section>
-     <section>
-       <item>
--- 
-2.14.3
-
-
-From fc1fd71fc9e06e4d1b68ff76803d622b1275c5da Mon Sep 17 00:00:00 2001
+From ea09c5bf80849aa4364f11ec6a8e2d574fd72b4b Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Wed, 25 May 2016 13:47:36 +0200
-Subject: [PATCH 14/16] Restore the action and shortcut to set a static title
+Subject: [PATCH 13/15] Restore the action and shortcut to set a static title
  from the menus
 
 This reverts 9bbe19e98f62aa3c9020913a3a5a8080a5177505 with various
@@ -4570,26 +4512,13 @@ minor adjustments to keep up with later changes.
 
 https://bugzilla.redhat.com/show_bug.cgi?id=1296110
 ---
- src/migration.c                    |  1 +
  src/org.gnome.Terminal.gschema.xml |  4 ++
  src/terminal-accels.c              |  2 +
  src/terminal-window.c              | 75 ++++++++++++++++++++++++++++++++++++++
- 4 files changed, 82 insertions(+)
+ 3 files changed, 81 insertions(+)
 
-diff --git a/src/migration.c b/src/migration.c
-index 88eadafe1e09..46398614f3f3 100644
---- a/src/migration.c
-+++ b/src/migration.c
-@@ -551,6 +551,7 @@ migrate_accels (GSettings *global_settings,
-     { "zoom_in",          "zoom-in"            },
-     { "zoom_out",         "zoom-out"           },
-     { "zoom_normal",      "zoom-normal"        },
-+    { "set_window_title", "set-terminal-title" },
-     { "reset",            "reset"              },
-     { "reset_and_clear",  "reset-and-clear"    },
-     { "prev_tab",         "prev-tab"           },
 diff --git a/src/org.gnome.Terminal.gschema.xml b/src/org.gnome.Terminal.gschema.xml
-index ff54ebb2544f..147d36017c1f 100644
+index 465f98efb4c4..d2ecf67a40fc 100644
 --- a/src/org.gnome.Terminal.gschema.xml
 +++ b/src/org.gnome.Terminal.gschema.xml
 @@ -480,6 +480,10 @@
@@ -4604,7 +4533,7 @@ index ff54ebb2544f..147d36017c1f 100644
        <default>'disabled'</default>
        <summary>Keyboard shortcut to reset the terminal</summary>
 diff --git a/src/terminal-accels.c b/src/terminal-accels.c
-index bbe3268bc9a4..3162108071bf 100644
+index a7d9527c401f..2d5c3ef7c81a 100644
 --- a/src/terminal-accels.c
 +++ b/src/terminal-accels.c
 @@ -75,6 +75,7 @@
@@ -4624,10 +4553,10 @@ index bbe3268bc9a4..3162108071bf 100644
  
  static KeyEntry tabs_entries[] = {
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index 662475af107e..05a812544bb2 100644
+index ae605431f485..2ab6654687b8 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
-@@ -747,6 +747,80 @@ action_select_all_cb (GSimpleAction *action,
+@@ -739,6 +739,80 @@ action_select_all_cb (GSimpleAction *action,
    vte_terminal_select_all (VTE_TERMINAL (priv->active_screen));
  }
  
@@ -4708,7 +4637,7 @@ index 662475af107e..05a812544bb2 100644
  static void
  action_reset_cb (GSimpleAction *action,
                   GVariant *parameter,
-@@ -2092,6 +2166,7 @@ terminal_window_init (TerminalWindow *window)
+@@ -2080,6 +2154,7 @@ terminal_window_init (TerminalWindow *window)
      { "paste-uris",          action_paste_uris_cb,       NULL,   NULL, NULL },
      { "reset",               action_reset_cb,            "b",    NULL, NULL },
      { "select-all",          action_select_all_cb,       NULL,   NULL, NULL },
@@ -4717,13 +4646,13 @@ index 662475af107e..05a812544bb2 100644
      { "tab-detach",          action_tab_detach_cb,       NULL,   NULL, NULL },
      { "tab-move-left",       action_tab_move_left_cb,    NULL,   NULL, NULL },
 -- 
-2.14.3
+2.14.4
 
 
-From 97bb6a9bacb3496f669bb0f876c629015f1fc211 Mon Sep 17 00:00:00 2001
+From 2f09289633d568f70b62247cb9126393267fcdcf Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 18:14:36 +0200
-Subject: [PATCH 15/16] screen: Style fix
+Subject: [PATCH 14/15] screen: Style fix
 
 This brings the code in line with how it was before
 de0dc7c2649c42e2aa02a66e4be27d262b34452d
@@ -4734,10 +4663,10 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1296110
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index 0e4c23fa8e8c..cdf1a2baecfc 100644
+index bf3618cb41b0..6caa002ddece 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
-@@ -713,7 +713,7 @@ terminal_screen_new (GSettings       *profile,
+@@ -693,7 +693,7 @@ terminal_screen_new (GSettings       *profile,
    /* If given an initial title, strip it of control characters and
     * feed it to the terminal.
     */
@@ -4747,13 +4676,13 @@ index 0e4c23fa8e8c..cdf1a2baecfc 100644
      const char *p;
  
 -- 
-2.14.3
+2.14.4
 
 
-From 674fbfae9c998e242b344aa16c50388419a0078f Mon Sep 17 00:00:00 2001
+From 274abc98b4a41e8f4364326e1e012602aa447ac9 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 16:58:15 +0200
-Subject: [PATCH 16/16] Restore the rest of the title handling options and make
+Subject: [PATCH 15/15] Restore the rest of the title handling options and make
  it all work
 
 This reverts commit f27bf0135a2d18ba22158d28bf1f8c5f6ec066c8 and makes
@@ -4761,41 +4690,18 @@ it use the user_title API instead of sending an escape sequence.
 
 https://bugzilla.redhat.com/show_bug.cgi?id=1296110
 ---
- src/migration.c                    |   4 +
  src/org.gnome.Terminal.gschema.xml |  12 ++
- src/preferences.ui                 |  33 +++-
- src/profile-editor.c               |   9 +
- src/terminal-enums.h               |   8 +
+ src/preferences.ui                 |  33 ++++-
+ src/profile-editor.c               |   9 ++
+ src/terminal-enums.h               |   8 ++
  src/terminal-schemas.h             |   1 +
- src/terminal-screen.c              | 328 ++++++++++++++++++++++++++++---------
+ src/terminal-screen.c              | 261 +++++++++++++++++++++++++++----------
  src/terminal-screen.h              |   8 +-
  src/terminal-window.c              |  11 +-
- 9 files changed, 334 insertions(+), 80 deletions(-)
+ 8 files changed, 265 insertions(+), 78 deletions(-)
 
-diff --git a/src/migration.c b/src/migration.c
-index 46398614f3f3..710b2cdb7090 100644
---- a/src/migration.c
-+++ b/src/migration.c
-@@ -89,6 +89,7 @@ enum {
- #define KEY_SCROLL_ON_KEYSTROKE "scroll_on_keystroke"
- #define KEY_SCROLL_ON_OUTPUT "scroll_on_output"
- #define KEY_SILENT_BELL "silent_bell"
-+#define KEY_TITLE_MODE "title_mode"
- #define KEY_TITLE "title"
- #define KEY_USE_CUSTOM_COMMAND "use_custom_command"
- #define KEY_USE_SYSTEM_FONT "use_system_font"
-@@ -412,6 +413,9 @@ migrate_profile (TerminalSettingsList *list,
-   migrate_bool (client, path, KEY_BOLD_COLOR_SAME_AS_FG,
-                 settings, TERMINAL_PROFILE_BOLD_COLOR_SAME_AS_FG_KEY,
-                 FALSE);
-+  migrate_genum (client, path, KEY_TITLE_MODE,
-+                 settings, TERMINAL_PROFILE_TITLE_MODE_KEY,
-+                 TERMINAL_TYPE_TITLE_MODE);
-   migrate_string (client, path, KEY_TITLE,
-                   settings, TERMINAL_PROFILE_TITLE_KEY);
-   migrate_bool (client, path, KEY_ALLOW_BOLD,
 diff --git a/src/org.gnome.Terminal.gschema.xml b/src/org.gnome.Terminal.gschema.xml
-index 147d36017c1f..04be15324d3d 100644
+index d2ecf67a40fc..787f8ba905db 100644
 --- a/src/org.gnome.Terminal.gschema.xml
 +++ b/src/org.gnome.Terminal.gschema.xml
 @@ -24,6 +24,13 @@
@@ -4876,10 +4782,10 @@ index baa65c705b32..0dddd9bf32ba 100644
                                      </child>
                                    </object>
 diff --git a/src/profile-editor.c b/src/profile-editor.c
-index 5a1866d35884..0b8f2b6951a7 100644
+index 28c536fc4a5a..4f0b6bbeafd9 100644
 --- a/src/profile-editor.c
 +++ b/src/profile-editor.c
-@@ -1277,6 +1277,15 @@ profile_prefs_load (const char *uuid, GSettings *profile)
+@@ -1206,6 +1206,15 @@ profile_prefs_load (const char *uuid, GSettings *profile)
                                 gtk_builder_get_object (builder, "title-entry"),
                                 "text",
                                 G_SETTINGS_BIND_GET | G_SETTINGS_BIND_SET);
@@ -4927,18 +4833,17 @@ index b9c6990e356c..240213fead43 100644
  #define TERMINAL_PROFILE_USE_CUSTOM_COMMAND_KEY         "use-custom-command"
  #define TERMINAL_PROFILE_USE_SKEY_KEY                   "use-skey"
 diff --git a/src/terminal-screen.c b/src/terminal-screen.c
-index cdf1a2baecfc..faf906c763e7 100644
+index 6caa002ddece..c5f3656bf321 100644
 --- a/src/terminal-screen.c
 +++ b/src/terminal-screen.c
-@@ -88,13 +88,17 @@ struct _TerminalScreenPrivate
+@@ -88,13 +88,16 @@ struct _TerminalScreenPrivate
    GSettings *profile; /* never NULL */
    guint profile_changed_id;
    guint profile_forgotten_id;
 -  char *title;
-+  char *raw_title, *raw_icon_title;
-+  char *cooked_title, *cooked_icon_title;
++  char *raw_title;
++  char *cooked_title;
 +  char *override_title;
-+  gboolean icon_title_set;
    char *initial_working_directory;
    char **initial_env;
    char **override_command;
@@ -4949,22 +4854,21 @@ index cdf1a2baecfc..faf906c763e7 100644
    GSList *match_tags;
    guint launch_child_source_id;
  };
-@@ -114,7 +118,6 @@ enum {
-   PROP_ICON_TITLE,
-   PROP_ICON_TITLE_SET,
+@@ -112,7 +115,6 @@ enum {
+   PROP_0,
+   PROP_PROFILE,
    PROP_TITLE,
 -  PROP_DESCRIPTION,
    PROP_INITIAL_ENVIRONMENT
  };
  
-@@ -165,8 +168,14 @@ static void terminal_screen_icon_title_changed        (VteTerminal *vte_terminal
+@@ -161,8 +163,13 @@ static void terminal_screen_window_title_changed      (VteTerminal *vte_terminal
  
  static void update_color_scheme                      (TerminalScreen *screen);
  
 +static gboolean terminal_screen_format_title (TerminalScreen *screen, const char *raw_title, char **old_cooked_title);
 +
 +static void terminal_screen_cook_title      (TerminalScreen *screen);
-+static void terminal_screen_cook_icon_title (TerminalScreen *screen);
 +
  static char* terminal_screen_check_hyperlink   (TerminalScreen            *screen,
                                                  GdkEvent                  *event);
@@ -4972,7 +4876,7 @@ index cdf1a2baecfc..faf906c763e7 100644
  static void terminal_screen_check_extra (TerminalScreen *screen,
                                           GdkEvent       *event,
                                           char           **number_info);
-@@ -405,6 +414,9 @@ terminal_screen_init (TerminalScreen *screen)
+@@ -401,6 +408,9 @@ terminal_screen_init (TerminalScreen *screen)
    gtk_target_table_free (targets, n_targets);
    gtk_target_list_unref (target_list);
  
@@ -4982,7 +4886,7 @@ index cdf1a2baecfc..faf906c763e7 100644
    g_signal_connect (screen, "window-title-changed",
                      G_CALLBACK (terminal_screen_window_title_changed),
                      screen);
-@@ -450,9 +462,6 @@ terminal_screen_get_property (GObject *object,
+@@ -437,9 +447,6 @@ terminal_screen_get_property (GObject *object,
        case PROP_TITLE:
          g_value_set_string (value, terminal_screen_get_title (screen));
          break;
@@ -4992,15 +4896,15 @@ index cdf1a2baecfc..faf906c763e7 100644
        default:
          G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
          break;
-@@ -478,7 +487,6 @@ terminal_screen_set_property (GObject *object,
-       case PROP_ICON_TITLE:
-       case PROP_ICON_TITLE_SET:
+@@ -463,7 +470,6 @@ terminal_screen_set_property (GObject *object,
+         terminal_screen_set_initial_environment (screen, g_value_get_boxed (value));
+         break;
        case PROP_TITLE:
 -      case PROP_DESCRIPTION:
          /* not writable */
        default:
          G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-@@ -580,13 +588,6 @@ terminal_screen_class_init (TerminalScreenClass *klass)
+@@ -551,13 +557,6 @@ terminal_screen_class_init (TerminalScreenClass *klass)
                            NULL,
                            G_PARAM_READABLE | G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB));
  
@@ -5014,7 +4918,7 @@ index cdf1a2baecfc..faf906c763e7 100644
    g_object_class_install_property
      (object_class,
       PROP_INITIAL_ENVIRONMENT,
-@@ -662,7 +663,11 @@ terminal_screen_finalize (GObject *object)
+@@ -643,7 +642,9 @@ terminal_screen_finalize (GObject *object)
  
    terminal_screen_set_profile (screen, NULL);
  
@@ -5022,12 +4926,10 @@ index cdf1a2baecfc..faf906c763e7 100644
 +  g_free (priv->raw_title);
 +  g_free (priv->cooked_title);
 +  g_free (priv->override_title);
-+  g_free (priv->raw_icon_title);
-+  g_free (priv->cooked_icon_title);
    g_free (priv->initial_working_directory);
    g_strfreev (priv->override_command);
    g_strfreev (priv->initial_env);
-@@ -710,28 +715,8 @@ terminal_screen_new (GSettings       *profile,
+@@ -690,28 +691,8 @@ terminal_screen_new (GSettings       *profile,
                           g_settings_get_int (profile, TERMINAL_PROFILE_DEFAULT_SIZE_COLUMNS_KEY),
                           g_settings_get_int (profile, TERMINAL_PROFILE_DEFAULT_SIZE_ROWS_KEY));
  
@@ -5058,7 +4960,7 @@ index cdf1a2baecfc..faf906c763e7 100644
  
    priv->initial_working_directory = g_strdup (working_dir);
  
-@@ -786,46 +771,175 @@ terminal_screen_exec (TerminalScreen *screen,
+@@ -766,34 +747,145 @@ terminal_screen_exec (TerminalScreen *screen,
    return terminal_screen_do_exec (screen, data, error);
  }
  
@@ -5087,33 +4989,8 @@ index cdf1a2baecfc..faf906c763e7 100644
 +    return priv->cooked_title;
 +  else
 +    return "";
- }
- 
- const char*
- terminal_screen_get_icon_title (TerminalScreen *screen)
- {
--  return vte_terminal_get_icon_title (VTE_TERMINAL (screen));
-+  TerminalScreenPrivate *priv = screen->priv;
-+  
-+  if (priv->cooked_icon_title == NULL)
-+    terminal_screen_cook_icon_title (screen);
++}
 +
-+  /* cooked_icon_title may still be NULL */
-+  if (priv->cooked_icon_title != NULL)
-+    return priv->cooked_icon_title;
-+  else
-+    return "";
- }
- 
- gboolean
- terminal_screen_get_icon_title_set (TerminalScreen *screen)
- {
--  return vte_terminal_get_icon_title (VTE_TERMINAL (screen)) != NULL;
-+  return screen->priv->icon_title_set;
- }
- 
--char *
--terminal_screen_get_description (TerminalScreen *screen)
 +/* Supported format specifiers:
 + * %S = static title
 + * %D = dynamic title
@@ -5122,10 +4999,8 @@ index cdf1a2baecfc..faf906c763e7 100644
 + */
 +static const char *
 +terminal_screen_get_title_format (TerminalScreen *screen)
- {
-   TerminalScreenPrivate *priv = screen->priv;
--  gs_free char *title_string = NULL;
--  const char *title;
++{
++  TerminalScreenPrivate *priv = screen->priv;
 +  static const char *formats[] = {
 +    "%A"      /* TERMINAL_TITLE_REPLACE */,
 +    "%D%-%S"  /* TERMINAL_TITLE_BEFORE  */,
@@ -5134,8 +5009,10 @@ index cdf1a2baecfc..faf906c763e7 100644
 +  };
 +
 +  return formats[g_settings_get_enum (priv->profile, TERMINAL_PROFILE_TITLE_MODE_KEY)];
-+}
-+
+ }
+ 
+-char *
+-terminal_screen_get_description (TerminalScreen *screen)
 +/**
 + * terminal_screen_format_title::
 + * @screen:
@@ -5151,8 +5028,10 @@ index cdf1a2baecfc..faf906c763e7 100644
 +terminal_screen_format_title (TerminalScreen *screen,
 +                              const char *raw_title,
 +                              char **titleptr)
-+{
-+  TerminalScreenPrivate *priv = screen->priv;
+ {
+   TerminalScreenPrivate *priv = screen->priv;
+-  gs_free char *title_string = NULL;
+-  const char *title;
 +  gs_free char *static_title_string = NULL;
 +  const char *format, *arg;
 +  const char *static_title = NULL;
@@ -5197,7 +5076,10 @@ index cdf1a2baecfc..faf906c763e7 100644
 +          default:
 +            g_assert_not_reached ();
 +        }
-+
+ 
+-  return g_strdup_printf ("%s — %d",
+-                          title && title[0] ? title : _("Terminal"),
+-                          screen->priv->child_pid);
 +      if (!text_to_append || !text_to_append[0])
 +        continue;
 +
@@ -5214,10 +5096,7 @@ index cdf1a2baecfc..faf906c763e7 100644
 +      *titleptr = g_string_free (title, FALSE);
 +      return TRUE;
 +    }
- 
--  return g_strdup_printf ("%s — %d",
--                          title && title[0] ? title : _("Terminal"),
--                          screen->priv->child_pid);
++
 +  g_string_free (title, TRUE);
 +  return FALSE;
 +}
@@ -5229,15 +5108,6 @@ index cdf1a2baecfc..faf906c763e7 100644
 +  
 +  if (terminal_screen_format_title (screen, priv->raw_title, &priv->cooked_title))
 +    g_object_notify (G_OBJECT (screen), "title");
-+}
-+
-+static void 
-+terminal_screen_cook_icon_title (TerminalScreen *screen)
-+{
-+  TerminalScreenPrivate *priv = screen->priv;
-+
-+  if (terminal_screen_format_title (screen, priv->raw_icon_title, &priv->cooked_icon_title))
-+    g_object_notify (G_OBJECT (screen), "icon-title");
  }
  
  static void
@@ -5248,7 +5118,7 @@ index cdf1a2baecfc..faf906c763e7 100644
  {
    TerminalScreenPrivate *priv = screen->priv;
    GObject *object = G_OBJECT (screen);
-@@ -861,9 +975,11 @@ terminal_screen_profile_changed_cb (GSettings     *profile,
+@@ -829,9 +921,10 @@ terminal_screen_profile_changed_cb (GSettings     *profile,
      }
  
    if (!prop_name ||
@@ -5257,11 +5127,10 @@ index cdf1a2baecfc..faf906c763e7 100644
      {
 -      g_object_notify (object, "description");
 +      terminal_screen_cook_title (screen);
-+      terminal_screen_cook_icon_title (screen);
      }
  
    if (gtk_widget_get_realized (GTK_WIDGET (screen)) &&
-@@ -1145,7 +1261,6 @@ terminal_screen_set_profile (TerminalScreen *screen,
+@@ -1113,7 +1206,6 @@ terminal_screen_set_profile (TerminalScreen *screen,
      g_object_unref (old_profile);
  
    g_object_notify (G_OBJECT (screen), "profile");
@@ -5269,7 +5138,7 @@ index cdf1a2baecfc..faf906c763e7 100644
  }
  
  GSettings*
-@@ -1476,8 +1591,6 @@ spawn_result_cb (VteTerminal *terminal,
+@@ -1444,8 +1536,6 @@ spawn_result_cb (VteTerminal *terminal,
  
    priv->child_pid = pid;
  
@@ -5278,7 +5147,7 @@ index cdf1a2baecfc..faf906c763e7 100644
    if (error) {
      GtkWidget *info_bar;
  
-@@ -1789,33 +1902,83 @@ terminal_screen_focus_in (GtkWidget     *widget,
+@@ -1757,33 +1847,45 @@ terminal_screen_focus_in (GtkWidget     *widget,
    return GTK_WIDGET_CLASS (terminal_screen_parent_class)->focus_in_event (widget, event);
  }
  
@@ -5293,49 +5162,22 @@ index cdf1a2baecfc..faf906c763e7 100644
    TerminalScreenPrivate *priv = screen->priv;
  
 -  g_return_if_fail (TERMINAL_IS_SCREEN (screen));
+-
+-  if (g_strcmp0 (priv->title, title) == 0)
 +  g_assert (TERMINAL_IS_SCREEN (screen));
 +  
 +  if ((priv->user_title && !userset) ||
 +      (priv->raw_title && title &&
 +       strcmp (priv->raw_title, title) == 0))
-+    return;
- 
--  if (g_strcmp0 (priv->title, title) == 0)
-+  g_free (priv->raw_title);
-+  priv->raw_title = g_strdup (title);
-+  terminal_screen_cook_title (screen);
-+}
-+
-+static void
-+terminal_screen_set_dynamic_icon_title (TerminalScreen *screen,
-+                                        const char     *icon_title,
-+					gboolean       userset)
-+{
-+  TerminalScreenPrivate *priv = screen->priv;
-+  GObject *object = G_OBJECT (screen);
-+  
-+  g_assert (TERMINAL_IS_SCREEN (screen));
-+
-+  if ((priv->user_title && !userset) ||  
-+      (priv->icon_title_set &&
-+       priv->raw_icon_title &&
-+       icon_title &&
-+       strcmp (priv->raw_icon_title, icon_title) == 0))
      return;
  
 -  g_free (priv->title);
 -  priv->title = title && title[0] ? g_strdup (title) : NULL;
-+  g_object_freeze_notify (object);
-+
-+  g_free (priv->raw_icon_title);
-+  priv->raw_icon_title = g_strdup (icon_title);
-+  priv->icon_title_set = TRUE;
-+
-+  g_object_notify (object, "icon-title-set");
-+  terminal_screen_cook_icon_title (screen);
- 
+-
 -  g_object_notify (G_OBJECT (screen), "description");
-+  g_object_thaw_notify (object);
++  g_free (priv->raw_title);
++  priv->raw_title = g_strdup (title);
++  terminal_screen_cook_title (screen);
  }
  
 -const char*
@@ -5355,7 +5197,6 @@ index cdf1a2baecfc..faf906c763e7 100644
  
 -  priv = screen->priv;
 +  terminal_screen_set_dynamic_title (screen, title, FALSE);
-+  terminal_screen_set_dynamic_icon_title (screen, title, FALSE);
 +}
  
 -  return priv->title ? priv->title : _("Terminal");
@@ -5365,18 +5206,10 @@ index cdf1a2baecfc..faf906c763e7 100644
 +  g_return_val_if_fail (TERMINAL_IS_SCREEN (screen), NULL);
 +  
 +  return screen->priv->raw_title;
-+}
-+
-+const char*
-+terminal_screen_get_dynamic_icon_title (TerminalScreen *screen)
-+{
-+  g_return_val_if_fail (TERMINAL_IS_SCREEN (screen), NULL);
-+  
-+  return screen->priv->raw_icon_title;
  }
  
  /**
-@@ -1848,15 +2011,18 @@ static void
+@@ -1816,7 +1918,9 @@ static void
  terminal_screen_window_title_changed (VteTerminal *vte_terminal,
                                        TerminalScreen *screen)
  {
@@ -5387,18 +5220,7 @@ index cdf1a2baecfc..faf906c763e7 100644
  }
  
  static void
- terminal_screen_icon_title_changed (VteTerminal *vte_terminal,
-                                     TerminalScreen *screen)
- {
--  g_object_notify (G_OBJECT (screen), "icon-title");
--  g_object_notify (G_OBJECT (screen), "icon-title-set");
-+  terminal_screen_set_dynamic_icon_title (screen,
-+                                          vte_terminal_get_icon_title (vte_terminal),
-+					  FALSE);
- }
- 
- static void
-@@ -1875,8 +2041,6 @@ terminal_screen_child_exited (VteTerminal *terminal,
+@@ -1839,8 +1943,6 @@ terminal_screen_child_exited (VteTerminal *terminal,
  
    priv->child_pid = -1;
    
@@ -5407,7 +5229,7 @@ index cdf1a2baecfc..faf906c763e7 100644
    action = g_settings_get_enum (priv->profile, TERMINAL_PROFILE_EXIT_ACTION_KEY);
    
    switch (action)
-@@ -1920,6 +2084,24 @@ terminal_screen_child_exited (VteTerminal *terminal,
+@@ -1884,6 +1986,23 @@ terminal_screen_child_exited (VteTerminal *terminal,
      }
  }
  
@@ -5425,7 +5247,6 @@ index cdf1a2baecfc..faf906c763e7 100644
 +    {
 +      priv->user_title = TRUE;
 +      terminal_screen_set_dynamic_title (screen, text, TRUE);
-+      terminal_screen_set_dynamic_icon_title (screen, text, TRUE);
 +    }
 +}
 +
@@ -5433,18 +5254,16 @@ index cdf1a2baecfc..faf906c763e7 100644
  terminal_screen_notification_received (VteTerminal *terminal,
                                         const char  *summary,
 diff --git a/src/terminal-screen.h b/src/terminal-screen.h
-index 63f9c47e115a..51472685f402 100644
+index af9583e7cbaf..a75bd4f06659 100644
 --- a/src/terminal-screen.h
 +++ b/src/terminal-screen.h
-@@ -103,15 +103,19 @@ void         terminal_screen_set_initial_environment (TerminalScreen  *screen,
+@@ -103,13 +103,17 @@ void         terminal_screen_set_initial_environment (TerminalScreen  *screen,
                                                        char           **argv);
  char **      terminal_screen_get_initial_environment (TerminalScreen  *screen);
  
 -const char *terminal_screen_get_user_title     (TerminalScreen *screen);
 +const char* terminal_screen_get_raw_title      (TerminalScreen *screen);
  const char* terminal_screen_get_title          (TerminalScreen *screen);
- const char* terminal_screen_get_icon_title     (TerminalScreen *screen);
- gboolean    terminal_screen_get_icon_title_set (TerminalScreen *screen);
 -char *      terminal_screen_get_description    (TerminalScreen *screen);
  
  void terminal_screen_set_user_title (TerminalScreen *screen,
@@ -5454,15 +5273,15 @@ index 63f9c47e115a..51472685f402 100644
 +                                                    const char     *title);
 +
 +const char *terminal_screen_get_dynamic_title      (TerminalScreen *screen);
-+const char *terminal_screen_get_dynamic_icon_title (TerminalScreen *screen);
- 
++
  char *terminal_screen_get_current_dir (TerminalScreen *screen);
  
+ void       terminal_screen_get_size (TerminalScreen *screen,
 diff --git a/src/terminal-window.c b/src/terminal-window.c
-index 05a812544bb2..adf13e60472d 100644
+index 2ab6654687b8..69e3b786aae6 100644
 --- a/src/terminal-window.c
 +++ b/src/terminal-window.c
-@@ -765,6 +765,12 @@ terminal_set_title_dialog_response_cb (GtkWidget *dialog,
+@@ -757,6 +757,12 @@ terminal_set_title_dialog_response_cb (GtkWidget *dialog,
    gtk_widget_destroy (dialog);
  }
  
@@ -5475,7 +5294,7 @@ index 05a812544bb2..adf13e60472d 100644
  static void
  action_set_title_cb (GSimpleAction *action,
                       GVariant *parameter,
-@@ -2521,14 +2527,11 @@ sync_screen_title (TerminalScreen *screen,
+@@ -2509,14 +2515,11 @@ sync_screen_title (TerminalScreen *screen,
                     TerminalWindow *window)
  {
    TerminalWindowPrivate *priv = window->priv;
@@ -5492,5 +5311,5 @@ index 05a812544bb2..adf13e60472d 100644
  
  static void
 -- 
-2.14.3
+2.14.4
 
