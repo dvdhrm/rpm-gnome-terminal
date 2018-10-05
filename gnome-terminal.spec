@@ -12,7 +12,7 @@ Summary: Terminal emulator for GNOME
 
 License: GPLv3+ and GFDL and LGPLv2+
 URL: http://www.gnome.org/
-Source0: http://download.gnome.org/sources/gnome-terminal/3.28/gnome-terminal-%{version}.tar.xz
+Source0: http://download.gnome.org/sources/gnome-terminal/3.29/gnome-terminal-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
 
 Patch100: gnome-terminal-notify-open-title-transparency.patch
