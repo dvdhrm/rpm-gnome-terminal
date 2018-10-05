@@ -2,17 +2,17 @@
 
 %define glib2_version 2.50.0
 %define gtk3_version 3.22.27
-%define vte_version 0.53.92
+%define vte_version 0.54.0
 %define desktop_file_utils_version 0.2.90
 
 Name: gnome-terminal
-Version: 3.29.92
+Version: 3.30.0
 Release: 1%{?dist}
 Summary: Terminal emulator for GNOME
 
 License: GPLv3+ and GFDL and LGPLv2+
 URL: http://www.gnome.org/
-Source0: http://download.gnome.org/sources/gnome-terminal/3.29/gnome-terminal-%{version}.tar.xz
+Source0: http://download.gnome.org/sources/gnome-terminal/3.30/gnome-terminal-%{version}.tar.xz
 Source1: org.gnome.Terminal.gschema.override
 
 Patch100: gnome-terminal-notify-open-title-transparency.patch
@@ -104,6 +104,9 @@ make check
 %{_datadir}/metainfo/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Fri Oct 05 2018 Debarshi Ray <rishi@fedoraproject.org> - 3.30.0-1
+- Update to 3.30.0
+
 * Fri Oct 05 2018 Debarshi Ray <rishi@fedoraproject.org> - 3.29.92-1
 - Update to 3.29.92
 - Rebase transparency, command-notify, custom title and translation patches

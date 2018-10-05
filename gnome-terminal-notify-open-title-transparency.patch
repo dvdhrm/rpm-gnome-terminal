@@ -1,4 +1,4 @@
-From 9513f6ca5f46b8c4b6de5c80f80b3e5881249d59 Mon Sep 17 00:00:00 2001
+From a2cdc37b6c5e27a75c0428e4806522646f65e25b Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Mon, 12 May 2014 14:57:18 +0200
 Subject: [PATCH 01/15] Restore transparency
@@ -234,7 +234,7 @@ index 91fa09d16908..e6de77ce5150 100644
 2.14.4
 
 
-From c06bc7f6ec322b2f3cd271ca15a2e9619c4af371 Mon Sep 17 00:00:00 2001
+From 735b06e87a365575aa41da55b626d0c3b5af663d Mon Sep 17 00:00:00 2001
 From: Lars Uebernickel <lars.uebernickel@canonical.com>
 Date: Wed, 28 May 2014 14:11:02 +0200
 Subject: [PATCH 02/15] window: Make the drawing robust across all themes
@@ -296,7 +296,7 @@ index e6de77ce5150..ea4b667e8629 100644
 2.14.4
 
 
-From bd0122dadc219e091300f807a78b6a0f1029bd66 Mon Sep 17 00:00:00 2001
+From c2bf8720732c5ae4bd6d9a45cfc7c13b23594b08 Mon Sep 17 00:00:00 2001
 From: "Owen W. Taylor" <otaylor@fishsoup.net>
 Date: Fri, 13 Nov 2015 15:16:42 +0100
 Subject: [PATCH 03/15] screen, window: Extra padding around transparent
@@ -423,7 +423,7 @@ index ea4b667e8629..ae605431f485 100644
 2.14.4
 
 
-From 2530965f4aae6f1b445d6bbb01cf96616d124562 Mon Sep 17 00:00:00 2001
+From 8abde786047f175521b5cf297edead453c72dee8 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Mon, 27 Feb 2017 16:53:51 +0100
 Subject: [PATCH 04/15] screen: Silence -Wunused variable
@@ -449,7 +449,7 @@ index c0ce8a89126c..1b763a3890dd 100644
 2.14.4
 
 
-From be34577a34b5f1f99c8a76baf9bbe61e87f893f2 Mon Sep 17 00:00:00 2001
+From 3d6642646de23f538bc2247dd735f066a44d3544 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 27 Jan 2015 18:40:13 +0100
 Subject: [PATCH 05/15] Support desktop notifications from OSC 777
@@ -771,7 +771,7 @@ index 20cfbceb36b0..a987025e0524 100644
 2.14.4
 
 
-From c991897ebe9135ceae0f99055cead363b34b645d Mon Sep 17 00:00:00 2001
+From 26732de4d2c796660beacdc0bb743cb8f766cd25 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 29 Jan 2015 11:47:21 +0100
 Subject: [PATCH 06/15] Sprinkle debug messages for notifications
@@ -854,7 +854,7 @@ index ced2cdfe8a30..36a9afa3ded9 100644
 2.14.4
 
 
-From 7a0880dee94dc8b971b4e3213a77898a6b08c7a8 Mon Sep 17 00:00:00 2001
+From a409d7f1e0275e41a193695f627053da319d644e Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Wed, 28 Mar 2018 18:50:16 +0200
 Subject: [PATCH 07/15] Restore separate menuitems for opening tabs and windows
@@ -890,7 +890,7 @@ index 29e6c4def910..41cdd37ffe0e 100644
 2.14.4
 
 
-From c2a94148332b9eefb05072b140f57b53695f6f5b Mon Sep 17 00:00:00 2001
+From b01c71836743c693133f3290c5acd795708ecf62 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 10 Apr 2018 15:39:35 +0200
 Subject: [PATCH 08/15] profile: Split the Command tab into two nested GtkGrids
@@ -1097,7 +1097,7 @@ index f5c366f14e10..edd924689d35 100644
 2.14.4
 
 
-From 4522473122a8de38ecfc81d17f038a6dcf20e274 Mon Sep 17 00:00:00 2001
+From cb842d26baf08cbc71b10cdd0f2aa583af791b47 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 10 Apr 2018 16:01:51 +0200
 Subject: [PATCH 09/15] Revert "profile: Remove the "Command" sub-heading"
@@ -1321,7 +1321,7 @@ index edd924689d35..11a283064996 100644
 2.14.4
 
 
-From dfce55c251c412116074ef4b97d13d09e302f49f Mon Sep 17 00:00:00 2001
+From 187ae54979b1971eb87bab03ac0279c80bf5cd0c Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 16:02:13 +0200
 Subject: [PATCH 10/15] Revert "screen: Remove unused description and
@@ -1500,7 +1500,7 @@ index ff77fcf78947..af9583e7cbaf 100644
 2.14.4
 
 
-From c976cb2fa1d49d73b89035f708323ee303c35d44 Mon Sep 17 00:00:00 2001
+From b0b26a7197d195d114848a88e2ea95d016c68ae4 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 17:39:48 +0200
 Subject: [PATCH 11/15] Revert "Remove the static title setting from profile
@@ -1679,7 +1679,7 @@ index 8e6f2e935ba4..bf3618cb41b0 100644
 2.14.4
 
 
-From dd11eb885ef1dcc5e41023ac9d270623493ecc7e Mon Sep 17 00:00:00 2001
+From 60c4b1b2766bce0ac7ddf70b72be871621dde87d Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Tue, 17 Feb 2015 17:06:17 +0100
 Subject: [PATCH 12/15] Restore translations for setting a title and
@@ -2286,10 +2286,10 @@ index d97e6102b850..a768fe4adc54 100644
  #: ../src/profile-preferences.glade.h:78
  #, fuzzy
 diff --git a/po/el.po b/po/el.po
-index a68154bd6532..beadf98e1390 100644
+index 5ac8477c0a2f..e6e0b45c3e9b 100644
 --- a/po/el.po
 +++ b/po/el.po
-@@ -2743,17 +2743,17 @@ msgstr "Κ_λείσιμο παραθύρου"
+@@ -2710,17 +2710,17 @@ msgstr "Κ_λείσιμο παραθύρου"
  #~ msgid "Default size:"
  #~ msgstr "Προεπιλεγμένο μέγεθος:"
  
@@ -2313,7 +2313,7 @@ index a68154bd6532..beadf98e1390 100644
  
  #~ msgid "Current Locale"
  #~ msgstr "Τρέχουσα τοπική ρύθμιση"
-@@ -2791,3 +2791,6 @@ msgstr "Κ_λείσιμο παραθύρου"
+@@ -2758,3 +2758,6 @@ msgstr "Κ_λείσιμο παραθύρου"
  
  #~ msgid "_Input Methods"
  #~ msgstr "_Μέθοδοι εισαγωγής"
@@ -4501,7 +4501,7 @@ index b9890ad91bdc..18e55e2e945c 100644
 2.14.4
 
 
-From ea09c5bf80849aa4364f11ec6a8e2d574fd72b4b Mon Sep 17 00:00:00 2001
+From 9884a65ed3eb45c649507ab6337fb3a2d4fb1a59 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Wed, 25 May 2016 13:47:36 +0200
 Subject: [PATCH 13/15] Restore the action and shortcut to set a static title
@@ -4649,7 +4649,7 @@ index ae605431f485..2ab6654687b8 100644
 2.14.4
 
 
-From 2f09289633d568f70b62247cb9126393267fcdcf Mon Sep 17 00:00:00 2001
+From f36728d315367515dde72b878ab85e29d332a9b7 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 18:14:36 +0200
 Subject: [PATCH 14/15] screen: Style fix
@@ -4679,7 +4679,7 @@ index bf3618cb41b0..6caa002ddece 100644
 2.14.4
 
 
-From 274abc98b4a41e8f4364326e1e012602aa447ac9 Mon Sep 17 00:00:00 2001
+From e2a872c8686d51b6ac4c785db549d4ddeba1a547 Mon Sep 17 00:00:00 2001
 From: Debarshi Ray <debarshir@gnome.org>
 Date: Thu, 30 Jun 2016 16:58:15 +0200
 Subject: [PATCH 15/15] Restore the rest of the title handling options and make
