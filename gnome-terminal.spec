@@ -7,7 +7,7 @@
 
 Name: gnome-terminal
 Version: 3.30.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Terminal emulator for GNOME
 
 License: GPLv3+ and GFDL and LGPLv2+
@@ -36,7 +36,7 @@ BuildRequires: pcre2-devel
 BuildRequires: systemd
 BuildRequires: vala-devel
 
-Requires: dbus-x11
+Requires: dbus
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gsettings-desktop-schemas
 Requires: gtk3%{?_isa} >= %{gtk3_version}
@@ -104,6 +104,11 @@ make check
 %{_datadir}/metainfo/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Thu Oct 11 2018 David Herrmann <dh.herrmann@gmail.com> - 3.30.1-2
+- Reduce 'dbus-x11' dependency to 'dbus'. The xinit script are no longer the
+  canonical way to start dbus, but the 'dbus' package is nowadays required to
+  provide a user and system bus to its dependents.
+
 * Fri Oct 05 2018 Debarshi Ray <rishi@fedoraproject.org> - 3.30.0-1
 - Update to 3.30.1
 - Rebase transparency, command-notify, custom title and translation patches
